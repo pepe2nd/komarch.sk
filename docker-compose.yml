@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+
+  # A local development database
+  mysql-development:
+    image: "mysql:5.7.32"
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: "komarch_development"
+      MYSQL_USER: "komarch"
+      MYSQL_PASSWORD: "komarch"
+      MYSQL_ROOT_PASSWORD: "komarch"
+
+  # A local database against which the tests are run
+  mysql-testing:
+    image: "mysql:5.7.32"
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: "komarch_testing"
+      MYSQL_USER: "komarch"
+      MYSQL_PASSWORD: "komarch"
+      MYSQL_ROOT_PASSWORD: "komarch"
+
+  elasticsearch:
+    image: "slovaknationalgallery/elasticsearch-webumenia:7.3.1"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      discovery.type: "single-node"
+      ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
+  redis:
+    image: "redis:5.0.5-alpine"
