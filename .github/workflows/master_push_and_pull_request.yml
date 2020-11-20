@@ -1,0 +1,63 @@
+name: CI/CD
+
+# Trigger when push to master branch happes, or when a pull request targetting
+# the master branch is updated
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-18.04
+
+    services:
+      mysql:
+        image: "mysql:5.7.32"
+        ports:
+          - "3307:3306"
+        env:
+          MYSQL_DATABASE: "komarch_testing"
+          MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+
+      elasticsearch:
+        image: "slovaknationalgallery/elasticsearch-webumenia:7.3.1"
+        ports:
+          - "9200:9200"
+        env:
+          discovery.type: "single-node"
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - name: Restore Composer cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - name: Restore npm cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - uses: shivammathur/setup-php@v1
+        with:
+          php-version: 7.4
+          extensions: mbstring, bcmath, fileinfo, pdo_mysql
+      - run: composer install --no-progress --no-interaction
+      - run: npm install && npm run production
+      - run: ./vendor/bin/phpunit
+        env:
+          APP_KEY: base64:HXaE/pTpPoSNdHFMl5SpgX2XKtdph3EjrdmvWFDKisE=
+          DB_URL: mysql://root:@127.0.0.1:${{ job.services.mysql.ports[3307] }}/komarch_testing
+          SCOUT_ELASTIC_HOST: 127.0.0.1:${{ job.services.elasticsearch.ports[9200] }}
