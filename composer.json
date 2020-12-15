@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "doctrine/dbal": "^2.5",
         "backpack/crud": "4.1.*",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
@@ -18,8 +19,10 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.1",
         "lorisleiva/laravel-deployer": "^0.3.5",
+        "mcamara/laravel-localization": "^1.6",
         "spatie/laravel-sluggable": "^2.6",
-        "spatie/laravel-tags": "^3.0"
+        "spatie/laravel-tags": "^3.0",
+        "spatie/laravel-translatable": "^4.6"
     },
     "require-dev": {
         "backpack/generators": "^3.1",

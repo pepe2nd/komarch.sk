@@ -43,10 +43,11 @@
 
 <section id="styleguide-buttons" class="col m-1">
   <h2>Buttons</h2>
-
+  <div class="cd-box">
     <button class="btn btn-outline-dark">Outlined</button>
     <button class="btn btn-outline-dark btn-sm">Outlined sm</button>
     <button class="btn btn-outline-dark btn-sm btn-with-icon-right">Outlined sm with right icon<span>&times;</span></button>
+  </div>
 </section>
 </div>
 
@@ -107,6 +108,36 @@
 </section>
 </div>
 
+<div class="row">
+<section id="langswitch-card" class="col m-1">
+    <h2>Component: langswitch</h2>
+
+    <div class="cd-box">
+        @include('components.langswitch')
+    </div>
+
+    <div class="cd-box code lang-php hljs xml">
+        @@include('components.langswitch')
+    </div>
+</section>
+
+<section id="tags-card" class="col m-1">
+    @php
+      $tags = Spatie\Tags\Tag::factory(5)->make();
+    @endphp
+    <h2>Component: tags</h2>
+
+    <div class="cd-box">
+        @include('components.tags')
+    </div>
+
+    <div class="cd-box code lang-php hljs xml">
+        @@include('components.tags', ['tags' => $tags])
+    </div>
+</section>
+
+</div>
+
 </div>
 
 </main>
@@ -115,8 +146,11 @@
 
 @push('styles')
   <link rel="stylesheet" href="{{ mix('/css/styleguide.css') }}">
+  <link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
 @endpush
 
 @push('scripts')
   <script type="text/javascript" src="/js/styleguide.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
 @endpush
