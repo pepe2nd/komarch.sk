@@ -22,12 +22,12 @@ class Post extends Model
         HasTranslations,
         CrudTrait;
 
-    public $with = ['tags'];
-
     public $translatable = [
         'title',
         'text',
     ];
+
+    public $with = ['tags'];
 
     protected $table = 'posts';
     protected $guarded = ['id'];
@@ -56,4 +56,8 @@ class Post extends Model
         return action('\App\Http\Controllers\PostsController@show', $this->slug);
     }
 
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
 }
