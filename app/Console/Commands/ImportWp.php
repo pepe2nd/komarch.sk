@@ -121,6 +121,9 @@ class ImportWp extends Command
 
         collect($oldPosts)
             ->each(function (stdClass $oldPost) {
+                $now = Carbon::now();
+                $publishedAt = Carbon::createFromFormat('Y-m-d H:i:s', $oldPost->post_date);
+
                 if ($oldPost->post_type == 'post') {
                     $post = Post::create([
                         'title' => $oldPost->post_title,
@@ -128,9 +131,13 @@ class ImportWp extends Command
                         'wp_post_name' => $oldPost->post_name,
                         'published_at' => Carbon::createFromFormat('Y-m-d H:i:s', $oldPost->post_date),
                     ]);
+
+                    if ($now->isAfter($publishedAt)) {
+                        $post->searchable();
+                    }
+
                     $this->attachTags($oldPost, $post);
                     $this->createRedirect($post);
-
                 } else {
                     $page = Page::create([
                         'id' => $oldPost->ID,
@@ -141,6 +148,9 @@ class ImportWp extends Command
                         'published_at' => Carbon::createFromFormat('Y-m-d H:i:s', $oldPost->post_date),
                         'menu_order' => $oldPost->menu_order,
                     ]);
+
+                    // TODO: Make searchable
+
                     $this->attachTags($oldPost, $page);
                 }
             });
