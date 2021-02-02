@@ -10,13 +10,17 @@ class PostsController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-
         $posts = null;
         if (empty($search)) {
-            $posts = Post::published()->orderBy('published_at', 'desc')->paginate(10);
+            $posts = Post::orderBy('published_at', 'desc');
+            if ($request->has('categories')) {
+                $posts->withAnyTags($request->input('categories', []));
+            }
         } else {
-            $posts = Post::search($search)->paginate(10);
+            $posts = Post::search($search);
         }
+
+        $posts = $posts->paginate(10);
 
         return view('posts.index', compact('posts'));
     }

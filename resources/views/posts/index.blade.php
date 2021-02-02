@@ -13,22 +13,19 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3" id="filters">
             <div class="d-flex justify-content-between">
                 <h5 class="display-5">Filter</h5>
                 <div>
-                    <a href="#" class="link-underline text-dark">Zmazať filter</a>
+                    <a href="{{ route('posts.index') }}" class="link-underline text-dark">Zmazať filter</a>
                 </div>
             </div>
-            <h6 class="mt-3">Kategória</h6>
-            @foreach (\Spatie\Tags\Tag::all() as $tag)
-                <div class="form-check pb-1">
-                    <input class="form-check-input" type="checkbox" value="{{ $tag->name }}" id="{{ $tag->slug }}">
-                    <label class="form-check-label" for="{{ $tag->slug }}">
-                        {{ $tag->name }}
-                    </label>
-                </div>
-            @endforeach
+            <form action="{{ route('posts.index') }}">
+                <h6 class="mt-3">Kategória</h6>
+                @foreach (\Spatie\Tags\Tag::all() as $tag)
+                    @include('components.filter-checkbox', ['tag' => $tag])
+                @endforeach
+            </form>
 
             <h5 class="display-5 mt-5">Rýchle odkazy</h5>
             <ul class="list-unstyled">
