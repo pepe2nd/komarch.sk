@@ -1,15 +1,13 @@
-<li class="pb-2 pt-2 border-top list-unstyled">
-    <a href="{{ $post->url }}">
-        {{ $post->title }}
-    </a>
-    <div class="flex content-center text-xs pt-2 mb-2">
-        <div class="flex flex-col justify-center text-secondary">
-            {{ $post->published_at }}
-        </div>
-
+<li class="pb-5">
+    <div class="d-flex align-items-center text-secondary small">
         @include('components.tags', ['tags' => $post->tags])
+        <div class="px-2">·</div>
+        <div>{{ $post->published_at->format('d. m. Y') }}</div>
     </div>
 
+    <a href="{{ $post->url }}">
+        <h4>{{ $post->title }}</h4>
+    </a>
     <div>
         {{ Str::words(strip_tags($post->text), 70) }}
     </div>
