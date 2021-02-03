@@ -2,7 +2,9 @@
     <div class="d-flex align-items-center text-secondary small">
         @include('components.tags', ['tags' => $post->tags])
         <div class="px-2">·</div>
-        <div>{{ $post->published_at->format('d. m. Y') }}</div>
+        <div>
+            @include('components.published_at', ['published_at' => $post->published_at])
+        </div>
     </div>
 
     <a href="{{ $post->url }}">
