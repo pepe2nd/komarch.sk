@@ -22,7 +22,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 
     Route::get('/', function () {
         return redirect('spravy');
-    });
+    })->name('home');
 
     Route::resource('spravy', '\App\Http\Controllers\PostsController')->names('posts')
                 ->parameter('spravy', 'post');
