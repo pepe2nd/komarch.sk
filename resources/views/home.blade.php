@@ -3,16 +3,16 @@
 
 @section('content')
 
-@include('components.header')
+@include('components.header.header')
 
 @include('components.notification_bar')
 
 <div class="container mx-auto px-4">
-    <div>
-        @include('components.intro', [
-            'title' => 'Podporujeme rozvoj architektúry na Slovensku',
-            'text' => 'Slovenská Komora Architektov je odbornou organizáciou, ktorá sa zameriava na vzdelávanie a informovanie verejnosti o potrebách kvalitnej architektúry'
-        ])
+    <div class="row py-5">
+        <x-intro
+            title="Podporujeme rozvoj architektúry na Slovensku"
+            text="Slovenská Komora Architektov je odbornou organizáciou, ktorá sa zameriava na vzdelávanie a informovanie verejnosti o potrebách kvalitnej architektúry"
+        />
 
         <div class="mt-10">
             @include('components.tile', [

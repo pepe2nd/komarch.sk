@@ -65,15 +65,21 @@ module.exports = {
             relaxed: '1.625',
             loose: '2',
         },
-        letterSpacing: {},
-        animation: {},
-        keyframes: {},
-        backgroundImage: {},
-        backgroundPosition: {},
-        backgroundSize: {},
-        boxShadow: {},
-        objectPosition: {},
+        transitionProperty: {
+            none: 'none',
+            all: 'all',
+            DEFAULT: 'background-color, border-color, color, fill, stroke, opacity, box-shadow, transform',
+            colors: 'background-color, border-color, color, fill, stroke',
+            opacity: 'opacity',
+            shadow: 'box-shadow',
+            transform: 'transform',
+            'max-h': 'max-height'
+        }
     },
-    variants: {},
+    variants: {
+        extend: {
+            translate: ['group-hover'],
+        }
+    },
     plugins: [],
 }
