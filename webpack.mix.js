@@ -1,5 +1,6 @@
-const mix = require('laravel-mix');
-require('laravel-mix-polyfill');
+const mix = require('laravel-mix')
+require('laravel-mix-polyfill')
+require('laravel-vue-lang/mix')
 
 /*
  |--------------------------------------------------------------------------
@@ -13,16 +14,16 @@ require('laravel-mix-polyfill');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .js('resources/js/styleguide.js', 'public/js')
-    .postCss("resources/css/app.css", "public/css", [
-        require("tailwindcss"),
-        require("autoprefixer"),
-    ]);
+  .js('resources/js/styleguide.js', 'public/js')
+  .postCss('resources/css/app.css', 'public/css', [
+    require('tailwindcss'),
+    require('autoprefixer')
+  ])
+  .lang()
 
 if (mix.inProduction()) {
-    mix.version()
-        .polyfill() // Support IE 11
+  mix.version()
+    .polyfill() // Support IE 11
 } else {
-    mix.sourceMaps(); // In case we ever use something that needs them
+  mix.sourceMaps() // In case we ever use something that needs them
 }
-
