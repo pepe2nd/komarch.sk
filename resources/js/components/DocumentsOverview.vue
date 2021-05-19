@@ -1,5 +1,5 @@
 <template>
-  <div class="flex">
+  <div class="flex items-start">
     <div class="mr-12">
       <h3 class="mb-5">
         Typ dokumentu:
@@ -36,15 +36,21 @@
         class="mr-12 py-2"
       />
     </div>
+    <ButtonClearFilters
+      v-show="selectedOptions.length > 0"
+      @click="onCancel"
+    />
   </div>
 </template>
 
 <script>
 import InputCheckbox from './atoms/InputCheckbox'
+import ButtonClearFilters from './atoms/ButtonClearFilters'
 
 export default {
   components: {
-    InputCheckbox
+    InputCheckbox,
+    ButtonClearFilters
   },
   props: {
     optionsType: {
@@ -79,6 +85,11 @@ export default {
   data () {
     return {
       selectedOptions: []
+    }
+  },
+  methods: {
+    onCancel () {
+      this.selectedOptions = []
     }
   }
 }
