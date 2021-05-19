@@ -11,14 +11,10 @@
       />
     </div>
     <div class="h-10 md:h-20">
-      <button
+      <ButtonClearFilters
         v-show="selectedOption.key"
-        class="mt-5 focus:outline-none hover:text-blue"
         @click="onCancel"
-      >
-        <span class="icon-close text-lg mr-1" />
-        {{ __('post.cancel_filters') }}
-      </button>
+      />
     </div>
     <transition-group
       name="posts-overview"
@@ -60,9 +56,11 @@
 import RadioButton from './atoms/RadioButton'
 import TeaserPostBig from './TeaserPostBig'
 import ButtonArrow from './atoms/buttons/ButtonArrow'
+import ButtonClearFilters from './atoms/ButtonClearFilters'
 
 export default {
   components: {
+    ButtonClearFilters,
     ButtonArrow,
     RadioButton,
     TeaserPostBig
