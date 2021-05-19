@@ -18,6 +18,7 @@ class DocumentResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'download_count' => $this->download_count,
+            'file' => new MediaResource($this->file),
             'created_at' => trim($this->created_at->formatLocalized('%e. %B %Y')),
             'updated_at' => trim($this->updated_at->formatLocalized('%e. %B %Y')),
             'types' => TagResource::collection($this->whenLoaded('types')),
