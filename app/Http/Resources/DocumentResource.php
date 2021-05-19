@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Carbon\Carbon;
 
 class DocumentResource extends JsonResource
 {
@@ -14,6 +15,9 @@ class DocumentResource extends JsonResource
      */
     public function toArray($request)
     {
+        $locale = $request->get('locale', app()->getLocale());
+        Carbon::setlocale($locale);
+
         return [
             'id' => $this->id,
             'name' => $this->name,

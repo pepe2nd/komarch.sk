@@ -45,8 +45,14 @@ Route::get('/related-posts', function (Request $request) {
 Route::get('/documents', function (Request $request) {
     $documents = Document::orderBy('created_at', 'desc');
     $per_page = (int)min($request->get('per_page', 10), 15);
-    if ($request->has('filters')) {
-        $documents->withAnyTags($request->input('filters', []));
+    if ($request->has('types')) {
+        $documents->withAnyTags($request->input('types', []), 'document-type');
+    }
+    if ($request->has('topics')) {
+        $documents->withAnyTags($request->input('topics', []), 'document-topic');
+    }
+    if ($request->has('roles')) {
+        $documents->withAnyTags($request->input('roles', []), 'document-role');
     }
     return DocumentResource::collection($documents->paginate($per_page));
 });
