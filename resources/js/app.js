@@ -12,6 +12,7 @@ Vue.component('ArtworksMap', require('./components/ArtworksMap').default)
 Vue.component('ButtonCopy', require('./components/atoms/buttons/ButtonCopy').default)
 Vue.component('SwiperPosts', require('./components/SwiperPosts').default)
 Vue.component('PostsOverview', require('./components/PostsOverview').default)
+Vue.component('DocumentsOverview', require('./components/DocumentsOverview').default)
 
 Vue.use(VueMapbox, { mapboxgl: Mapbox })
 Vue.use(Lang)
