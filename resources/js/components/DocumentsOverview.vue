@@ -19,6 +19,15 @@ export default {
       selectedOptions: [],
       results: []
     }
+  },
+  watch: {
+    selectedOptions: {
+      immediate: true,
+      async handler (newValue) {
+        const response = await axios.get('./api/documents')
+        this.results = response.data.data
+      }
+    }
   }
 }
 </script>

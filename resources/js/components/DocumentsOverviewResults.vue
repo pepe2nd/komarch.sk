@@ -1,5 +1,21 @@
 <template>
   <div class="mt-20">
-    These are the documents
+    <div
+      v-for="(item, index) in results"
+      :key="index"
+    >
+      {{ item.name }}
+    </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    results: {
+      type: Array,
+      required: true
+    }
+  }
+}
+</script>
