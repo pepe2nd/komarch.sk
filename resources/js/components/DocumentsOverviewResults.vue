@@ -1,12 +1,29 @@
 <template>
-  <div class="mt-20">
-    <div
-      v-for="(item, index) in results"
-      :key="index"
-    >
-      {{ item.name }}
-    </div>
-  </div>
+  <table class="mt-20">
+    <tbody>
+      <tr
+        v-for="item in results"
+        :key="item.id"
+      >
+        <td>
+          {{ item.name }}
+        </td>
+        <td>
+          {{ item.created_at }}
+        </td>
+        <td>
+          <button>
+            Preview
+          </button>
+        </td>
+        <td>
+          <button>
+            Download
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <script>

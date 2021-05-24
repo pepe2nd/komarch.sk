@@ -14,6 +14,9 @@
     >
     <span class="ml-4">
       {{ option.title }}
+      <template v-if="option.items !== undefined">
+        ({{ option.items }})
+      </template>
     </span>
   </label>
 </template>
