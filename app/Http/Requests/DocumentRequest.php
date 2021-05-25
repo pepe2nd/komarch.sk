@@ -27,7 +27,7 @@ class DocumentRequest extends FormRequest
     {
         return [
             'name' => 'required|min:2|max:255',
-            'file' => 'required|file|max:10240'
+            'file' => 'required_without:id|file|max:10240'
         ];
     }
 
