@@ -56,3 +56,12 @@ Route::get('/documents', function (Request $request) {
     }
     return DocumentResource::collection($documents->paginate($per_page));
 });
+
+Route::get('/documents-filters', function (Request $request) {
+    $filters = collect();
+    $documents = \App\Models\Document::get();
+    foreach (Document::$filterable as $filter) {
+        $filters[$filter] = $documents->pluck($filter)->flatten()->countBy('name');
+    }
+    return $filters;
+});

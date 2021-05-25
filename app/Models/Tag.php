@@ -54,6 +54,11 @@ class Tag extends Model
         return $this->morphedByMany(Post::class, 'taggable');
     }
 
+    public function documents()
+    {
+        return $this->morphedByMany(Document::class, 'taggable');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
