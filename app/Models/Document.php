@@ -39,6 +39,8 @@ class Document extends Model implements HasMedia
 
     public $with = ['types', 'topics', 'roles'];
 
+    public static $filterable = ['types', 'topics', 'roles'];
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
