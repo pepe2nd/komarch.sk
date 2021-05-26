@@ -33,6 +33,20 @@ Route::get('/posts', function (Request $request) {
     return PostResource::collection($posts->paginate($per_page));
 });
 
+Route::get('/posts-filters', function (Request $request) {
+    $categories = \App\Models\Tag::withCount('posts')
+                ->orderBy('posts_count', 'desc')->get()
+                ->filter(function ($tag) {
+                    return ($tag->posts_count > 0);
+                })->map(function ($tag) {
+                    return [
+                      'key' => $tag->name,
+                      'count' => $tag->posts_count
+                    ];
+                });
+    return collect(['categories' => $categories]);
+});
+
 Route::get('/related-posts', function (Request $request) {
     $related = Post::take(10)->inRandomOrder()->get();
     return PostResource::collection($related);
