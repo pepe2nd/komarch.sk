@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Http\Resources\PostResource;
 
-use App\Models\Document;
-use App\Http\Resources\DocumentResource;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -55,18 +52,6 @@ Route::get('/related-posts', function (Request $request) {
     return PostResource::collection($related);
 });
 
-
-Route::get('/documents', function (Request $request) {
-    $documents = Document::orderBy('created_at', 'desc');
-    $per_page = (int)min($request->get('per_page', 10), 15);
-    if ($request->has('types')) {
-        $documents->withAnyTags($request->input('types', []), 'document-type');
-    }
-    if ($request->has('topics')) {
-        $documents->withAnyTags($request->input('topics', []), 'document-topic');
-    }
-    if ($request->has('roles')) {
-        $documents->withAnyTags($request->input('roles', []), 'document-role');
-    }
-    return DocumentResource::collection($documents->paginate($per_page));
-});
+Route::get('/documents', 'App\Http\Controllers\Api\DocumentController@index');
+Route::get('/documents-filters', 'App\Http\Controllers\Api\DocumentController@filters');
+Route::get('/document/{document_id}/download', 'App\Http\Controllers\Api\DocumentController@download');
