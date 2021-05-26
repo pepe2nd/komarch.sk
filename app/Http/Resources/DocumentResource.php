@@ -15,9 +15,6 @@ class DocumentResource extends JsonResource
      */
     public function toArray($request)
     {
-        $locale = $request->get('locale', app()->getLocale());
-        Carbon::setlocale($locale);
-
         return [
             'id' => $this->id,
             'name' => $this->name,
