@@ -37,8 +37,18 @@ class PostController extends Controller
 
     public function related($id, Request $request)
     {
-        $related = Post::take(10)->inRandomOrder()->get();
-        return PostResource::collection($related);
+        $related_posts = Post::boolSearch($id)
+            ->must('more_like_this',
+            [
+                'fields' => ['title.' . app()->getLocale()],
+                'like' => [
+                    '_id' => $id
+                ],
+                'min_term_freq' => 1,
+                'min_doc_freq' => 1,
+            ])->size(10)->execute();
+
+        return PostResource::collection($related_posts->models());
     }
 
     private function loadPosts(Request $request)
