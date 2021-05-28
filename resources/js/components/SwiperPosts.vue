@@ -36,6 +36,12 @@ export default {
     SwiperSlide,
     TeaserPostBig
   },
+  props: {
+    post_id: {
+      type: String,
+      required: true
+    }
+  },
   data () {
     return {
       posts: [],
@@ -65,7 +71,7 @@ export default {
     }
   },
   async created () {
-    const response = await axios.get(`/api/related-posts?locale=${document.documentElement.lang}`)
+    const response = await axios.get(`/api/post/${this.post_id}/related`)
     this.posts = response.data.data
     await this.$nextTick()
     this.updateControls()
