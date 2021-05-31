@@ -37,7 +37,7 @@ export default {
     TeaserPostBig
   },
   props: {
-    post_id: {
+    postId: {
       type: String,
       required: true
     }
@@ -71,7 +71,7 @@ export default {
     }
   },
   async created () {
-    const response = await axios.get(`/api/post/${this.post_id}/related`)
+    const response = await axios.get(`/api/post/${this.postId}/related`)
     this.posts = response.data.data
     await this.$nextTick()
     this.updateControls()
