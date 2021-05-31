@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
+use ElasticScoutDriverPlus\QueryDsl;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Tags\HasTags;
@@ -19,6 +20,7 @@ class Post extends Model
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory,
         Searchable,
+        QueryDsl,
         HasSlug,
         HasTags,
         Publishable,
