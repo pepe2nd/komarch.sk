@@ -8,11 +8,11 @@
       v-bind="$attrs"
       :value="option.key"
       :checked="isChecked"
-      class="cursor-pointer h-5 w-5 border border-black rounded-lg bg-white checked:bg-black appearance-none focus:outline-none"
+      class="cursor-pointer h-4 w-4 border border-black rounded-md bg-white checked:bg-black appearance-none focus:outline-none"
       :class="{'group-hover:border-blue group-hover:border-2': !isChecked}"
       @change="onChange"
     >
-    <span class="ml-4">
+    <span class="ml-2">
       {{ option.title }}
       <template v-if="option.items !== undefined">
         ({{ option.items }})
