@@ -88,6 +88,16 @@
         content: "\27F5";
     }
 
+    .icon-arrow-t:before {
+        @apply icon;
+        content: "\2191";
+    }
+
+    .icon-arrow-b:before {
+        @apply icon;
+        content: "\2193";
+    }
+
     .icon-mail:before {
         @apply icon;
         content: "\E803";

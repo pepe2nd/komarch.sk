@@ -1,10 +1,7 @@
 <template>
   <div>
     <DocumentsOverviewFilters v-model="selectedFilters" />
-    <DocumentsOverviewResults
-      v-model="sorting"
-      :results="results"
-    />
+    <DocumentsOverviewResults :results="results" />
   </div>
 </template>
 
@@ -20,7 +17,6 @@ export default {
   data () {
     return {
       selectedFilters: [],
-      sorting: null,
       results: []
     }
   },

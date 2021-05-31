@@ -2,12 +2,12 @@
   <table class="mt-20 w-full text-left">
     <thead>
       <tr class="border-b py-1">
-        <th @click="onNameSorting">
+        <th-sortable v-model="sortingName">
           {{ __('documents.name') }}
-        </th>
-        <th @click="onCreatedSorting">
+        </th-sortable>
+        <th-sortable v-model="sortingDate">
           {{ __('documents.created') }}
-        </th>
+        </th-sortable>
         <th>
           {{ __('documents.preview') }}
         </th>
@@ -44,7 +44,12 @@
 </template>
 
 <script>
+import ThSortable from './atoms/table/th-sortable'
+
 export default {
+  components: {
+    ThSortable
+  },
   props: {
     value: {
       type: String,
@@ -55,24 +60,10 @@ export default {
       required: true
     }
   },
-  methods: {
-    onNameSorting () {
-      if (this.value === 'name-descending') {
-        this.$emit('input', 'name-ascending')
-      } else if (this.value === 'name-ascending') {
-        this.$emit('input', null)
-      } else {
-        this.$emit('input', 'name-descending')
-      }
-    },
-    onCreatedSorting () {
-      if (this.value === 'created-descending') {
-        this.$emit('input', 'created-ascending')
-      } else if (this.value === 'created-ascending') {
-        this.$emit('input', null)
-      } else {
-        this.$emit('input', 'created-descending')
-      }
+  data () {
+    return {
+      sortingName: null,
+      sortingDate: null
     }
   }
 }
