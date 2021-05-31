@@ -1,15 +1,11 @@
 <template>
-  <label
-    class="py-1 flex items-center"
-    :class="{'group cursor-pointer hover:text-blue': !isChecked}"
-  >
+  <label class="py-1 flex items-center group cursor-pointer hover:text-blue">
     <input
       type="checkbox"
       v-bind="$attrs"
       :value="option.key"
       :checked="isChecked"
-      class="cursor-pointer h-4 w-4 border border-black rounded-md bg-white checked:bg-black appearance-none focus:outline-none"
-      :class="{'group-hover:border-blue group-hover:border-2': !isChecked}"
+      class="cursor-pointer h-4 w-4 border border-black rounded-md bg-white checked:bg-black appearance-none focus:outline-none group-hover:border-blue group-hover:border-2"
       @change="onChange"
     >
     <span class="ml-2">
