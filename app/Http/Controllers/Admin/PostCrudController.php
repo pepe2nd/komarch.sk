@@ -109,6 +109,12 @@ class PostCrudController extends CrudController
                 'name' => 'is_featured',
                 'type' => 'boolean',
             ],
+            [
+                'name' => 'cover_image',
+                'label' => 'Cover image',
+                'type'  => 'upload_media',
+                'upload' => true,
+            ],
         ]);
 
         $this->crud->addFilter([
