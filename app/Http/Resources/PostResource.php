@@ -21,6 +21,7 @@ class PostResource extends JsonResource
             'perex' => $this->perex,
             'date' => trim($this->published_at->formatLocalized('%e. %B %Y')),
             'url' => $this->url,
+            'cover_image' => ($this->cover_image) ? (string)$this->cover_image->img()->attributes(['alt' => $this->title]) : null,
             'tags' => TagResource::collection($this->whenLoaded('tags')),
         ];
     }
