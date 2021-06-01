@@ -2,17 +2,17 @@
   <div>
     <div class="mt-24 md:flex flex-wrap">
       <radio-button
-        v-for="option in options"
-        :key="option.key"
-        v-model="selectedOption"
+        v-for="filter in filters"
+        :key="filter.key"
+        v-model="activeFilter"
         :disabled="isLoading"
-        :option="option"
+        :option="filter"
         class="mr-12 py-2"
       />
     </div>
     <div class="h-10 md:h-20">
       <ButtonClearFilters
-        v-show="selectedOption.key"
+        v-show="activeFilter.key"
         @click="onCancel"
       />
     </div>
@@ -65,22 +65,11 @@ export default {
     RadioButton,
     TeaserPostBig
   },
-  props: {
-    options: {
-      type: Array,
-      default: () => [
-        { key: 'important', title: 'Dôležité', params: '&featured' },
-        { key: 'tenders', title: 'Súťaže', params: '&categories=Súťaže' },
-        { key: 'info', title: 'Správy', params: '&categories=Správy' },
-        { key: 'education', title: 'Vzdelávanie', params: '&categories=Vzdelávanie' },
-        { key: 'cezaar', title: 'CE ZA AR', params: '&categories=CE ZA AR' }
-      ]
-    }
-  },
   data () {
     return {
+      filters: [],
+      activeFilter: {},
       posts: [],
-      selectedOption: {},
       page: 1,
       hasNextPage: true,
       isLoading: false,
@@ -95,12 +84,29 @@ export default {
       }
     }
   },
+  async created () {
+    const { data } = await axios.get(`${window.location.origin}/api/posts-filters`)
+
+    const importantFilter = { key: 'Dôležité', title: 'Dôležité', params: '&featured' }
+
+    const filters = [
+      importantFilter
+    ]
+
+    for (const key in data.categories) {
+      if (key !== importantFilter.key) {
+        filters.push({ key: key, title: key, params: `&categories=${key}` })
+      }
+    }
+
+    this.filters = filters
+  },
   methods: {
     onLoadMore () {
       this.fetchPage(this.page + 1)
     },
     onCancel () {
-      this.selectedOption = {}
+      this.activeFilter = {}
     },
     async fetchUrl (url) {
       try {
@@ -120,7 +126,7 @@ export default {
       }
     },
     async fetchPage (pageNumber) {
-      const { data, meta } = await this.fetchUrl(`${window.location.origin}/api/posts?page=${pageNumber}${this.selectedOption.params || ''}`)
+      const { data, meta } = await this.fetchUrl(`${window.location.origin}/api/posts?page=${pageNumber}${this.activeFilter.params || ''}`)
 
       if (pageNumber === 1) {
         this.posts = data
