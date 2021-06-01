@@ -33,7 +33,7 @@ class PostCrudController extends CrudController
         $this->crud->setColumns([
             [
                 'name' => 'title',
-                'type' => 'article',
+                'type' => 'title_with_preview',
                 'searchLogic' => function ($query, $column, $searchTerm) {
                     $query->orWhere('title->sk', 'like', '%'.$searchTerm.'%')
                           ->orWhere('title->en', 'like', '%'.$searchTerm.'%');
