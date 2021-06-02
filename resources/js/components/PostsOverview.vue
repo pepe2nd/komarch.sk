@@ -47,7 +47,7 @@ import RadioButton from './atoms/RadioButton'
 import TeaserPostBig from './TeaserPostBig'
 import ButtonLoadMore from './atoms/buttons/ButtonLoadMore'
 import ButtonClearFilters from './atoms/ButtonClearFilters'
-import axiosGetMixin from './axiosGetMixin'
+import axiosGet from './axiosGetMixin'
 
 export default {
   components: {
@@ -57,7 +57,7 @@ export default {
     TeaserPostBig
   },
   mixins: [
-    axiosGetMixin
+    axiosGet
   ],
   data () {
     return {
