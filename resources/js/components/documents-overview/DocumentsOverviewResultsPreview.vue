@@ -1,10 +1,13 @@
 <template>
-  <button
+  <a
+    :href="document.file.url"
+    :download="document.file.name"
     class="focus:outline-none hover:text-blue"
-    @click="onPreview"
+    target="_blank"
   >
+    <!-- TODO: add icon when available -->
     Preview
-  </button>
+  </a>
 </template>
 
 <script>
@@ -13,11 +16,6 @@ export default {
     document: {
       type: Object,
       required: true
-    }
-  },
-  methods: {
-    onPreview () {
-      // TODO: implement
     }
   }
 }
