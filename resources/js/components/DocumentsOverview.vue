@@ -49,19 +49,8 @@ export default {
       hasNextPage: true
     }
   },
-  watch: {
-    sorting () {
-      this.fetchData()
-    },
-    selectedFilters () {
-      this.fetchData()
-    }
-  },
-  created () {
-    this.fetchData()
-  },
-  methods: {
-    async fetchData () {
+  computed: {
+    filterParams () {
       const params = {
         roles: this.selectedFilters.filter(filter => filter.type === FILTER_ROLES).map(filter => filter.title),
         topics: this.selectedFilters.filter(filter => filter.type === FILTER_TOPICS).map(filter => filter.title),
@@ -78,9 +67,25 @@ export default {
         params.direction = this.sorting.date
       }
 
+      return params
+    }
+  },
+  watch: {
+    sorting () {
+      this.fetchData()
+    },
+    selectedFilters () {
+      this.fetchData()
+    }
+  },
+  created () {
+    this.fetchData()
+  },
+  methods: {
+    async fetchData () {
       const [documentsResponse, filtersResponse] = await Promise.all([
-        this.axiosGet('/api/documents', params),
-        this.axiosGet('/api/documents-filters', params)
+        this.axiosGet('/api/documents', this.filterParams),
+        this.axiosGet('/api/documents-filters', this.filterParams)
       ])
 
       const roles = []
@@ -110,20 +115,8 @@ export default {
     },
     async onLoadMore () {
       const params = {
-        roles: this.selectedFilters.filter(filter => filter.type === FILTER_ROLES).map(filter => filter.title),
-        topics: this.selectedFilters.filter(filter => filter.type === FILTER_TOPICS).map(filter => filter.title),
-        types: this.selectedFilters.filter(filter => filter.type === FILTER_TYPES).map(filter => filter.title),
+        ...this.filterParams,
         page: this.page + 1
-      }
-
-      if (this.sorting.name) {
-        params.sortby = 'name'
-        params.direction = this.sorting.name
-      }
-
-      if (this.sorting.date) {
-        params.sortby = 'created_at'
-        params.direction = this.sorting.date
       }
 
       const documentsResponse = await this.axiosGet('/api/documents', params)
