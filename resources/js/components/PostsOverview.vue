@@ -34,34 +34,24 @@
     >
       {{ __('post.no_posts') }}.
     </p>
-    <div
+    <ButtonLoadMore
       v-if="hasNextPage"
-      class="mt-10 h-20 flex items-center"
-    >
-      <ButtonArrow
-        v-if="!isLoading"
-        class="text-xl"
-        @click="onLoadMore"
-      >
-        {{ __('post.load_more') }}
-      </ButtonArrow>
-      <p v-else>
-        {{ __('post.loading_more') }}
-      </p>
-    </div>
+      :is-loading="isLoading"
+      @click="onLoadMore"
+    />
   </div>
 </template>
 
 <script>
 import RadioButton from './atoms/RadioButton'
 import TeaserPostBig from './TeaserPostBig'
-import ButtonArrow from './atoms/buttons/ButtonArrow'
+import ButtonLoadMore from './atoms/buttons/ButtonLoadMore'
 import ButtonClearFilters from './atoms/ButtonClearFilters'
 
 export default {
   components: {
     ButtonClearFilters,
-    ButtonArrow,
+    ButtonLoadMore,
     RadioButton,
     TeaserPostBig
   },

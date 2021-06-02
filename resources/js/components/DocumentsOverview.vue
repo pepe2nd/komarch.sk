@@ -8,34 +8,24 @@
       v-model="sorting"
       :results="results"
     />
-    <div
+    <ButtonLoadMore
       v-if="hasNextPage"
-      class="mt-10 h-20 flex items-center"
-    >
-      <ButtonArrow
-        v-if="!isLoading"
-        class="text-xl"
-        @click="onLoadMore"
-      >
-        {{ __('post.load_more') }}
-      </ButtonArrow>
-      <p v-else>
-        {{ __('post.loading_more') }}
-      </p>
-    </div>
+      :is-loading="isLoading"
+      @click="onLoadMore"
+    />
   </div>
 </template>
 
 <script>
 import DocumentsOverviewResults from './DocumentsOverviewResults'
 import DocumentsOverviewFilters from './DocumentsOverviewFilters'
-import ButtonArrow from './atoms/buttons/ButtonArrow'
+import ButtonLoadMore from './atoms/buttons/ButtonLoadMore'
 
 export default {
   components: {
     DocumentsOverviewFilters,
     DocumentsOverviewResults,
-    ButtonArrow
+    ButtonLoadMore
   },
   data () {
     return {
