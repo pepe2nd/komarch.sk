@@ -6,9 +6,8 @@
     />
     <InputSearch
       v-model="searchTerm"
-      class="mt-8"
+      class="mt-16 md:mt-8 md:max-w-sm"
       :placeholder="__('documents.search_placeholder')"
-      style="max-width: 360px"
     />
     <DocumentsOverviewResults
       v-model="sorting"
