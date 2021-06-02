@@ -16,7 +16,7 @@
     />
     <ButtonLoadMore
       v-if="hasNextPage"
-      :is-loading="fetchState.isFetching"
+      :load-more="__('documents.load_more')"
       @click="onLoadMore"
     />
   </div>
