@@ -1,56 +1,77 @@
 <template>
-  <table class="mt-20 w-full text-left">
-    <thead>
-      <tr class="border-b py-1">
-        <th-sortable
-          v-model="sortingName"
-          class="py-2"
-        >
-          {{ __('documents.name') }}
-        </th-sortable>
-        <th-sortable v-model="sortingDate">
-          {{ __('documents.created') }}
-        </th-sortable>
-        <th class="select-none">
-          {{ __('documents.preview') }}
-        </th>
-        <th class="select-none">
-          {{ __('documents.download') }}
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
+  <div>
+    <div class="lg:hidden">
+      <div
         v-for="item in results"
         :key="item.id"
-        class="border-b"
+        class="border-b py-3"
       >
-        <td class="py-1">
-          {{ item.name }}
-        </td>
-        <td>
+        <div class="flex items-center justify-between">
           {{ item.created_at }}
-        </td>
-        <td>
-          <button
-            class="focus:outline-none hover:text-blue"
-            @click="onPreview(item)"
-          >
-            Preview
+          <button class="focus:outline-none">
+            <span class="inline-block rounded-full bg-black w-1 h-1" />
+            <span class="inline-block rounded-full bg-black w-1 h-1" />
+            <span class="inline-block rounded-full bg-black w-1 h-1" />
           </button>
-        </td>
-        <td>
-          <a
-            :href="item.file.url"
-            :download="item.file.name"
-            class="focus:outline-none hover:text-blue"
+        </div>
+        <div>
+          {{ item.name }}
+        </div>
+      </div>
+    </div>
+    <table class="hidden lg:table mt-20 w-full text-left">
+      <thead>
+        <tr class="border-b py-1">
+          <th-sortable
+            v-model="sortingName"
+            class="py-2"
           >
-            Download
-          </a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+            {{ __('documents.name') }}
+          </th-sortable>
+          <th-sortable v-model="sortingDate">
+            {{ __('documents.created') }}
+          </th-sortable>
+          <th class="select-none">
+            {{ __('documents.preview') }}
+          </th>
+          <th class="select-none">
+            {{ __('documents.download') }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="item in results"
+          :key="item.id"
+          class="border-b"
+        >
+          <td class="py-1">
+            {{ item.name }}
+          </td>
+          <td>
+            {{ item.created_at }}
+          </td>
+          <td>
+            <button
+              class="focus:outline-none hover:text-blue"
+              @click="onPreview(item)"
+            >
+              Preview
+            </button>
+          </td>
+          <td>
+            <a
+              :href="item.file.url"
+              :download="item.file.name"
+              class="focus:outline-none hover:text-blue"
+            >
+              Download
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
