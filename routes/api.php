@@ -3,9 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Models\Post;
-use App\Http\Resources\PostResource;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,37 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/posts', function (Request $request) {
-    $posts = Post::published()->orderBy('published_at', 'desc');
-    $per_page = (int)min($request->get('per_page', 6), 15);
-    if ($request->has('categories')) {
-        $posts->withAnyTags($request->input('categories', []));
-    }
-    if ($request->has('featured')) {
-        $posts->featured();
-    }
-    return PostResource::collection($posts->paginate($per_page));
-});
-
-Route::get('/posts-filters', function (Request $request) {
-    $categories = \App\Models\Tag::withCount('posts')
-                ->orderBy('posts_count', 'desc')->get()
-                ->filter(function ($tag) {
-                    return ($tag->posts_count > 0);
-                })->map(function ($tag) {
-                    return [
-                      'key' => $tag->name,
-                      'count' => $tag->posts_count
-                    ];
-                });
-    return collect(['categories' => $categories]);
-});
-
-Route::get('/related-posts', function (Request $request) {
-    $related = Post::take(10)->inRandomOrder()->get();
-    return PostResource::collection($related);
-});
+Route::get('/posts', 'App\Http\Controllers\Api\PostController@index');
+Route::get('/posts-filters', 'App\Http\Controllers\Api\PostController@filters');
+Route::get('/post/{id}/related', 'App\Http\Controllers\Api\PostController@related');
 
 Route::get('/documents', 'App\Http\Controllers\Api\DocumentController@index');
 Route::get('/documents-filters', 'App\Http\Controllers\Api\DocumentController@filters');
-Route::get('/document/{document_id}/download', 'App\Http\Controllers\Api\DocumentController@download');
+Route::get('/document/{id}/download', 'App\Http\Controllers\Api\DocumentController@download');
