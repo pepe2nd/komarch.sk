@@ -10,7 +10,7 @@
     />
     <ButtonLoadMore
       v-if="hasNextPage"
-      :is-loading="isLoading"
+      :is-loading="fetchState.isFetching"
       @click="onLoadMore"
     />
   </div>
@@ -20,6 +20,7 @@
 import DocumentsOverviewResults from './DocumentsOverviewResults'
 import DocumentsOverviewFilters from './DocumentsOverviewFilters'
 import ButtonLoadMore from './atoms/buttons/ButtonLoadMore'
+import axiosGetMixin from './axiosGetMixin'
 
 const FILTER_ROLES = 'roles'
 const FILTER_TOPICS = 'topics'
@@ -31,17 +32,20 @@ export default {
     DocumentsOverviewResults,
     ButtonLoadMore
   },
+  mixins: [
+    axiosGetMixin
+  ],
   data () {
     return {
       filters: {},
       selectedFilters: [],
+      searchTerm: null,
       sorting: {
         name: null,
         date: null
       },
       results: [],
       page: 1,
-      isLoading: false,
       hasNextPage: true
     }
   },
@@ -58,59 +62,51 @@ export default {
   },
   methods: {
     async fetchData () {
-      try {
-        this.isLoading = true
-
-        const params = {
-          roles: this.selectedFilters.filter(filter => filter.type === FILTER_ROLES).map(filter => filter.title),
-          topics: this.selectedFilters.filter(filter => filter.type === FILTER_TOPICS).map(filter => filter.title),
-          types: this.selectedFilters.filter(filter => filter.type === FILTER_TYPES).map(filter => filter.title)
-        }
-
-        if (this.sorting.name) {
-          params.sortby = 'name'
-          params.direction = this.sorting.name
-        }
-
-        if (this.sorting.date) {
-          params.sortby = 'created_at'
-          params.direction = this.sorting.date
-        }
-
-        const [documentsResponse, filtersResponse] = await Promise.all([
-          axios.get(`${window.location.origin}/api/documents`, { params }),
-          axios.get(`${window.location.origin}/api/documents-filters`, { params })
-        ])
-
-        const roles = []
-        const topics = []
-        const types = []
-
-        for (const key in filtersResponse.data.roles) {
-          roles.push({ key: key, title: key, items: filtersResponse.data.roles[key], type: FILTER_ROLES })
-        }
-
-        for (const key in filtersResponse.data.topics) {
-          topics.push({ key: key, title: key, items: filtersResponse.data.topics[key], type: FILTER_TOPICS })
-        }
-
-        for (const key in filtersResponse.data.types) {
-          types.push({ key: key, title: key, items: filtersResponse.data.types[key], type: FILTER_TYPES })
-        }
-
-        this.filters = {
-          roles,
-          topics,
-          types
-        }
-
-        this.results = documentsResponse.data.data
-        this.hasNextPage = documentsResponse.data.meta.current_page < documentsResponse.data.meta.last_page
-      } catch (e) {
-        console.error(e)
-      } finally {
-        this.isLoading = false
+      const params = {
+        roles: this.selectedFilters.filter(filter => filter.type === FILTER_ROLES).map(filter => filter.title),
+        topics: this.selectedFilters.filter(filter => filter.type === FILTER_TOPICS).map(filter => filter.title),
+        types: this.selectedFilters.filter(filter => filter.type === FILTER_TYPES).map(filter => filter.title)
       }
+
+      if (this.sorting.name) {
+        params.sortby = 'name'
+        params.direction = this.sorting.name
+      }
+
+      if (this.sorting.date) {
+        params.sortby = 'created_at'
+        params.direction = this.sorting.date
+      }
+
+      const [documentsResponse, filtersResponse] = await Promise.all([
+        this.axiosGet('/api/documents', params),
+        this.axiosGet('/api/documents-filters', params)
+      ])
+
+      const roles = []
+      const topics = []
+      const types = []
+
+      for (const key in filtersResponse.roles) {
+        roles.push({ key: key, title: key, items: filtersResponse.roles[key], type: FILTER_ROLES })
+      }
+
+      for (const key in filtersResponse.topics) {
+        topics.push({ key: key, title: key, items: filtersResponse.topics[key], type: FILTER_TOPICS })
+      }
+
+      for (const key in filtersResponse.types) {
+        types.push({ key: key, title: key, items: filtersResponse.types[key], type: FILTER_TYPES })
+      }
+
+      this.filters = {
+        roles,
+        topics,
+        types
+      }
+
+      this.results = documentsResponse.data
+      this.hasNextPage = documentsResponse.meta.current_page < documentsResponse.meta.last_page
     },
     async onLoadMore () {
       const params = {
@@ -130,11 +126,11 @@ export default {
         params.direction = this.sorting.date
       }
 
-      const documentsResponse = await axios.get(`${window.location.origin}/api/documents`, { params })
+      const documentsResponse = await this.axiosGet('/api/documents', params)
 
-      this.page = documentsResponse.data.meta.current_page
-      this.hasNextPage = documentsResponse.data.meta.current_page < documentsResponse.data.meta.last_page
-      this.results.push(...documentsResponse.data.data)
+      this.page = documentsResponse.meta.current_page
+      this.hasNextPage = documentsResponse.meta.current_page < documentsResponse.meta.last_page
+      this.results.push(...documentsResponse.data)
     }
   }
 }
