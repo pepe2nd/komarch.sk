@@ -5,7 +5,7 @@
         v-for="filter in filters"
         :key="filter.key"
         v-model="activeFilter"
-        :disabled="isLoading"
+        :disabled="fetchState.isFetching"
         :option="filter"
         class="mr-12 py-2"
       />
@@ -36,7 +36,7 @@
     </p>
     <ButtonLoadMore
       v-if="hasNextPage"
-      :is-loading="isLoading"
+      :is-loading="fetchState.isFetching"
       @click="onLoadMore"
     />
   </div>
@@ -47,6 +47,7 @@ import RadioButton from './atoms/RadioButton'
 import TeaserPostBig from './TeaserPostBig'
 import ButtonLoadMore from './atoms/buttons/ButtonLoadMore'
 import ButtonClearFilters from './atoms/ButtonClearFilters'
+import axiosGetMixin from './axiosGetMixin'
 
 export default {
   components: {
@@ -55,15 +56,16 @@ export default {
     RadioButton,
     TeaserPostBig
   },
+  mixins: [
+    axiosGetMixin
+  ],
   data () {
     return {
       filters: [],
       activeFilter: {},
       posts: [],
       page: 1,
-      hasNextPage: true,
-      isLoading: false,
-      isError: false
+      hasNextPage: true
     }
   },
   watch: {
@@ -75,7 +77,7 @@ export default {
     }
   },
   async created () {
-    const { data } = await axios.get(`${window.location.origin}/api/posts-filters`)
+    const { categories } = await this.axiosGet('/api/posts-filters')
 
     const importantFilter = { key: 'Dôležité', title: 'Dôležité', params: '&featured' }
 
@@ -83,7 +85,7 @@ export default {
       importantFilter
     ]
 
-    for (const key in data.categories) {
+    for (const key in categories) {
       if (key !== importantFilter.key) {
         filters.push({ key: key, title: key, params: `&categories=${key}` })
       }
@@ -98,25 +100,8 @@ export default {
     onCancel () {
       this.activeFilter = {}
     },
-    async fetchUrl (url) {
-      try {
-        this.isLoading = true
-        const response = await axios.get(url)
-
-        if (response.status !== 200) {
-          this.isError = true
-          return
-        }
-
-        return response.data
-      } catch (error) {
-        this.isError = true
-      } finally {
-        this.isLoading = false
-      }
-    },
     async fetchPage (pageNumber) {
-      const { data, meta } = await this.fetchUrl(`${window.location.origin}/api/posts?page=${pageNumber}${this.activeFilter.params || ''}`)
+      const { data, meta } = await this.axiosGet(`/api/posts?page=${pageNumber}${this.activeFilter.params || ''}`)
 
       if (pageNumber === 1) {
         this.posts = data
