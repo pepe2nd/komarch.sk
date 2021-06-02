@@ -30,13 +30,22 @@
           >
             {{ __('documents.name') }}
           </th-sortable>
-          <th-sortable v-model="sortingDate">
+          <th-sortable
+            v-model="sortingDate"
+            style="min-width: 200px"
+          >
             {{ __('documents.created') }}
           </th-sortable>
-          <th class="select-none">
+          <th
+            class="select-none"
+            style="min-width: 90px"
+          >
             {{ __('documents.preview') }}
           </th>
-          <th class="select-none">
+          <th
+            class="select-none"
+            style="min-width: 200px"
+          >
             {{ __('documents.download') }}
           </th>
         </tr>
