@@ -36,7 +36,6 @@
     </p>
     <ButtonLoadMore
       v-if="hasNextPage"
-      :is-loading="fetchState.isFetching"
       :load-more="__('post.load_more')"
       @click="onLoadMore"
     />
