@@ -1,6 +1,6 @@
 <template>
   <th
-    class="cursor-pointer hover:text-blue group"
+    class="cursor-pointer hover:text-blue group font-normal"
     @click="onClick"
   >
     <div class="flex items-center select-none">

@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div
+    v-if="results.length > 0"
+    class="mt-16"
+  >
     <div class="lg:hidden">
       <div
         v-for="item in results"
@@ -21,7 +24,7 @@
         </button>
       </div>
     </div>
-    <table class="hidden lg:table mt-16 w-full text-left">
+    <table class="hidden lg:table w-full text-left">
       <thead>
         <tr class="border-b py-1">
           <th-sortable
@@ -37,13 +40,13 @@
             {{ __('documents.created') }}
           </th-sortable>
           <th
-            class="select-none"
+            class="select-none font-normal"
             style="min-width: 90px"
           >
             {{ __('documents.preview') }}
           </th>
           <th
-            class="select-none"
+            class="select-none font-normal"
             style="min-width: 200px"
           >
             {{ __('documents.download') }}
@@ -82,6 +85,12 @@
         </tr>
       </tbody>
     </table>
+  </div>
+  <div
+    v-else
+    class="mt-16"
+  >
+    No documents found
   </div>
 </template>
 
