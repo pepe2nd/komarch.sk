@@ -4,6 +4,11 @@
       v-model="selectedFilters"
       :filters="filters"
     />
+    <InputSearch
+      v-model="searchTerm"
+      class="mt-8"
+      style="max-width: 400px"
+    />
     <DocumentsOverviewResults
       v-model="sorting"
       :results="results"
@@ -21,6 +26,7 @@ import DocumentsOverviewResults from './DocumentsOverviewResults'
 import DocumentsOverviewFilters from './DocumentsOverviewFilters'
 import ButtonLoadMore from './atoms/buttons/ButtonLoadMore'
 import axiosGetMixin from './axiosGetMixin'
+import InputSearch from './atoms/InputSearch'
 
 const FILTER_ROLES = 'roles'
 const FILTER_TOPICS = 'topics'
@@ -28,6 +34,7 @@ const FILTER_TYPES = 'types'
 
 export default {
   components: {
+    InputSearch,
     DocumentsOverviewFilters,
     DocumentsOverviewResults,
     ButtonLoadMore
@@ -67,10 +74,22 @@ export default {
         params.direction = this.sorting.date
       }
 
+      if (this.searchTerm) {
+        params.q = this.searchTerm
+      }
+
       return params
     }
   },
   watch: {
+    searchTerm () {
+      const debounceTime = 300
+      clearTimeout(this.searchTermDebounceTimeout)
+
+      this.searchTermDebounceTimeout = setTimeout(() => {
+        this.fetchData()
+      }, debounceTime)
+    },
     sorting () {
       this.fetchData()
     },

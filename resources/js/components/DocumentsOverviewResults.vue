@@ -21,7 +21,7 @@
         </button>
       </div>
     </div>
-    <table class="hidden lg:table mt-20 w-full text-left">
+    <table class="hidden lg:table mt-16 w-full text-left">
       <thead>
         <tr class="border-b py-1">
           <th-sortable
