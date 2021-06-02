@@ -69,7 +69,7 @@ export default {
     }
   },
   watch: {
-    selectedOption: {
+    activeFilter: {
       immediate: true,
       handler () {
         this.fetchPage(1)
