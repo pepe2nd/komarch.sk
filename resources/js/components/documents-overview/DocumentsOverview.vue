@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO: Implement a nice spinner for loading state -->
   <div>
     <DocumentsOverviewFilters
       v-model="selectedFilters"
