@@ -1,6 +1,6 @@
 <template>
-  <div class="flex items-start">
-    <div class="mr-12">
+  <div class="md:flex items-start">
+    <div class="mr-12 mb-8">
       <h3 class="mb-5">
         Typ dokumentu:
       </h3>
@@ -9,11 +9,11 @@
         :key="option.key"
         :value="value"
         :option="option"
-        class="mr-12 py-2"
+        class="mr-12 py-1"
         @input="onInput"
       />
     </div>
-    <div class="mr-12">
+    <div class="mr-12 mb-8">
       <h3 class="mb-5">
         Téma:
       </h3>
@@ -22,11 +22,11 @@
         :key="option.key"
         :value="value"
         :option="option"
-        class="mr-12 py-2"
+        class="mr-12 py-1"
         @input="onInput"
       />
     </div>
-    <div class="mr-12">
+    <div class="mr-12 mb-8">
       <h3 class="mb-5">
         Rola:
       </h3>
@@ -35,7 +35,7 @@
         :key="option.key"
         :value="value"
         :option="option"
-        class="mr-12 py-2"
+        class="mr-12 py-1"
         @input="onInput"
       />
     </div>

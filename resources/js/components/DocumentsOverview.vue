@@ -5,23 +5,42 @@
       :filters="filters"
     />
     <DocumentsOverviewResults :results="results" />
+    <div
+      v-if="hasNextPage"
+      class="mt-10 h-20 flex items-center"
+    >
+      <ButtonArrow
+        v-if="!isLoading"
+        class="text-xl"
+        @click="onLoadMore"
+      >
+        {{ __('post.load_more') }}
+      </ButtonArrow>
+      <p v-else>
+        {{ __('post.loading_more') }}
+      </p>
+    </div>
   </div>
 </template>
 
 <script>
 import DocumentsOverviewResults from './DocumentsOverviewResults'
 import DocumentsOverviewFilters from './DocumentsOverviewFilters'
+import ButtonArrow from './atoms/buttons/ButtonArrow'
 
 export default {
   components: {
     DocumentsOverviewFilters,
-    DocumentsOverviewResults
+    DocumentsOverviewResults,
+    ButtonArrow
   },
   data () {
     return {
       filters: {},
       selectedFilters: [],
-      results: []
+      results: [],
+      isLoading: false,
+      hasNextPage: true
     }
   },
   watch: {
@@ -56,6 +75,11 @@ export default {
       roles,
       topics,
       types
+    }
+  },
+  methods: {
+    onLoadMore () {
+      // TODO: implement
     }
   }
 }

@@ -1,9 +1,9 @@
 <template>
   <th
-    class="cursor-pointer user-select-none hover:text-blue group"
+    class="cursor-pointer hover:text-blue group"
     @click="onClick"
   >
-    <div class="flex items-center">
+    <div class="flex items-center select-none">
       <slot />
       <span
         class="icon-arrow-b w-5 h-5 rounded-full flex items-center justify-center ml-2 text-sm"

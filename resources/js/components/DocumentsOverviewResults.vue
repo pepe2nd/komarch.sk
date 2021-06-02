@@ -2,16 +2,19 @@
   <table class="mt-20 w-full text-left">
     <thead>
       <tr class="border-b py-1">
-        <th-sortable v-model="sortingName">
+        <th-sortable
+          v-model="sortingName"
+          class="py-2"
+        >
           {{ __('documents.name') }}
         </th-sortable>
         <th-sortable v-model="sortingDate">
           {{ __('documents.created') }}
         </th-sortable>
-        <th>
+        <th class="select-none">
           {{ __('documents.preview') }}
         </th>
-        <th>
+        <th class="select-none">
           {{ __('documents.download') }}
         </th>
       </tr>
@@ -22,21 +25,28 @@
         :key="item.id"
         class="border-b"
       >
-        <td>
+        <td class="py-1">
           {{ item.name }}
         </td>
         <td>
           {{ item.created_at }}
         </td>
         <td>
-          <button>
+          <button
+            class="focus:outline-none hover:text-blue"
+            @click="onPreview(item)"
+          >
             Preview
           </button>
         </td>
         <td>
-          <button>
+          <a
+            :href="item.file.url"
+            :download="item.file.name"
+            class="focus:outline-none hover:text-blue"
+          >
             Download
-          </button>
+          </a>
         </td>
       </tr>
     </tbody>
@@ -64,6 +74,11 @@ export default {
     return {
       sortingName: null,
       sortingDate: null
+    }
+  },
+  methods: {
+    onPreview () {
+      // TODO: implement
     }
   }
 }
