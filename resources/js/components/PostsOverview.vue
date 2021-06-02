@@ -76,6 +76,7 @@ export default {
       }
     }
   },
+  // TODO: refactor using proper axios parameters
   async created () {
     const { categories } = await this.axiosGet('/api/posts-filters')
 
