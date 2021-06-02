@@ -51,40 +51,66 @@ export default {
     }
   },
   watch: {
-    selectedFilters: {
-      immediate: true,
-      async handler (newValue) {
-        const response = await axios.get(`${window.location.origin}/api/documents`)
-        this.results = response.data.data
-      }
+    sorting () {
+      this.fetchData()
+    },
+    selectedFilters () {
+      this.fetchData()
     }
   },
   async created () {
-    const { data } = await axios.get(`${window.location.origin}/api/documents-filters`)
-
-    const roles = []
-    const topics = []
-    const types = []
-
-    for (const key in data.roles) {
-      roles.push({ key: key, title: key, items: data.roles[key], params: '' })
-    }
-
-    for (const key in data.topics) {
-      topics.push({ key: key, title: key, items: data.topics[key], params: '' })
-    }
-
-    for (const key in data.types) {
-      types.push({ key: key, title: key, items: data.types[key], params: '' })
-    }
-
-    this.filters = {
-      roles,
-      topics,
-      types
-    }
+    this.fetchData()
   },
   methods: {
+    async fetchData () {
+      try {
+        this.isLoading = true
+
+        const FILTER_ROLES = 'roles'
+        const FILTER_TOPICS = 'topics'
+        const FILTER_TYPES = 'types'
+
+        const params = {
+          roles: this.selectedFilters.filter(filter => filter.type === FILTER_ROLES).map(filter => filter.title),
+          topics: this.selectedFilters.filter(filter => filter.type === FILTER_TOPICS).map(filter => filter.title),
+          types: this.selectedFilters.filter(filter => filter.type === FILTER_TYPES).map(filter => filter.title)
+        }
+
+        const [documentsResponse, filtersResponse] = await Promise.all([
+          axios.get(`${window.location.origin}/api/documents`, { params }),
+          axios.get(`${window.location.origin}/api/documents-filters`, { params })
+        ])
+
+        const roles = []
+        const topics = []
+        const types = []
+
+        for (const key in filtersResponse.data.roles) {
+          roles.push({ key: key, title: key, items: filtersResponse.data.roles[key], type: FILTER_ROLES })
+        }
+
+        for (const key in filtersResponse.data.topics) {
+          topics.push({ key: key, title: key, items: filtersResponse.data.topics[key], type: FILTER_TOPICS })
+        }
+
+        for (const key in filtersResponse.data.types) {
+          types.push({ key: key, title: key, items: filtersResponse.data.types[key], type: FILTER_TYPES })
+        }
+
+        this.filters = {
+          roles,
+          topics,
+          types
+        }
+
+        this.results = documentsResponse.data.data
+        this.hasNextPage = documentsResponse.data.meta.current_page < documentsResponse.data.meta.last_page
+      } catch (e) {
+        console.error(e)
+      } finally {
+        this.isLoading = false
+      }
+    },
     onLoadMore () {
       // TODO: implement
     }
