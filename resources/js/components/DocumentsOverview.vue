@@ -53,7 +53,7 @@ export default {
       this.fetchData()
     }
   },
-  async created () {
+  created () {
     this.fetchData()
   },
   methods: {
@@ -65,6 +65,16 @@ export default {
           roles: this.selectedFilters.filter(filter => filter.type === FILTER_ROLES).map(filter => filter.title),
           topics: this.selectedFilters.filter(filter => filter.type === FILTER_TOPICS).map(filter => filter.title),
           types: this.selectedFilters.filter(filter => filter.type === FILTER_TYPES).map(filter => filter.title)
+        }
+
+        if (this.sorting.name) {
+          params.sortby = 'name'
+          params.direction = this.sorting.name
+        }
+
+        if (this.sorting.date) {
+          params.sortby = 'created_at'
+          params.direction = this.sorting.date
         }
 
         const [documentsResponse, filtersResponse] = await Promise.all([
@@ -108,6 +118,16 @@ export default {
         topics: this.selectedFilters.filter(filter => filter.type === FILTER_TOPICS).map(filter => filter.title),
         types: this.selectedFilters.filter(filter => filter.type === FILTER_TYPES).map(filter => filter.title),
         page: this.page + 1
+      }
+
+      if (this.sorting.name) {
+        params.sortby = 'name'
+        params.direction = this.sorting.name
+      }
+
+      if (this.sorting.date) {
+        params.sortby = 'created_at'
+        params.direction = this.sorting.date
       }
 
       const documentsResponse = await axios.get(`${window.location.origin}/api/documents`, { params })

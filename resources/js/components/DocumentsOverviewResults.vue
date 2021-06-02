@@ -109,7 +109,6 @@ export default {
       },
       set (newValue) {
         this.$emit('input', {
-          ...this.value,
           name: newValue
         })
       }
@@ -120,7 +119,6 @@ export default {
       },
       set (newValue) {
         this.$emit('input', {
-          ...this.value,
           date: newValue
         })
       }
