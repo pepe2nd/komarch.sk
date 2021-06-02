@@ -4,19 +4,21 @@
       <div
         v-for="item in results"
         :key="item.id"
-        class="border-b py-3"
+        class="border-b py-3 flex items-start justify-between"
       >
-        <div class="flex items-center justify-between">
-          {{ item.created_at }}
-          <button class="focus:outline-none">
-            <span class="inline-block rounded-full bg-black w-1 h-1" />
-            <span class="inline-block rounded-full bg-black w-1 h-1" />
-            <span class="inline-block rounded-full bg-black w-1 h-1" />
-          </button>
-        </div>
         <div>
-          {{ item.name }}
+          <div>
+            {{ item.created_at }}
+          </div>
+          <div>
+            {{ item.name }}
+          </div>
         </div>
+        <button class="flex-shrink-0 focus:outline-none block ml-4 w-10 h-10">
+          <span class="inline-block rounded-full bg-black w-1 h-1" />
+          <span class="inline-block rounded-full bg-black w-1 h-1" />
+          <span class="inline-block rounded-full bg-black w-1 h-1" />
+        </button>
       </div>
     </div>
     <table class="hidden lg:table mt-20 w-full text-left">
