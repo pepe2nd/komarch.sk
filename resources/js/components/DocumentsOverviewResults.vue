@@ -90,7 +90,7 @@
     v-else
     class="mt-16"
   >
-    No documents found
+    {{ __('documents.no_documents') }}
   </div>
 </template>
 

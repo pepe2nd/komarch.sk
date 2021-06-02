@@ -8,4 +8,8 @@ return [
     'cancel_filters' => 'Zrušiť filter',
     'load_more' => 'Načítať ďalšie',
     'no_documents' => 'Nenašli sa žiadne dokumenty',
+    'document_type' => 'Typ dokumentu',
+    'topic' => 'Téma',
+    'role' => 'Rola',
+    'search_placeholder' => 'Kľúčové slovo, dokument...'
 ];

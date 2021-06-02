@@ -4,21 +4,21 @@
       v-if="filters.types && filters.types.length > 0"
       :filters="filters.types"
       :value="value"
-      title="Typ dokumentu:"
+      :title="`${__('documents.document_type')}:`"
       @input="onInput"
     />
     <DocumentsOverviewFiltersGroup
       v-if="filters.topics && filters.topics.length > 0"
       :filters="filters.topics"
       :value="value"
-      title="Téma:"
+      :title="`${__('documents.topic')}:`"
       @input="onInput"
     />
     <DocumentsOverviewFiltersGroup
       v-if="filters.roles && filters.roles.length > 0"
       :filters="filters.roles"
       :value="value"
-      title="Rola:"
+      :title="`${__('documents.role')}:`"
       @input="onInput"
     />
     <ButtonClearFilters

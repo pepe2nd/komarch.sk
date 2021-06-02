@@ -3,7 +3,7 @@
     <input
       type="search"
       :placeholder="placeholder"
-      :aria-label="ariaLabel"
+      :aria-label="placeholder"
       class="border-b border-gray-900 w-full outline-none text-sm"
       :value="value"
       @input="$emit('input', $event.target.value)"
@@ -21,11 +21,7 @@ export default {
     },
     placeholder: {
       type: String,
-      default: 'Kľúčové slovo, dokument...'
-    },
-    ariaLabel: {
-      type: String,
-      default: 'Hľadať...'
+      default: 'Search...'
     }
   }
 }

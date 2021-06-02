@@ -7,6 +7,7 @@
     <InputSearch
       v-model="searchTerm"
       class="mt-8"
+      :placeholder="__('documents.search_placeholder')"
       style="max-width: 400px"
     />
     <DocumentsOverviewResults
