@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\Publishable;
+use App\Traits\HasCoverImage;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,8 +15,11 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Tags\HasTags;
 use Spatie\Tags\Tag;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\File;
 
-class Post extends Model
+class Post extends Model implements HasMedia
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory,
@@ -25,7 +29,9 @@ class Post extends Model
         HasTags,
         Publishable,
         HasTranslations,
-        CrudTrait;
+        CrudTrait,
+        InteractsWithMedia,
+        HasCoverImage;
 
     public $translatable = [
         'title',
@@ -36,7 +42,15 @@ class Post extends Model
     public $with = ['tags'];
 
     protected $table = 'posts';
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'title',
+        'slug',
+        'perex',
+        'text',
+        'published_at',
+        'is_featured',
+        'cover_image',
+    ];
     protected $dates = ['published_at'];
     protected $casts = [
         'is_featured' => 'boolean',
@@ -81,6 +95,16 @@ class Post extends Model
     public function scopeFeatured($query)
     {
         return $query->where('is_featured', 1);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection('cover')
+            ->acceptsFile(function (File $file) {
+                return $file->mimeType === 'image/jpeg';
+            })
+            ->withResponsiveImages();
     }
 
 }
