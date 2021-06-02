@@ -94,18 +94,36 @@ export default {
   },
   props: {
     value: {
-      type: String,
-      default: null
+      type: Object,
+      required: true
     },
     results: {
       type: Array,
       required: true
     }
   },
-  data () {
-    return {
-      sortingName: null,
-      sortingDate: null
+  computed: {
+    sortingName: {
+      get () {
+        return this.value.name
+      },
+      set (newValue) {
+        this.$emit('input', {
+          ...this.value,
+          name: newValue
+        })
+      }
+    },
+    sortingDate: {
+      get () {
+        return this.value.date
+      },
+      set (newValue) {
+        this.$emit('input', {
+          ...this.value,
+          date: newValue
+        })
+      }
     }
   },
   methods: {

@@ -4,7 +4,10 @@
       v-model="selectedFilters"
       :filters="filters"
     />
-    <DocumentsOverviewResults :results="results" />
+    <DocumentsOverviewResults
+      v-model="sorting"
+      :results="results"
+    />
     <div
       v-if="hasNextPage"
       class="mt-10 h-20 flex items-center"
@@ -38,6 +41,10 @@ export default {
     return {
       filters: {},
       selectedFilters: [],
+      sorting: {
+        name: null,
+        date: null
+      },
       results: [],
       isLoading: false,
       hasNextPage: true
