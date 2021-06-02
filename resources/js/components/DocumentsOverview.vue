@@ -21,6 +21,10 @@ import DocumentsOverviewResults from './DocumentsOverviewResults'
 import DocumentsOverviewFilters from './DocumentsOverviewFilters'
 import ButtonLoadMore from './atoms/buttons/ButtonLoadMore'
 
+const FILTER_ROLES = 'roles'
+const FILTER_TOPICS = 'topics'
+const FILTER_TYPES = 'types'
+
 export default {
   components: {
     DocumentsOverviewFilters,
@@ -36,6 +40,7 @@ export default {
         date: null
       },
       results: [],
+      page: 1,
       isLoading: false,
       hasNextPage: true
     }
@@ -55,10 +60,6 @@ export default {
     async fetchData () {
       try {
         this.isLoading = true
-
-        const FILTER_ROLES = 'roles'
-        const FILTER_TOPICS = 'topics'
-        const FILTER_TYPES = 'types'
 
         const params = {
           roles: this.selectedFilters.filter(filter => filter.type === FILTER_ROLES).map(filter => filter.title),
@@ -101,8 +102,19 @@ export default {
         this.isLoading = false
       }
     },
-    onLoadMore () {
-      // TODO: implement
+    async onLoadMore () {
+      const params = {
+        roles: this.selectedFilters.filter(filter => filter.type === FILTER_ROLES).map(filter => filter.title),
+        topics: this.selectedFilters.filter(filter => filter.type === FILTER_TOPICS).map(filter => filter.title),
+        types: this.selectedFilters.filter(filter => filter.type === FILTER_TYPES).map(filter => filter.title),
+        page: this.page + 1
+      }
+
+      const documentsResponse = await axios.get(`${window.location.origin}/api/documents`, { params })
+
+      this.page = documentsResponse.data.meta.current_page
+      this.hasNextPage = documentsResponse.data.meta.current_page < documentsResponse.data.meta.last_page
+      this.results.push(...documentsResponse.data.data)
     }
   }
 }
