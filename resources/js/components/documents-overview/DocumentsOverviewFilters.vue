@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import ButtonClearFilters from '../atoms/ButtonClearFilters'
+import ButtonClearFilters from '../atoms/buttons/ButtonClearFilters'
 import DocumentsOverviewFiltersGroup from './DocumentsOverviewFiltersGroup'
 
 export default {

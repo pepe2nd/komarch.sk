@@ -4,6 +4,6 @@
     v-on="$listeners"
   >
     <span class="icon-close text-lg mr-1" />
-    {{ __('post.cancel_filters') }}
+    {{ __('generic.cancel_filters') }}
   </button>
 </template>

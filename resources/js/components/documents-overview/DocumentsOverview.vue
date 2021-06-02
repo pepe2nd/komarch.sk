@@ -16,7 +16,6 @@
     />
     <ButtonLoadMore
       v-if="hasNextPage"
-      :load-more="__('documents.load_more')"
       class="md:mt-24"
       @click="onLoadMore"
     />

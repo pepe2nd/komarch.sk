@@ -36,7 +36,6 @@
     </p>
     <ButtonLoadMore
       v-if="hasNextPage"
-      :load-more="__('post.load_more')"
       @click="onLoadMore"
     />
   </div>
@@ -46,7 +45,7 @@
 import RadioButton from './atoms/RadioButton'
 import TeaserPostBig from './TeaserPostBig'
 import ButtonLoadMore from './atoms/buttons/ButtonLoadMore'
-import ButtonClearFilters from './atoms/ButtonClearFilters'
+import ButtonClearFilters from './atoms/buttons/ButtonClearFilters'
 import axiosGet from './axiosGetMixin'
 
 export default {
