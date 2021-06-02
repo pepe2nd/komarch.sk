@@ -22,27 +22,28 @@
     </div>
     <table class="hidden lg:table w-full text-left">
       <thead>
-        <tr class="border-b py-1">
+        <tr>
           <th-sortable
             v-model="sortingName"
-            class="py-2"
+            class="pb-10"
           >
             {{ __('documents.name') }}
           </th-sortable>
           <th-sortable
             v-model="sortingDate"
             style="min-width: 200px"
+            class="pb-10"
           >
             {{ __('documents.created') }}
           </th-sortable>
           <th
-            class="select-none font-normal"
+            class="select-none font-normal pb-10"
             style="min-width: 90px"
           >
             {{ __('documents.preview') }}
           </th>
           <th
-            class="select-none font-normal"
+            class="select-none font-normal pb-10"
             style="min-width: 200px"
           >
             {{ __('documents.download') }}

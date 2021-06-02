@@ -8,7 +8,7 @@
       v-model="searchTerm"
       class="mt-8"
       :placeholder="__('documents.search_placeholder')"
-      style="max-width: 400px"
+      style="max-width: 360px"
     />
     <DocumentsOverviewResults
       v-model="sorting"
@@ -17,6 +17,7 @@
     <ButtonLoadMore
       v-if="hasNextPage"
       :load-more="__('documents.load_more')"
+      class="md:mt-24"
       @click="onLoadMore"
     />
   </div>
