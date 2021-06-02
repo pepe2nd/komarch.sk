@@ -25,9 +25,9 @@
 <script>
 import DocumentsOverviewResults from './DocumentsOverviewResults'
 import DocumentsOverviewFilters from './DocumentsOverviewFilters'
-import ButtonLoadMore from './atoms/buttons/ButtonLoadMore'
-import axiosGetMixin from './axiosGetMixin'
-import InputSearch from './atoms/InputSearch'
+import ButtonLoadMore from '../atoms/buttons/ButtonLoadMore'
+import InputSearch from '../atoms/InputSearch'
+import axiosGet from '../axiosGetMixin'
 
 const FILTER_ROLES = 'roles'
 const FILTER_TOPICS = 'topics'
@@ -41,7 +41,7 @@ export default {
     ButtonLoadMore
   },
   mixins: [
-    axiosGetMixin
+    axiosGet
   ],
   data () {
     return {

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import InputCheckbox from './atoms/InputCheckbox'
+import InputCheckbox from '../atoms/InputCheckbox'
 
 export default {
   components: {

@@ -5,23 +5,19 @@
   >
     <div class="lg:hidden">
       <div
-        v-for="item in results"
-        :key="item.id"
+        v-for="document in results"
+        :key="document.id"
         class="border-b py-3 flex items-start justify-between"
       >
         <div>
           <div>
-            {{ item.created_at }}
+            {{ document.created_at }}
           </div>
           <div>
-            {{ item.name }}
+            {{ document.name }}
           </div>
         </div>
-        <button class="flex-shrink-0 focus:outline-none block ml-4 w-10 h-10">
-          <span class="inline-block rounded-full bg-black w-1 h-1" />
-          <span class="inline-block rounded-full bg-black w-1 h-1" />
-          <span class="inline-block rounded-full bg-black w-1 h-1" />
-        </button>
+        <DocumentsOverviewResultsMenu :document="document" />
       </div>
     </div>
     <table class="hidden lg:table w-full text-left">
@@ -55,32 +51,21 @@
       </thead>
       <tbody>
         <tr
-          v-for="item in results"
-          :key="item.id"
+          v-for="document in results"
+          :key="document.id"
           class="border-b"
         >
           <td class="py-1">
-            {{ item.name }}
+            {{ document.name }}
           </td>
           <td>
-            {{ item.created_at }}
+            {{ document.created_at }}
           </td>
           <td>
-            <button
-              class="focus:outline-none hover:text-blue"
-              @click="onPreview(item)"
-            >
-              Preview
-            </button>
+            <DocumentsOverviewResultsPreview :document="document" />
           </td>
           <td>
-            <a
-              :href="item.file.url"
-              :download="item.file.name"
-              class="focus:outline-none hover:text-blue"
-            >
-              Download
-            </a>
+            <DocumentsOverviewResultsDownload :document="document" />
           </td>
         </tr>
       </tbody>
@@ -95,10 +80,16 @@
 </template>
 
 <script>
-import ThSortable from './atoms/table/th-sortable'
+import ThSortable from '../atoms/table/th-sortable'
+import DocumentsOverviewResultsMenu from './DocumentsOverviewResultsMenu'
+import DocumentsOverviewResultsPreview from './DocumentsOverviewResultsPreview'
+import DocumentsOverviewResultsDownload from './DocumentsOverviewResultsDownload'
 
 export default {
   components: {
+    DocumentsOverviewResultsDownload,
+    DocumentsOverviewResultsPreview,
+    DocumentsOverviewResultsMenu,
     ThSortable
   },
   props: {
@@ -131,11 +122,6 @@ export default {
           date: newValue
         })
       }
-    }
-  },
-  methods: {
-    onPreview () {
-      // TODO: implement
     }
   }
 }
