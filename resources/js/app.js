@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueMapbox from 'vue-mapbox'
 import Mapbox from 'mapbox-gl'
+import vClickOutside from 'v-click-outside'
 import { Lang } from 'laravel-vue-lang'
 
 require('./bootstrap')
@@ -16,6 +17,7 @@ Vue.component('DocumentsOverview', require('./components/documents-overview/Docu
 
 Vue.use(VueMapbox, { mapboxgl: Mapbox })
 Vue.use(Lang)
+Vue.use(vClickOutside)
 
 // eslint-disable-next-line no-unused-vars
 const app = new Vue({
