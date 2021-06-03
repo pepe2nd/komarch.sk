@@ -126,9 +126,13 @@ class ImportWp extends Command
                     ->where('wp_postmeta.meta_key', '=', '_amfp_exclude_from_menu');
             })
             ->get();
+        $bar = $this->output->createProgressBar(count($oldPosts));
+        $bar->start();
 
         collect($oldPosts)
-            ->each(function (stdClass $oldPost) {
+            ->each(function (stdClass $oldPost) use (&$bar) {
+                $bar->advance();
+
                 $now = Carbon::now();
                 $publishedAt = Carbon::createFromFormat('Y-m-d H:i:s', $oldPost->post_date);
 
@@ -168,6 +172,7 @@ class ImportWp extends Command
                 }
             });
 
+        $bar->finish();
         $this->info("Done 🎉");
     }
 
@@ -215,7 +220,6 @@ class ImportWp extends Command
         $meta_thumbnail = $this->wordpressDb->table('wp_postmeta')->where('post_id', $meta_post->meta_value)->where('wp_postmeta.meta_key', '=', '_wp_attached_file')->first();
         if (empty($meta_thumbnail)) return null;
         $path = $meta_thumbnail->meta_value;
-        $file = $this->wordpressFs->get(self::WP_UPLOADS . $path);
         $model->clearMediaCollection('cover');
         $model->addMediaFromDisk(self::WP_UPLOADS . $path, 'wordpress')
             ->preservingOriginal()

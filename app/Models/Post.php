@@ -101,9 +101,7 @@ class Post extends Model implements HasMedia
     {
         $this
             ->addMediaCollection('cover')
-            ->acceptsFile(function (File $file) {
-                return $file->mimeType === 'image/jpeg';
-            })
+            ->acceptsMimeTypes(['image/jpeg', 'image/gif', 'image/png'])
             ->withResponsiveImages();
     }
 
