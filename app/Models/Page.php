@@ -36,10 +36,13 @@ class Page extends Model implements HasMedia
 
     protected $table = 'pages';
     protected $fillable = [
+        'id',
+        'parent_id',
         'title',
         'slug',
         'menu_order',
         'text',
+        'wp_post_name',
         'published_at',
         'cover_image',
     ];
