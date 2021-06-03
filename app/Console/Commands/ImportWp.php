@@ -143,7 +143,7 @@ class ImportWp extends Command
                         'perex' => $perex,
                         'text' => $this->sanitizePostContent($oldPost->post_content),
                         'wp_post_name' => $oldPost->post_name,
-                        'published_at' => Carbon::createFromFormat('Y-m-d H:i:s', $oldPost->post_date),
+                        'published_at' => $publishedAt,
                     ]);
 
                     if ($now->isAfter($publishedAt)) {
