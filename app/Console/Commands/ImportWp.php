@@ -169,6 +169,9 @@ class ImportWp extends Command
                     // TODO: Make searchable
 
                     $this->attachTags($oldPost, $page);
+                    if ($this->option('download-cover-images')) {
+                        $this->addCoverImage($oldPost, $page);
+                    }
                 }
             });
 
