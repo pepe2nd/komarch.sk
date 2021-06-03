@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\Publishable;
+use App\Traits\HasCoverImage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
@@ -11,8 +12,10 @@ use Spatie\Tags\HasTags;
 use Spatie\Tags\Tag;
 use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Page extends Model
+class Page extends Model implements HasMedia
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory,
@@ -20,7 +23,9 @@ class Page extends Model
         HasTags,
         Publishable,
         HasTranslations,
-        CrudTrait;
+        CrudTrait,
+        InteractsWithMedia,
+        HasCoverImage;
 
     public $translatable = [
         'title',
@@ -30,7 +35,14 @@ class Page extends Model
     public $with = ['tags'];
 
     protected $table = 'pages';
-    protected $guarded = [];
+    protected $fillable = [
+        'title',
+        'slug',
+        'menu_order',
+        'text',
+        'published_at',
+        'cover_image',
+    ];
     protected $dates = ['published_at'];
 
     public function getRouteKeyName()
@@ -96,4 +108,11 @@ class Page extends Model
                      ->orderBy('menu_order');
     }
 
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection('cover')
+            ->acceptsMimeTypes(['image/jpeg', 'image/gif', 'image/png'])
+            ->withResponsiveImages();
+    }
 }

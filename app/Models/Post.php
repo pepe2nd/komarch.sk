@@ -17,7 +17,6 @@ use Spatie\Tags\HasTags;
 use Spatie\Tags\Tag;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\File;
 
 class Post extends Model implements HasMedia
 {
