@@ -2,23 +2,19 @@
   <div>
     <div class="mt-24 md:flex flex-wrap">
       <radio-button
-        v-for="option in options"
-        :key="option.key"
-        v-model="selectedOption"
-        :disabled="isLoading"
-        :option="option"
+        v-for="filter in filters"
+        :key="filter.key"
+        v-model="activeFilter"
+        :disabled="fetchState.isFetching"
+        :option="filter"
         class="mr-12 py-2"
       />
     </div>
     <div class="h-10 md:h-20">
-      <button
-        v-show="selectedOption.key"
-        class="mt-5 focus:outline-none hover:text-blue"
+      <ButtonClearFilters
+        v-show="activeFilter.key"
         @click="onCancel"
-      >
-        <span class="icon-close text-lg mr-1" />
-        {{ __('post.cancel_filters') }}
-      </button>
+      />
     </div>
     <transition-group
       name="posts-overview"
@@ -38,91 +34,74 @@
     >
       {{ __('post.no_posts') }}.
     </p>
-    <div
+    <ButtonLoadMore
       v-if="hasNextPage"
-      class="mt-10 h-20 flex items-center"
-    >
-      <ButtonArrow
-        v-if="!isLoading"
-        class="text-xl"
-        @click="onLoadMore"
-      >
-        {{ __('post.load_more') }}
-      </ButtonArrow>
-      <p v-else>
-        {{ __('post.loading_more') }}
-      </p>
-    </div>
+      @click="onLoadMore"
+    />
   </div>
 </template>
 
 <script>
 import RadioButton from './atoms/RadioButton'
 import TeaserPostBig from './TeaserPostBig'
-import ButtonArrow from './atoms/buttons/ButtonArrow'
+import ButtonLoadMore from './atoms/buttons/ButtonLoadMore'
+import ButtonClearFilters from './atoms/buttons/ButtonClearFilters'
+import axiosGet from './axiosGetMixin'
 
 export default {
   components: {
-    ButtonArrow,
+    ButtonClearFilters,
+    ButtonLoadMore,
     RadioButton,
     TeaserPostBig
   },
-  props: {
-    options: {
-      type: Array,
-      default: () => [
-        { key: 'important', title: 'Dôležité', params: '&featured' },
-        { key: 'tenders', title: 'Súťaže', params: '&categories=Súťaže' },
-        { key: 'info', title: 'Správy', params: '&categories=Správy' },
-        { key: 'education', title: 'Vzdelávanie', params: '&categories=Vzdelávanie' },
-        { key: 'cezaar', title: 'CE ZA AR', params: '&categories=CE ZA AR' }
-      ]
-    }
-  },
+  mixins: [
+    axiosGet
+  ],
   data () {
     return {
+      filters: [],
+      activeFilter: {},
       posts: [],
-      selectedOption: {},
       page: 1,
-      hasNextPage: true,
-      isLoading: false,
-      isError: false
+      hasNextPage: true
     }
   },
   watch: {
-    selectedOption: {
+    activeFilter: {
       immediate: true,
       handler () {
         this.fetchPage(1)
       }
     }
   },
+  // TODO: refactor using proper axios parameters
+  async created () {
+    const { categories } = await this.axiosGet('/api/posts-filters')
+
+    const importantFilter = { key: 'Dôležité', title: 'Dôležité', params: '&featured' }
+
+    const filters = [
+      importantFilter
+    ]
+
+    for (const key in categories) {
+      if (key !== importantFilter.key) {
+        filters.push({ key: key, title: key, params: `&categories=${key}` })
+      }
+    }
+
+    this.filters = filters
+  },
   methods: {
     onLoadMore () {
       this.fetchPage(this.page + 1)
     },
     onCancel () {
-      this.selectedOption = {}
-    },
-    async fetchUrl (url) {
-      try {
-        this.isLoading = true
-        const response = await axios.get(url)
-
-        if (response.status !== 200) {
-          this.isError = true
-          return
-        }
-
-        return response.data
-      } catch (error) {
-        this.isError = true
-      } finally {
-        this.isLoading = false
-      }
+      this.activeFilter = {}
     },
     async fetchPage (pageNumber) {
-      const { data, meta } = await this.fetchUrl(`${window.location.origin}/api/posts?page=${pageNumber}${this.selectedOption.params || ''}`)
+      const { data, meta } = await this.axiosGet(`/api/posts?page=${pageNumber}${this.activeFilter.params || ''}`)
 
       if (pageNumber === 1) {
         this.posts = data

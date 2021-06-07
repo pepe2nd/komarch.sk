@@ -89,6 +89,11 @@ class PageCrudController extends CrudController
                 'hint' => 'Will be automatically generated from your title, if left empty.'
             ],
             [
+                'name' => 'redirect_url',
+                'type' => 'text',
+                'hint' => 'Only if this page should redirect to other URL'
+            ],
+            [
                 'name'        => 'parent_id',
                 'label'       => 'Parent',
                 'type'        => 'select2',
