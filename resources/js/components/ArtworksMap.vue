@@ -7,6 +7,11 @@
       :zoom="zoom"
       :attribution-control="false"
     >
+      <MglMarker
+        v-for="marker in artworks"
+        :key="marker.properties.id"
+        :coordinates="marker.geometry.coordinates"
+      />
       <MglNavigationControl
         position="top-left"
         :show-compass="false"
@@ -17,7 +22,8 @@
 </template>
 
 <script>
-import { MglMap, MglNavigationControl, MglAttributionControl } from 'vue-mapbox'
+import { MglMap, MglNavigationControl, MglAttributionControl, MglMarker } from 'vue-mapbox'
+import { fetchArtworkMarkers } from './artworkMarkersMockApi'
 
 export const SVK_CENTER_LONGITUDE = 19.696058
 export const SVK_CENTER_LATITUDE = 48.6737532
@@ -25,6 +31,7 @@ export const SVK_CENTER_LATITUDE = 48.6737532
 export default {
   components: {
     MglMap,
+    MglMarker,
     MglNavigationControl,
     MglAttributionControl
   },
@@ -43,10 +50,19 @@ export default {
       default: 'mapbox://styles/mapbox/streets-v11'
     }
   },
+  data () {
+    return {
+      artworks: []
+    }
+  },
   computed: {
     accessToken () {
       return process.env.MIX_MAPBOX_TOKEN
     }
+  },
+  async created () {
+    const response = await fetchArtworkMarkers()
+    this.artworks = response.features
   }
 }
 </script>
