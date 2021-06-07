@@ -53,6 +53,9 @@ class Page extends Model
 
     public function getUrlAttribute(): string
     {
+        if ($this->redirect_url) {
+            return $this->redirect_url;
+        }
         return action('\App\Http\Controllers\PagesController@show', $this->slug);
     }
 
