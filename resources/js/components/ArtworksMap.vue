@@ -7,10 +7,11 @@
       :zoom="zoom"
       :attribution-control="false"
     >
-      <MglMarker
-        v-for="marker in artworks"
-        :key="marker.properties.id"
-        :coordinates="marker.geometry.coordinates"
+      <MglGeojsonLayer
+        :source-id="geoJsonSource.type"
+        :source="geoJsonSource"
+        layer-id="artworksLayer"
+        :layer="geoJsonLayer"
       />
       <MglNavigationControl
         position="top-left"
@@ -22,7 +23,7 @@
 </template>
 
 <script>
-import { MglMap, MglNavigationControl, MglAttributionControl, MglMarker } from 'vue-mapbox'
+import { MglMap, MglNavigationControl, MglAttributionControl, MglGeojsonLayer } from 'vue-mapbox'
 import { fetchArtworkMarkers } from './artworkMarkersMockApi'
 
 export const SVK_CENTER_LONGITUDE = 19.696058
@@ -31,7 +32,7 @@ export const SVK_CENTER_LATITUDE = 48.6737532
 export default {
   components: {
     MglMap,
-    MglMarker,
+    MglGeojsonLayer,
     MglNavigationControl,
     MglAttributionControl
   },
@@ -52,7 +53,16 @@ export default {
   },
   data () {
     return {
-      artworks: []
+      geoJsonSource: {
+        type: 'geojson',
+        data: {}
+      },
+      geoJsonLayer: {
+        type: 'circle',
+        paint: {
+          'circle-color': 'black'
+        }
+      }
     }
   },
   computed: {
@@ -62,7 +72,7 @@ export default {
   },
   async created () {
     const response = await fetchArtworkMarkers()
-    this.artworks = response.features
+    this.geoJsonSource.data = response
   }
 }
 </script>
