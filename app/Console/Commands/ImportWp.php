@@ -18,11 +18,14 @@ use Illuminate\Support\Str;
 
 class ImportWp extends Command
 {
-    protected $signature = 'import:wp {--download-images}';
+    protected $signature = 'import:wp {--download-cover-images} {--download-images}';
 
     protected $description = 'Import the WordPress database and images';
 
     protected $wordpressDb;
+    protected $wordpressFs;
+
+    const WP_UPLOADS = 'wp-content/uploads/';
 
     public function handle()
     {
@@ -50,7 +53,7 @@ class ImportWp extends Command
                 mkdir($downloadDir, 0777, true);
             }
 
-            $files = $wordpressFs->allFiles('wp-content/uploads/');
+            $files = $this->wordpressFs->allFiles(self::WP_UPLOADS);
             $extensions = [
                 'jpg',
                 'JPG',
@@ -73,7 +76,7 @@ class ImportWp extends Command
                 if (in_array($fileExtension, $extensions)) {
                     $this->info('Copying file: ' . $file);
                     try {
-                        if (!$wordpressFs->exists($file)) {
+                        if (!$this->wordpressFs->exists($file)) {
                             // Some files have invalid characters in their
                             // filesnames and the Laravel FTP client doesn't
                             // like that. We just skip those files.
@@ -82,7 +85,7 @@ class ImportWp extends Command
                             continue;
                         }
 
-                        $contents = $wordpressFs->get($file);
+                        $contents = $this->wordpressFs->get($file);
 
                         $destDir = $downloadDir . '/' . $fileDirname;
                         $destFile = $downloadDir . '/' . $file;
@@ -123,9 +126,13 @@ class ImportWp extends Command
                     ->where('wp_postmeta.meta_key', '=', '_amfp_exclude_from_menu');
             })
             ->get();
+        $bar = $this->output->createProgressBar(count($oldPosts));
+        $bar->start();
 
         collect($oldPosts)
-            ->each(function (stdClass $oldPost) {
+            ->each(function (stdClass $oldPost) use (&$bar) {
+                $bar->advance();
+
                 $now = Carbon::now();
                 $publishedAt = Carbon::createFromFormat('Y-m-d H:i:s', $oldPost->post_date);
 
@@ -136,7 +143,7 @@ class ImportWp extends Command
                         'perex' => $perex,
                         'text' => $this->sanitizePostContent($oldPost->post_content),
                         'wp_post_name' => $oldPost->post_name,
-                        'published_at' => Carbon::createFromFormat('Y-m-d H:i:s', $oldPost->post_date),
+                        'published_at' => $publishedAt,
                     ]);
 
                     if ($now->isAfter($publishedAt)) {
@@ -144,6 +151,9 @@ class ImportWp extends Command
                     }
 
                     $this->attachTags($oldPost, $post);
+                    if ($this->option('download-cover-images')) {
+                        $this->addCoverImage($oldPost, $post);
+                    }
                     $this->createRedirect($post);
                 } else {
                     $page = Page::create([
@@ -159,9 +169,13 @@ class ImportWp extends Command
                     // TODO: Make searchable
 
                     $this->attachTags($oldPost, $page);
+                    if ($this->option('download-cover-images')) {
+                        $this->addCoverImage($oldPost, $page);
+                    }
                 }
             });
 
+        $bar->finish();
         $this->info("Done 🎉");
     }
 
@@ -200,6 +214,19 @@ class ImportWp extends Command
         $slice = Str::before($postContent, $more_separator_tag);
         return strip_tags($slice);
 
+    }
+
+    protected function addCoverImage(stdClass $oldPost, \Illuminate\Database\Eloquent\Model $model)
+    {
+        $meta_post = $this->wordpressDb->table('wp_postmeta')->where('post_id', $oldPost->ID)->where('wp_postmeta.meta_key', '=', '_thumbnail_id')->first();
+        if (empty($meta_post)) return null;
+        $meta_thumbnail = $this->wordpressDb->table('wp_postmeta')->where('post_id', $meta_post->meta_value)->where('wp_postmeta.meta_key', '=', '_wp_attached_file')->first();
+        if (empty($meta_thumbnail)) return null;
+        $path = $meta_thumbnail->meta_value;
+        $model->clearMediaCollection('cover');
+        $model->addMediaFromDisk(self::WP_UPLOADS . $path, 'wordpress')
+            ->preservingOriginal()
+            ->toMediaCollection('cover');
     }
 
     protected function attachTags(stdClass $oldPost, \Illuminate\Database\Eloquent\Model $model)

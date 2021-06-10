@@ -17,7 +17,6 @@ use Spatie\Tags\HasTags;
 use Spatie\Tags\Tag;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\File;
 
 class Post extends Model implements HasMedia
 {
@@ -101,9 +100,7 @@ class Post extends Model implements HasMedia
     {
         $this
             ->addMediaCollection('cover')
-            ->acceptsFile(function (File $file) {
-                return $file->mimeType === 'image/jpeg';
-            })
+            ->acceptsMimeTypes(['image/jpeg', 'image/gif', 'image/png'])
             ->withResponsiveImages();
     }
 
