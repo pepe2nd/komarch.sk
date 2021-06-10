@@ -26,6 +26,7 @@ class ImportWp extends Command
     protected $wordpressFs;
 
     const WP_UPLOADS = 'wp-content/uploads/';
+    const EN_TERM_ID = 171;
 
     public function handle()
     {
@@ -121,6 +122,10 @@ class ImportWp extends Command
         $oldPosts = $this->wordpressDb->table('wp_posts')
             ->where('post_status', 'publish')
             ->whereIn('post_type', ['post', 'page'])
+            // exclude EN posts/pages
+            ->whereNotIn('ID', function($query) {
+                $query->select('object_id')->from('wp_term_relationships')->where('term_taxonomy_id', '=', self::EN_TERM_ID);
+            })
             ->leftJoin('wp_postmeta', function ($join) {
                 $join->on('wp_postmeta.post_id', '=', 'wp_posts.ID')
                     ->where('wp_postmeta.meta_key', '=', '_amfp_exclude_from_menu');
@@ -186,7 +191,6 @@ class ImportWp extends Command
         Page::truncate();
         Post::truncate();
         Redirect::truncate();
-
         Tag::whereNull('type')->delete();
 
         Schema::enableForeignKeyConstraints();
