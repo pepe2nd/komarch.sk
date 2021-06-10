@@ -62,6 +62,13 @@ return [
             'password' => env('FTP_WORDPRESS_PASSWORD'),
         ],
 
+        'urad' => [
+            'driver' => 'sftp',
+            'host' => env('URAD_SFTP_HOST'),
+            'username' => env('URAD_SFTP_USERNAME'),
+            'privateKey' => env('URAD_SFTP_PRIVATE_KEY'),
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
