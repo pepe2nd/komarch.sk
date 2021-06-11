@@ -33,18 +33,11 @@ class ImportWorks implements ShouldQueue
      */
     public function handle()
     {
-        $db = DB::connection('urad');
+        $sourceDb = DB::connection('urad');
 
-        // Remove Works no longer present in source DB
-        Work::whereNotIn('id', $db->table('lab_works')->pluck('id'))->delete();
-
-        // Remove Media no longer present in source DB
-        Media::whereNotNull('custom_properties->urad_id')
-            ->whereNotIn('custom_properties->urad_id', $db->table('lab_media')->pluck('id'))->delete();
-
-        $db->table('lab_works')
+        $sourceDb->table('lab_works')
             ->lazyById()
-            ->each(function ($sourceWork) use ($db) {
+            ->each(function ($sourceWork) use ($sourceDb) {
                 $work = Work::unguarded(function() use ($sourceWork) {
                     return Work::updateOrCreate(
                         ['id' => $sourceWork->id],
@@ -52,14 +45,47 @@ class ImportWorks implements ShouldQueue
                     );
                 });
 
-                $this->importMedia($work, $db);
+                $this->importMedia($work, $sourceDb);
             });
+
+        $sourceDb->table('lab_awards')
+            ->orderBy('id')
+            ->chunk(100, function ($sourceAwards) {
+              $upserts = $sourceAwards
+                ->map(fn ($aw) => (array) $aw)
+                ->toArray();
+
+              DB::table('awards')->upsert($upserts, ['id']);
+            });
+
+        $sourceDb->table('lab_award_work')
+            ->orderBy('id')
+            ->chunk(100, function ($sourceAwardWorks) {
+              $upserts = $sourceAwardWorks
+                ->map(fn ($aw) => (array) $aw)
+                ->toArray();
+
+              DB::table('award_work')->upsert($upserts, ['id']);
+            });
+
+        // Remove Works no longer present in source DB
+        DB::table('award_work')->whereNotIn('id', $sourceDb->table('lab_award_work')->pluck('id'))->delete();
+
+        // Remove Works no longer present in source DB
+        DB::table('awards')->whereNotIn('id', $sourceDb->table('lab_awards')->pluck('id'))->delete();
+
+        // Remove Media no longer present in source DB
+        Media::whereNotNull('custom_properties->urad_id')
+            ->whereNotIn('custom_properties->urad_id', $sourceDb->table('lab_media')->pluck('id'))->delete();
+
+        // Remove Works no longer present in source DB
+        Work::whereNotIn('id', $sourceDb->table('lab_works')->pluck('id'))->delete();
     }
 
-    private function importMedia(Work $work, ConnectionInterface $db) {
+    private function importMedia(Work $work, ConnectionInterface $sourceDb) {
         $existingUradIds = $work->getMedia('images')->map->getCustomProperty('urad_id');
 
-        $db->table('lab_media')
+        $sourceDb->table('lab_media')
             ->where('model_type', 'App\Models\Work')
             ->where('collection_name', 'work_pictures')
             ->where('model_id', $work->id) // Work ID from 'Urad' matches our Work ID
