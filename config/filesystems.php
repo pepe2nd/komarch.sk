@@ -64,9 +64,9 @@ return [
 
         'urad' => [
             'driver' => 'sftp',
-            'host' => env('URAD_SFTP_HOST'),
-            'username' => env('URAD_SFTP_USERNAME'),
-            'privateKey' => env('URAD_SFTP_PRIVATE_KEY'),
+            'host' => env('URAD_SFTP_HOST', 'intranet.komarch.sk'),
+            'username' => env('URAD_SFTP_USERNAME', 'lab_sng'),
+            'privateKey' => env('URAD_SFTP_PRIVATE_KEY', '/home/lab_sng/.ssh/id_rsa'),
         ],
 
         's3' => [
