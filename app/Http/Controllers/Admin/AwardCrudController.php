@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\WorkRequest;
+use App\Http\Requests\AwardRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class WorkCrudController
+ * Class AwardCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class WorkCrudController extends CrudController
+class AwardCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,26 +26,18 @@ class WorkCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Work::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/work');
-        CRUD::setEntityNameStrings('work', 'works');
+        CRUD::setModel(\App\Models\Award::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/award');
+        CRUD::setEntityNameStrings('award', 'awards');
 
         $this->crud->setColumns([
             [
                 'name' => 'name',
             ],
             [
-                'name' => 'studio',
-            ],
-            [
-                'name' => 'location_city',
-            ],
-            [
-                'name' => 'date_design_start',
-                'type' => 'text',
-            ],
-            [
-                'name' => 'reg_number',
+                'name'      => 'works',
+                'type'      => 'relationship_count',
+                'label'     => 'Works',
             ],
         ]);
 
@@ -63,6 +55,12 @@ class WorkCrudController extends CrudController
     protected function setupListOperation()
     {
         
+
+        /**
+         * Columns can be defined using the fluent syntax or array syntax:
+         * - CRUD::column('price')->type('number');
+         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
+         */
     }
 
     /**
@@ -73,7 +71,7 @@ class WorkCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(WorkRequest::class);
+        CRUD::setValidation(AwardRequest::class);
 
         
 
