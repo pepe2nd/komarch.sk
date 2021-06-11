@@ -11,6 +11,11 @@ class Work extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
+    public function awards()
+    {
+        return $this->belongsToMany(Award::class);
+    }
+
     public function registerMediaCollections(): void
     {
         $this

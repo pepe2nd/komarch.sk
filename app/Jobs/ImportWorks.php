@@ -8,8 +8,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\Se1`rializesModels;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ImportWorks implements ShouldQueue
 {
@@ -74,8 +75,7 @@ class ImportWorks implements ShouldQueue
         DB::table('awards')->whereNotIn('id', $sourceDb->table('lab_awards')->pluck('id'))->delete();
 
         // Remove Media no longer present in source DB
-        DB::table('media')
-            ->whereNotNull('custom_properties->urad_id')
+        Media::whereNotNull('custom_properties->urad_id')
             ->whereNotIn('custom_properties->urad_id', $sourceDb->table('lab_media')->pluck('id'))->delete();
 
         // Remove Works no longer present in source DB
