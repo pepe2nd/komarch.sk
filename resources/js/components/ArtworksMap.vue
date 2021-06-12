@@ -12,8 +12,8 @@
         :source="geoJsonSource"
         layer-id="clustersLayer"
         :layer="clustersLayer"
-        @mouseenter="onMouseEnter"
-        @mouseleave="onMouseLeave"
+        @mouseenter="onClusterMouseEnter"
+        @mouseleave="onClusterMouseLeave"
         @click="onClusterClicked"
       />
       <MglGeojsonLayer
@@ -27,8 +27,8 @@
         :source="geoJsonSource"
         layer-id="unclusteredPoints"
         :layer="unclusteredPointsLayer"
-        @mouseenter="onMouseEnter"
-        @mouseleave="onMouseLeave"
+        @mouseenter="onPointMouseEnter"
+        @mouseleave="onPointMouseLeave"
         @click="onPointClicked"
       />
       <!-- https://github.com/soal/vue-mapbox/issues/133 -->
@@ -101,6 +101,7 @@ export default {
         center: [SVK_CENTER_LONGITUDE, SVK_CENTER_LATITUDE],
         showed: false
       },
+      hoveredMarker: null,
       activeId: 1
     }
   },
@@ -179,11 +180,33 @@ export default {
     this.geoJsonSource.data = response
   },
   methods: {
-    onMouseEnter (event) {
+    onClusterMouseEnter (event) {
       event.map.getCanvas().style.cursor = 'pointer'
     },
-    onMouseLeave (event) {
+    onClusterMouseLeave (event) {
       event.map.getCanvas().style.cursor = null
+    },
+    onPointMouseEnter (event) {
+      event.map.getCanvas().style.cursor = 'pointer'
+
+      if (!this.hoveredMarker) {
+        this.hoveredMarker = event.map.queryRenderedFeatures(event.mapboxEvent.point, { layers: ['unclusteredPoints'] })[0]
+      }
+
+      event.map.setFeatureState(
+        { source: this.geoJsonSource.type, id: this.hoveredMarker.id },
+        { hover: true }
+      )
+    },
+    onPointMouseLeave (event) {
+      event.map.getCanvas().style.cursor = null
+
+      event.map.setFeatureState(
+        { source: this.geoJsonSource.type, id: this.hoveredMarker.id },
+        { hover: false }
+      )
+
+      this.hoveredMarker = null
     },
     onClusterClicked (event) {
       const feature = event.map.queryRenderedFeatures(event.mapboxEvent.point, { layers: ['clustersLayer'] })[0]

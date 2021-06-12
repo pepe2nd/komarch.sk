@@ -5751,6 +5751,11 @@ const mockMarkers = {
 
 export const fetchArtworkMarkers = (delay = 200) => new Promise(resolve => {
   setTimeout(() => {
+    mockMarkers.features = mockMarkers.features.map(feature => {
+      feature.id = feature.properties.id
+      return feature
+    })
+
     resolve(mockMarkers)
   }, 200)
 })
