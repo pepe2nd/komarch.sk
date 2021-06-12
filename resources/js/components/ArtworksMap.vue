@@ -223,9 +223,8 @@ export default {
         })
       })
     },
-    async onPointClicked (event) {
-      const feature = event.map.queryRenderedFeatures(event.mapboxEvent.point, { layers: ['unclusteredPoints'] })[0]
-      this.popup.center = feature.geometry.coordinates
+    async onPointClicked () {
+      this.popup.center = this.hoveredMarker.geometry.coordinates
       this.popup.showed = false
       await this.$nextTick()
       this.popup.showed = true
