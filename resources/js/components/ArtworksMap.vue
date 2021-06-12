@@ -11,7 +11,13 @@
         :source-id="geoJsonSource.type"
         :source="geoJsonSource"
         layer-id="clustersLayer"
-        :layer="geoJsonLayer"
+        :layer="clustersLayer"
+      />
+      <MglGeojsonLayer
+        :source-id="geoJsonSource.type"
+        :source="geoJsonSource"
+        layer-id="clustersCount"
+        :layer="clustersCountLayer"
       />
       <MglNavigationControl
         position="top-left"
@@ -60,7 +66,7 @@ export default {
         clusterMaxZoom: 14,
         clusterRadius: 50
       },
-      geoJsonLayer: {
+      clustersLayer: {
         type: 'circle',
         filter: ['has', 'point_count'],
         paint: {
@@ -75,6 +81,17 @@ export default {
             50,
             40
           ]
+        }
+      },
+      clustersCountLayer: {
+        type: 'symbol',
+        filter: ['has', 'point_count'],
+        layout: {
+          'text-field': '{point_count_abbreviated}',
+          'text-size': 12
+        },
+        paint: {
+          'text-color': 'white'
         }
       }
     }
