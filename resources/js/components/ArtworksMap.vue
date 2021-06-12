@@ -40,7 +40,6 @@
           :coordinates="popup.center"
           :showed="popup.showed"
           :close-button="false"
-          :close-on-click="false"
           anchor="bottom"
           :offset="10"
         >
@@ -201,9 +200,11 @@ export default {
         })
       })
     },
-    onPointClicked (event) {
+    async onPointClicked (event) {
       const feature = event.map.queryRenderedFeatures(event.mapboxEvent.point, { layers: ['unclusteredPoints'] })[0]
       this.popup.center = feature.geometry.coordinates
+      this.popup.showed = false
+      await this.$nextTick()
       this.popup.showed = true
     }
   }
