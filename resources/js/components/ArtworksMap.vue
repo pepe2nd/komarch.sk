@@ -43,8 +43,8 @@
           anchor="bottom"
           :offset="10"
         >
-          <div>
-            Popup
+          <div v-show="activeMarker">
+            {{ activeMarker && activeMarker.properties.title }}
           </div>
         </MglPopup>
       </MglMarker>
@@ -102,6 +102,7 @@ export default {
         showed: false
       },
       hoveredMarker: null,
+      activeMarker: null,
       activeId: 1
     }
   },
@@ -224,7 +225,8 @@ export default {
       })
     },
     async onPointClicked () {
-      this.popup.center = this.hoveredMarker.geometry.coordinates
+      this.activeMarker = this.hoveredMarker
+      this.popup.center = this.activeMarker.geometry.coordinates
       this.popup.showed = false
       await this.$nextTick()
       this.popup.showed = true
