@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="artwork.properties">
     {{ artwork && artwork.properties.title }}
   </div>
 </template>
@@ -8,7 +8,6 @@
 export default {
   props: {
     artwork: {
-      // TODO: fix null value
       type: Object,
       required: true
     }

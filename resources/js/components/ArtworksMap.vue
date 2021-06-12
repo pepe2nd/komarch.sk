@@ -45,7 +45,7 @@
         >
           <ArtworksMapPopup
             v-show="activeMarker"
-            :artwork="activeMarker"
+            :artwork="activeMarker || {}"
           />
         </MglPopup>
       </MglMarker>
@@ -227,12 +227,14 @@ export default {
         })
       })
     },
-    async onPointClicked () {
+    async onPointClicked (event) {
       this.activeMarker = this.hoveredMarker
       this.popup.center = this.activeMarker.geometry.coordinates
       this.popup.showed = false
       await this.$nextTick()
       this.popup.showed = true
+
+      event.map.easeTo({ center: this.activeMarker.geometry.coordinates })
     }
   }
 }
