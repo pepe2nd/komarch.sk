@@ -10,7 +10,7 @@
       <MglGeojsonLayer
         :source-id="geoJsonSource.type"
         :source="geoJsonSource"
-        layer-id="artworksLayer"
+        layer-id="clustersLayer"
         :layer="geoJsonLayer"
       />
       <MglNavigationControl
@@ -55,12 +55,26 @@ export default {
     return {
       geoJsonSource: {
         type: 'geojson',
-        data: {}
+        data: {},
+        cluster: true,
+        clusterMaxZoom: 14,
+        clusterRadius: 50
       },
       geoJsonLayer: {
         type: 'circle',
+        filter: ['has', 'point_count'],
         paint: {
-          'circle-color': 'black'
+          'circle-color': 'black',
+          // Using step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
+          'circle-radius': [
+            'step',
+            ['get', 'point_count'],
+            20,
+            10,
+            30,
+            50,
+            40
+          ]
         }
       }
     }
