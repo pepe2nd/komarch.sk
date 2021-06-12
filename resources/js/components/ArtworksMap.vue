@@ -36,6 +36,20 @@
         layer-id="activePoint"
         :layer="activePointLayer"
       />
+      <!-- TODO: solve the active marker issue -->
+      <MglMarker :coordinates="popup.center">
+        <MglPopup
+          :coordinates="popup.center"
+          :showed="popup.showed"
+          :close-button="false"
+          anchor="bottom"
+          :offset="30"
+        >
+          <div>
+            Popup
+          </div>
+        </MglPopup>
+      </MglMarker>
       <MglNavigationControl
         position="top-left"
         :show-compass="false"
@@ -46,7 +60,7 @@
 </template>
 
 <script>
-import { MglMap, MglNavigationControl, MglAttributionControl, MglGeojsonLayer } from 'vue-mapbox'
+import { MglMap, MglNavigationControl, MglAttributionControl, MglGeojsonLayer, MglMarker, MglPopup } from 'vue-mapbox'
 import { fetchArtworkMarkers } from './artworkMarkersMockApi'
 
 export const SVK_CENTER_LONGITUDE = 19.696058
@@ -56,6 +70,8 @@ export default {
   components: {
     MglMap,
     MglGeojsonLayer,
+    MglMarker,
+    MglPopup,
     MglNavigationControl,
     MglAttributionControl
   },
@@ -82,6 +98,10 @@ export default {
         cluster: true,
         clusterMaxZoom: 14,
         clusterRadius: 50
+      },
+      popup: {
+        center: [SVK_CENTER_LONGITUDE, SVK_CENTER_LATITUDE],
+        showed: false
       },
       activeId: 1
     }
