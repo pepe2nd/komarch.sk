@@ -14,6 +14,7 @@
         :layer="clustersLayer"
         @mouseenter="onMouseEnter"
         @mouseleave="onMouseLeave"
+        @click="onClusterClicked"
       />
       <MglGeojsonLayer
         :source-id="geoJsonSource.type"
@@ -165,6 +166,21 @@ export default {
     },
     onMouseLeave (event) {
       event.map.getCanvas().style.cursor = null
+    },
+    onClusterClicked (event) {
+      const feature = event.map.queryRenderedFeatures(event.mapboxEvent.point, { layers: ['clustersLayer'] })[0]
+
+      event.map.getSource(this.geoJsonSource.type).getClusterExpansionZoom(feature.properties.cluster_id, (err, zoom) => {
+        if (err) {
+          console.error(err)
+          return
+        }
+
+        event.map.easeTo({
+          center: feature.geometry.coordinates,
+          zoom: zoom
+        })
+      })
     }
   }
 }
