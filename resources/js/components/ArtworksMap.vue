@@ -12,6 +12,8 @@
         :source="geoJsonSource"
         layer-id="clustersLayer"
         :layer="clustersLayer"
+        @mouseenter="onMouseEnter"
+        @mouseleave="onMouseLeave"
       />
       <MglGeojsonLayer
         :source-id="geoJsonSource.type"
@@ -24,6 +26,8 @@
         :source="geoJsonSource"
         layer-id="unclusteredPoints"
         :layer="unclusteredPointsLayer"
+        @mouseenter="onMouseEnter"
+        @mouseleave="onMouseLeave"
       />
       <MglGeojsonLayer
         :source-id="geoJsonSource.type"
@@ -154,6 +158,14 @@ export default {
   async created () {
     const response = await fetchArtworkMarkers()
     this.geoJsonSource.data = response
+  },
+  methods: {
+    onMouseEnter (event) {
+      event.map.getCanvas().style.cursor = 'pointer'
+    },
+    onMouseLeave (event) {
+      event.map.getCanvas().style.cursor = null
+    }
   }
 }
 </script>
