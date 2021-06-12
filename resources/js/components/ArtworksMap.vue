@@ -43,9 +43,10 @@
           anchor="bottom"
           :offset="10"
         >
-          <div v-show="activeMarker">
-            {{ activeMarker && activeMarker.properties.title }}
-          </div>
+          <ArtworksMapPopup
+            v-show="activeMarker"
+            :artwork="activeMarker"
+          />
         </MglPopup>
       </MglMarker>
       <MglNavigationControl
@@ -60,12 +61,14 @@
 <script>
 import { MglMap, MglNavigationControl, MglAttributionControl, MglGeojsonLayer, MglMarker, MglPopup } from 'vue-mapbox'
 import { fetchArtworkMarkers } from './artworkMarkersMockApi'
+import ArtworksMapPopup from './ArtworksMapPopup'
 
 export const SVK_CENTER_LONGITUDE = 19.696058
 export const SVK_CENTER_LATITUDE = 48.6737532
 
 export default {
   components: {
+    ArtworksMapPopup,
     MglMap,
     MglGeojsonLayer,
     MglMarker,
