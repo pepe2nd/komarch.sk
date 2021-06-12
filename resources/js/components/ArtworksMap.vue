@@ -78,7 +78,15 @@ export default {
         clusterMaxZoom: 14,
         clusterRadius: 50
       },
-      clustersLayer: {
+      activeId: 1
+    }
+  },
+  computed: {
+    accessToken () {
+      return process.env.MIX_MAPBOX_TOKEN
+    },
+    clustersLayer () {
+      return {
         type: 'circle',
         filter: ['has', 'point_count'],
         paint: {
@@ -94,8 +102,10 @@ export default {
             40
           ]
         }
-      },
-      clustersCountLayer: {
+      }
+    },
+    clustersCountLayer () {
+      return {
         type: 'symbol',
         filter: ['has', 'point_count'],
         layout: {
@@ -105,8 +115,10 @@ export default {
         paint: {
           'text-color': 'white'
         }
-      },
-      unclusteredPointsLayer: {
+      }
+    },
+    unclusteredPointsLayer () {
+      return {
         type: 'circle',
         filter: ['!', ['has', 'point_count']],
         paint: {
@@ -120,13 +132,15 @@ export default {
           ],
           'circle-stroke-color': '#707070'
         }
-      },
-      activePointLayer: {
+      }
+    },
+    activePointLayer () {
+      return {
         type: 'circle',
         filter: [
           'all',
           ['!has', 'point_count'],
-          ['==', 'id', 10]
+          ['==', 'id', this.activeId]
         ],
         paint: {
           'circle-color': 'white',
@@ -135,11 +149,6 @@ export default {
           'circle-stroke-color': '#707070'
         }
       }
-    }
-  },
-  computed: {
-    accessToken () {
-      return process.env.MIX_MAPBOX_TOKEN
     }
   },
   async created () {
