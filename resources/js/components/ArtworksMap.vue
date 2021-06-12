@@ -19,6 +19,12 @@
         layer-id="clustersCount"
         :layer="clustersCountLayer"
       />
+      <MglGeojsonLayer
+        :source-id="geoJsonSource.type"
+        :source="geoJsonSource"
+        layer-id="unclusteredPoints"
+        :layer="unclusteredPointsLayer"
+      />
       <MglNavigationControl
         position="top-left"
         :show-compass="false"
@@ -92,6 +98,21 @@ export default {
         },
         paint: {
           'text-color': 'white'
+        }
+      },
+      unclusteredPointsLayer: {
+        type: 'circle',
+        filter: ['!', ['has', 'point_count']],
+        paint: {
+          'circle-color': 'black',
+          'circle-radius': 7,
+          'circle-stroke-width': [
+            'case',
+            ['boolean', ['feature-state', 'hover'], false],
+            3,
+            1
+          ],
+          'circle-stroke-color': '#707070'
         }
       }
     }
