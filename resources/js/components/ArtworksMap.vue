@@ -29,21 +29,20 @@
         :layer="unclusteredPointsLayer"
         @mouseenter="onMouseEnter"
         @mouseleave="onMouseLeave"
+        @click="onPointClicked"
       />
-      <MglGeojsonLayer
-        :source-id="geoJsonSource.type"
-        :source="geoJsonSource"
-        layer-id="activePoint"
-        :layer="activePointLayer"
-      />
-      <!-- TODO: solve the active marker issue -->
+      <!-- https://github.com/soal/vue-mapbox/issues/133 -->
       <MglMarker :coordinates="popup.center">
+        <template slot="marker">
+          <span />
+        </template>
         <MglPopup
           :coordinates="popup.center"
           :showed="popup.showed"
           :close-button="false"
+          :close-on-click="false"
           anchor="bottom"
-          :offset="30"
+          :offset="10"
         >
           <div>
             Popup
@@ -201,6 +200,11 @@ export default {
           zoom: zoom
         })
       })
+    },
+    onPointClicked (event) {
+      const feature = event.map.queryRenderedFeatures(event.mapboxEvent.point, { layers: ['unclusteredPoints'] })[0]
+      this.popup.center = feature.geometry.coordinates
+      this.popup.showed = true
     }
   }
 }
