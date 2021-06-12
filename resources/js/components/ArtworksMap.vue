@@ -25,6 +25,12 @@
         layer-id="unclusteredPoints"
         :layer="unclusteredPointsLayer"
       />
+      <MglGeojsonLayer
+        :source-id="geoJsonSource.type"
+        :source="geoJsonSource"
+        layer-id="activePoint"
+        :layer="activePointLayer"
+      />
       <MglNavigationControl
         position="top-left"
         :show-compass="false"
@@ -112,6 +118,20 @@ export default {
             3,
             1
           ],
+          'circle-stroke-color': '#707070'
+        }
+      },
+      activePointLayer: {
+        type: 'circle',
+        filter: [
+          'all',
+          ['!has', 'point_count'],
+          ['==', 'id', 10]
+        ],
+        paint: {
+          'circle-color': 'white',
+          'circle-radius': 15,
+          'circle-stroke-width': 1,
           'circle-stroke-color': '#707070'
         }
       }
