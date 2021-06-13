@@ -1,3 +1,4 @@
+<!-- TODO: Discuss component name - buildings might be better than artworks in this case -->
 <template>
   <div class="relative w-100 map-artworks mt-4">
     <MglMap
