@@ -24,6 +24,16 @@ class WorkController extends Controller
         return WorkResource::collection($works->paginate($per_page));
     }
 
+    public function filters(Request $request)
+    {
+        $works = $this->loadWorks($request)->get();
+        $filters = collect();
+        foreach (Work::$filterable as $filter) {
+            $filters[$filter] = $works->pluck($filter)->flatten()->countBy('name');
+        }
+        return $filters;
+    }
+
     private function loadWorks(Request $request)
     {
         $works = Work::query();

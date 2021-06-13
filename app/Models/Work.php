@@ -15,6 +15,8 @@ class Work extends Model implements HasMedia
 
     public $with = ['other_architects', 'awards'];
 
+    public static $filterable = ['other_architects', 'awards'];
+
     public function awards()
     {
         return $this->belongsToMany(Award::class);
