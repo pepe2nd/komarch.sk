@@ -20,6 +20,7 @@ class WorkResource extends JsonResource
             'url' => $this->url,
             'cover_image' => new MediaResource($this->cover_image),
             'created_at' => trim($this->created_at->formatLocalized('%e. %B %Y')),
+            'filters' => $this->filters,
             'other_architects' => TagResource::collection($this->whenLoaded('other_architects')),
 
         ];
