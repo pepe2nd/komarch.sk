@@ -1,6 +1,15 @@
 <template>
-  <div v-if="artwork.properties">
-    {{ artwork && artwork.properties.title }}
+  <div v-if="artwork && artwork.properties">
+    <!-- TODO: add artwork preview image once available -->
+    <h3>
+      {{ artwork.properties.title }}
+    </h3>
+    <p>
+      {{ artwork.properties.description }}
+    </p>
+    <a :href="artwork.properties.url">
+      Viac o diele
+    </a>
   </div>
 </template>
 
