@@ -1,11 +1,11 @@
 <section class="mt-20">
     <x-heading-section>
         <x-link-arrow :url="$titleUrl">
-            {{ $title }}
+            {{ __('buildings.architecture_register' )}}
         </x-link-arrow>
     </x-heading-section>
     <x-link-arrow :url="$mapUrl" class="mt-10">
-        Zobraz celú mapu
+        {{ __('buildings.full_map' )}}
     </x-link-arrow>
     <artworks-map />
 </section>

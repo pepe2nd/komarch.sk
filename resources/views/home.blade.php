@@ -46,7 +46,6 @@
     </div>
 
     <x-section-map
-        title="Register diel"
         titleUrl="#"
         mapUrl="#"
     />

@@ -8,7 +8,7 @@
       {{ artwork.properties.description }}
     </p>
     <a :href="artwork.properties.url">
-      Viac o diele
+      {{ __('buildings.building_more') }}
     </a>
   </div>
 </template>
