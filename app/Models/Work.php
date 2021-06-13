@@ -12,9 +12,16 @@ class Work extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia, HasTags;
 
+    public $with = ['other_architects', 'awards'];
+
     public function awards()
     {
         return $this->belongsToMany(Award::class);
+    }
+
+    public function other_architects()
+    {
+        return $this->morphToMany(Tag::class, 'taggable')->where('type', 'other_architect');
     }
 
     public function registerMediaCollections(): void
@@ -28,4 +35,10 @@ class Work extends Model implements HasMedia
     {
         return url('/dielo/' . $this->id); // @TODO (slug?)
     }
+
+    public function getCoverImageAttribute()
+    {
+        return $this->getFirstMedia('images');
+    }
+
 }
