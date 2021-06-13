@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+use App\Models\Work;
+use App\Http\Resources\WorkResource;
+
+class WorkController extends Controller
+{
+    public function index(Request $request)
+    {
+        $works = $this->loadWorks($request);
+
+        // sort
+        $works->orderBy(
+            $request->input('sortby', 'created_at'),
+            $request->input('direction', 'desc')
+        );
+
+        $per_page = (int)min($request->get('per_page', 8), 100);
+        return WorkResource::collection($works->paginate($per_page));
+    }
+
+    private function loadWorks(Request $request)
+    {
+        $works = Work::query();
+
+        // apply filters
+        if ($request->has('tags')) {
+            $works->withAnyTags($request->input('tags', []));
+        }
+
+        return $works;
+    }
+}

@@ -23,4 +23,9 @@ class Work extends Model implements HasMedia
             ->addMediaCollection('images')
             ->withResponsiveImages();
     }
+
+    public function getUrlAttribute(): string
+    {
+        return url('/dielo/' . $this->id); // @TODO (slug?)
+    }
 }
