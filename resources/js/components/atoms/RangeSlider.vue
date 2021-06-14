@@ -1,10 +1,13 @@
 <template>
-  <vue-slider
-    :value="value"
-    v-bind="$attrs"
-    @input="value => $emit('input', value)"
-    v-on="$listeners"
-  />
+  <div>
+    <slot />
+    <vue-slider
+      :value="value"
+      v-bind="$attrs"
+      @input="value => $emit('input', value)"
+      v-on="$listeners"
+    />
+  </div>
 </template>
 
 <script>

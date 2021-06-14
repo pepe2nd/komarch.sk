@@ -6,9 +6,13 @@
     />
     <RangeSlider
       v-model="yearRange"
-      :min="1000"
-      :max="2021"
-    />
+      :min="minYear"
+      :max="maxYear"
+    >
+      <div class="mb-2">
+        {{ `${__('works.realisation_year')}:` }}
+      </div>
+    </RangeSlider>
     <InputSearch
       v-model="searchTerm"
       class="mt-16 md:mt-8 md:max-w-sm"
@@ -51,7 +55,9 @@ export default {
     return {
       filters: {},
       selectedFilters: [],
-      yearRange: [1000, 2021],
+      yearRange: [1900, 2021],
+      minYear: 1900,
+      maxYear: 2021,
       searchTerm: null,
       results: [],
       sorting: {
