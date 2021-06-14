@@ -28,7 +28,7 @@
               v-model="sortingName"
               class="pb-10"
             >
-              {{ __('documents.name') }}
+              {{ __('generic.name') }}
             </ButtonSortable>
           </th>
           <th>
@@ -37,7 +37,7 @@
               style="min-width: 200px"
               class="pb-10"
             >
-              {{ __('documents.created') }}
+              {{ __('generic.created') }}
             </ButtonSortable>
           </th>
           <th

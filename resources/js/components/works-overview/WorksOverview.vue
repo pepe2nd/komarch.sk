@@ -6,7 +6,10 @@
       class="mt-16 md:mt-8 md:max-w-sm"
       :placeholder="__('works.search_placeholder')"
     />
-    <WorksOverviewResults :results="results" />
+    <WorksOverviewResults
+      v-model="sorting"
+      :results="results"
+    />
     <ButtonLoadMore
       v-if="hasNextPage"
       class="md:mt-24"
@@ -37,6 +40,10 @@ export default {
       filters: {},
       results: [],
       searchTerm: null,
+      sorting: {
+        name: null,
+        year: null
+      },
       page: 1,
       hasNextPage: true
     }
