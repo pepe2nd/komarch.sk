@@ -1,5 +1,5 @@
 <template>
-  <div class="w-1/4 py-10">
+  <div class="py-10">
     <div class="relative group">
       <!-- TODO: remove the replacement of localhost -->
       <img
@@ -30,7 +30,7 @@
 
 <script>
 
-import TagHash from '../atoms/tags/TagHash'
+import TagHash from './atoms/tags/TagHash'
 
 export default {
   components: {

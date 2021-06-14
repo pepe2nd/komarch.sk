@@ -4,21 +4,22 @@
       {{ count }}
     </div>
     <div class="flex flex-wrap">
-      <WorksOverviewResultsItem
+      <WorkTeaserBig
         v-for="item in results"
         :key="item.id"
         :item="item"
+        class="w-1/4"
       />
     </div>
   </div>
 </template>
 
 <script>
-import WorksOverviewResultsItem from './WorksOverviewResultsItem'
+import WorkTeaserBig from '../WorkTeaserBig'
 
 export default {
   components: {
-    WorksOverviewResultsItem
+    WorkTeaserBig
   },
   props: {
     results: {
