@@ -17,7 +17,7 @@
       </RangeSlider>
       <InputSearch
         v-model="searchTerm"
-        class="mt-16 md:mt-8 pb-4 md:ml-24 md:max-w-sm flex-1"
+        class="mt-16 md:mt-8 pb-1 md:ml-24 md:max-w-sm flex-1"
         :placeholder="__('works.search_placeholder')"
       />
     </div>

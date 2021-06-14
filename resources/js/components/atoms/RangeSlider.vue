@@ -6,6 +6,12 @@
         :value="value"
         v-bind="$attrs"
         :drag-on-click="true"
+        :duration="0.5"
+        :height="1"
+        :tooltip="'none'"
+        :dot-options="{ style: { borderColor: 'black', borderWidth: '1px' } }"
+        :rail-style="{ backgroundColor: 'black' }"
+        :process-style="{ backgroundColor: 'black', height: '200%' }"
         @change="$emit('input', $event)"
         v-on="$listeners"
       />
