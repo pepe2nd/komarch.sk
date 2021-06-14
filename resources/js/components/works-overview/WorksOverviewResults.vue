@@ -1,18 +1,18 @@
 <template>
-  <div class="mt-16">
+  <div class="mt-32">
     <div class="flex">
-      <span class="w-32">
+      <span class="w-32 text-sm">
         {{ count }}
       </span>
       <ButtonSortable
         v-model="sortingName"
-        class="pb-10 ml-12"
+        class="pb-10 ml-12 text-sm"
       >
         {{ __('generic.name') }}
       </ButtonSortable>
       <ButtonSortable
         v-model="sortingYear"
-        class="pb-10 ml-16"
+        class="pb-10 ml-16 text-sm"
       >
         {{ __('generic.year') }}
       </ButtonSortable>
