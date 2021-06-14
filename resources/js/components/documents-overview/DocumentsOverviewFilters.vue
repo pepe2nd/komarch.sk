@@ -1,20 +1,20 @@
 <template>
   <div class="md:flex items-start">
-    <DocumentsOverviewFiltersGroup
+    <InputCheckboxGroup
       v-if="filters.types && filters.types.length > 0"
       :filters="filters.types"
       :value="value"
       :title="`${__('documents.document_type')}:`"
       @input="onInput"
     />
-    <DocumentsOverviewFiltersGroup
+    <InputCheckboxGroup
       v-if="filters.topics && filters.topics.length > 0"
       :filters="filters.topics"
       :value="value"
       :title="`${__('documents.topic')}:`"
       @input="onInput"
     />
-    <DocumentsOverviewFiltersGroup
+    <InputCheckboxGroup
       v-if="filters.roles && filters.roles.length > 0"
       :filters="filters.roles"
       :value="value"
@@ -30,11 +30,11 @@
 
 <script>
 import ButtonClearFilters from '../atoms/buttons/ButtonClearFilters'
-import DocumentsOverviewFiltersGroup from './DocumentsOverviewFiltersGroup'
+import InputCheckboxGroup from './../atoms/InputCheckboxGroup'
 
 export default {
   components: {
-    DocumentsOverviewFiltersGroup,
+    InputCheckboxGroup,
     ButtonClearFilters
   },
   props: {

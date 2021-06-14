@@ -1,7 +1,6 @@
 <template>
   <div class="md:flex items-start">
-    <!-- TODO: make filter group atomic -->
-    <DocumentsOverviewFiltersGroup
+    <InputCheckboxGroup
       v-if="filters.awards && filters.awards.length > 0"
       :filters="filters.awards"
       :value="value"
@@ -17,11 +16,11 @@
 
 <script>
 import ButtonClearFilters from '../atoms/buttons/ButtonClearFilters'
-import DocumentsOverviewFiltersGroup from '../documents-overview/DocumentsOverviewFiltersGroup'
+import InputCheckboxGroup from '../atoms/InputCheckboxGroup'
 
 export default {
   components: {
-    DocumentsOverviewFiltersGroup,
+    InputCheckboxGroup,
     ButtonClearFilters
   },
   props: {
