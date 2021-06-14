@@ -1,7 +1,17 @@
 <template>
   <div>
     <WorksOverviewFilters />
+    <InputSearch
+      v-model="searchTerm"
+      class="mt-16 md:mt-8 md:max-w-sm"
+      :placeholder="__('works.search_placeholder')"
+    />
     <WorksOverviewResults :results="results" />
+    <ButtonLoadMore
+      v-if="hasNextPage"
+      class="md:mt-24"
+      @click="onLoadMore"
+    />
   </div>
 </template>
 
@@ -9,11 +19,15 @@
 import axiosGet from '../axiosGetMixin'
 import WorksOverviewFilters from './WorksOverviewFilters'
 import WorksOverviewResults from './WorksOverviewResults'
+import ButtonLoadMore from '../atoms/buttons/ButtonLoadMore'
+import InputSearch from '../atoms/InputSearch'
 
 export default {
   components: {
     WorksOverviewFilters,
-    WorksOverviewResults
+    WorksOverviewResults,
+    ButtonLoadMore,
+    InputSearch
   },
   mixins: [
     axiosGet
@@ -22,6 +36,7 @@ export default {
     return {
       filters: {},
       results: [],
+      searchTerm: null,
       page: 1,
       hasNextPage: true
     }
@@ -37,6 +52,10 @@ export default {
       ])
 
       this.results = worksResponse.data
+      this.hasNextPage = worksResponse.meta.current_page < worksResponse.meta.last_page
+    },
+    onLoadMore () {
+      // TODO: implement
     }
   }
 }

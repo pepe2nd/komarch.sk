@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-16">
     <div class="flex">
       {{ count }}
     </div>
