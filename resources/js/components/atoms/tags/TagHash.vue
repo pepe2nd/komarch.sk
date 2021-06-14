@@ -1,7 +1,8 @@
 <template>
   <a
-    class="px-1 mr-4 hover:text-blue flex items-center"
+    class="px-1 mr-2 hover:text-blue flex items-center cursor-pointer"
     :href="url"
+    v-on="$listeners"
   >
     ❪<span class="text-sm">#
       <slot />
@@ -14,7 +15,7 @@ export default {
   props: {
     url: {
       type: String,
-      required: true
+      default: null
     }
   }
 }

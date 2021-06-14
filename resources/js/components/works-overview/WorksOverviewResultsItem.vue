@@ -11,23 +11,35 @@
         {{ item.name }}
       </a>
     </h3>
-    <!-- TODO: add universal has tag component -->
-    <span
-      v-for="(filter, index) in item.filters"
-      :key="index"
-    >
-      {{ filter }}
-    </span>
+    <div class="flex flex-wrap">
+      <TagHash
+        v-for="(filter, index) in item.filters"
+        :key="index"
+        @click="onTagClicked(filter)"
+      >
+        {{ filter }}
+      </TagHash>
+    </div>
   </div>
 </template>
 
 <script>
 
+import TagHash from '../atoms/tags/TagHash'
+
 export default {
+  components: {
+    TagHash
+  },
   props: {
     item: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    onTagClicked (filter) {
+      console.log(filter)
     }
   }
 }
