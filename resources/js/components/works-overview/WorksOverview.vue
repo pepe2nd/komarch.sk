@@ -4,7 +4,7 @@
       v-model="selectedFilters"
       :filters="filters"
     />
-    <div class="flex flex-wrap items-center">
+    <div class="md:flex flex-wrap items-center">
       <div class="flex-1 md:max-w-sm">
         <div class="mb-6">
           {{ `${__('works.realisation_year')}:` }}

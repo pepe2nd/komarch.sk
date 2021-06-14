@@ -17,14 +17,17 @@
         {{ __('generic.year') }}
       </ButtonSortable>
     </div>
-    <div class="flex flex-wrap">
+    <transition-group
+      name="works-overview"
+      mode="out-in"
+      class="md:grid grid-cols-4 gap-x-10"
+    >
       <TeaserWorkBig
         v-for="item in results"
         :key="item.id"
         :item="item"
-        class="w-1/4"
       />
-    </div>
+    </transition-group>
   </div>
 </template>
 
@@ -75,3 +78,13 @@ export default {
   }
 }
 </script>
+
+<style>
+.works-overview-enter-active {
+  @apply transition-all duration-700;
+}
+
+.works-overview-enter {
+  @apply transform opacity-0 translate-y-5;
+}
+</style>
