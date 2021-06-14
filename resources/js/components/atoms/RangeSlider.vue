@@ -4,7 +4,8 @@
     <vue-slider
       :value="value"
       v-bind="$attrs"
-      @input="value => $emit('input', value)"
+      :drag-on-click="true"
+      @input="$emit('input', $event)"
       v-on="$listeners"
     />
   </div>
