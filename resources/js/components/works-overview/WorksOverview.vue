@@ -4,6 +4,11 @@
       v-model="selectedFilters"
       :filters="filters"
     />
+    <RangeSlider
+      v-model="yearRange"
+      :min="1000"
+      :max="2021"
+    />
     <InputSearch
       v-model="searchTerm"
       class="mt-16 md:mt-8 md:max-w-sm"
@@ -27,11 +32,13 @@ import WorksOverviewFilters from './WorksOverviewFilters'
 import WorksOverviewResults from './WorksOverviewResults'
 import ButtonLoadMore from '../atoms/buttons/ButtonLoadMore'
 import InputSearch from '../atoms/InputSearch'
+import RangeSlider from '../atoms/RangeSlider'
 
 const FILTER_AWARDS = 'awards'
 
 export default {
   components: {
+    RangeSlider,
     WorksOverviewFilters,
     WorksOverviewResults,
     ButtonLoadMore,
@@ -44,8 +51,9 @@ export default {
     return {
       filters: {},
       selectedFilters: [],
-      results: [],
+      yearRange: [1000, 2021],
       searchTerm: null,
+      results: [],
       sorting: {
         name: null,
         year: null
