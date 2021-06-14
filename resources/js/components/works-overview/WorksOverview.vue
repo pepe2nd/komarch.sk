@@ -11,7 +11,7 @@
         :max="maxYear"
         class="flex-1 md:max-w-sm"
       >
-        <div class="mb-2">
+        <div class="mb-6">
           {{ `${__('works.realisation_year')}:` }}
         </div>
       </RangeSlider>
