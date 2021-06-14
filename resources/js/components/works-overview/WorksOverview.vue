@@ -25,6 +25,12 @@
       v-model="sorting"
       :results="results"
     />
+    <p
+      v-if="results.length === 0"
+      class="py-10"
+    >
+      {{ __('works.no_works') }}.
+    </p>
     <ButtonLoadMore
       v-if="hasNextPage"
       class="md:mt-24"

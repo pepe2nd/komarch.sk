@@ -6,5 +6,6 @@ return [
     'realisation_year' => 'Rok realizácie',
     'objects_one' => 'Objekt',
     'objects_few' => 'Objekty',
-    'objects_plural' => 'Objektov'
+    'objects_plural' => 'Objektov',
+    'no_works' => 'Nenašli sa žiadne diela'
 ];
