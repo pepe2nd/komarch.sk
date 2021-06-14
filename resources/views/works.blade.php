@@ -10,6 +10,7 @@
         title="Register diel"
         text="“Podporujeme rozvoj architektúry na Slovensku. Sme odbornou organizáciou, ktorá sa zameri ava na vzdelávanie a informovanie verejnosti o potrebách kvalitnej architektúry.”"
     />
+    <works-overview></works-overview>
 </div>
 
 <x-footer.footer></x-footer.footer>
