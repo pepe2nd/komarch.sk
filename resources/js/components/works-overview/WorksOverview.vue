@@ -103,8 +103,17 @@ export default {
       this.results = worksResponse.data
       this.hasNextPage = worksResponse.meta.current_page < worksResponse.meta.last_page
     },
-    onLoadMore () {
-      // TODO: implement
+    async onLoadMore () {
+      const params = {
+        ...this.filterParams,
+        page: this.page + 1
+      }
+
+      const worksResponse = await this.axiosGet('works', params)
+
+      this.page = worksResponse.meta.current_page
+      this.hasNextPage = worksResponse.meta.current_page < worksResponse.meta.last_page
+      this.results.push(...worksResponse.data)
     }
   }
 }

@@ -139,7 +139,7 @@ export default {
         page: this.page + 1
       }
 
-      const documentsResponse = await this.axiosGet('/api/documents', params)
+      const documentsResponse = await this.axiosGet('documents', params)
 
       this.page = documentsResponse.meta.current_page
       this.hasNextPage = documentsResponse.meta.current_page < documentsResponse.meta.last_page
