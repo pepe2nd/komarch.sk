@@ -1,7 +1,7 @@
 <template>
   <div>
     <WorksOverviewFilters />
-    <WorksOverviewResults />
+    <WorksOverviewResults :results="results" />
   </div>
 </template>
 
@@ -20,10 +20,10 @@ export default {
   ],
   data () {
     return {
-      // filters: {},
-      // results: [],
-      // page: 1,
-      // hasNextPage: true
+      filters: {},
+      results: [],
+      page: 1,
+      hasNextPage: true
     }
   },
   created () {
@@ -31,12 +31,12 @@ export default {
   },
   methods: {
     async fetchData () {
-      const [documentsResponse, filtersResponse] = await Promise.all([
+      const [worksResponse, filtersResponse] = await Promise.all([
         this.axiosGet('works', this.filterParams),
         this.axiosGet('works-filters', this.filterParams)
       ])
 
-      console.log(documentsResponse, filtersResponse)
+      this.results = worksResponse.data
     }
   }
 }
