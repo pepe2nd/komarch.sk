@@ -104,8 +104,8 @@ export default {
   methods: {
     async fetchData () {
       const [documentsResponse, filtersResponse] = await Promise.all([
-        this.axiosGet('/api/documents', this.filterParams),
-        this.axiosGet('/api/documents-filters', this.filterParams)
+        this.axiosGet('documents', this.filterParams),
+        this.axiosGet('documents-filters', this.filterParams)
       ])
 
       const roles = []
