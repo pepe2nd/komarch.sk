@@ -5,16 +5,16 @@
       :filters="filters"
     />
     <div class="flex flex-wrap items-center">
-      <RangeSlider
-        v-model="yearRange"
-        :min="minYear"
-        :max="maxYear"
-        class="flex-1 md:max-w-sm"
-      >
+      <div class="flex-1 md:max-w-sm">
         <div class="mb-6">
           {{ `${__('works.realisation_year')}:` }}
         </div>
-      </RangeSlider>
+        <RangeSlider
+          v-model="yearRange"
+          :min="minYear"
+          :max="maxYear"
+        />
+      </div>
       <InputSearch
         v-model="searchTerm"
         class="mt-16 md:mt-8 pb-1 md:ml-24 md:max-w-sm flex-1"
