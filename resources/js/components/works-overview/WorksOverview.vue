@@ -1,6 +1,9 @@
 <template>
   <div>
-    <WorksOverviewFilters />
+    <WorksOverviewFilters
+      v-model="selectedFilters"
+      :filters="filters"
+    />
     <InputSearch
       v-model="searchTerm"
       class="mt-16 md:mt-8 md:max-w-sm"
@@ -25,6 +28,8 @@ import WorksOverviewResults from './WorksOverviewResults'
 import ButtonLoadMore from '../atoms/buttons/ButtonLoadMore'
 import InputSearch from '../atoms/InputSearch'
 
+const FILTER_AWARDS = 'awards'
+
 export default {
   components: {
     WorksOverviewFilters,
@@ -38,6 +43,7 @@ export default {
   data () {
     return {
       filters: {},
+      selectedFilters: [],
       results: [],
       searchTerm: null,
       sorting: {
@@ -50,12 +56,9 @@ export default {
   },
   computed: {
     filterParams () {
-      const params = {}
-      // const params = {
-      //   roles: this.selectedFilters.filter(filter => filter.type === FILTER_ROLES).map(filter => filter.title),
-      //   topics: this.selectedFilters.filter(filter => filter.type === FILTER_TOPICS).map(filter => filter.title),
-      //   types: this.selectedFilters.filter(filter => filter.type === FILTER_TYPES).map(filter => filter.title)
-      // }
+      const params = {
+        awards: this.selectedFilters.filter(filter => filter.type === FILTER_AWARDS).map(filter => filter.title)
+      }
 
       if (this.sorting.name) {
         params.sortby = 'name'
@@ -99,6 +102,16 @@ export default {
         this.axiosGet('works', this.filterParams),
         this.axiosGet('works-filters', this.filterParams)
       ])
+
+      const awards = []
+
+      for (const key in filtersResponse.awards) {
+        awards.push({ key: key, title: key, items: filtersResponse.awards[key], type: FILTER_AWARDS })
+      }
+
+      this.filters = {
+        awards
+      }
 
       this.results = worksResponse.data
       this.hasNextPage = worksResponse.meta.current_page < worksResponse.meta.last_page

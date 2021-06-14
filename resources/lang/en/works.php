@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'search_placeholder' => 'Architect, work, ...'
+    'search_placeholder' => 'Architect, work, ...',
+    'awards' => 'Awards',
 ];
