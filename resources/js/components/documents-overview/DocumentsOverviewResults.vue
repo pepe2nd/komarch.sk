@@ -23,19 +23,23 @@
     <table class="hidden lg:table w-full text-left">
       <thead>
         <tr>
-          <th-sortable
-            v-model="sortingName"
-            class="pb-10"
-          >
-            {{ __('documents.name') }}
-          </th-sortable>
-          <th-sortable
-            v-model="sortingDate"
-            style="min-width: 200px"
-            class="pb-10"
-          >
-            {{ __('documents.created') }}
-          </th-sortable>
+          <th>
+            <ButtonSortable
+              v-model="sortingName"
+              class="pb-10"
+            >
+              {{ __('documents.name') }}
+            </ButtonSortable>
+          </th>
+          <th>
+            <ButtonSortable
+              v-model="sortingDate"
+              style="min-width: 200px"
+              class="pb-10"
+            >
+              {{ __('documents.created') }}
+            </ButtonSortable>
+          </th>
           <th
             class="select-none font-normal pb-10"
             style="min-width: 90px"
@@ -81,7 +85,7 @@
 </template>
 
 <script>
-import ThSortable from '../atoms/table/th-sortable'
+import ButtonSortable from '../atoms/buttons/ButtonSortable'
 import DocumentsOverviewResultsMenu from './DocumentsOverviewResultsMenu'
 import DocumentsOverviewResultsPreview from './DocumentsOverviewResultsPreview'
 import DocumentsOverviewResultsDownload from './DocumentsOverviewResultsDownload'
@@ -91,7 +95,7 @@ export default {
     DocumentsOverviewResultsDownload,
     DocumentsOverviewResultsPreview,
     DocumentsOverviewResultsMenu,
-    ThSortable
+    ButtonSortable
   },
   props: {
     value: {
