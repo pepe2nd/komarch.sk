@@ -36,5 +36,8 @@
         "vue-mapbox": "^0.4.1",
         "vue-template-compiler": "^2.6.12",
         "v-click-outside": "^3.1.2"
+    },
+    "dependencies": {
+        "vue-slider-component": "^3.2.13"
     }
 }
