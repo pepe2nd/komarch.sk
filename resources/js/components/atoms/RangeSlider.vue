@@ -9,7 +9,7 @@
         :duration="0.5"
         :height="1"
         :tooltip="'none'"
-        :dot-options="{ style: { borderColor: 'black', borderWidth: '1px' } }"
+        :dot-options="{ style: { borderColor: 'black', borderWidth: '1px', height: '11px', width: '11px' } }"
         :rail-style="{ backgroundColor: 'black' }"
         :process-style="{ backgroundColor: 'black', height: '200%' }"
         @change="$emit('input', $event)"
@@ -17,12 +17,14 @@
       />
       <input
         :value="value[0]"
-        class="absolute left-0 bottom-0 mb-4 focus:outline-none w-12 text-center"
+        class="absolute left-0 bottom-0 mb-4 focus:outline-none w-10 text-center md:text-sm"
+        :placeholder="$attrs.min"
         @input="onMinChanged"
       >
       <input
         :value="value[1]"
-        class="absolute right-0 bottom-0 mb-4 focus:outline-none w-12 text-center"
+        class="absolute right-0 bottom-0 mb-4 focus:outline-none w-10 text-center md:text-sm"
+        :placeholder="$attrs.max"
         @input="onMaxChanged"
       >
     </div>

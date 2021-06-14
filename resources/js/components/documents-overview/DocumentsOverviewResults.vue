@@ -26,7 +26,7 @@
           <th>
             <ButtonSortable
               v-model="sortingName"
-              class="pb-10"
+              class="pb-10 text-sm"
             >
               {{ __('generic.name') }}
             </ButtonSortable>
@@ -35,19 +35,19 @@
             <ButtonSortable
               v-model="sortingDate"
               style="min-width: 200px"
-              class="pb-10"
+              class="pb-10 text-sm"
             >
               {{ __('generic.created') }}
             </ButtonSortable>
           </th>
           <th
-            class="select-none font-normal pb-10"
+            class="select-none font-normal pb-10 text-sm"
             style="min-width: 90px"
           >
             {{ __('documents.preview') }}
           </th>
           <th
-            class="select-none font-normal pb-10"
+            class="select-none font-normal pb-10 text-sm"
             style="min-width: 200px"
           >
             {{ __('documents.download') }}
