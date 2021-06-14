@@ -52,8 +52,17 @@ export default {
   },
   computed: {
     count () {
-      // TODO: add localization / plural forms
-      return `(${this.results.length}) Objektov`
+      let localizedObjectsLabel = 'works.objects_plural'
+
+      if (this.results.length === 1) {
+        localizedObjectsLabel = 'works.objects_one'
+      }
+
+      if (this.results.length > 1 && this.results.length < 5) {
+        localizedObjectsLabel = 'works.objects_few'
+      }
+
+      return `(${this.results.length}) ${this.__(localizedObjectsLabel)}`
     },
     sortingName: {
       get () {
