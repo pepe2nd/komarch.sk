@@ -1,23 +1,20 @@
 <template>
   <a
     class="px-1 mr-4 hover:text-blue flex items-center"
-    :href="tagUrl"
+    :href="url"
   >
-    ❪<span class="text-sm">#{{ tag.name }}</span>❫
+    ❪<span class="text-sm">#
+      <slot />
+    </span>❫
   </a>
 </template>
 
 <script>
 export default {
   props: {
-    tag: {
-      type: Object,
+    url: {
+      type: String,
       required: true
-    }
-  },
-  computed: {
-    tagUrl () {
-      return `${window.location.origin}/spravy?categories[]=${this.tag.name}`
     }
   }
 }
