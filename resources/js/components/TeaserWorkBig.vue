@@ -3,6 +3,7 @@
     <div class="relative group">
       <!-- TODO: remove the replacement of localhost -->
       <img
+        v-if="item.cover_image"
         :src="item.cover_image.url.replace('localhost', 'localhost:8000')"
         :alt="item.name"
         class="rounded-2xl"

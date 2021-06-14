@@ -48,6 +48,48 @@ export default {
       hasNextPage: true
     }
   },
+  computed: {
+    filterParams () {
+      const params = {}
+      // const params = {
+      //   roles: this.selectedFilters.filter(filter => filter.type === FILTER_ROLES).map(filter => filter.title),
+      //   topics: this.selectedFilters.filter(filter => filter.type === FILTER_TOPICS).map(filter => filter.title),
+      //   types: this.selectedFilters.filter(filter => filter.type === FILTER_TYPES).map(filter => filter.title)
+      // }
+
+      if (this.sorting.name) {
+        params.sortby = 'name'
+        params.direction = this.sorting.name
+      }
+
+      if (this.sorting.year) {
+        params.sortby = 'created_at'
+        params.direction = this.sorting.year
+      }
+
+      if (this.searchTerm) {
+        params.q = this.searchTerm
+      }
+
+      return params
+    }
+  },
+  watch: {
+    searchTerm () {
+      const debounceTime = 300
+      clearTimeout(this.searchTermDebounceTimeout)
+
+      this.searchTermDebounceTimeout = setTimeout(() => {
+        this.fetchData()
+      }, debounceTime)
+    },
+    sorting () {
+      this.fetchData()
+    },
+    selectedFilters () {
+      this.fetchData()
+    }
+  },
   created () {
     this.fetchData()
   },

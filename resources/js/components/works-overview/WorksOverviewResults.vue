@@ -16,7 +16,7 @@
       </ButtonSortable>
     </div>
     <div class="flex flex-wrap">
-      <WorkTeaserBig
+      <TeaserWorkBig
         v-for="item in results"
         :key="item.id"
         :item="item"
@@ -28,12 +28,12 @@
 
 <script>
 import ButtonSortable from '../atoms/buttons/ButtonSortable'
-import WorkTeaserBig from '../WorkTeaserBig'
+import TeaserWorkBig from '../TeaserWorkBig'
 
 export default {
   components: {
     ButtonSortable,
-    WorkTeaserBig
+    TeaserWorkBig
   },
   props: {
     value: {
