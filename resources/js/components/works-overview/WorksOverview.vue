@@ -4,20 +4,23 @@
       v-model="selectedFilters"
       :filters="filters"
     />
-    <RangeSlider
-      v-model="yearRange"
-      :min="minYear"
-      :max="maxYear"
-    >
-      <div class="mb-2">
-        {{ `${__('works.realisation_year')}:` }}
-      </div>
-    </RangeSlider>
-    <InputSearch
-      v-model="searchTerm"
-      class="mt-16 md:mt-8 md:max-w-sm"
-      :placeholder="__('works.search_placeholder')"
-    />
+    <div class="flex flex-wrap items-center">
+      <RangeSlider
+        v-model="yearRange"
+        :min="minYear"
+        :max="maxYear"
+        class="flex-1 md:max-w-sm"
+      >
+        <div class="mb-2">
+          {{ `${__('works.realisation_year')}:` }}
+        </div>
+      </RangeSlider>
+      <InputSearch
+        v-model="searchTerm"
+        class="mt-16 md:mt-8 pb-4 md:ml-24 md:max-w-sm flex-1"
+        :placeholder="__('works.search_placeholder')"
+      />
+    </div>
     <WorksOverviewResults
       v-model="sorting"
       :results="results"
@@ -97,6 +100,14 @@ export default {
       clearTimeout(this.searchTermDebounceTimeout)
 
       this.searchTermDebounceTimeout = setTimeout(() => {
+        this.fetchData()
+      }, debounceTime)
+    },
+    yearRange () {
+      const debounceTime = 300
+      clearTimeout(this.yearRangeDebounceTimeout)
+
+      this.yearRangeDebounceTimeout = setTimeout(() => {
         this.fetchData()
       }, debounceTime)
     },
