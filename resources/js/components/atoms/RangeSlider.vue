@@ -11,11 +11,13 @@
       />
       <input
         :value="value[0]"
-        class="absolute left-0 bottom-0 mb-4 focus:outline-none w-10"
+        class="absolute left-0 bottom-0 mb-4 focus:outline-none w-12 text-center"
+        @input="onMinChanged"
       >
       <input
         :value="value[1]"
-        class="absolute right-0 bottom-0 mb-4 focus:outline-none w-10"
+        class="absolute right-0 bottom-0 mb-4 focus:outline-none w-12 text-center"
+        @input="onMaxChanged"
       >
     </div>
   </div>
@@ -33,6 +35,22 @@ export default {
     value: {
       type: Array,
       default: () => [0, 30]
+    }
+  },
+  methods: {
+    onMinChanged (event) {
+      const { value: newValue } = event.target
+
+      if (newValue <= this.value[1] && newValue >= this.$attrs.min) {
+        this.$emit('input', [newValue, this.value[1]])
+      }
+    },
+    onMaxChanged (event) {
+      const { value: newValue } = event.target
+
+      if (newValue >= this.value[0] && newValue <= this.$attrs.max) {
+        this.$emit('input', [this.value[0], newValue])
+      }
     }
   }
 }
