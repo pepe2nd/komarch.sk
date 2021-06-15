@@ -1,5 +1,8 @@
 <template>
-  <div class="mt-16">
+  <div
+    v-if="images && images.length > 0"
+    class="mt-16"
+  >
     <ImageGalleryDetail :image="images[selectedIndex]" />
     <Swiper
       v-if="images.length > 1"
