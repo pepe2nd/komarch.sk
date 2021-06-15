@@ -3,7 +3,6 @@
     <ImageGalleryDetail :image="images[selectedIndex]" />
     <Swiper
       v-if="images.length > 1"
-      :ref="swiperRef"
       :options="swiperOptions"
     >
       <SwiperSlide
@@ -11,6 +10,7 @@
         :key="index"
         class="mt-6"
       >
+        <!-- TODO: remove the replacement of localhost -->
         <img
           :src="image.src.replace('localhost', 'localhost:8000')"
           :alt="image.alt"
@@ -63,11 +63,6 @@ export default {
           }
         }
       }
-    }
-  },
-  computed: {
-    swiperRef () {
-      return 'swiperImages'
     }
   },
   methods: {

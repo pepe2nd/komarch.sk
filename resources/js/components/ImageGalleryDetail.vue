@@ -19,6 +19,7 @@
           @click="isDetailOpen = false"
         />
         <div class="max-w-screen-lg max-h-full w-full relative">
+          <!-- TODO: remove the replacement of localhost -->
           <img
             :src="image.src.replace('localhost', 'localhost:8000')"
             :alt="image.alt"
