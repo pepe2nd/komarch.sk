@@ -1,4 +1,4 @@
-<div class="flex mt-4 lg:mt-14">
+<div class="flex mt-14">
     @foreach ($work->awards as $award)
         <x-tag-hash :url="''">
             {{ $award->name }}
