@@ -7,5 +7,5 @@
     <x-link-arrow :url="$mapUrl" class="mt-10">
         {{ __('buildings.full_map' )}}
     </x-link-arrow>
-    <artworks-map />
+    <works-map />
 </section>

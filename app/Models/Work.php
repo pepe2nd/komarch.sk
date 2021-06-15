@@ -11,6 +11,7 @@ use Spatie\Tags\HasTags;
 
 class Work extends Model implements HasMedia
 {
+    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory, InteractsWithMedia, HasTags;
 
     public $with = ['other_architects', 'awards'];

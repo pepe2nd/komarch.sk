@@ -8,6 +8,10 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('publication') }}'><i class='nav-icon la la-book'></i> Publications</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('tag') }}'><i class='nav-icon la la-tag'></i> Tags</a></li>
 
+<li class="nav-title">Imported</li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('work') }}'><i class='nav-icon la la-building'></i> Works</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('award') }}'><i class='nav-icon la la-award'></i> Awards</a></li>
+
 <li class="nav-title">Others</li>
 <li class="nav-item"><a class="nav-link" href="{{ url('telescope') }}"><i class="nav-icon la la-moon"></i> <span>Telescope</span> <i class="la la-external-link-alt"></i></a></li>
 

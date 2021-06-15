@@ -31,6 +31,10 @@ class WorkController extends Controller
         foreach (Work::$filterable as $filter) {
             $filters[$filter] = $works->pluck($filter)->flatten()->countBy('name');
         }
+        $filters['has_public_investor'] = [
+            'false' => $works->where('has_public_investor', false)->count(),
+            'true' => $works->where('has_public_investor', true)->count(),
+        ];
         return $filters;
     }
 
