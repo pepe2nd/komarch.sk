@@ -14,6 +14,11 @@ class WorkController extends Controller
     {
         $works = $this->loadWorks($request);
 
+        // search
+        if ($request->filled('q')) {
+            $works->where('name', 'like', '%' .$request->input('q') . '%');
+        }
+
         // sort
         $works->orderBy(
             $request->input('sortby', 'created_at'),
