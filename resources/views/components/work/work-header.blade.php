@@ -1,5 +1,7 @@
 <header class="container-narrow mx-auto">
 
+    <image-gallery></image-gallery>
+
     <div class="flex mt-4 lg:mt-14">
         @foreach ($work->awards as $award)
             <x-tag-hash :url="''">
