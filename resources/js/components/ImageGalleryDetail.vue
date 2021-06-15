@@ -13,19 +13,21 @@
       <div
         v-if="isDetailOpen"
         class="fixed inset-0 z-10 flex items-center justify-center p-6"
-        @click="isDetailOpen = false"
       >
-        <div class="bg-black opacity-70 absolute inset-0" />
+        <div
+          class="bg-black opacity-70 absolute inset-0"
+          @click="isDetailOpen = false"
+        />
         <div class="max-w-screen-lg max-h-full w-full relative">
           <img
             :src="image.src.replace('localhost', 'localhost:8000')"
             :alt="image.alt"
           >
           <button
-            class="w-10 h-10 absolute top-0 right-0 text-xl text-white focus:outline-none"
+            class="w-14 h-14 absolute top-0 right-0 focus:outline-none flex items-center justify-center"
             @click="isDetailOpen = false"
           >
-            X
+            <span class="icon-close text-2xl text-white" />
           </button>
         </div>
       </div>
