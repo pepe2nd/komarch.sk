@@ -1,4 +1,3 @@
-<!-- TODO: Discuss component name - buildings might be better than artworks in this case -->
 <template>
   <div class="relative w-100 map-artworks mt-4">
     <MglMap
@@ -44,7 +43,7 @@
           anchor="bottom"
           :offset="10"
         >
-          <ArtworksMapPopup
+          <WorksMapPopup
             v-show="activeMarker"
             :artwork="activeMarker || {}"
           />
@@ -61,15 +60,15 @@
 
 <script>
 import { MglMap, MglNavigationControl, MglAttributionControl, MglGeojsonLayer, MglMarker, MglPopup } from 'vue-mapbox'
-import { fetchArtworkMarkers } from './artworkMarkersMockApi'
-import ArtworksMapPopup from './ArtworksMapPopup'
+import { fetchWorksMarkers } from './worksMarkersMockApi'
+import WorksMapPopup from './WorksMapPopup'
 
 export const SVK_CENTER_LONGITUDE = 19.696058
 export const SVK_CENTER_LATITUDE = 48.6737532
 
 export default {
   components: {
-    ArtworksMapPopup,
+    WorksMapPopup,
     MglMap,
     MglGeojsonLayer,
     MglMarker,
@@ -181,7 +180,7 @@ export default {
     }
   },
   async created () {
-    const response = await fetchArtworkMarkers()
+    const response = await fetchWorksMarkers()
     this.geoJsonSource.data = response
   },
   methods: {
