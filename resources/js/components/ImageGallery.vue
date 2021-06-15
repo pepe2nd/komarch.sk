@@ -13,9 +13,8 @@
         :key="index"
         class="mt-6"
       >
-        <!-- TODO: remove the replacement of localhost -->
         <img
-          :src="image.src.replace('localhost', 'localhost:8000')"
+          :src="image.src"
           :alt="image.alt"
           class="w-full h-24 object-cover cursor-pointer"
           @click="onImageClicked(index)"
@@ -39,11 +38,11 @@ export default {
     images: {
       type: Array,
       default: () => [
-        { src: 'http://localhost/storage/35/1.jpg', alt: 'Image' },
-        { src: 'http://localhost/storage/41/CEZAAR2020-01.jpg', alt: 'Image' },
-        { src: 'http://localhost/storage/47/Malovcova-(2).jpg', alt: 'Image' },
-        { src: 'http://localhost/storage/51/A3UMFIT_DSC8312.jpg', alt: 'Image' },
-        { src: 'http://localhost/storage/57/_vmo5540-2.jpg', alt: 'Image' }
+        { src: 'http://localhost:8000/storage/35/1.jpg', alt: 'Image' },
+        { src: 'http://localhost:8000/storage/41/CEZAAR2020-01.jpg', alt: 'Image' },
+        { src: 'http://localhost:8000/storage/47/Malovcova-(2).jpg', alt: 'Image' },
+        { src: 'http://localhost:8000/storage/51/A3UMFIT_DSC8312.jpg', alt: 'Image' },
+        { src: 'http://localhost:8000/storage/57/_vmo5540-2.jpg', alt: 'Image' }
       ]
     }
   },

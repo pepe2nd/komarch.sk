@@ -1,7 +1,7 @@
 <template>
   <div>
     <img
-      :src="image.src.replace('localhost', 'localhost:8000')"
+      :src="image.src"
       :alt="image.alt"
       class="h-80 mx-auto cursor-zoom-in"
       @click="isDetailOpen = true"
@@ -19,9 +19,8 @@
           @click="isDetailOpen = false"
         />
         <div class="max-w-screen-lg max-h-full w-full relative">
-          <!-- TODO: remove the replacement of localhost -->
           <img
-            :src="image.src.replace('localhost', 'localhost:8000')"
+            :src="image.src"
             :alt="image.alt"
           >
           <button
