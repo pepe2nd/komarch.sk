@@ -4,6 +4,8 @@
     {{ $work->name }}
 @stop
 
+<x-work.work-og :work="$work"></x-work.work-og>
+
 @section('content')
 <x-header.header></x-header.header>
 <div class="container mx-auto px-6">
