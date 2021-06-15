@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-32">
+  <div class="mt-16 md:mt-32">
     <div class="flex flex-wrap">
       <span class="w-full mb-4 sm:mb-0 sm:w-32 text-sm">
         {{ count }}

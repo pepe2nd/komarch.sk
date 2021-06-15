@@ -4,7 +4,7 @@
       v-model="selectedFilters"
       :filters="filters"
     />
-    <div class="md:flex flex-wrap items-center mt-16 md:mt-0">
+    <div class="md:flex flex-wrap items-center">
       <div class="flex-1 md:max-w-sm">
         <div class="mb-6">
           {{ `${__('works.realisation_year')}:` }}
@@ -19,6 +19,13 @@
         v-model="searchTerm"
         class="mt-16 md:mt-8 pb-1 md:ml-24 md:max-w-sm flex-1"
         :placeholder="__('works.search_placeholder')"
+      />
+    </div>
+    <div class="h-24 flex items-center">
+      <ButtonClearFilters
+        v-show="areFiltersApplied"
+        class="mt-4"
+        @click="onClearFilters"
       />
     </div>
     <WorksOverviewResults
@@ -46,6 +53,7 @@ import WorksOverviewResults from './WorksOverviewResults'
 import ButtonLoadMore from '../atoms/buttons/ButtonLoadMore'
 import InputSearch from '../atoms/InputSearch'
 import RangeSlider from '../atoms/RangeSlider'
+import ButtonClearFilters from '../atoms/buttons/ButtonClearFilters'
 
 const FILTER_AWARDS = 'awards'
 const FILTER_INVESTOR = 'has_public_investor'
@@ -56,7 +64,8 @@ export default {
     WorksOverviewFilters,
     WorksOverviewResults,
     ButtonLoadMore,
-    InputSearch
+    InputSearch,
+    ButtonClearFilters
   },
   mixins: [
     axiosGet
@@ -99,6 +108,9 @@ export default {
       }
 
       return params
+    },
+    areFiltersApplied () {
+      return this.selectedFilters.length > 0 || this.searchTerm || this.yearRange[0] !== 1900 || this.yearRange[1] !== 2021
     }
   },
   watch: {
@@ -165,6 +177,11 @@ export default {
       this.page = worksResponse.meta.current_page
       this.hasNextPage = worksResponse.meta.current_page < worksResponse.meta.last_page
       this.results.push(...worksResponse.data)
+    },
+    onClearFilters () {
+      this.selectedFilters = []
+      this.yearRange = [1900, 2021]
+      this.searchTerm = null
     }
   }
 }

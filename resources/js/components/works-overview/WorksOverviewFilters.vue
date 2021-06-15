@@ -14,21 +14,15 @@
       :title="`${__('works.investor')}:`"
       @input="onInput"
     />
-    <ButtonClearFilters
-      v-show="value && value.length > 0"
-      @click="onCancel"
-    />
   </div>
 </template>
 
 <script>
-import ButtonClearFilters from '../atoms/buttons/ButtonClearFilters'
 import InputCheckboxGroup from '../atoms/InputCheckboxGroup'
 
 export default {
   components: {
-    InputCheckboxGroup,
-    ButtonClearFilters
+    InputCheckboxGroup
   },
   props: {
     value: {
@@ -41,9 +35,6 @@ export default {
     }
   },
   methods: {
-    onCancel () {
-      this.$emit('input', [])
-    },
     onInput (newValue) {
       this.$emit('input', newValue)
     }
