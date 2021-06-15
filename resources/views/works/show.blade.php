@@ -14,5 +14,4 @@
     <x-work.work-content :work="$work"></x-work.work-content>
 </div>
 <x-footer.footer></x-footer.footer>
-
 @endsection
