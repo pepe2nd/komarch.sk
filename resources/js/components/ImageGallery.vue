@@ -1,10 +1,6 @@
 <template>
   <div class="mt-16">
-    <img
-      :src="images[selectedIndex].src.replace('localhost', 'localhost:8000')"
-      :alt="images[selectedIndex].alt"
-      class="h-80 mx-auto"
-    >
+    <ImageGalleryDetail :image="images[selectedIndex]" />
     <Swiper
       v-if="images.length > 1"
       :ref="swiperRef"
@@ -28,9 +24,11 @@
 
 <script>
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import ImageGalleryDetail from './ImageGalleryDetail'
 
 export default {
   components: {
+    ImageGalleryDetail,
     Swiper,
     SwiperSlide
   },
