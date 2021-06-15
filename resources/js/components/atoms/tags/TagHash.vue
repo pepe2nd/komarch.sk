@@ -1,12 +1,10 @@
 <template>
   <a
-    class="px-1 mr-2 hover:text-blue flex items-center cursor-pointer"
+    class="px-1 mr-2 hover:text-blue cursor-pointer text-sm"
     :href="url"
     v-on="$listeners"
   >
-    ❪<span class="text-sm">#
-      <slot />
-    </span>❫
+    ❪#<slot />❫
   </a>
 </template>
 
