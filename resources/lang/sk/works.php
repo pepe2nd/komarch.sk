@@ -9,4 +9,5 @@ return [
     'objects_plural' => 'Objektov',
     'no_works' => 'Nenašli sa žiadne diela',
     'investor' => 'Investor',
+    'works_register' => 'Register Diel'
 ];

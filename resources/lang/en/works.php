@@ -9,4 +9,5 @@ return [
     'objects_plural' => 'Objects',
     'no_works' => 'No works found',
     'investor' => 'Investor',
+    'works_register' => 'Works Register'
 ];
