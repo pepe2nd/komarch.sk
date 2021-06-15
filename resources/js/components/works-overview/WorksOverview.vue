@@ -48,6 +48,7 @@ import InputSearch from '../atoms/InputSearch'
 import RangeSlider from '../atoms/RangeSlider'
 
 const FILTER_AWARDS = 'awards'
+const FILTER_INVESTOR = 'has_public_investor'
 
 export default {
   components: {
@@ -135,13 +136,19 @@ export default {
       ])
 
       const awards = []
+      const investors = []
 
       for (const key in filtersResponse.awards) {
         awards.push({ key: key, title: key, items: filtersResponse.awards[key], type: FILTER_AWARDS })
       }
 
+      for (const key in filtersResponse.has_public_investor) {
+        investors.push({ key: key, title: key, items: filtersResponse.has_public_investor[key], type: FILTER_INVESTOR })
+      }
+
       this.filters = {
-        awards
+        awards,
+        investors
       }
 
       this.results = worksResponse.data

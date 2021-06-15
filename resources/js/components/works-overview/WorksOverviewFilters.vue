@@ -7,6 +7,13 @@
       :title="`${__('works.awards')}:`"
       @input="onInput"
     />
+    <InputCheckboxGroup
+      v-if="filters.investors && filters.investors.length > 0"
+      :filters="filters.investors"
+      :value="value"
+      title="Investor:"
+      @input="onInput"
+    />
     <ButtonClearFilters
       v-show="value && value.length > 0"
       @click="onCancel"
