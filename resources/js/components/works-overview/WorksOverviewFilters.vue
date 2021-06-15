@@ -11,7 +11,7 @@
       v-if="filters.investors && filters.investors.length > 0"
       :filters="filters.investors"
       :value="value"
-      title="Investor:"
+      :title="`${__('works.investor')}:`"
       @input="onInput"
     />
     <ButtonClearFilters
