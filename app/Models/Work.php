@@ -8,6 +8,7 @@ use Illuminate\Support\Arr;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Tags\HasTags;
+use Illuminate\Support\Str;
 
 class Work extends Model implements HasMedia
 {
@@ -37,7 +38,12 @@ class Work extends Model implements HasMedia
 
     public function getUrlAttribute(): string
     {
-        return url('/dielo/' . $this->id); // @TODO (slug?)
+        return route('works.detail', [$this->id, $this->slug]);
+    }
+
+    public function getSlugAttribute()
+    {
+        return Str::slug($this->name);
     }
 
     public function getCoverImageAttribute()

@@ -12,8 +12,14 @@ class WorksController extends Controller
         return view('works.index');
     }
 
-    public function show(Work $work)
+    public function show($id, $slug, Request $request)
     {
+        $work = Work::findOrFail($id);
+
+        if ($slug != $work->slug) {
+            return redirect($work->url);
+        }
+
         return view('works.show', compact('work'));
     }
 }
