@@ -52,6 +52,14 @@ class WorkController extends Controller
             $works->withAnyTags($request->input('tags', []));
         }
 
+        if ($request->has('year_from')) {
+            $works->where('date_construction_start', '>=', $request->input('year_from'));
+        }
+
+        if ($request->has('year_until')) {
+            $works->where('date_construction_ending', '<=', $request->input('year_until'));
+        }
+
         return $works;
     }
 }
