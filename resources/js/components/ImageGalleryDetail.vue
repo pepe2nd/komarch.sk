@@ -3,7 +3,7 @@
     <img
       :src="image.src.replace('localhost', 'localhost:8000')"
       :alt="image.alt"
-      class="h-80 mx-auto cursor-pointer"
+      class="h-80 mx-auto cursor-zoom-in"
       @click="isDetailOpen = true"
     >
     <transition
@@ -15,7 +15,7 @@
         class="fixed inset-0 z-10 flex items-center justify-center p-6"
       >
         <div
-          class="bg-black opacity-70 absolute inset-0"
+          class="bg-black opacity-70 absolute inset-0 cursor-zoom-out"
           @click="isDetailOpen = false"
         />
         <div class="max-w-screen-lg max-h-full w-full relative">
