@@ -9,11 +9,12 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Tags\HasTags;
 use Illuminate\Support\Str;
+use App\Traits\HasShortDescription;
 
 class Work extends Model implements HasMedia
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
-    use HasFactory, InteractsWithMedia, HasTags;
+    use HasFactory, InteractsWithMedia, HasTags, HasShortDescription;
 
     public $with = ['other_architects', 'awards'];
 
@@ -67,6 +68,11 @@ class Work extends Model implements HasMedia
     {
         // @TODO -> years span or just single year? date_design_start or date_construction_start ?
         return $this->date_design_start;
+    }
+
+    public function getShortDescriptionAttribute()
+    {
+        return $this->shortenString($this->annotation);
     }
 
 
