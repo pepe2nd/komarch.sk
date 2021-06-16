@@ -14,7 +14,8 @@
         class="mt-6"
       >
         <img
-          :src="image.src"
+          :src="image.url"
+          :srcset="image.srcset"
           :alt="image.alt"
           class="w-full h-24 object-cover cursor-pointer"
           @click="onImageClicked(index)"
@@ -27,6 +28,7 @@
 <script>
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import ImageGalleryDetail from './ImageGalleryDetail'
+import axiosGet from './axiosGetMixin'
 
 export default {
   components: {
@@ -34,20 +36,27 @@ export default {
     Swiper,
     SwiperSlide
   },
+  mixins: [
+    axiosGet
+  ],
   props: {
-    images: {
-      type: Array,
-      default: () => [
-        { src: 'http://localhost:8000/storage/35/1.jpg', alt: 'Image' },
-        { src: 'http://localhost:8000/storage/41/CEZAAR2020-01.jpg', alt: 'Image' },
-        { src: 'http://localhost:8000/storage/47/Malovcova-(2).jpg', alt: 'Image' },
-        { src: 'http://localhost:8000/storage/51/A3UMFIT_DSC8312.jpg', alt: 'Image' },
-        { src: 'http://localhost:8000/storage/57/_vmo5540-2.jpg', alt: 'Image' }
-      ]
-    }
+    workId: Number,
+    required: true
   },
+  //   images: {
+  //     type: Array,
+  //     default: () => [
+  //       { src: 'http://localhost:8000/storage/35/1.jpg', alt: 'Image' },
+  //       { src: 'http://localhost:8000/storage/41/CEZAAR2020-01.jpg', alt: 'Image' },
+  //       { src: 'http://localhost:8000/storage/47/Malovcova-(2).jpg', alt: 'Image' },
+  //       { src: 'http://localhost:8000/storage/51/A3UMFIT_DSC8312.jpg', alt: 'Image' },
+  //       { src: 'http://localhost:8000/storage/57/_vmo5540-2.jpg', alt: 'Image' }
+  //     ]
+  //   }
+  // },
   data () {
     return {
+      images: [],
       selectedIndex: 0,
       swiperOptions: {
         slidesPerView: 2,
@@ -66,6 +75,10 @@ export default {
         }
       }
     }
+  },
+  async created () {
+    const { data } = await this.axiosGet('works/'+ this.workId +'/images')
+    this.images = data
   },
   methods: {
     onImageClicked (index) {

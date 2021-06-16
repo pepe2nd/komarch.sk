@@ -1,7 +1,8 @@
 <template>
   <div>
     <img
-      :src="image.src"
+      :src="image.url"
+      :srcset="image.srcset"
       :alt="image.alt"
       class="h-80 mx-auto cursor-zoom-in"
       @click="isDetailOpen = true"
@@ -20,7 +21,7 @@
         />
         <div class="max-w-screen-lg max-h-full w-full relative">
           <img
-            :src="image.src"
+            :src="image.url"
             :alt="image.alt"
           >
           <button
