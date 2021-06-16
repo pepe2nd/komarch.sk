@@ -53,6 +53,10 @@ class WorkController extends Controller
             $works->withAnyTags($request->input('tags', []));
         }
 
+        if ($request->has('has_public_investor')) {
+            $works->where('has_public_investor', '=', $request->input('has_public_investor'));
+        }
+
         if ($request->has('year_from')) {
             $works->where('date_construction_start', '>=', $request->input('year_from'));
         }
