@@ -46,7 +46,7 @@
     </div>
 
     <x-section-map
-        titleUrl="#"
+        worksUrl="/diela"
         mapUrl="#"
     />
 </div>

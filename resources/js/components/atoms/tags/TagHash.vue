@@ -1,23 +1,19 @@
 <template>
   <a
-    class="px-1 mr-4 hover:text-blue flex items-center"
-    :href="tagUrl"
+    class="px-1 mr-2 hover:text-blue cursor-pointer text-sm"
+    :href="url"
+    v-on="$listeners"
   >
-    ❪<span class="text-sm">#{{ tag.name }}</span>❫
+    ❪#<slot />❫
   </a>
 </template>
 
 <script>
 export default {
   props: {
-    tag: {
-      type: Object,
-      required: true
-    }
-  },
-  computed: {
-    tagUrl () {
-      return `${window.location.origin}/spravy?categories[]=${this.tag.name}`
+    url: {
+      type: String,
+      default: null
     }
   }
 }

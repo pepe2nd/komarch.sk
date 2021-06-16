@@ -6,6 +6,7 @@
     "globals": {
         "jQuery": "readonly",
         "hljs": "readonly",
-        "axios": "readonly"
+        "axios": "readonly",
+        "__": "readonly"
     }
 }

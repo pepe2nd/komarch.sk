@@ -1,8 +1,6 @@
 <?php
 
 return [
-    'name' => 'Name',
-    'created' => 'Created',
     'preview' => 'Preview',
     'download' => 'Download',
     'no_documents' => 'No documents found',

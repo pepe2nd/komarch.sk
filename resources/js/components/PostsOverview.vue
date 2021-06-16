@@ -77,7 +77,7 @@ export default {
   },
   // TODO: refactor using proper axios parameters
   async created () {
-    const { categories } = await this.axiosGet('/api/posts-filters')
+    const { categories } = await this.axiosGet('posts-filters')
 
     const importantFilter = { key: 'Dôležité', title: 'Dôležité', params: '&featured' }
 
@@ -101,7 +101,7 @@ export default {
       this.activeFilter = {}
     },
     async fetchPage (pageNumber) {
-      const { data, meta } = await this.axiosGet(`/api/posts?page=${pageNumber}${this.activeFilter.params || ''}`)
+      const { data, meta } = await this.axiosGet(`posts?page=${pageNumber}${this.activeFilter.params || ''}`)
 
       if (pageNumber === 1) {
         this.posts = data

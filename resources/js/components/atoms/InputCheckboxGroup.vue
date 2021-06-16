@@ -1,6 +1,6 @@
 <template>
   <div class="mr-12 mb-8">
-    <h3 class="mb-5">
+    <h3 class="mb-5 text-sm">
       {{ title }}
     </h3>
     <input-checkbox

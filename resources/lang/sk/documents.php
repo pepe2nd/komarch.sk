@@ -1,8 +1,6 @@
 <?php
 
 return [
-    'name' => 'Názov',
-    'created' => 'Vytvorený',
     'preview' => 'Náhľad',
     'download' => 'Stiahnuť',
     'no_documents' => 'Nenašli sa žiadne dokumenty',

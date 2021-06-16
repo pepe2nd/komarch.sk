@@ -13,7 +13,7 @@ export default {
       return new Promise(async (resolve, reject) => {
         try {
           this.fetchState.isFetching = true
-          const response = await axios.get(`${window.location.origin}${url}`, { params })
+          const response = await axios.get(`${process.env.MIX_API_ROOT}/${url}`, { params })
 
           if (response.status !== 200) {
             this.fetchState.isError = true
