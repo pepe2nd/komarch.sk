@@ -50,4 +50,9 @@ class WorkCrudController extends CrudController
         $this->crud->denyAccess('create');
     }
 
+    protected function setupListOperation()
+    {
+        $this->crud->addButtonFromView('line', 'show_online', 'show_online', 'beginning');
+    }
+
 }

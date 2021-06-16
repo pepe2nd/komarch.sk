@@ -14,6 +14,11 @@ class WorkController extends Controller
     {
         $works = $this->loadWorks($request);
 
+        // search
+        if ($request->filled('q')) {
+            $works->where('name', 'like', '%' .$request->input('q') . '%');
+        }
+
         // sort
         $works->orderBy(
             $request->input('sortby', 'created_at'),
@@ -45,6 +50,14 @@ class WorkController extends Controller
         // apply filters
         if ($request->has('tags')) {
             $works->withAnyTags($request->input('tags', []));
+        }
+
+        if ($request->has('year_from')) {
+            $works->where('date_construction_start', '>=', $request->input('year_from'));
+        }
+
+        if ($request->has('year_until')) {
+            $works->where('date_construction_ending', '<=', $request->input('year_until'));
         }
 
         return $works;
