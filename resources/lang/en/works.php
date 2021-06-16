@@ -9,5 +9,6 @@ return [
     'objects_plural' => 'Objects',
     'no_works' => 'No works found',
     'investor' => 'Investor',
-    'works_register' => 'Works Register'
+    'works_register' => 'Works Register',
+    'intro' => 'We support the development of architecture in Slovakia. We are a professional organization that focuses on educating and informing the public about the necessary quality architectures. ',
 ];

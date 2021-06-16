@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'správy')
+@section('title', __('works.works_register') )
 
 @section('content')
 
@@ -7,8 +7,8 @@
 
 <div class="container mx-auto px-6">
     <x-intro
-        title="Register diel"
-        text="“Podporujeme rozvoj architektúry na Slovensku. Sme odbornou organizáciou, ktorá sa zameriava na vzdelávanie a informovanie verejnosti o potrebách kvalitnej architektúry.”"
+        title="{{ __('works.works_register') }}"
+        text="“{{ __('works.intro') }}”"
     />
     <works-overview></works-overview>
 </div>
