@@ -90,7 +90,8 @@ export default {
   computed: {
     filterParams () {
       const params = {
-        awards: this.selectedFilters.filter(filter => filter.type === FILTER_AWARDS).map(filter => filter.title)
+        awards: this.selectedFilters.filter(filter => filter.type === FILTER_AWARDS).map(filter => filter.title),
+        has_public_investor: this.selectedFilters.filter(filter => filter.type === FILTER_INVESTOR).map(filter => filter.title)
       }
 
       if (this.sorting.name) {
@@ -105,6 +106,11 @@ export default {
 
       if (this.searchTerm) {
         params.q = this.searchTerm
+      }
+
+      if (this.yearRange) {
+        params.year_from = this.yearRange[0]
+        params.year_until = this.yearRange[1]
       }
 
       return params
