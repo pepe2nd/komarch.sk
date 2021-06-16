@@ -27,6 +27,13 @@ module.exports = {
         900: '#040405'
       }
     },
+    cursor: {
+      auto: 'auto',
+      default: 'default',
+      pointer: 'pointer',
+      'zoom-in': 'zoom-in',
+      'zoom-out': 'zoom-out'
+    },
     fontFamily: {
       komarch: [
         'Komarch',

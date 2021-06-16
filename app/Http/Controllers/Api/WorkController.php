@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Work;
 use App\Http\Resources\WorkResource;
+use App\Http\Resources\MediaResource;
 
 class WorkController extends Controller
 {
@@ -37,8 +38,8 @@ class WorkController extends Controller
             $filters[$filter] = $works->pluck($filter)->flatten()->countBy('name');
         }
         $filters['has_public_investor'] = [
-            'false' => $works->where('has_public_investor', false)->count(),
-            'true' => $works->where('has_public_investor', true)->count(),
+            trans('works.public') => $works->where('has_public_investor', true)->count(),
+            trans('works.private') => $works->where('has_public_investor', false)->count(),
         ];
         return $filters;
     }
@@ -52,6 +53,10 @@ class WorkController extends Controller
             $works->withAnyTags($request->input('tags', []));
         }
 
+        if ($request->has('has_public_investor')) {
+            $works->where('has_public_investor', '=', $request->input('has_public_investor'));
+        }
+
         if ($request->has('year_from')) {
             $works->where('date_construction_start', '>=', $request->input('year_from'));
         }
@@ -61,5 +66,11 @@ class WorkController extends Controller
         }
 
         return $works;
+    }
+
+    public function images($id)
+    {
+        $work = Work::findOrFail($id);
+        return MediaResource::collection($work->media);
     }
 }

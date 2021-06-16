@@ -25,6 +25,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
     Route::get('/dokumenty', 'App\Http\Controllers\DocumentsController@index')->name('documents');
 
     Route::get('/diela', 'App\Http\Controllers\WorksController@index')->name('works');
+    Route::get('/dielo/{id}-{slug}', 'App\Http\Controllers\WorksController@show')->name('works.detail');
 
     Route::get('/search', 'App\Http\Controllers\SearchController@index')->name('search');
 

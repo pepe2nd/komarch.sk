@@ -46,7 +46,7 @@
     </div>
 
     <x-section-map
-        worksUrl="/diela"
+        worksUrl="{{ route('works') }}"
         mapUrl="#"
     />
 </div>
