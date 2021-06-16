@@ -38,8 +38,8 @@ class WorkController extends Controller
             $filters[$filter] = $works->pluck($filter)->flatten()->countBy('name');
         }
         $filters['has_public_investor'] = [
-            'false' => $works->where('has_public_investor', false)->count(),
-            'true' => $works->where('has_public_investor', true)->count(),
+            trans('works.public') => $works->where('has_public_investor', true)->count(),
+            trans('works.private') => $works->where('has_public_investor', false)->count(),
         ];
         return $filters;
     }
