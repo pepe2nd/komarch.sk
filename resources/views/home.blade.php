@@ -12,7 +12,9 @@
 
     <div class="mt-10 md:mt-32 md:grid grid-cols-2 gap-10">
         <div class="flex" style="height: 300px">
-            <span class="m-auto">Clock here</span>
+            <span class="m-auto">
+                <img src="{{ asset('images/clock.svg') }}" alt="clock">
+            </span>
         </div>
         @foreach ($tiles as $tile)
             <x-tile
