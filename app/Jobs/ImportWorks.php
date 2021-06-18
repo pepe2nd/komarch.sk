@@ -53,7 +53,7 @@ class ImportWorks implements ShouldQueue
             ->orderBy('id')
             ->chunk(100, function ($sourceAwards) {
               $upserts = $sourceAwards
-                ->map(fn ($aw) => (array) $aw)
+                ->map(fn ($a) => (array) $a)
                 ->toArray();
 
               DB::table('awards')->upsert($upserts, ['id']);
@@ -69,17 +69,35 @@ class ImportWorks implements ShouldQueue
               DB::table('award_work')->upsert($upserts, ['id']);
             });
 
-        // Remove Works no longer present in source DB
-        DB::table('award_work')->whereNotIn('id', $sourceDb->table('lab_award_work')->pluck('id'))->delete();
+        $sourceDb->table('lab_publications')
+            ->orderBy('id')
+            ->chunk(100, function ($sourcePublications) {
+              $upserts = $sourcePublications
+                ->map(fn ($p) => (array) $p)
+                ->toArray();
 
-        // Remove Works no longer present in source DB
+              DB::table('citation_publications')->upsert($upserts, ['id']);
+            });
+
+        $sourceDb->table('lab_publication_work')
+            ->orderBy('id')
+            ->chunk(100, function ($sourcePublicationWork) {
+              $upserts = $sourcePublicationWork
+                ->map(fn ($pw) => (array) $pw)
+                ->toArray();
+
+              DB::table('citation_publication_work')->upsert($upserts, ['id']);
+            });
+
+        // Remove entities no longer present in source DB
+        DB::table('citation_publication_work')->whereNotIn('id', $sourceDb->table('lab_publication_work')->pluck('id'))->delete();
+        DB::table('citation_publications')->whereNotIn('id', $sourceDb->table('lab_publications')->pluck('id'))->delete();
+
+        DB::table('award_work')->whereNotIn('id', $sourceDb->table('lab_award_work')->pluck('id'))->delete();
         DB::table('awards')->whereNotIn('id', $sourceDb->table('lab_awards')->pluck('id'))->delete();
 
-        // Remove Media no longer present in source DB
         Media::whereNotNull('custom_properties->urad_id')
             ->whereNotIn('custom_properties->urad_id', $sourceDb->table('lab_media')->pluck('id'))->delete();
-
-        // Remove Works no longer present in source DB
         Work::whereNotIn('id', $sourceDb->table('lab_works')->pluck('id'))->delete();
     }
 
