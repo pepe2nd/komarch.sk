@@ -13,7 +13,7 @@
     <div class="mt-10 md:mt-32 md:grid grid-cols-2 gap-10">
         <div style="height: 300px">
             {{-- <img src="{{ asset('images/clock.svg') }}" alt="clock" class="mb-5"> --}}
-            <div class="mb-5" style="height: 200px">
+            <div class="mb-3 md:mb-5" style="height: 200px">
                 <Clock />
             </div>
 

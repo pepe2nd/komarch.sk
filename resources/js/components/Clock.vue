@@ -1,13 +1,10 @@
 <template>
-  <div class="clock">
-    <svg viewBox="0 0 40 40" width="auto" height="100%"
-    preserveAspectRatio="xMidYMid meet">
+    <svg viewBox="0 0 40 40" height="100%" class="mx-auto md:ml-0" ref="svg" >
       <circle cx="20" cy="20" r="19" />
-      <line x1="0" y1="0" x2="9" y2="0" class="hour" />
-      <line x1="0" y1="0" x2="13" y2="0" class="minute" />
-      <line x1="0" y1="0" x2="16" y2="0" class="seconds" />
+      <line x1="-1" y1="0" x2="11" y2="0" class="hour" />
+      <line x1="-1" y1="0" x2="15" y2="0" class="minute" />
+      <line x1="-1" y1="0" x2="18" y2="0" class="seconds" />
     </svg>
-  </div>
 </template>
 
 <script>
@@ -15,7 +12,18 @@
 export default {
   data () {
     return {
-      time: ''
+      currentTime: null
+    }
+  },
+  mounted() {
+    const timer = window.setTimeout(this.updateTime, 1000);
+  },
+  computed: {
+    updateTime() {
+      this.currentTime = new Date();
+      this.$refs.svg.style.setProperty('--start-seconds', this.currentTime.getSeconds());
+      this.$refs.svg.style.setProperty('--start-minutes', this.currentTime.getMinutes());
+      this.$refs.svg.style.setProperty('--start-hours', this.currentTime.getHours() % 12);
     }
   }
 }
