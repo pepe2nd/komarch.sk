@@ -4,9 +4,14 @@
       <!-- TODO: remove the replacement of localhost -->
       <img
         v-if="item.cover_image"
-        :src="item.cover_image.url.replace('localhost', 'localhost:8000')"
+        :srcset="item.cover_image.srcset"
         :alt="item.name"
         class="rounded-2xl"
+        sizes="1px"
+        :src="item.cover_image.url"
+        :width="item.cover_image.width"
+        :height="item.cover_image.height"
+        ref="img"
       >
       <h3 class="mt-4 group-hover:text-blue">
         <a
@@ -46,7 +51,15 @@ export default {
   methods: {
     onTagClicked (filter) {
       console.log(filter)
-    }
+    },
+  },
+  mounted () {
+    // @TODO: try this.$nextTick or anything nicer then this
+    setTimeout(() => {
+      let size=this.$refs.img.getBoundingClientRect().width
+      this.$refs.img.sizes = Math.ceil(size/window.innerWidth*100)+'vw';
+    }, 500)
   }
+
 }
 </script>

@@ -14,11 +14,16 @@
         class="mt-6"
       >
         <img
-          :src="image.url"
           :srcset="image.srcset"
+          :src="image.url"
+          sizes="1px"
+          :width="image.width"
+          :height="image.height"
+          ref="img"
           :alt="image.alt"
           class="w-full h-24 object-cover cursor-pointer"
           @click="onImageClicked(index)"
+          onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});"
         >
       </SwiperSlide>
     </Swiper>
