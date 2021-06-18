@@ -16,18 +16,15 @@
         @click="onCancel"
       />
     </div>
-    <transition-group
-      name="posts-overview"
-      mode="out-in"
-      class="lg:flex flex-wrap items-start lg:-ml-3"
-    >
+    <isotope :options="getIsotopeOptions()" :list="posts" class="lg:-mx-3">
       <TeaserPostBig
         v-for="post in posts"
         :key="post.id"
         :post="post"
         class="lg:w-1/3 lg:p-3 mt-12"
+        data-grid-item
       />
-    </transition-group>
+    </isotope>
     <p
       v-if="posts.length === 0"
       class="py-10"
@@ -47,13 +44,15 @@ import TeaserPostBig from './TeaserPostBig'
 import ButtonLoadMore from './atoms/buttons/ButtonLoadMore'
 import ButtonClearFilters from './atoms/buttons/ButtonClearFilters'
 import axiosGet from './axiosGetMixin'
+import isotope from 'vueisotope'
 
 export default {
   components: {
     ButtonClearFilters,
     ButtonLoadMore,
     RadioButton,
-    TeaserPostBig
+    TeaserPostBig,
+    isotope
   },
   mixins: [
     axiosGet
@@ -111,17 +110,13 @@ export default {
 
       this.page = meta.current_page
       this.hasNextPage = meta.current_page < meta.last_page
-    }
+    },
+    getIsotopeOptions() {
+      return {
+        itemSelector: '[data-grid-item]',
+        percentPosition: true,
+      };
+    },
   }
 }
 </script>
-
-<style>
-.posts-overview-enter-active {
-  @apply transition-all duration-700;
-}
-
-.posts-overview-enter {
-  @apply transform opacity-0 translate-y-5;
-}
-</style>
