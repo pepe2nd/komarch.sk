@@ -14,7 +14,7 @@
             />
         </div>
         <x-link-arrow :url="$publication->issuu_url" class="mb-5">
-            {{ trans('app.read_on_issuu') }}
+            {{ trans('home.read_on_issuu') }}
         </x-link-arrow>
     @endforeach
 

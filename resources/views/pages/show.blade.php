@@ -1,10 +1,26 @@
 @extends('layouts.app')
 @section('title', $page->title)
 
+<x-page.page-og :page="$page"></x-page.page-og>
+
 @section('content')
 
-@include('components.header.header')
+<x-header.header></x-header.header>
 
+<div class="container mx-auto px-6">
+    <x-intro
+        :title="$page->title"
+        text="“{{ __('app.intro') }}”"
+    />
+    <x-page.page-header :page="$page"></x-page.page-header>
+    <x-page.page-content :page="$page"></x-page.page-content>
+</div>
+
+<x-footer.footer></x-footer.footer>
+
+@stop
+
+{{--
 <div class="container">
     <div class="row">
         <div class="col-12 py-4">
@@ -38,3 +54,4 @@
     </div>
 </div>
 @endsection
+ --}}

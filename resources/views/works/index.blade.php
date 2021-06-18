@@ -8,7 +8,7 @@
 <div class="container mx-auto px-6">
     <x-intro
         title="{{ __('works.works_register') }}"
-        text="“{{ __('works.intro') }}”"
+        text="“{{ __('app.intro') }}”"
     />
     <works-overview></works-overview>
 </div>
