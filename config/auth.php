@@ -2,6 +2,9 @@
 
 return [
 
+    // Key for calling /api/jobs endpoints
+    'jobs_api_key' => env('JOBS_API_KEY'),
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
