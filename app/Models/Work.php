@@ -25,6 +25,16 @@ class Work extends Model implements HasMedia
         return $this->belongsToMany(Award::class);
     }
 
+    public function citationPublications()
+    {
+        return $this->belongsToMany(
+            CitationPublication::class,
+            'citation_publication_work',
+            'work_id',
+            'publication_id'
+        );
+    }
+
     public function other_architects()
     {
         return $this->morphToMany(Tag::class, 'taggable')->where('type', 'other_architect');

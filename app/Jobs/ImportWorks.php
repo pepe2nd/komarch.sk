@@ -53,7 +53,7 @@ class ImportWorks implements ShouldQueue
             ->orderBy('id')
             ->chunk(100, function ($sourceAwards) {
               $upserts = $sourceAwards
-                ->map(fn ($aw) => (array) $aw)
+                ->map(fn ($a) => (array) $a)
                 ->toArray();
 
               DB::table('awards')->upsert($upserts, ['id']);
@@ -67,6 +67,26 @@ class ImportWorks implements ShouldQueue
                 ->toArray();
 
               DB::table('award_work')->upsert($upserts, ['id']);
+            });
+
+        $sourceDb->table('lab_publications')
+            ->orderBy('id')
+            ->chunk(100, function ($sourcePublications) {
+              $upserts = $sourcePublications
+                ->map(fn ($p) => (array) $p)
+                ->toArray();
+
+              DB::table('citation_publications')->upsert($upserts, ['id']);
+            });
+
+        $sourceDb->table('lab_publication_work')
+            ->orderBy('id')
+            ->chunk(100, function ($sourcePublicationWork) {
+              $upserts = $sourcePublicationWork
+                ->map(fn ($pw) => (array) $pw)
+                ->toArray();
+
+              DB::table('citation_publication_work')->upsert($upserts, ['id']);
             });
 
         // Remove Works no longer present in source DB
