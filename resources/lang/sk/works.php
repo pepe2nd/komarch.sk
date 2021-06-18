@@ -13,7 +13,6 @@ return [
     'public' => 'Verejný',
     'private' => 'Súkromný',
     'works_register' => 'Register diel',
-    'intro' => 'Podporujeme rozvoj architektúry na Slovensku. Sme odbornou organizáciou, ktorá sa zameriava na vzdelávanie a informovanie verejnosti o potrebách kvalitnej architektúry.',
     'typology_of_the_work' => 'Typológia diela',
     'address' => 'Adresa',
     'awards' => 'Ocenenia',
