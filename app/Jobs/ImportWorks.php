@@ -89,17 +89,15 @@ class ImportWorks implements ShouldQueue
               DB::table('citation_publication_work')->upsert($upserts, ['id']);
             });
 
-        // Remove Works no longer present in source DB
-        DB::table('award_work')->whereNotIn('id', $sourceDb->table('lab_award_work')->pluck('id'))->delete();
+        // Remove entities no longer present in source DB
+        DB::table('citation_publication_work')->whereNotIn('id', $sourceDb->table('lab_publication_work')->pluck('id'))->delete();
+        DB::table('citation_publications')->whereNotIn('id', $sourceDb->table('lab_publications')->pluck('id'))->delete();
 
-        // Remove Works no longer present in source DB
+        DB::table('award_work')->whereNotIn('id', $sourceDb->table('lab_award_work')->pluck('id'))->delete();
         DB::table('awards')->whereNotIn('id', $sourceDb->table('lab_awards')->pluck('id'))->delete();
 
-        // Remove Media no longer present in source DB
         Media::whereNotNull('custom_properties->urad_id')
             ->whereNotIn('custom_properties->urad_id', $sourceDb->table('lab_media')->pluck('id'))->delete();
-
-        // Remove Works no longer present in source DB
         Work::whereNotIn('id', $sourceDb->table('lab_works')->pluck('id'))->delete();
     }
 
