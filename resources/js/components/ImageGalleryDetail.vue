@@ -21,8 +21,13 @@
         />
         <div class="max-w-screen-lg max-h-full w-full relative">
           <img
-            :src="image.url"
             :alt="image.alt"
+            :srcset="image.srcset"
+            :src="image.url"
+            sizes="1px"
+            :width="image.width"
+            :height="image.height"
+            onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});"
           >
           <button
             class="w-14 h-14 absolute top-0 right-0 focus:outline-none flex items-center justify-center"

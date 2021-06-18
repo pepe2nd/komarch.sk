@@ -17,9 +17,14 @@
     </p>
     <img
       v-if="post.cover_image"
-      :src="post.cover_image.url"
+      :srcset="post.cover_image.srcset"
       :alt="post.title"
+      sizes="1px"
+      :src="post.cover_image.url"
       class="my-5 rounded-lg col-span-2"
+      :width="post.cover_image.width"
+      :height="post.cover_image.height"
+      ref="img"
     >
   </article>
 </template>
@@ -45,6 +50,14 @@ export default {
     tagUrl () {
       return `${window.location.origin}/spravy?categories[]=${this.post.tags[0].name}`
     }
+  },
+  mounted () {
+    // @TODO: try this.$nextTick or anything nicer then this
+    setTimeout(() => {
+      let size=this.$refs.img.getBoundingClientRect().width
+      this.$refs.img.sizes = Math.ceil(size/window.innerWidth*100)+'vw';
+    }, 500)
   }
+
 }
 </script>
