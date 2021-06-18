@@ -3,6 +3,8 @@
 namespace App\View\Components\Footer;
 
 use Illuminate\View\Component;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class OpeningHours extends Component
 {
@@ -38,8 +40,10 @@ class OpeningHours extends Component
     {
         $days = [];
         foreach($this->hours as $day => $interval) {
+            $day_formated = Carbon::create($day)->dayName;
             if (in_array($day, $this->visible)) {
-                $days[$day] = (!empty($interval)) ? implode(' &nbsp;&nbsp; ', $interval) : 'Nestránkový deň';
+                $interval = Str::replace('-', ' – ', $interval);
+                $days[$day_formated] = (!empty($interval)) ? implode(' &nbsp;&nbsp; ', $interval) : 'Nestránkový deň';
             }
         }
         return $days;

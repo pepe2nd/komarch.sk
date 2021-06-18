@@ -20,6 +20,9 @@ class Localize
         $locale = ($request->hasHeader('X-locale')) ? $request->header('X-locale') : app()->config->get('app.locale');
         app()->setLocale($locale);
         Carbon::setlocale($locale);
+        $regional = config('laravellocalization.supportedLocales.'.$locale.'.regional');
+        $suffix = config('laravellocalization.utf8suffix');
+        setlocale(LC_TIME, $regional . $suffix);
         return $next($request);
    }
 }

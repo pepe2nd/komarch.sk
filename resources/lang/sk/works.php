@@ -11,6 +11,6 @@ return [
     'investor' => 'Investor',
     'public' => 'Verejný',
     'private' => 'Súkromný',
-    'works_register' => 'Register Diel',
+    'works_register' => 'Register diel',
     'intro' => 'Podporujeme rozvoj architektúry na Slovensku. Sme odbornou organizáciou, ktorá sa zameriava na vzdelávanie a informovanie verejnosti o potrebách kvalitnej architektúry.',
 ];

@@ -8,7 +8,7 @@
 {{-- @include('components.notification_bar') --}}
 
 <div class="container mx-auto px-6">
-    <x-intro text="Slovenská Komora Architektov je odbornou organizáciou, ktorá sa zameriava na vzdelávanie a informovanie verejnosti o potrebách kvalitnej architektúry"/>
+    <x-intro :text="trans('home.intro')"/>
 
     <div class="mt-10 md:mt-32 md:grid grid-cols-2 gap-10">
         <div class="flex" style="height: 300px">
@@ -34,13 +34,13 @@
                 title="Videá"
                 embedUrl="https://www.youtube.com/embed/NL1XKbI3x68"
                 linkUrl="#"
-                linkTitle="Pozrite si ďalšie videá"
+                :linkTitle="trans('home.more_video')"
             />
             <x-section-publications
                 title="Publikácie"
                 :publications="$publications"
                 linkUrl="#"
-                linkTitle="Čítajte na ISSU"
+                :linkTitle="trans('home.read_on_issuu')"
             />
         </div>
     </div>

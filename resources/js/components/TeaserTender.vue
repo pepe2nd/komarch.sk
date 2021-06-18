@@ -1,11 +1,11 @@
 <template>
-  <article class="py-10 grid grid-cols-2 place-items-start items-center">
-    <TagDate>{{ tender.date }}</TagDate>
+  <article class="py-10 grid grid-cols-3 place-items-start items-center">
+    <TagDate class="col-span-2 whitespace-nowrap">{{ tender.date }}</TagDate>
     <TagDate class="h-6 flex items-center">
       <span class="icon-clock mr-1" />
       {{ tender.days }}
     </TagDate>
-    <h3 class="mt-1 text-xl col-span-2 tracking tight">
+    <h3 class="mt-1 text-xl col-span-3 tracking tight">
       <LinkTitle :url="tender.url">
         {{ tender.title }}
       </LinkTitle>
