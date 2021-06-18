@@ -40,6 +40,11 @@ class Work extends Model implements HasMedia
         return $this->morphToMany(Tag::class, 'taggable')->where('type', 'other_architect');
     }
 
+    public function functions()
+    {
+        return $this->morphToMany(Tag::class, 'taggable')->where('type', '');
+    }
+
     public function registerMediaCollections(): void
     {
         $this
@@ -83,6 +88,43 @@ class Work extends Model implements HasMedia
     public function getShortDescriptionAttribute()
     {
         return $this->shortenString($this->annotation);
+    }
+
+    public function getDateDesignAttribute()
+    {
+        return $this->yearsSpan($this->date_design_start, $this->date_design_ending);
+    }
+
+    public function getDateConstructionAttribute()
+    {
+        return $this->yearsSpan($this->date_construction_start, $this->date_construction_ending);
+    }
+
+    public function getLocationAttribute()
+    {
+        if (!$this->has_public_location) {
+            return $this->location_city;
+        }
+
+        $result = $this->location_street;
+        if ($this->location_descriptive_number) {
+            $result .=  ' ' . $this->location_descriptive_number;
+        }
+        if ($this->location_city) {
+            $result .=  (!empty($result)) ? ', ' : '';
+            $result .=  $this->location_city;
+        }
+        return $result;
+
+    }
+
+    public function yearsSpan($start, $ending)
+    {
+        $result = $start;
+        if ($ending) {
+            $result .= ' - ' . $ending;
+        }
+        return $result;
     }
 
 
