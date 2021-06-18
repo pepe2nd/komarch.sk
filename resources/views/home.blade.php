@@ -11,8 +11,15 @@
     <x-intro :text="trans('home.intro')"/>
 
     <div class="mt-10 md:mt-32 md:grid grid-cols-2 gap-10">
-        <div class="flex" style="height: 300px">
-            <span class="m-auto">Clock here</span>
+        <div style="height: 300px">
+            {{-- <img src="{{ asset('images/clock.svg') }}" alt="clock" class="mb-5"> --}}
+            <div class="mb-5" style="height: 200px">
+                <Clock />
+            </div>
+
+            <x-link-arrow url="#">
+                3 dni a 11 hodín do odovzdania návrhov na predĺženie promenády na Železnej studienke
+            </x-link-arrow>
         </div>
         @foreach ($tiles as $tile)
             <x-tile
