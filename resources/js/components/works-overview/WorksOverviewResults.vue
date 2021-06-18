@@ -17,28 +17,28 @@
         {{ __('generic.year') }}
       </ButtonSortable>
     </div>
-    <transition-group
-      name="works-overview"
-      mode="out-in"
-      class="md:grid grid-cols-4 gap-x-10"
-    >
+    <isotope :options="getIsotopeOptions()" :list="results" class="md:-mx-5">
       <TeaserWorkBig
         v-for="item in results"
         :key="item.id"
         :item="item"
+        class="md:p-5 md:w-1/4"
+        data-grid-item
       />
-    </transition-group>
+    </isotope>
   </div>
 </template>
 
 <script>
 import ButtonSortable from '../atoms/buttons/ButtonSortable'
 import TeaserWorkBig from '../TeaserWorkBig'
+import isotope from 'vueisotope'
 
 export default {
   components: {
     ButtonSortable,
-    TeaserWorkBig
+    TeaserWorkBig,
+    isotope
   },
   props: {
     value: {
@@ -84,16 +84,14 @@ export default {
         })
       }
     }
+  },
+  methods: {
+    getIsotopeOptions() {
+      return {
+        itemSelector: '[data-grid-item]',
+        percentPosition: true,
+      };
+    },
   }
 }
 </script>
-
-<style>
-.works-overview-enter-active {
-  @apply transition-all duration-700;
-}
-
-.works-overview-enter {
-  @apply transform opacity-0 translate-y-5;
-}
-</style>
