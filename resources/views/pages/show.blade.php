@@ -8,6 +8,15 @@
 <x-header.header></x-header.header>
 
 <div class="container mx-auto px-6">
+
+    <div id="nav-submenu" class="md:flex">
+        @foreach ($page->breadcrumbs as $i => $breadcrumb)
+            <div class="md:mr-16 lg:mr-24">
+                <x-header.header-navigation-list :items="$breadcrumb->children" />
+            </div>
+        @endforeach
+    </div>
+
     <x-intro
         :title="$page->title"
         text="“{{ __('app.intro') }}”"
