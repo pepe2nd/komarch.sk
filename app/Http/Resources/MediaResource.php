@@ -19,7 +19,14 @@ class MediaResource extends JsonResource
             'size' => $this->size,
             'mime_type' => $this->mime_type,
             'url' => $this->getFullUrl(),
-            'srcset' => $this->getSrcset(),
+            $this->mergeWhen($this->hasResponsiveImages(), function () {
+                $responsiveImage = $this->responsiveImages()->files->first();
+                return [
+                    'srcset' => $this->getSrcset(),
+                    'width' => $responsiveImage->width(),
+                    'height' => $responsiveImage->height(),
+                ];
+            }),
         ];
     }
 }
