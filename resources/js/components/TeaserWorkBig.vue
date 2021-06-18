@@ -7,7 +7,6 @@
         :srcset="item.cover_image.srcset"
         :alt="item.name"
         class="rounded-2xl"
-        onload=""
         sizes="1px"
         :src="item.cover_image.url"
         :width="item.cover_image.width"
