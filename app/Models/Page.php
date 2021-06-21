@@ -86,7 +86,7 @@ class Page extends Model implements HasMedia
 
     public function children()
     {
-        return $this->hasMany(self::class, 'parent_id');
+        return $this->hasMany(self::class, 'parent_id')->orderBy('menu_order');
     }
 
     public function getBreadcrumbsAttribute()

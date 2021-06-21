@@ -96,7 +96,7 @@ class PageCrudController extends CrudController
             [
                 'name'        => 'parent_id',
                 'label'       => 'Parent',
-                'type'        => 'select2',
+                'type'        => 'select2_custom_nested',
                 'entity'      => 'parent',
                 'attribute'   => 'title',
             ],
