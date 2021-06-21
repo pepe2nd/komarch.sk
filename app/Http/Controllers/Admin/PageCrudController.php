@@ -242,8 +242,8 @@ class PageCrudController extends CrudController
         if ($this->crud->getRequest()->input('menu_order') !== null) {
             $this->shiftPages($this->crud->getCurrentEntry());
         }
-        $response = $this->traitUpdate();
         $this->reorderPages($this->crud->getCurrentEntry());
+        $response = $this->traitUpdate();
         return $response;
     }
 
