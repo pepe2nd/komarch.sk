@@ -15,6 +15,8 @@ Vue.component('SwiperPosts', require('./components/SwiperPosts').default)
 Vue.component('PostsOverview', require('./components/PostsOverview').default)
 Vue.component('DocumentsOverview', require('./components/documents-overview/DocumentsOverview').default)
 Vue.component('WorksOverview', require('./components/works-overview/WorksOverview').default)
+Vue.component('ImageGallery', require('./components/ImageGallery').default)
+Vue.component('Clock', require('./components/Clock').default)
 
 Vue.use(VueMapbox, { mapboxgl: Mapbox })
 Vue.use(Lang)

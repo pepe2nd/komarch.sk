@@ -8,11 +8,13 @@ use Illuminate\Support\Arr;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Tags\HasTags;
+use Illuminate\Support\Str;
+use App\Traits\HasShortDescription;
 
 class Work extends Model implements HasMedia
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
-    use HasFactory, InteractsWithMedia, HasTags;
+    use HasFactory, InteractsWithMedia, HasTags, HasShortDescription;
 
     public $with = ['other_architects', 'awards'];
 
@@ -23,9 +25,24 @@ class Work extends Model implements HasMedia
         return $this->belongsToMany(Award::class);
     }
 
+    public function citationPublications()
+    {
+        return $this->belongsToMany(
+            CitationPublication::class,
+            'citation_publication_work',
+            'work_id',
+            'publication_id'
+        );
+    }
+
     public function other_architects()
     {
         return $this->morphToMany(Tag::class, 'taggable')->where('type', 'other_architect');
+    }
+
+    public function functions()
+    {
+        return $this->morphToMany(Tag::class, 'taggable')->where('type', '');
     }
 
     public function registerMediaCollections(): void
@@ -37,7 +54,12 @@ class Work extends Model implements HasMedia
 
     public function getUrlAttribute(): string
     {
-        return url('/dielo/' . $this->id); // @TODO (slug?)
+        return route('works.detail', [$this->id, $this->slug]);
+    }
+
+    public function getSlugAttribute()
+    {
+        return Str::slug($this->name);
     }
 
     public function getCoverImageAttribute()
@@ -61,6 +83,48 @@ class Work extends Model implements HasMedia
     {
         // @TODO -> years span or just single year? date_design_start or date_construction_start ?
         return $this->date_design_start;
+    }
+
+    public function getShortDescriptionAttribute()
+    {
+        return $this->shortenString($this->annotation);
+    }
+
+    public function getDateDesignAttribute()
+    {
+        return $this->yearsSpan($this->date_design_start, $this->date_design_ending);
+    }
+
+    public function getDateConstructionAttribute()
+    {
+        return $this->yearsSpan($this->date_construction_start, $this->date_construction_ending);
+    }
+
+    public function getLocationAttribute()
+    {
+        if (!$this->has_public_location) {
+            return $this->location_city;
+        }
+
+        $result = $this->location_street;
+        if ($this->location_descriptive_number) {
+            $result .=  ' ' . $this->location_descriptive_number;
+        }
+        if ($this->location_city) {
+            $result .=  (!empty($result)) ? ', ' : '';
+            $result .=  $this->location_city;
+        }
+        return $result;
+
+    }
+
+    public function yearsSpan($start, $ending)
+    {
+        $result = $start;
+        if ($ending) {
+            $result .= ' - ' . $ending;
+        }
+        return $result;
     }
 
 

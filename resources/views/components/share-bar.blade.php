@@ -5,11 +5,11 @@
         target="_blank"
     >
         <span class="group-hover:hidden text-xl icon-mail"></span>
-        <span class="hidden group-hover:block">{{ __('post.share_mail')}}</span>
+        <span class="hidden group-hover:block">{{ __('sharing.share_mail')}}</span>
     </a>
     <button-copy
-        copy-text="{{ __('post.share_copy') }}"
-        copied-text="{{ __('post.share_copied') }}"
+        copy-text="{{ __('sharing.share_copy') }}"
+        copied-text="{{ __('sharing.share_copied') }}"
         copy-content="{{ Request::url() }}"
     ></button-copy>
     <a
@@ -18,6 +18,6 @@
         target="_blank"
     >
         <span class="group-hover:hidden text-xl icon-share"></span>
-        <span class="hidden group-hover:block">{{ __('post.share_facebook')}}</span>
+        <span class="hidden group-hover:block">{{ __('sharing.share_facebook')}}</span>
     </a>
 </div>

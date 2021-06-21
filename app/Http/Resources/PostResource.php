@@ -19,7 +19,7 @@ class PostResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'perex' => $this->perex,
-            'date' => trim($this->published_at->formatLocalized('%e. %B %Y')),
+            'date' => trim($this->published_at->formatLocalized(config('settings.date_format'))),
             'url' => $this->url,
             'cover_image' => new MediaResource($this->cover_image),
             'tags' => TagResource::collection($this->whenLoaded('tags')),

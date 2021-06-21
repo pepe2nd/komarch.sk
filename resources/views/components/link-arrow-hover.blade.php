@@ -1,6 +1,6 @@
 @php
     $class = 'group block leading-relaxed hover:text-blue';
-    $class .= (url()->current() == $url) ? 'text-blue' : '';
+    $class .= (url()->current() == $url) ? ' text-blue' : '';
 @endphp
 <a
     href="{{ $url }}"

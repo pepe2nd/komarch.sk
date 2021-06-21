@@ -19,7 +19,7 @@ class WorkResource extends JsonResource
             'name' => $this->name,
             'url' => $this->url,
             'cover_image' => new MediaResource($this->cover_image),
-            'created_at' => trim($this->created_at->formatLocalized('%e. %B %Y')),
+            'created_at' => trim($this->created_at->formatLocalized(config('settings.date_format'))),
             'filters' => $this->filters,
             'other_architects' => TagResource::collection($this->whenLoaded('other_architects')),
             'has_public_investor' => $this->has_public_investor,

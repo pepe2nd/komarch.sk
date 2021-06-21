@@ -14,6 +14,7 @@ use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use App\Traits\HasShortDescription;
 
 class Page extends Model implements HasMedia
 {
@@ -25,7 +26,8 @@ class Page extends Model implements HasMedia
         HasTranslations,
         CrudTrait,
         InteractsWithMedia,
-        HasCoverImage;
+        HasCoverImage,
+        HasShortDescription;
 
     public $translatable = [
         'title',
@@ -96,7 +98,7 @@ class Page extends Model implements HasMedia
 
     public function getBreadcrumbsAttribute()
     {
-        $breadcrumbs = [];
+        $breadcrumbs[] = $this;
         $id = $this->parent_id;
         while ($id!=0) {
             $model = self::find($id);
@@ -125,5 +127,10 @@ class Page extends Model implements HasMedia
             ->addMediaCollection('cover')
             ->acceptsMimeTypes(['image/jpeg', 'image/gif', 'image/png'])
             ->withResponsiveImages();
+    }
+
+    public function getShortDescriptionAttribute()
+    {
+        return $this->shortenString($this->text);
     }
 }

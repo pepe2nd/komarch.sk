@@ -1,6 +1,6 @@
 <a
-    class="px-1 mr-4 hover:text-blue flex items-center"
-    href="{{ $tag->slug }}"
+    class="px-1 mr-4 hover:text-blue flex items-center text-sm"
+    href="{{ $url }}"
 >
-    ❪<span class="text-sm">#{{ $tag->name }}</span>❫
+    ❪#{{ $slot }}❫
 </a>

@@ -18,5 +18,5 @@ return [
         'sat' => [],
         'sun' => [],
     ],
-
+    'date_format' => '%e. %B %Y',
 ];

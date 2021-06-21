@@ -8,11 +8,18 @@
 {{-- @include('components.notification_bar') --}}
 
 <div class="container mx-auto px-6">
-    <x-intro text="Slovenská Komora Architektov je odbornou organizáciou, ktorá sa zameriava na vzdelávanie a informovanie verejnosti o potrebách kvalitnej architektúry"/>
+    <x-intro :text="trans('home.intro')"/>
 
     <div class="mt-10 md:mt-32 md:grid grid-cols-2 gap-10">
-        <div class="flex" style="height: 300px">
-            <span class="m-auto">Clock here</span>
+        <div style="height: 300px">
+            {{-- <img src="{{ asset('images/clock.svg') }}" alt="clock" class="mb-5"> --}}
+            <div class="mb-3 md:mb-5" style="height: 200px">
+                <Clock />
+            </div>
+
+            <x-link-arrow url="#">
+                3 dni a 11 hodín do odovzdania návrhov na predĺženie promenády na Železnej studienke
+            </x-link-arrow>
         </div>
         @foreach ($tiles as $tile)
             <x-tile
@@ -34,19 +41,19 @@
                 title="Videá"
                 embedUrl="https://www.youtube.com/embed/NL1XKbI3x68"
                 linkUrl="#"
-                linkTitle="Pozrite si ďalšie videá"
+                :linkTitle="trans('home.more_video')"
             />
             <x-section-publications
                 title="Publikácie"
                 :publications="$publications"
                 linkUrl="#"
-                linkTitle="Čítajte na ISSU"
+                :linkTitle="trans('home.read_on_issuu')"
             />
         </div>
     </div>
 
     <x-section-map
-        worksUrl="/diela"
+        worksUrl="{{ route('works') }}"
         mapUrl="#"
     />
 </div>
