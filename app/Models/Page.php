@@ -76,6 +76,11 @@ class Page extends Model implements HasMedia
         return action('\App\Http\Controllers\PagesController@show', $this->slug);
     }
 
+    public function setParentIdAttribute($value)
+    {
+        $this->attributes['parent_id'] = (is_null($value)) ? 0 : $value;
+    }
+
     public function tags()
     {
         return $this->morphToMany(Tag::class, 'taggable');

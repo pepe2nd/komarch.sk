@@ -96,7 +96,7 @@ class PageCrudController extends CrudController
             [
                 'name'        => 'parent_id',
                 'label'       => 'Parent',
-                'type'        => 'select2',
+                'type'        => 'select2_custom_nested',
                 'entity'      => 'parent',
                 'attribute'   => 'title',
             ],
@@ -242,8 +242,8 @@ class PageCrudController extends CrudController
         if ($this->crud->getRequest()->input('menu_order') !== null) {
             $this->shiftPages($this->crud->getCurrentEntry());
         }
-        $response = $this->traitUpdate();
         $this->reorderPages($this->crud->getCurrentEntry());
+        $response = $this->traitUpdate();
         return $response;
     }
 
