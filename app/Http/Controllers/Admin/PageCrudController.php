@@ -154,6 +154,16 @@ class PageCrudController extends CrudController
             });
         });
 
+        $this->crud->addFilter([
+          'name'  => 'parent_id',
+          'type'  => 'select2',
+          'label' => 'Parent page'
+        ], function() {
+            return \App\Models\Page::all()->pluck('title', 'id')->toArray();
+        }, function($value) {
+            $this->crud->addClause('where', 'parent_id', $value);
+        });
+
     }
 
     /**
