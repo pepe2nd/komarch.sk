@@ -134,11 +134,13 @@ class Page extends Model implements HasMedia
         return $this->shortenString($this->text);
     }
 
-    public static function getTree($parent_id = 0, $spacing = '', $tree_array = []) {
+    public static function getTree($only_parents = false, $parent_id = 0, $spacing = '', $tree_array = []) {
         $categories = self::select('id', 'title', 'parent_id')->where('parent_id' ,'=', $parent_id)->orderBy('menu_order')->get();
         foreach ($categories as $item){
-            $tree_array[$item->id] = $spacing . ' ' . $item->title;
-            $tree_array = self::getTree($item->id, $spacing . '—', $tree_array);
+            if (!$only_parents || $item->children()->exists()) {
+                $tree_array[$item->id] = $spacing . ' ' . $item->title;
+                $tree_array = self::getTree($only_parents, $item->id, $spacing . '—', $tree_array);
+            }
         }
         return $tree_array;
     }

@@ -159,7 +159,7 @@ class PageCrudController extends CrudController
           'type'  => 'select2_wide',
           'label' => 'Parent page'
         ], function() {
-            return \App\Models\Page::getTree();
+            return \App\Models\Page::getTree($only_parents = true);
         }, function($value) {
             $this->crud->addClause('where', 'parent_id', $value);
         });
