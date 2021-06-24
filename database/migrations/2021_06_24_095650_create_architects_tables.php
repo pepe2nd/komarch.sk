@@ -52,6 +52,15 @@ class CreateArchitectsTables extends Migration
             $table->timestamps();
         });
 
+        Schema::create('numbers', function (Blueprint $table) {
+            $table->bigInteger('id', false, true)->primary();
+            $table->foreignId('architect_id')->constrained();
+            $table->string('architect_number')->nullable();
+            $table->date('valid_from')->nullable();
+            $table->date('valid_to')->nullable();
+            $table->timestamps();
+        });
+
         Schema::create('architect_contest', function (Blueprint $table) {
             $table->bigInteger('id', false, true)->primary();
             $table->foreignId('contest_id')->constrained();
@@ -77,6 +86,7 @@ class CreateArchitectsTables extends Migration
     {
         Schema::dropIfExists('architect_work');
         Schema::dropIfExists('architect_contest');
+        Schema::dropIfExists('numbers');
         Schema::dropIfExists('business_numbers');
         Schema::dropIfExists('addresses');
         Schema::dropIfExists('architects');
