@@ -30,13 +30,23 @@ class ContestController extends Controller
         return ContestResource::collection($contests->paginate($per_page));
     }
 
+    public function filters(Request $request)
+    {
+        $contests = $this->loadContests($request)->get();
+        $filters = collect();
+        foreach (Contest::$filterable as $filter) {
+            $filters[$filter] = $contests->pluck($filter)->flatten()->countBy('name');
+        }
+        return $filters;
+    }
+
     private function loadContests(Request $request)
     {
         $contests = Contest::query();
 
         // apply filters
-        if ($request->has('tags')) {
-            $contests->withAnyTags($request->input('tags', []));
+        if ($request->has('typologies')) {
+            $contests->withAnyTags($request->input('typologies', []));
         }
 
         return $contests;

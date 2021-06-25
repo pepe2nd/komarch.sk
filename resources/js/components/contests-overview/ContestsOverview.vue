@@ -1,7 +1,7 @@
 <template>
   <!-- TODO: Implement a nice spinner for loading state -->
   <div>
-    <DocumentsOverviewFilters
+    <ContestsOverviewFilters
       v-model="selectedFilters"
       :filters="filters"
     />
@@ -24,19 +24,17 @@
 
 <script>
 import ContestsOverviewResults from './ContestsOverviewResults'
-import DocumentsOverviewFilters from './DocumentsOverviewFilters'
+import ContestsOverviewFilters from './ContestsOverviewFilters'
 import ButtonLoadMore from '../atoms/buttons/ButtonLoadMore'
 import InputSearch from '../atoms/InputSearch'
 import axiosGet from '../axiosGetMixin'
 
-const FILTER_ROLES = 'roles'
-const FILTER_TOPICS = 'topics'
-const FILTER_TYPES = 'types'
+const FILTER_TYPOLOGIES = 'typologies'
 
 export default {
   components: {
     InputSearch,
-    DocumentsOverviewFilters,
+    ContestsOverviewFilters,
     ContestsOverviewResults,
     ButtonLoadMore
   },
@@ -62,9 +60,7 @@ export default {
   computed: {
     filterParams () {
       const params = {
-        roles: this.selectedFilters.filter(filter => filter.type === FILTER_ROLES).map(filter => filter.title),
-        topics: this.selectedFilters.filter(filter => filter.type === FILTER_TOPICS).map(filter => filter.title),
-        types: this.selectedFilters.filter(filter => filter.type === FILTER_TYPES).map(filter => filter.title)
+        typologies: this.selectedFilters.filter(filter => filter.type === FILTER_TYPOLOGIES).map(filter => filter.title)
       }
 
       if (this.sorting.title) {
@@ -117,29 +113,17 @@ export default {
     async fetchData () {
       const [contestsResponse, filtersResponse] = await Promise.all([
         this.axiosGet('contests', this.filterParams),
-        this.axiosGet('documents-filters', this.filterParams)
+        this.axiosGet('contests-filters', this.filterParams)
       ])
 
-      const roles = []
-      const topics = []
-      const types = []
+      const typologies = []
 
-      for (const key in filtersResponse.roles) {
-        roles.push({ key: key, title: key, items: filtersResponse.roles[key], type: FILTER_ROLES })
-      }
-
-      for (const key in filtersResponse.topics) {
-        topics.push({ key: key, title: key, items: filtersResponse.topics[key], type: FILTER_TOPICS })
-      }
-
-      for (const key in filtersResponse.types) {
-        types.push({ key: key, title: key, items: filtersResponse.types[key], type: FILTER_TYPES })
+      for (const key in filtersResponse.typologies) {
+        typologies.push({ key: key, title: key, items: filtersResponse.typologies[key], type: FILTER_TYPOLOGIES })
       }
 
       this.filters = {
-        roles,
-        topics,
-        types
+        typologies
       }
 
       this.results = contestsResponse.data

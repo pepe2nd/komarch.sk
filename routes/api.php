@@ -34,3 +34,5 @@ Route::get('/works-filters', 'App\Http\Controllers\Api\WorkController@filters');
 Route::get('/works/{id}/images', 'App\Http\Controllers\Api\WorkController@images');
 
 Route::get('/contests', 'App\Http\Controllers\Api\ContestController@index');
+Route::get('/contests-filters', 'App\Http\Controllers\Api\ContestController@filters');
+
