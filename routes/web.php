@@ -32,5 +32,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
     Route::resource('spravy', '\App\Http\Controllers\PostsController')->names('posts')
                 ->parameter('spravy', 'post');
 
+    Route::get('/sutaze', 'App\Http\Controllers\ContestsController@index')->name('contests');
+
     Route::get('{slug}', 'App\Http\Controllers\PagesController@show');
 });
