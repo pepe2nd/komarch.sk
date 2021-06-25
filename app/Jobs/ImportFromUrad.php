@@ -7,6 +7,7 @@ use App\Models\Work;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\ConnectionInterface;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
@@ -34,102 +35,16 @@ class ImportFromUrad implements ShouldQueue
      */
     public function handle()
     {
-        $sourceDb = DB::connection('urad');
+        $this->importTable('lab_works', 'works');
+        $this->importTable('lab_awards', 'awards');
+        $this->importTable('lab_award_work', 'award_work');
+        $this->importTable('lab_publications', 'citation_publications');
+        $this->importTable('lab_publication_work', 'citation_publication_work');
+        $this->importTable('lab_contests', 'contests');
+        $this->importTable('lab_jurors', 'jurors');
+        $this->importTable('lab_proposals', 'proposals');
 
-        $sourceDb->table('lab_works')
-            ->orderBy('id')
-            ->chunk(100, function ($works) {
-                $upserts = $works
-                    ->map(fn ($w) => (array) $w)
-                    ->toArray();
-
-                DB::table('works')->upsert($upserts, ['id']);
-            });
-
-        $sourceDb->table('lab_works')
-            ->lazyById()
-            ->each(function ($sourceWork) use ($sourceDb) {
-                $work = Work::find($sourceWork->id);
-                $this->importMedia($work, $sourceDb);
-                $this->importWorkTags($work, $sourceDb);
-            });
-
-        $sourceDb->table('lab_awards')
-            ->orderBy('id')
-            ->chunk(100, function ($awards) {
-                $upserts = $awards
-                    ->map(fn ($a) => (array) $a)
-                    ->toArray();
-
-                DB::table('awards')->upsert($upserts, ['id']);
-            });
-
-        $sourceDb->table('lab_award_work')
-            ->orderBy('id')
-            ->chunk(100, function ($awardWorks) {
-                $upserts = $awardWorks
-                    ->map(fn ($aw) => (array) $aw)
-                    ->toArray();
-
-                DB::table('award_work')->upsert($upserts, ['id']);
-            });
-
-        $sourceDb->table('lab_publications')
-            ->orderBy('id')
-            ->chunk(100, function ($publications) {
-                $upserts = $publications
-                    ->map(fn ($p) => (array) $p)
-                    ->toArray();
-
-                DB::table('citation_publications')->upsert($upserts, ['id']);
-            });
-
-        $sourceDb->table('lab_publication_work')
-            ->orderBy('id')
-            ->chunk(100, function ($publicationWorks) {
-                $upserts = $publicationWorks
-                    ->map(fn ($pw) => (array) $pw)
-                    ->toArray();
-
-                DB::table('citation_publication_work')->upsert($upserts, ['id']);
-            });
-
-        $sourceDb->table('lab_contests')
-            ->orderBy('id')
-            ->chunk(100, function ($contests) {
-                $upserts = $contests
-                    ->map(fn ($c) => (array) $c)
-                    ->toArray();
-
-                DB::table('contests')->upsert($upserts, ['id']);
-            });
-
-        $sourceDb->table('lab_jurors')
-            ->orderBy('id')
-            ->chunk(100, function ($jurors) {
-                $upserts = $jurors
-                    ->map(fn ($j) => (array) $j)
-                    ->toArray();
-
-                DB::table('jurors')->upsert($upserts, ['id']);
-            });
-
-        $sourceDb->table('lab_proposals')
-            ->orderBy('id')
-            ->chunk(100, function ($proposals) {
-                $upserts = $proposals
-                    ->map(fn ($p) => (array) $p)
-                    ->toArray();
-
-                DB::table('proposals')->upsert($upserts, ['id']);
-            });
-
-        $sourceDb->table('lab_contests')
-            ->lazyById()
-            ->each(function ($sourceContest) use ($sourceDb) {
-                $contest = Contest::find($sourceContest->id);
-                $this->importContestTags($contest, $sourceDb);
-            });
+        $sourceDb = $this->getSourceDb();
 
         // Remove entities no longer present in source DB
         DB::table('proposals')->whereNotIn('id', $sourceDb->table('lab_proposals')->pluck('id'))->delete();
@@ -144,13 +59,42 @@ class ImportFromUrad implements ShouldQueue
 
         Media::whereNotNull('custom_properties->urad_id')
             ->whereNotIn('custom_properties->urad_id', $sourceDb->table('lab_media')->pluck('id'))->delete();
-        Work::whereNotIn('id', $sourceDb->table('lab_works')->pluck('id'))->delete();
+        DB::table('works')->whereNotIn('id', $sourceDb->table('lab_works')->pluck('id'))->delete();
+
+        // Synchronize tags & media
+        foreach (Work::cursor() as $work) {
+            $this->importMedia($work);
+            $this->importModelTags('App\Models\Work', $work);
+        }
+
+        foreach (Contest::cursor() as $contest) {
+            $this->importModelTags('App\Models\Contest', $contest);
+        }
     }
 
-    private function importMedia(Work $work, ConnectionInterface $sourceDb) {
+    private function getSourceDb(): ConnectionInterface
+    {
+        return DB::connection('urad');
+    }
+
+    private function importTable(string $sourceTableName, string $targetTableName)
+    {
+        $this->getSourceDb()->table($sourceTableName)
+            ->orderBy('id')
+            ->chunk(100, function ($rows) use ($targetTableName) {
+                $upserts = $rows
+                    ->map(fn ($row) => (array) $row)
+                    ->toArray();
+
+                DB::table($targetTableName)->upsert($upserts, ['id']);
+            });
+    }
+
+    private function importMedia(Work $work)
+    {
         $existingUradIds = $work->getMedia('images')->map->getCustomProperty('urad_id');
 
-        $sourceDb->table('lab_media')
+        $this->getSourceDb()->table('lab_media')
             ->where('model_type', 'App\Models\Work')
             ->where('collection_name', 'work_pictures')
             ->where('model_id', $work->id) // Work ID from 'Urad' matches our Work ID
@@ -167,33 +111,19 @@ class ImportFromUrad implements ShouldQueue
             });
     }
 
-    private function importWorkTags(Work $work, ConnectionInterface $sourceDb) {
-        $sourceDb
+    private function importModelTags(string $sourceDbModelClassname, Model $entity)
+    {
+        $this->getSourceDb()
             ->table('lab_tags')
             ->select('name->sk as name', 'type')
             ->join('lab_taggables', 'lab_taggables.tag_id', '=', 'lab_tags.id')
-            ->where('taggable_type', 'App\Models\Work')
-            ->where('taggable_id', $work->id)
+            ->where('taggable_type', $sourceDbModelClassname)
+            ->where('taggable_id', $entity->id)
             ->get()
 
             ->groupBy('type')
-            ->each(function ($tags, $type) use ($work) {
-                $work->syncTagsWithType($tags->pluck('name'), $type);
-            });
-    }
-
-    private function importContestTags(Contest $contest, ConnectionInterface $sourceDb) {
-        $sourceDb
-            ->table('lab_tags')
-            ->select('name->sk as name', 'type')
-            ->join('lab_taggables', 'lab_taggables.tag_id', '=', 'lab_tags.id')
-            ->where('taggable_type', 'App\Models\Contest')
-            ->where('taggable_id', $contest->id)
-            ->get()
-
-            ->groupBy('type')
-            ->each(function ($tags, $type) use ($contest) {
-                $contest->syncTagsWithType($tags->pluck('name'), $type);
+            ->each(function ($tags, $type) use ($entity) {
+                $entity->syncTagsWithType($tags->pluck('name'), $type);
             });
     }
 }
