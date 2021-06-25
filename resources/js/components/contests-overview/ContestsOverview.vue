@@ -49,8 +49,10 @@ export default {
       selectedFilters: [],
       searchTerm: null,
       sorting: {
-        name: null,
-        date: null
+        announcedAt: null,
+        finishedAt: null,
+        resultsPublishedAt: null,
+        title: null
       },
       results: [],
       page: 1,
@@ -65,14 +67,24 @@ export default {
         types: this.selectedFilters.filter(filter => filter.type === FILTER_TYPES).map(filter => filter.title)
       }
 
-      if (this.sorting.name) {
-        params.sortby = 'name'
-        params.direction = this.sorting.name
+      if (this.sorting.title) {
+        params.sortby = 'title'
+        params.direction = this.sorting.title
       }
 
-      if (this.sorting.date) {
-        params.sortby = 'created_at'
-        params.direction = this.sorting.date
+      if (this.sorting.announcedAt) {
+        params.sortby = 'announced_at'
+        params.direction = this.sorting.announcedAt
+      }
+
+      if (this.sorting.finishedAt) {
+        params.sortby = 'finished_at'
+        params.direction = this.sorting.finishedAt
+      }
+
+      if (this.sorting.resultsPublishedAt) {
+        params.sortby = 'results_published_at'
+        params.direction = this.sorting.resultsPublishedAt
       }
 
       if (this.searchTerm) {

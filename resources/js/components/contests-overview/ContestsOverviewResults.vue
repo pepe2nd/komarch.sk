@@ -24,19 +24,37 @@
         <tr>
           <th>
             <ButtonSortable
-              v-model="sortingName"
+              v-model="sortingAnnounced"
+              style="min-width: 200px"
               class="pb-10 text-sm"
             >
-              {{ __('generic.name') }}
+              {{ __('generic.announced_at') }}
             </ButtonSortable>
           </th>
           <th>
             <ButtonSortable
-              v-model="sortingDate"
+              v-model="sortingFinished"
               style="min-width: 200px"
               class="pb-10 text-sm"
             >
-              {{ __('generic.created') }}
+              {{ __('generic.finished_at') }}
+            </ButtonSortable>
+          </th>
+          <th>
+            <ButtonSortable
+              v-model="sortingResultsPublished"
+              style="min-width: 200px"
+              class="pb-10 text-sm"
+            >
+              {{ __('generic.results_published_at') }}
+            </ButtonSortable>
+          </th>
+          <th>
+            <ButtonSortable
+              v-model="sortingTitle"
+              class="pb-10 text-sm"
+            >
+              {{ __('generic.title') }}
             </ButtonSortable>
           </th>
         </tr>
@@ -48,10 +66,16 @@
           class="border-b"
         >
           <td class="py-1">
-            {{ contest.title }}
+            {{ contest.announced_at }}
           </td>
-          <td>
-            {{ contest.created_at }}
+          <td class="py-1">
+            {{ contest.finished_at }}
+          </td>
+          <td class="py-1">
+            {{ contest.results_published_at }}
+          </td>
+          <td class="py-1">
+            {{ contest.title }}
           </td>
         </tr>
       </tbody>
@@ -83,23 +107,43 @@ export default {
     }
   },
   computed: {
-    sortingName: {
+    sortingTitle: {
       get () {
-        return this.value.name
+        return this.value.title
       },
       set (newValue) {
         this.$emit('input', {
-          name: newValue
+          title: newValue
         })
       }
     },
-    sortingDate: {
+    sortingAnnounced: {
       get () {
-        return this.value.date
+        return this.value.announcedAt
       },
       set (newValue) {
         this.$emit('input', {
-          date: newValue
+          announcedAt: newValue
+        })
+      },
+    },
+    sortingFinished: {
+      get () {
+        return this.value.finishedAt
+      },
+      set (newValue) {
+        this.$emit('input', {
+          finishedAt: newValue
+        })
+      }
+    },
+    sortingResultsPublished: {
+      get () {
+        return this.value.resultsPublishedAt
+      },
+      set (newValue) {
+        this.$emit('input', {
+          resultsPublishedAt: newValue
         })
       }
     }
