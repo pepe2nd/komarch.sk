@@ -60,42 +60,6 @@ class ContestCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        
-
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
-    }
-
-    /**
-     * Define what happens when the Create operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-create
-     * @return void
-     */
-    protected function setupCreateOperation()
-    {
-        CRUD::setValidation(ContestRequest::class);
-
-        
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
-    }
-
-    /**
-     * Define what happens when the Update operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-update
-     * @return void
-     */
-    protected function setupUpdateOperation()
-    {
-        $this->setupCreateOperation();
+        $this->crud->addButtonFromView('line', 'show_online', 'show_online', 'beginning');
     }
 }

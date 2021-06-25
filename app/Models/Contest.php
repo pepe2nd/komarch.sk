@@ -9,4 +9,10 @@ class Contest extends Model
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasTags;
+
+    public function getUrlAttribute(): string
+    {
+        // @TODO
+        return $this->id; //route('contests.detail', [$this->id, $this->slug]);
+    }
 }
