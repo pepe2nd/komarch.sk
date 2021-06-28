@@ -18,14 +18,18 @@ class ImportFromUrad implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    private bool $dangerouslyDisableConstraints;
+    private bool $skipMediaImports;
+
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($dangerouslyDisableConstraints = false, $skipMediaImports = false)
     {
-        //
+        $this->dangerouslyDisableConstraints = $dangerouslyDisableConstraints;
+        $this->skipMediaImports = $skipMediaImports;
     }
 
     /**
@@ -43,17 +47,29 @@ class ImportFromUrad implements ShouldQueue
         $this->importTable('lab_contests', 'contests');
         $this->importTable('lab_jurors', 'jurors');
         $this->importTable('lab_proposals', 'proposals');
+        $this->importTable('lab_architects', 'architects');
+        $this->importTable('lab_addresses', 'addresses');
+        $this->importTable('lab_business_numbers', 'business_numbers');
+        if ($this->dangerouslyDisableConstraints) DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        $this->importTable('lab_numbers', 'numbers');
+        $this->importTable('lab_architect_contest', 'architect_contest');
+        $this->importTable('lab_architect_work', 'architect_work');
+        if ($this->dangerouslyDisableConstraints) DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         $sourceDb = $this->getSourceDb();
 
         // Remove entities no longer present in source DB
+        DB::table('architect_work')->whereNotIn('id', $sourceDb->table('lab_architect_work')->pluck('id'))->delete();
+        DB::table('architect_contest')->whereNotIn('id', $sourceDb->table('lab_architect_contest')->pluck('id'))->delete();
+        DB::table('numbers')->whereNotIn('id', $sourceDb->table('lab_numbers')->pluck('id'))->delete();
+        DB::table('business_numbers')->whereNotIn('id', $sourceDb->table('lab_business_numbers')->pluck('id'))->delete();
+        DB::table('addresses')->whereNotIn('id', $sourceDb->table('lab_addresses')->pluck('id'))->delete();
+        DB::table('architects')->whereNotIn('id', $sourceDb->table('lab_architects')->pluck('id'))->delete();
         DB::table('proposals')->whereNotIn('id', $sourceDb->table('lab_proposals')->pluck('id'))->delete();
         DB::table('jurors')->whereNotIn('id', $sourceDb->table('lab_jurors')->pluck('id'))->delete();
         DB::table('contests')->whereNotIn('id', $sourceDb->table('lab_contests')->pluck('id'))->delete();
-
         DB::table('citation_publication_work')->whereNotIn('id', $sourceDb->table('lab_publication_work')->pluck('id'))->delete();
         DB::table('citation_publications')->whereNotIn('id', $sourceDb->table('lab_publications')->pluck('id'))->delete();
-
         DB::table('award_work')->whereNotIn('id', $sourceDb->table('lab_award_work')->pluck('id'))->delete();
         DB::table('awards')->whereNotIn('id', $sourceDb->table('lab_awards')->pluck('id'))->delete();
 
@@ -92,6 +108,8 @@ class ImportFromUrad implements ShouldQueue
 
     private function importMedia(Work $work)
     {
+        if ($this->skipMediaImports) return;
+
         $existingUradIds = $work->getMedia('images')->map->getCustomProperty('urad_id');
 
         $this->getSourceDb()->table('lab_media')
