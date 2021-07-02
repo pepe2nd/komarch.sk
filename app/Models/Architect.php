@@ -6,13 +6,16 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Laravel\Scout\Searchable;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships as HasDeepRelationships;
 
 class Architect extends Model
 {
     use HasFactory;
     use HasDeepRelationships;
+    use Searchable;
 
     public $incrementing = false;
 
@@ -50,7 +53,8 @@ class Architect extends Model
     public function scopeFiltered(Builder $query, Request $request)
     {
         if ($request->filled('q')) {
-            $query->where('last_name', 'like', "%{$request->query('q')}%");
+            $searchResultIds = self::search("*{$request->query('q')}*")->keys();
+            $query->whereIn('architects.id', $searchResultIds);
         }
 
         if ($request->filled('startsWith')) {
@@ -66,5 +70,10 @@ class Architect extends Model
         }
 
         return $query;
+    }
+
+    public function toSearchableArray()
+    {
+        return Arr::only($this->toArray(), ['first_name', 'last_name']);
     }
 }

@@ -7,11 +7,12 @@ use App\Models\Award;
 use App\Models\Work;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Tests\RefreshSearchIndex;
 use Tests\TestCase;
 
 class ArchitectApiTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase, RefreshSearchIndex, WithFaker;
 
     /**
      * A basic feature test example.
