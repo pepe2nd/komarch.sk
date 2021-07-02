@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Tags\HasTags;
+use Illuminate\Support\Carbon;
 
 class Contest extends Model
 {
@@ -29,6 +30,25 @@ class Contest extends Model
     public function typologies()
     {
         return $this->morphToMany(Tag::class, 'taggable')->where('type', '');
+    }
+
+    public function scopeOngoing($query)
+    {
+        return $query->whereDate('announced_at', '<', Carbon::now())
+            ->where(function ($subquery) {
+                $subquery->whereDate('finished_at', '>', Carbon::now())
+                    ->orWhereNull('finished_at');
+        });
+    }
+
+    public function scopeUpcoming($query)
+    {
+        return $query->whereDate('announced_at', '>', Carbon::now());
+    }
+
+    public function scopeFinished($query)
+    {
+        return $query->whereDate('finished_at', '<', Carbon::now());
     }
 
 }
