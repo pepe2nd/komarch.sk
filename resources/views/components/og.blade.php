@@ -4,7 +4,7 @@
     <meta property="og:site_name" content="{{ __('app.title') }}" />
     <meta property="og:description" content="{{ $description }}"/>
     <meta property="og:url" content="{{ $url }}"/>
-    @if ($attributes->has('cover_image') && !is_null($cover_image))
-        <meta property="og:image" content="{{ $cover_image->getFullUrl() }}"/>
+    @if ($attributes->has('image') && !is_null($image))
+        <meta property="og:image" content="{{ $image->getFullUrl() }}"/>
     @endif
 @stop
