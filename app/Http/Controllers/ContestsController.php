@@ -9,7 +9,7 @@ class ContestsController extends Controller
 {
     public function index(Request $request)
     {
-        return view('contests');
+        return view('contests.index');
     }
 
     public function show($id, $slug, Request $request)
@@ -20,6 +20,6 @@ class ContestsController extends Controller
             return redirect($contest->url);
         }
 
-        return true; //view('contests.show', compact('contest'));
+        return view('contests.show', compact('contest'));
     }
 }
