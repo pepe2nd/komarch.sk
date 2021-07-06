@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Tags\HasTags;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
+use Spatie\Tags\HasTags;
 
 class Contest extends Model
 {
@@ -23,8 +24,12 @@ class Contest extends Model
 
     public function getUrlAttribute(): string
     {
-        // @TODO
-        return $this->id; //route('contests.detail', [$this->id, $this->slug]);
+        return route('contests.detail', [$this->id, $this->slug]);
+    }
+
+    public function getSlugAttribute()
+    {
+        return Str::slug($this->title);
     }
 
     public function typologies()
@@ -50,5 +55,4 @@ class Contest extends Model
     {
         return $query->whereDate('finished_at', '<', Carbon::now());
     }
-
 }
