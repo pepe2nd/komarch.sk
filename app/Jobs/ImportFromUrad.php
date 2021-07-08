@@ -85,11 +85,12 @@ class ImportFromUrad implements ShouldQueue
 
         // Synchronize tags & media
         foreach (Work::cursor() as $work) {
-            $this->importMedia($work);
+            $this->importWorkMedia($work);
             $this->importModelTags('App\Models\Work', $work);
         }
 
         foreach (Contest::cursor() as $contest) {
+            $this->importModelMedia('App\Models\Contest', $contest, ['contest_pictures', 'contest_attachments']);
             $this->importModelTags('App\Models\Contest', $contest);
         }
     }
@@ -112,7 +113,7 @@ class ImportFromUrad implements ShouldQueue
             });
     }
 
-    private function importMedia(Work $work)
+    private function importWorkMedia(Work $work)
     {
         if ($this->skipMediaImports) return;
 
@@ -132,6 +133,44 @@ class ImportFromUrad implements ShouldQueue
                         'urad_id' => $sourceMedium->id,
                     ])
                     ->toMediaCollection('images');
+            });
+    }
+
+    private function importModelMedia(string $sourceDbModelClassname, Model $entity, array $collectionNames)
+    {
+        if ($this->skipMediaImports) return;
+
+        $sourceUradIds =  $this->getSourceDb()->table('lab_media')
+            ->where('model_type', $sourceDbModelClassname)
+            ->where('model_id', $entity->id) // Model IDs between us and Urad are identical
+            ->whereIn('collection_name', $collectionNames)
+            ->pluck('id');
+
+        $importedUradIds = $entity->media()
+            ->whereNotNull('custom_properties->urad_id')
+            ->select('custom_properties->urad_id as urad_id')
+            ->pluck('urad_id');
+
+        // Import Media not yet present in our database
+        $this->getSourceDb()->table('lab_media')
+            ->whereIn('id', $sourceUradIds->diff($importedUradIds)->values())
+            ->lazyById()
+            ->each(function ($sourceMedium) use ($entity) {
+                $entity
+                    ->addMediaFromDisk("lab_sng/{$sourceMedium->id}/{$sourceMedium->file_name}", 'urad')
+                    ->preservingOriginal()
+                    ->withCustomProperties([
+                        'urad_id' => $sourceMedium->id,
+                    ])
+                    ->toMediaCollection($sourceMedium->collection_name);
+            });
+
+        // Remove Media no longer present in the source
+        $entity->media()
+            ->whereIn('custom_properties->urad_id', $importedUradIds->diff($sourceUradIds)->values())
+            ->lazyById()
+            ->each(function ($medium) {
+                $medium->delete();
             });
     }
 
