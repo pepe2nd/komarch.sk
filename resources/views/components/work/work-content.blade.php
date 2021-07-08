@@ -42,20 +42,20 @@
         </div>
     @endif
 
-    @if ($work->architects->count() > 0)
+    @if (($work->architects->count() > 0) || ($work->other_architects->count() > 0))
         <div class="mb-9">
             <div class="mb-1">{{ __('works.authors') }}:</div>
-            {{ $work->architects->implode('full_name', ', ') }}
-        </div>
-    @endif
 
-    @if ($work->other_architects->count() > 0)
-        <div class="mb-9">
-            <div class="mb-1">{{ __('works.authors') }}:</div>
+            @foreach ($work->architects as $architect)
+                {{ $loop->first ? '' : ', ' }}
+                <a href="#" class="">{{ $architect->full_name }}</a>
+            @endforeach
+
+            {{ (($work->architects->count() > 0) && ($work->other_architects->count() > 0)) ? ', ' : '' }}
+
             {{ $work->other_architects->implode('name', ', ') }}
         </div>
     @endif
-
 
     <div class="mb-9">
         <div class="mb-1">{{ __('works.about_the_work') }}:</div>
