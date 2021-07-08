@@ -86,7 +86,7 @@ class ImportFromUrad implements ShouldQueue
 
         // Synchronize tags & media
         foreach (Work::cursor() as $work) {
-            $this->importWorkMedia($work);
+            $this->importModelMedia('App\Models\Work', $work, ['work_pictures']);
             $this->importModelTags('App\Models\Work', $work);
         }
 
@@ -115,29 +115,6 @@ class ImportFromUrad implements ShouldQueue
                     ->toArray();
 
                 DB::table($targetTableName)->upsert($upserts, ['id']);
-            });
-    }
-
-    private function importWorkMedia(Work $work)
-    {
-        if ($this->skipMediaImports) return;
-
-        $existingUradIds = $work->getMedia('images')->map->getCustomProperty('urad_id');
-
-        $this->getSourceDb()->table('lab_media')
-            ->where('model_type', 'App\Models\Work')
-            ->where('collection_name', 'work_pictures')
-            ->where('model_id', $work->id) // Work ID from 'Urad' matches our Work ID
-            ->whereNotIn('id', $existingUradIds)
-            ->lazyById()
-            ->each(function ($sourceMedium) use ($work) {
-                $work
-                    ->addMediaFromDisk("lab_sng/{$sourceMedium->id}/{$sourceMedium->file_name}", 'urad')
-                    ->preservingOriginal()
-                    ->withCustomProperties([
-                        'urad_id' => $sourceMedium->id,
-                    ])
-                    ->toMediaCollection('images');
             });
     }
 
