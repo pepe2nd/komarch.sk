@@ -45,6 +45,16 @@ class Architect extends Model
         return Str::title($value);
     }
 
+    public function getFullNameAttribute()
+    {
+        return trim(implode(' ', [
+            $this->title_before,
+            $this->first_name,
+            $this->last_name,
+            $this->title_after
+        ]));
+    }
+
     public function getAuthorizationsAttribute()
     {
         return $this->numbers->map->authorization;

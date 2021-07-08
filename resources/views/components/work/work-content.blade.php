@@ -42,6 +42,13 @@
         </div>
     @endif
 
+    @if ($work->architects->count() > 0)
+        <div class="mb-9">
+            <div class="mb-1">{{ __('works.authors') }}:</div>
+            {{ $work->architects->implode('full_name', ', ') }}
+        </div>
+    @endif
+
     @if ($work->other_architects->count() > 0)
         <div class="mb-9">
             <div class="mb-1">{{ __('works.authors') }}:</div>
