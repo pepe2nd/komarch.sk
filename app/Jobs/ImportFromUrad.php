@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\Contest;
+use App\Models\ContestResult;
 use App\Models\Work;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -92,6 +93,10 @@ class ImportFromUrad implements ShouldQueue
         foreach (Contest::cursor() as $contest) {
             $this->importModelMedia('App\Models\Contest', $contest, ['contest_pictures', 'contest_attachments']);
             $this->importModelTags('App\Models\Contest', $contest);
+        }
+
+        foreach (ContestResult::cursor() as $contestResult) {
+            $this->importModelMedia('App\Models\Contestresult', $contestResult, ['contestresult_pictures']);
         }
     }
 
