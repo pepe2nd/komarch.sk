@@ -142,7 +142,9 @@ class ImportFromUrad implements ShouldQueue
             ->get()
 
             ->groupBy('type')
-            ->each(function ($tags, $type) use ($entity) {
+            ->each(function ($tags) use ($entity) {
+                // NULL types get grouped as empty strings
+                $type = $tags[0]->type;
                 $entity->syncTagsWithType($tags->pluck('name'), $type);
             });
     }
