@@ -8,7 +8,7 @@
 <div class="container mx-auto px-6">
     <x-intro
         :title="trans('contests.title')"
-        text="“Podporujeme rozvoj architektúry na Slovensku. Sme odbornou organizáciou, ktorá sa zameri ava na vzdelávanie a informovanie verejnosti o potrebách kvalitnej architektúry.“"
+        text="“{{ __('app.intro') }}”"
     />
     <contests-overview />
 </div>
