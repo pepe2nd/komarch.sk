@@ -55,7 +55,7 @@ class Work extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this
-            ->addMediaCollection('images')
+            ->addMediaCollection('work_pictures')
             ->withResponsiveImages();
     }
 
@@ -71,7 +71,7 @@ class Work extends Model implements HasMedia
 
     public function getCoverImageAttribute()
     {
-        return $this->getFirstMedia('images');
+        return $this->getFirstMedia('work_pictures');
     }
 
     public function getFiltersAttribute()
