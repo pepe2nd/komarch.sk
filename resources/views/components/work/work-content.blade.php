@@ -47,12 +47,8 @@
             <div class="mb-1">{{ __('works.authors') }}:</div>
 
             @foreach ($work->architects as $architect)
-                {{ $loop->first ? '' : ', ' }}
-                <a href="#" class="">{{ $architect->full_name }}</a>
+                <a href="#" class="">{{ $architect->full_name }}</a>{{ ($loop->last && !($work->other_architects->count() > 0)) ? '' : ', ' }}
             @endforeach
-
-            {{ (($work->architects->count() > 0) && ($work->other_architects->count() > 0)) ? ', ' : '' }}
-
             {{ $work->other_architects->implode('name', ', ') }}
         </div>
     @endif
