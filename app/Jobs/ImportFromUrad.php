@@ -39,6 +39,8 @@ class ImportFromUrad implements ShouldQueue
      */
     public function handle()
     {
+        if ($this->dangerouslyDisableConstraints) DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
         $this->importTable('lab_works', 'works');
         $this->importTable('lab_awards', 'awards');
         $this->importTable('lab_award_work', 'award_work');
@@ -52,16 +54,18 @@ class ImportFromUrad implements ShouldQueue
         $this->importTable('lab_architects', 'architects');
         $this->importTable('lab_addresses', 'addresses');
         $this->importTable('lab_business_numbers', 'business_numbers');
-        if ($this->dangerouslyDisableConstraints) DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $this->importTable('lab_numbers', 'numbers');
         $this->importTable('lab_architect_contest', 'architect_contest');
+        $this->importTable('lab_architect_contestresult', 'architect_contestresult');
         $this->importTable('lab_architect_work', 'architect_work');
+
         if ($this->dangerouslyDisableConstraints) DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         $sourceDb = $this->getSourceDb();
 
         // Remove entities no longer present in source DB
         DB::table('architect_work')->whereNotIn('id', $sourceDb->table('lab_architect_work')->pluck('id'))->delete();
+        DB::table('architect_contestresult')->whereNotIn('id', $sourceDb->table('lab_architect_contestresult')->pluck('id'))->delete();
         DB::table('architect_contest')->whereNotIn('id', $sourceDb->table('lab_architect_contest')->pluck('id'))->delete();
         DB::table('numbers')->whereNotIn('id', $sourceDb->table('lab_numbers')->pluck('id'))->delete();
         DB::table('business_numbers')->whereNotIn('id', $sourceDb->table('lab_business_numbers')->pluck('id'))->delete();
@@ -142,7 +146,9 @@ class ImportFromUrad implements ShouldQueue
             ->get()
 
             ->groupBy('type')
-            ->each(function ($tags, $type) use ($entity) {
+            ->each(function ($tags) use ($entity) {
+                // NULL types get grouped as empty strings
+                $type = $tags[0]->type;
                 $entity->syncTagsWithType($tags->pluck('name'), $type);
             });
     }
