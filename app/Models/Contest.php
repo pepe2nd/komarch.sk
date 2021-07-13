@@ -3,14 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Spatie\Tags\HasTags;
 
-class Contest extends Model
+class Contest extends Model implements HasMedia
 {
-    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
-    use HasTags;
+    use \Backpack\CRUD\app\Models\Traits\CrudTrait;  
+    use HasTags, InteractsWithMedia;
 
     protected $dates = [
         'announced_at',
@@ -55,4 +57,14 @@ class Contest extends Model
     {
         return $query->whereDate('finished_at', '<', Carbon::now());
     }
+  
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection('contest_pictures')
+            ->withResponsiveImages();
+
+        $this
+            ->addMediaCollection('contest_attachments');
+     }
 }
