@@ -47,7 +47,7 @@
             <div class="mb-1">{{ __('works.authors') }}:</div>
 
             @foreach ($work->architects as $architect)
-                <a href="#" class="">{{ $architect->full_name }}</a>{{ ($loop->last && !($work->other_architects->count() > 0)) ? '' : ', ' }}
+                <x-link-architect url="{{ $architect->url }}" external>{{ $architect->full_name }}</x-link-architect>{{ ($loop->last && !($work->other_architects->count() > 0)) ? '' : ', ' }}
             @endforeach
             {{ $work->other_architects->implode('name', ', ') }}
         </div>

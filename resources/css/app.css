@@ -93,6 +93,11 @@
         content: "\2191";
     }
 
+    .icon-arrow-tr:before {
+        @apply icon;
+        content: "\2197";
+    }
+
     .icon-arrow-b:before {
         @apply icon;
         content: "\2193";

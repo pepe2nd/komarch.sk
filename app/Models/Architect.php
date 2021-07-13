@@ -55,6 +55,11 @@ class Architect extends Model
         ]));
     }
 
+    public function getUrlAttribute(): string
+    {
+        return '#' . $this->id; // @TODO
+    }
+
     public function getAuthorizationsAttribute()
     {
         return $this->numbers->map->authorization;
