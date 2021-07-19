@@ -47,12 +47,12 @@ class Architect extends Model
 
     public function getFullNameAttribute()
     {
-        return trim(implode(' ', [
+        return collect([
             $this->title_before,
             $this->first_name,
             $this->last_name,
             $this->title_after
-        ]));
+        ])->filter()->join(' ');
     }
 
     public function getUrlAttribute(): string
