@@ -38,6 +38,11 @@ class Work extends Model implements HasMedia
         );
     }
 
+    public function architects()
+    {
+        return $this->belongsToMany(Architect::class);
+    }
+
     public function other_architects()
     {
         return $this->morphToMany(Tag::class, 'taggable')->where('type', 'other_architect');
