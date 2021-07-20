@@ -88,6 +88,7 @@
 
 <div class="post-content mx-auto mb-5">
     @foreach ($contest->attachments as $attachment)
+        {{-- @TODO: show download icon instead of arrow after it's fixed in the font --}}
         <x-link-arrow url="{{ $attachment->getUrl() }}">
             {{ $attachment->name }}
         </x-link-arrow>
