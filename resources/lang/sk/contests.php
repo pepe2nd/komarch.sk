@@ -15,4 +15,7 @@ return [
     'jurors.r' => 'Riadni členovia',
     'jurors.e' => 'Experti',
     'jurors.n' => 'Náhradníci poroty',
+    'rewards' => 'Ceny',
+    'web_terms' => 'webstránka súťaže',
+    'web_results' => 'webstránka s výsledkami',
 ];

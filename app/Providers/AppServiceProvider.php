@@ -30,5 +30,9 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('date_localized', function ($expression) {
             return "<?php echo ($expression)->formatLocalized(config('settings.date_format')); ?>";
         });
+
+        Blade::directive('money', function ($money) {
+            return "<?php echo number_format($money, 2, ',', ' ') . ' ' . config('settings.currency'); ?>";
+        });
     }
 }

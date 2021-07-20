@@ -50,27 +50,46 @@
 
 <div class="post-content mx-auto mb-5">
     <h3 class="mb-3">{{ __('contests.jurors') }}:</h3>
-
     {{-- types: r-riadny/n-nahradnik/e-expert/o-overovatel za komoru --}}
     @foreach (['r', 'e', 'n'] as $type)
         @if (($contest->architects->where('pivot.type', $type)->count() > 0) || ($contest->jurors->where('type', $type)->count() > 0))
-            <h4 class="my-3">{{ __('contests.jurors.' . $type) }}:</h4>
-            @foreach ($contest->architects->where('pivot.type', $type) as $architect)
-                <x-link-architect url="{{ $architect->url }}" external>{{ $architect->full_name }}</x-link-architect><br>
-            @endforeach
-            @foreach ($contest->jurors->where('type', $type) as $juror)
-                {{ $juror->name }}<br>
-            @endforeach
+            <h4 class="mt-5 mb-2">{{ __('contests.jurors.' . $type) }}:</h4>
+            <div class="leading-relaxed">
+                @foreach ($contest->architects->where('pivot.type', $type) as $architect)
+                    <x-link-architect url="{{ $architect->url }}" external>{{ $architect->full_name }}</x-link-architect><br>
+                @endforeach
+                @foreach ($contest->jurors->where('type', $type) as $juror)
+                    {{ $juror->name }}<br>
+                @endforeach
+            </div>
         @endif
     @endforeach
-
 </div>
 
-{{-- architect_contest / clenovia - iba "r, n, e" +  jurors / neclenovia  -> zoskupit podla "type" --}}
+<div class="post-content mx-auto mb-5">
+    @if ($contest->web_terms)
+    <div>
+        {{ __('contests.web_terms') }}:
+        <x-link-arrow url="{{ $contest->web_terms }}" external>
+            {{ $contest->web_terms }}
+        </x-link-arrow>
+    </div>
+    @endif
 
-{{-- rewards / ceny -> podla poradia --}}
+    @if ($contest->web_results)
+    <div>
+        {{ __('contests.web_results') }}:
+        <x-link-arrow url="{{ $contest->web_results }}" external>
+            {{ $contest->web_results }}
+        </x-link-arrow>
+    </div>
+    @endif
+</div>
 
-{{-- web_terms --}}
-{{-- web_results --}}
-
-{{-- media - contest_attachments --}}
+<div class="post-content mx-auto mb-5">
+    @foreach ($contest->attachments as $attachment)
+        <x-link-arrow url="{{ $attachment->getUrl() }}">
+            {{ $attachment->name }}
+        </x-link-arrow>
+    @endforeach
+</div>
