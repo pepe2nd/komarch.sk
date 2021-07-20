@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Architect;
 use App\Models\Juror;
 use App\Models\Proposal;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
@@ -97,6 +98,11 @@ class Contest extends Model implements HasMedia
     public function jurors()
     {
         return $this->hasMany(Juror::class);
+    }
+
+    public function architects()
+    {
+        return $this->belongsToMany(Architect::class)->withPivot('depended', 'type');
     }
 
 }

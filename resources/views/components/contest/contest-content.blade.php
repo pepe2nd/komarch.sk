@@ -51,20 +51,19 @@
 <div class="post-content mx-auto mb-5">
     <h3 class="mb-3">{{ __('contests.jurors') }}:</h3>
 
-    <h4 class="mb-3">{{ __('contests.jurors_r') }}:</h4>
-    @foreach ($contest->jurors->where('type', 'r') as $juror)
-        {{ $juror->name }}<br>
+    {{-- types: r-riadny/n-nahradnik/e-expert/o-overovatel za komoru --}}
+    @foreach (['r', 'e', 'n'] as $type)
+        @if (($contest->architects->where('pivot.type', $type)->count() > 0) || ($contest->jurors->where('type', $type)->count() > 0))
+            <h4 class="my-3">{{ __('contests.jurors.' . $type) }}:</h4>
+            @foreach ($contest->architects->where('pivot.type', $type) as $architect)
+                <x-link-architect url="{{ $architect->url }}" external>{{ $architect->full_name }}</x-link-architect><br>
+            @endforeach
+            @foreach ($contest->jurors->where('type', $type) as $juror)
+                {{ $juror->name }}<br>
+            @endforeach
+        @endif
     @endforeach
 
-    <h4 class="mb-3">{{ __('contests.jurors_e') }}:</h4>
-    @foreach ($contest->jurors->where('type', 'e') as $juror)
-        {{ $juror->name }}<br>
-    @endforeach
-
-    <h4 class="mb-3">{{ __('contests.jurors_n') }}:</h4>
-    @foreach ($contest->jurors->where('type', 'n') as $juror)
-        {{ $juror->name }}<br>
-    @endforeach
 </div>
 
 {{-- architect_contest / clenovia - iba "r, n, e" +  jurors / neclenovia  -> zoskupit podla "type" --}}
