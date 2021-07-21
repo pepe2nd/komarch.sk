@@ -3,6 +3,8 @@
 use App\Http\Controllers\Api\ArchitectController;
 use App\Http\Controllers\Api\ArchitectFiltersController;
 use App\Http\Controllers\Api\ImportFromUrad;
+use App\Http\Resources\MediaResource;
+use App\Models\Work;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,7 +38,7 @@ Route::get('/document/{id}/download', 'App\Http\Controllers\Api\DocumentControll
 
 Route::get('/works', 'App\Http\Controllers\Api\WorkController@index')->name('api.works.index');
 Route::get('/works-filters', 'App\Http\Controllers\Api\WorkController@filters')->name('api.works-filters.index');
-Route::get('/works/{id}/images', 'App\Http\Controllers\Api\WorkController@images');
+Route::get('/works/{work}/images', fn (Work $work) => MediaResource::collection($work->media));
 
 Route::get('/contests', 'App\Http\Controllers\Api\ContestController@index')->name('api.contests.index');
 Route::get('/contests-filters', 'App\Http\Controllers\Api\ContestController@filters')->name('api.contests-filters.index');

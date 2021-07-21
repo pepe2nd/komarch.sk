@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 use App\Models\Work;
 use App\Http\Resources\WorkResource;
-use App\Http\Resources\MediaResource;
 
 class WorkController extends Controller
 {
@@ -66,11 +65,5 @@ class WorkController extends Controller
         }
 
         return $works;
-    }
-
-    public function images($id)
-    {
-        $work = Work::findOrFail($id);
-        return MediaResource::collection($work->media);
     }
 }
