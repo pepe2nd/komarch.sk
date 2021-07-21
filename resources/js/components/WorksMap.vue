@@ -60,7 +60,6 @@
 
 <script>
 import { MglMap, MglNavigationControl, MglAttributionControl, MglGeojsonLayer, MglMarker, MglPopup } from 'vue-mapbox'
-import { fetchWorksMarkers } from './worksMarkersMockApi'
 import WorksMapPopup from './WorksMapPopup'
 
 export const SVK_CENTER_LONGITUDE = 19.696058
@@ -180,10 +179,29 @@ export default {
     }
   },
   async created () {
-    const response = await fetchWorksMarkers()
-    this.geoJsonSource.data = response
+    this.geoJsonSource.data = await this.fetchData()
   },
   methods: {
+    async fetchData () {
+      return fetch('/api/works?per_page=1000&with_gps')
+        .then(response => response.json())
+        .then(json => ({
+          type: 'FeatureCollection',
+          features: json.data.map(work => ({
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [work.location_lng, work.location_lat]
+            },
+            properties: {
+              id: work.id,
+              title: work.name,
+              description: '',
+              url: work.url
+            }
+          }))
+        }))
+    },
     onClusterMouseEnter (event) {
       event.map.getCanvas().style.cursor = 'pointer'
     },
@@ -198,7 +216,7 @@ export default {
       }
 
       event.map.setFeatureState(
-        { source: this.geoJsonSource.type, id: this.hoveredMarker.id },
+        { source: this.geoJsonSource.type, id: this.hoveredMarker.properties.id },
         { hover: true }
       )
     },
@@ -206,7 +224,7 @@ export default {
       event.map.getCanvas().style.cursor = null
 
       event.map.setFeatureState(
-        { source: this.geoJsonSource.type, id: this.hoveredMarker.id },
+        { source: this.geoJsonSource.type, id: this.hoveredMarker.properties.id },
         { hover: false }
       )
 

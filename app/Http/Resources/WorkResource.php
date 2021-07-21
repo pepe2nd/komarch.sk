@@ -23,7 +23,8 @@ class WorkResource extends JsonResource
             'filters' => $this->filters,
             'other_architects' => TagResource::collection($this->whenLoaded('other_architects')),
             'has_public_investor' => $this->has_public_investor,
-
+            'location_lat' => $this->location_lat,
+            'location_lng' => $this->location_lng,
         ];
     }
 }

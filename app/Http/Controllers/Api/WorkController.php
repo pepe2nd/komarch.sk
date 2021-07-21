@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 use App\Models\Work;
 use App\Http\Resources\WorkResource;
-use App\Http\Resources\MediaResource;
 
 class WorkController extends Controller
 {
@@ -26,7 +25,7 @@ class WorkController extends Controller
             $request->input('direction', 'desc')
         );
 
-        $per_page = (int)min($request->get('per_page', 8), 100);
+        $per_page = (int) $request->get('per_page', 8);
         return WorkResource::collection($works->paginate($per_page));
     }
 
@@ -48,6 +47,8 @@ class WorkController extends Controller
     {
         $works = Work::query();
 
+        $works->with(['media', 'other_architects']);
+
         // apply filters
         if ($request->has('tags')) {
             $works->withAnyTags($request->input('tags', []));
@@ -65,12 +66,11 @@ class WorkController extends Controller
             $works->where('date_construction_ending', '<=', $request->input('year_until'));
         }
 
-        return $works;
-    }
+        if ($request->has('with_gps')) {
+            $works->whereNotNull('location_lat');
+            $works->whereNotNull('location_lng');
+        }
 
-    public function images($id)
-    {
-        $work = Work::findOrFail($id);
-        return MediaResource::collection($work->media);
+        return $works;
     }
 }
