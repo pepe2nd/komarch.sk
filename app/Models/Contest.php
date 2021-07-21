@@ -61,13 +61,13 @@ class Contest extends Model implements HasMedia
 
     public function getStateAttribute()
     {
-        if (
-            ($this->announced_at < Carbon::now()) &&
-            ($this->finished_at > Carbon::now() || is_null($this->finished_at))
+        if (is_null($this->announced_at) || $this->announced_at->isFuture()) {
+            return 'upcoming';
+        } elseif (
+            ($this->announced_at->isPast()) &&
+            (is_null($this->finished_at) || $this->finished_at->isFuture())
         ) {
             return 'ongoing';
-        } elseif ($this->announced_at < Carbon::now()) {
-            return 'upcoming';
         }
 
         return 'finished';

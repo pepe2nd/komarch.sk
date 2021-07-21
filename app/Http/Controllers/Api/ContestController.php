@@ -54,16 +54,17 @@ class ContestController extends Controller
             $contests->withAnyTags($request->input('typologies', []));
         }
 
-        if ($request->has('ongoing')) {
-            $contests->ongoing();
-        }
-
-        if ($request->has('upcoming')) {
-            $contests->upcoming();
-        }
-
-        if ($request->has('finished')) {
-            $contests->finished();
+        $state = implode($request->input('states', []));
+        switch ($state) {
+            case 'ongoing':
+                $contests->ongoing();
+                break;
+            case 'upcoming':
+                $contests->upcoming();
+                break;
+            case 'finished':
+                $contests->finished();
+                break;
         }
 
         return $contests;
