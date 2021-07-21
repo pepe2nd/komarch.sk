@@ -35,7 +35,7 @@ class Contest extends Model implements HasMedia
         'updated_at',
     ];
 
-    protected $appends = ['status'];
+    protected $appends = ['state'];
 
     public static $filterable = ['typologies'];
 
@@ -59,7 +59,7 @@ class Contest extends Model implements HasMedia
         return $this->getMedia('contest_attachments');
     }
 
-    public function getStatusAttribute()
+    public function getStateAttribute()
     {
         if (
             ($this->announced_at < Carbon::now()) &&
