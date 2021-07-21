@@ -75,7 +75,9 @@
             {{ contest.results_published_at }}
           </td>
           <td class="py-1">
-            {{ contest.title }}
+            <LinkArrowHover :url="contest.url">
+              {{ contest.title }}
+            </LinkArrowHover>
           </td>
         </tr>
       </tbody>
@@ -91,10 +93,11 @@
 
 <script>
 import ButtonSortable from '../atoms/buttons/ButtonSortable'
-
+import LinkArrowHover from '../atoms/links/LinkArrowHover'
 export default {
   components: {
-    ButtonSortable
+    ButtonSortable,
+    LinkArrowHover
   },
   props: {
     value: {
