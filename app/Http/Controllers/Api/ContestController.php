@@ -46,7 +46,7 @@ class ContestController extends Controller
 
         // apply filters
         if ($request->has('typologies')) {
-            $contests->withAnyTags($request->input('typologies', []), ''); //@TODO remove type='' once it's fixed in importer
+            $contests->withAnyTags($request->input('typologies', []));
         }
 
         if ($request->has('ongoing')) {

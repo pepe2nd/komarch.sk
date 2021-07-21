@@ -59,7 +59,7 @@ class Contest extends Model implements HasMedia
 
     public function typologies()
     {
-        return $this->morphToMany(Tag::class, 'taggable')->where('type', '');
+        return $this->morphToMany(Tag::class, 'taggable')->whereNull('type');
     }
 
     public function scopeOngoing($query)
