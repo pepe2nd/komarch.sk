@@ -12,7 +12,7 @@ class WorkController extends Controller
 {
     public function index(Request $request)
     {
-        $works = $this->loadWorks($request);
+        $works = $this->getFilteredWorks($request);
 
         // search
         if ($request->filled('q')) {
@@ -25,13 +25,13 @@ class WorkController extends Controller
             $request->input('direction', 'desc')
         );
 
-        $per_page = (int)min($request->get('per_page', 8), 100);
+        $per_page = (int) $request->get('per_page', 8);
         return WorkResource::collection($works->paginate($per_page));
     }
 
     public function filters(Request $request)
     {
-        $works = $this->loadWorks($request)->get();
+        $works = $this->getFilteredWorks($request)->get();
         $filters = collect();
         foreach (Work::$filterable as $filter) {
             $filters[$filter] = $works->pluck($filter)->flatten()->countBy('name');
@@ -43,9 +43,11 @@ class WorkController extends Controller
         return $filters;
     }
 
-    private function loadWorks(Request $request)
+    private function getFilteredWorks(Request $request)
     {
         $works = Work::query();
+
+        $works->with('media')->with('other_architects');
 
         // apply filters
         if ($request->has('tags')) {
@@ -62,6 +64,11 @@ class WorkController extends Controller
 
         if ($request->has('year_until')) {
             $works->where('date_construction_ending', '<=', $request->input('year_until'));
+        }
+
+        if ($request->has('with_gps')) {
+            $works->whereNotNull('location_lat');
+            $works->whereNotNull('location_lng');
         }
 
         return $works;
