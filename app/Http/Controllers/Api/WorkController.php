@@ -47,7 +47,7 @@ class WorkController extends Controller
     {
         $works = Work::query();
 
-        $works->with('media')->with('other_architects');
+        $works->with(['media', 'other_architects']);
 
         // apply filters
         if ($request->has('tags')) {
