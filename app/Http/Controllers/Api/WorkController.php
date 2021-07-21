@@ -12,7 +12,7 @@ class WorkController extends Controller
 {
     public function index(Request $request)
     {
-        $works = $this->getFilteredWorks($request);
+        $works = $this->loadWorks($request);
 
         // search
         if ($request->filled('q')) {
@@ -31,7 +31,7 @@ class WorkController extends Controller
 
     public function filters(Request $request)
     {
-        $works = $this->getFilteredWorks($request)->get();
+        $works = $this->loadWorks($request)->get();
         $filters = collect();
         foreach (Work::$filterable as $filter) {
             $filters[$filter] = $works->pluck($filter)->flatten()->countBy('name');
@@ -43,7 +43,7 @@ class WorkController extends Controller
         return $filters;
     }
 
-    private function getFilteredWorks(Request $request)
+    private function loadWorks(Request $request)
     {
         $works = Work::query();
 
