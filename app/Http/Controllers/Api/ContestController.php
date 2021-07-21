@@ -34,6 +34,11 @@ class ContestController extends Controller
     {
         $contests = $this->loadContests($request)->get();
         $filters = collect();
+        $filters['status'] = [
+            'ongoing' => $contests->where('status', 'ongoing')->count(),
+            'upcoming' => $contests->where('status', 'upcoming')->count(),
+            'finished' => $contests->where('status', 'finished')->count(),
+        ];
         foreach (Contest::$filterable as $filter) {
             $filters[$filter] = $contests->pluck($filter)->flatten()->countBy('name');
         }
