@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Architect;
+use App\Models\Juror;
+use App\Models\Proposal;
+use App\Models\Reward;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -43,6 +47,16 @@ class Contest extends Model implements HasMedia
         return Str::slug($this->title);
     }
 
+    public function getCoverImageAttribute()
+    {
+        return $this->getFirstMedia('contest_pictures');
+    }
+
+    public function getAttachmentsAttribute()
+    {
+        return $this->getMedia('contest_attachments');
+    }
+
     public function typologies()
     {
         return $this->morphToMany(Tag::class, 'taggable')->where('type', '');
@@ -81,4 +95,25 @@ class Contest extends Model implements HasMedia
     {
         return Arr::only($this->toArray(), ['title', 'perex']);
     }
+
+    public function proposals()
+    {
+        return $this->hasMany(Proposal::class);
+    }
+
+    public function jurors()
+    {
+        return $this->hasMany(Juror::class);
+    }
+
+    public function architects()
+    {
+        return $this->belongsToMany(Architect::class)->withPivot('depended', 'type');
+    }
+
+    public function rewards()
+    {
+        return $this->hasMany(Reward::class)->orderBy('order');
+    }
+
 }
