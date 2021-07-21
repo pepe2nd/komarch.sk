@@ -35,9 +35,9 @@ class ContestController extends Controller
         $contests = $this->loadContests($request)->get();
         $filters = collect();
         $filters['states'] = [
-            'ongoing' => $contests->where('state', 'ongoing')->count(),
-            'upcoming' => $contests->where('state', 'upcoming')->count(),
-            'finished' => $contests->where('state', 'finished')->count(),
+            trans('contests.ongoing') => $contests->where('state', 'ongoing')->count(),
+            trans('contests.upcoming') => $contests->where('state', 'upcoming')->count(),
+            trans('contests.finished') => $contests->where('state', 'finished')->count(),
         ];
         foreach (Contest::$filterable as $filter) {
             $filters[$filter] = $contests->pluck($filter)->flatten()->countBy('name');
@@ -56,13 +56,13 @@ class ContestController extends Controller
 
         $state = implode($request->input('states', []));
         switch ($state) {
-            case 'ongoing':
+            case trans('contests.ongoing'):
                 $contests->ongoing();
                 break;
-            case 'upcoming':
+            case trans('contests.upcoming'):
                 $contests->upcoming();
                 break;
-            case 'finished':
+            case trans('contests.finished'):
                 $contests->finished();
                 break;
         }
