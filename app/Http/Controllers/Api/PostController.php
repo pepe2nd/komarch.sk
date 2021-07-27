@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Post;
 use App\Http\Resources\PostResource;
+use App\Models\Tag;
 
 class PostController extends Controller
 {
@@ -25,40 +26,48 @@ class PostController extends Controller
             $request->input('direction', 'desc')
         );
 
-        $per_page = (int)min($request->get('per_page', 6), 15);
+        $per_page = (int) min($request->get('per_page', 6), 15);
         return PostResource::collection($posts->paginate($per_page));
     }
 
-    public function filters(Request $request)
+    public function filters()
     {
-        $categories = \App\Models\Tag::withCount('posts')
-                    ->orderBy('posts_count', 'desc')->get()
-                    ->filter(function ($tag) {
-                        return ($tag->posts_count > 0);
-                    })->pluck('posts_count', 'name');
+        $categories = Tag::query()
+            ->has('posts')
+            ->select('name')
+            ->withCount('posts')
+            ->orderBy('posts_count', 'desc')
+            ->get()
+            ->pluck('posts_count', 'name');
 
-        return collect(['categories' => $categories]);
+        return ['categories' => $categories];
     }
 
-    public function related($id, Request $request)
+    public function show(Post $post)
     {
-        $related_posts = Post::boolSearch($id)
-            ->must('more_like_this',
-            [
-                'fields' => ['title.' . app()->getLocale()],
-                'like' => [
-                    '_id' => $id
-                ],
-                'min_term_freq' => 1,
-                'min_doc_freq' => 1,
-            ])->size(10)->execute();
+        $related_posts = Post::boolSearch($post->id)
+            ->must(
+                'more_like_this',
+                [
+                    'fields' => ['title.' . app()->getLocale()],
+                    'like' => [
+                        '_id' => $post->id
+                    ],
+                    'min_term_freq' => 1,
+                    'min_doc_freq' => 1,
+                ])
+            ->size(10)
+            ->execute();
 
-        return PostResource::collection($related_posts->models());
+        return [
+            'id' => $post->id,
+            'related' => PostResource::collection($related_posts->models()),
+        ];
     }
 
     private function loadPosts(Request $request)
     {
-        $posts = Post::published();
+        $posts = Post::published()->with('media');
 
         // apply filters
         if ($request->has('categories')) {
