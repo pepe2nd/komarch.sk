@@ -63,10 +63,8 @@ class Contest extends Model implements HasMedia
     {
         if (is_null($this->announced_at) || $this->announced_at->isFuture()) {
             return 'upcoming';
-        } elseif (
-            ($this->announced_at->isPast()) &&
-            (is_null($this->finished_at) || $this->finished_at->isFuture())
-        ) {
+        } 
+        if (is_null($this->finished_at) || $this->finished_at->isFuture()) {
             return 'ongoing';
         }
 
