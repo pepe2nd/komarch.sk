@@ -21,7 +21,7 @@ class ArchitectResource extends JsonResource
                 ['id', 'first_name', 'last_name', 'works_count', 'awards_count', 'contests_count']
             ),
             [
-                'location_city' => Arr::get($this, 'address.location_city'),
+                'location_city' => $this->whenLoaded('address', fn () => $this->address->location_city),
                 'url' => $this->url,
             ],
         );
