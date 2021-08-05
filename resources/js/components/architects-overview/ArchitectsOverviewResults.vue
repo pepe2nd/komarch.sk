@@ -11,7 +11,9 @@
       >
         <div>
           <div>
-            {{ architect.last_name }}
+            <LinkArrowHover :url="architect.url">
+              {{ architect.last_name }}
+            </LinkArrowHover>
           </div>
           <div>
             {{ architect.first_name }}

@@ -14,7 +14,9 @@
             {{ contest.created_at }}
           </div>
           <div>
-            {{ contest.title }}
+            <LinkArrowHover :url="contest.url">
+              {{ contest.title }}
+            </LinkArrowHover>
           </div>
         </div>
       </div>
