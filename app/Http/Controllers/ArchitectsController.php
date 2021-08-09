@@ -20,6 +20,6 @@ class ArchitectsController extends Controller
             return redirect($architect->url);
         }
 
-        return $architect;
+        return view('architects.show', compact('architect'));
     }
 }

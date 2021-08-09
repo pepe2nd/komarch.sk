@@ -17,5 +17,6 @@ return [
         'HA' => 'Hosťujúci architekt',
         'HKA' => 'Hosťujúci krajinný architekt',
         'DC' => 'Dobrovoľný člen',
-    ]
+    ],
+    'registration_number' => 'Registračné číslo',
 ];

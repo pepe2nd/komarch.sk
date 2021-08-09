@@ -40,6 +40,11 @@ class Architect extends Model
         return $this->hasMany(Number::class);
     }
 
+    public function number()
+    {
+        return $this->hasOne(Number::class)->latest();
+    }
+
     public function works()
     {
         return $this->belongsToMany(Work::class);
@@ -100,5 +105,10 @@ class Architect extends Model
     public function toSearchableArray()
     {
         return Arr::only($this->toArray(), ['first_name', 'last_name']);
+    }
+
+    public function getShortDescriptionAttribute()
+    {
+        return ''; // @TODO: what should be here? city?
     }
 }
