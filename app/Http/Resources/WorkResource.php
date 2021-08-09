@@ -22,6 +22,7 @@ class WorkResource extends JsonResource
             'created_at' => trim($this->created_at->formatLocalized(config('settings.date_format'))),
             'filters' => $this->filters,
             'other_architects' => TagResource::collection($this->whenLoaded('other_architects')),
+            'architects' => ArchitectResource::collection($this->whenLoaded('architects')),
             'has_public_investor' => $this->has_public_investor,
             'location_lat' => $this->location_lat,
             'location_lng' => $this->location_lng,
