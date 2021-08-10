@@ -22,4 +22,7 @@ return [
     'location' => 'Miesto pôsobenia',
     'contact' => 'Kontakt',
     'send_email' => 'poslať e-mail',
+    'address' => 'Adresa',
+    'awards' => 'Ocenenia',
+    'contests' => 'Účasti v porote',
 ];

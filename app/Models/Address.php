@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Address extends Model
 {
     use HasFactory;
+
+    public function getFormatedAttribute()
+    {
+        return collect([
+            $this->location_street . ' ' . $this->location_descriptive_number,
+            $this->location_city,
+            $this->location_country
+        ])->filter()->join(', ');
+    }
 }
