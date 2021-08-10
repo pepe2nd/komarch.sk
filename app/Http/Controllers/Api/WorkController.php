@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Work;
+use App\Models\Architect;
 use App\Http\Resources\WorkResource;
 
 class WorkController extends Controller
@@ -46,6 +47,12 @@ class WorkController extends Controller
     private function loadWorks(Request $request)
     {
         $works = Work::query();
+
+        // filter by architect
+        if ($request->has('architect_id')) {
+            $architect = Architect::findOrFail($request->input('architect_id'));
+            $works = $architect->works();
+        }
 
         $works->with(['media', 'other_architects', 'architects']);
 
