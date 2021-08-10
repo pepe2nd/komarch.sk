@@ -23,6 +23,11 @@
                         {{ __('architects.send_email') }}
                     </x-link-arrow-hover>
                 @endif
+                @if ($architect->webpage)
+                    <x-link-arrow-hover url="{{ $architect->webpage_url }}" target="_blank">
+                        {{ $architect->webpage }}
+                    </x-link-arrow-hover>
+                @endif
             </x-attribute-with-label>
         @endif
     </div>

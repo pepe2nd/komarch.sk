@@ -55,6 +55,14 @@ class Architect extends Model
         return Str::title($value);
     }
 
+    public function getWebpageUrlAttribute($value)
+    {
+        if (!preg_match("~^(?:f|ht)tps?://~i", $this->webpage)) {
+            return "http://" . $this->webpage;
+        }
+        return $this->webpage;
+    }
+
     public function getFullNameAttribute()
     {
         return collect([
