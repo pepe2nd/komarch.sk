@@ -19,4 +19,7 @@ return [
         'DC' => 'Dobrovoľný člen',
     ],
     'registration_number' => 'Registračné číslo',
+    'location' => 'Miesto pôsobenia',
+    'contact' => 'Kontakt',
+    'send_email' => 'poslať e-mail',
 ];
