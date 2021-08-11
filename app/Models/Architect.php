@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -42,7 +43,10 @@ class Architect extends Model
 
     public function number()
     {
-        return $this->hasOne(Number::class)->latest();
+        return $this->hasOne(Number::class)->where(function ($subquery) {
+                $subquery->whereDate('valid_to', '>', Carbon::now())
+                    ->orWhereNull('valid_to');
+                })->latest();
     }
 
     public function works()
