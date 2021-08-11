@@ -7,6 +7,7 @@
       v-model="sorting"
       :results="results"
       :total="total"
+      hide-filters
     />
     <p
       v-if="results.length === 0"
