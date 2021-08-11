@@ -8,7 +8,7 @@
       :results="results"
       :total="total"
       hide-filters
-      class="md:mt-16"
+      class="mt-2 md:mt-16"
     />
     <p
       v-if="results.length === 0"
@@ -45,7 +45,6 @@ export default {
   ],
   data () {
     return {
-      filters: {},
       results: [],
       sorting: {
         name: null,
@@ -54,11 +53,6 @@ export default {
       total: 0,
       page: 1,
       hasNextPage: true
-    }
-  },
-  watch: {
-    sorting () {
-      this.fetchData()
     }
   },
   created () {
