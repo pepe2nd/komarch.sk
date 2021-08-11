@@ -43,7 +43,7 @@
 
         @if ($architect->awards->count() > 0)
             <x-attribute-with-label :label="__('architects.awards')">
-                {{ $architect->awards->implode('name', ', ') }}
+                {{ $architect->awards->unique('name')->implode('name', ', ') }}
             </x-attribute-with-label>
         @endif
 
