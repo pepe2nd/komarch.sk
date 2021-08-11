@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -40,6 +41,14 @@ class Architect extends Model
         return $this->hasMany(Number::class);
     }
 
+    public function number()
+    {
+        return $this->hasOne(Number::class)->where(function ($subquery) {
+                $subquery->whereDate('valid_to', '>', Carbon::now())
+                    ->orWhereNull('valid_to');
+                })->latest();
+    }
+
     public function works()
     {
         return $this->belongsToMany(Work::class);
@@ -48,6 +57,14 @@ class Architect extends Model
     public function getLastNameAttribute($value)
     {
         return Str::title($value);
+    }
+
+    public function getWebpageUrlAttribute($value)
+    {
+        if (!preg_match("~^(?:f|ht)tps?://~i", $this->webpage)) {
+            return "http://" . $this->webpage;
+        }
+        return $this->webpage;
     }
 
     public function getFullNameAttribute()
@@ -100,5 +117,10 @@ class Architect extends Model
     public function toSearchableArray()
     {
         return Arr::only($this->toArray(), ['first_name', 'last_name']);
+    }
+
+    public function getShortDescriptionAttribute()
+    {
+        return ''; // @TODO: what should be here? city?
     }
 }

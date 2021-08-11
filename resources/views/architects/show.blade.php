@@ -1,20 +1,23 @@
 @extends('layouts.app')
 
 @section('title')
-{{ $contest->title }}
+    {{ $architect->full_name }}
 @stop
 
-<x-og :title="$contest->title"
-      :description="$contest->perex"
-      :url="$contest->url"
+<x-og :title="$architect->full_name"
+      :description="$architect->short_description"
+      :url="$architect->url"
 ></x-og>
 
 @section('content')
 <x-header.header></x-header.header>
 <div class="container mx-auto px-6">
-    <x-contest.contest-back :contest="$contest"></x-contest.contest-back>
-    <x-contest.contest-header :contest="$contest"></x-contest.contest-header>
-    <x-contest.contest-content :contest="$contest"></x-contest.contest-content>
+    <x-architect.architect-back :architect="$architect"></x-architect.architect-back>
+    <x-architect.architect-header :architect="$architect"></x-architect.architect-header>
+    <x-architect.architect-content :architect="$architect"></x-architect.architect-content>
+
+    <architect-works architect-id="{{ $architect->id }}"></architect-works>
 </div>
+
 <x-footer.footer></x-footer.footer>
 @stop

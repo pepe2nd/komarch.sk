@@ -18,6 +18,7 @@ Vue.component('DocumentsOverview', require('./components/documents-overview/Docu
 Vue.component('ContestsOverview', require('./components/contests-overview/ContestsOverview').default)
 Vue.component('ArchitectsOverview', require('./components/architects-overview/ArchitectsOverview').default)
 Vue.component('WorksOverview', require('./components/works-overview/WorksOverview').default)
+Vue.component('ArchitectWorks', require('./components/works-overview/ArchitectWorks').default)
 Vue.component('ImageGallery', require('./components/ImageGallery').default)
 Vue.component('Clock', require('./components/Clock').default)
 

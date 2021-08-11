@@ -14,12 +14,12 @@ class ArchitectsController extends Controller
 
     public function show($id, $slug, Request $request)
     {
-        $architect = Architect::findOrFail($id);
+        $architect = Architect::with('address', 'number')->findOrFail($id);
 
         if ($slug != $architect->slug) {
             return redirect($architect->url);
         }
 
-        return $architect;
+        return view('architects.show', compact('architect'));
     }
 }
