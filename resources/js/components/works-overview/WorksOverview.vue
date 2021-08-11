@@ -29,6 +29,7 @@
       />
     </div>
     <WorksOverviewResults
+      class="mt-16 md:mt-32"
       v-model="sorting"
       :results="results"
       :total="total"
