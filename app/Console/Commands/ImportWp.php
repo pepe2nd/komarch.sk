@@ -194,7 +194,7 @@ class ImportWp extends Command
         Page::truncate();
         Post::truncate();
         Redirect::truncate();
-        Tag::whereNull('type')->delete();
+        // Tag::whereNull('type')->delete(); // better to keep them
 
         Schema::enableForeignKeyConstraints();
     }
