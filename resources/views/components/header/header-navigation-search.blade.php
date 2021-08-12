@@ -3,7 +3,7 @@
         type="search"
         name="search"
         placeholder="{{ __('app.search_placeholder') }}"
-        aria-label="Hľadať..."
+        aria-label="{{ __('app.search_placeholder') }}"
         class="border-b border-gray-900 w-full outline-none text-sm"
         value="{{ request()->input('search') }}"
     >
