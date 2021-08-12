@@ -18,7 +18,7 @@ use Illuminate\Support\Str;
 
 class ImportWp extends Command
 {
-    protected $signature = 'import:wp {--download-cover-images} {--download-images}';
+    protected $signature = 'import:wp {--include-pages} {--download-cover-images} {--download-images}';
 
     protected $description = 'Import the WordPress database and images';
 
@@ -119,9 +119,14 @@ class ImportWp extends Command
         $this->wordpressDb = DB::connection('wordpress');
 
         $this->info('Querying posts in wordpress database');
+
+        $types = ['post'];
+        if ($this->option('include-pages')) {
+            $types[] = 'page';
+        }
         $oldPosts = $this->wordpressDb->table('wp_posts')
             ->where('post_status', 'publish')
-            ->whereIn('post_type', ['post', 'page'])
+            ->whereIn('post_type', $types)
             // exclude EN posts/pages
             ->whereNotIn('ID', function($query) {
                 $query->select('object_id')->from('wp_term_relationships')->where('term_taxonomy_id', '=', self::EN_TERM_ID);
@@ -182,7 +187,9 @@ class ImportWp extends Command
 
         $bar->finish();
 
-        $this->resolveTranslations();
+        if ($this->option('include-pages')) {
+            $this->resolveTranslations();
+        }
 
         $this->info("Done 🎉");
     }
@@ -191,8 +198,10 @@ class ImportWp extends Command
     {
         Schema::disableForeignKeyConstraints();
 
-        Page::truncate();
         Post::truncate();
+        if ($this->option('include-pages')) {
+            Page::truncate();
+        }
         Redirect::truncate();
         // Tag::whereNull('type')->delete(); // better to keep them
 
