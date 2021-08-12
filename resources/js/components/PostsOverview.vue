@@ -146,6 +146,10 @@ export default {
       const url = new URL('/posts', window.location.origin)
       url.searchParams.append('page', this.pageNumber)
 
+      if (this.$route.query.search) {
+        url.searchParams.append('q', this.$route.query.search)
+      }
+
       if (this.activeFilter.queryName) {
         url.searchParams.append(this.activeFilter.queryName, this.activeFilter.queryValue)
       }

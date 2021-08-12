@@ -15,9 +15,14 @@ class PostController extends Controller
     {
         $posts = $this->loadPosts($request);
 
-        // search
+        // quick search
         if ($request->filled('q')) {
             $posts->whereIn('id', Post::search("*{$request->query('q')}*")->keys());
+        }
+
+        // fulltext search
+        if ($request->filled('search')) {
+            $posts->whereIn('id', Post::search($request->query('search'))->keys());
         }
 
         // sort
