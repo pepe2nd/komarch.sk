@@ -218,8 +218,7 @@ class ImportWp extends Command
 
     protected function sanitizePostContent(string $postContent): string
     {
-        // @TODO
-        return $postContent;
+        return nl2br($postContent);
     }
 
     protected function getPerex(string $postContent): ?string
