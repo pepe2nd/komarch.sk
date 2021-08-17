@@ -6,6 +6,7 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('user') }}'><i class='nav-icon la la-users'></i> Users</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('document') }}'><i class='nav-icon la la-file'></i> Documents</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('publication') }}'><i class='nav-icon la la-book'></i> Publications</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('video') }}'><i class='nav-icon la la-video'></i> Videos</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('tag') }}'><i class='nav-icon la la-tag'></i> Tags</a></li>
 
 <li class="nav-title">Imported</li>
