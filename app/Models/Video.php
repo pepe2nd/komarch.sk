@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Publishable;
 
 class Video extends Model
 {
-    use CrudTrait;
+    use CrudTrait, Publishable;
 
     /*
     |--------------------------------------------------------------------------
@@ -16,12 +17,7 @@ class Video extends Model
     */
 
     protected $table = 'videos';
-    // protected $primaryKey = 'id';
-    // public $timestamps = false;
     protected $guarded = ['id'];
-    // protected $fillable = [];
-    // protected $hidden = [];
-    // protected $dates = [];
     protected $casts = [
         'video' => 'object',
     ];
