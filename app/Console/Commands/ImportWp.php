@@ -198,9 +198,13 @@ class ImportWp extends Command
     {
         Schema::disableForeignKeyConstraints();
 
-        Post::truncate();
+        foreach (Post::all() as $post) {
+            $post->delete(); // to cascade remove cover-image and attached tags
+        }
         if ($this->option('include-pages')) {
-            Page::truncate();
+            foreach (Page::all() as $page) {
+                $page->delete();
+            }
         }
         Redirect::truncate();
         // Tag::whereNull('type')->delete(); // better to keep them
