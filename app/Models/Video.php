@@ -46,6 +46,11 @@ class Video extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function getEmbedUrlAttribute()
+    {
+        return 'https://www.youtube.com/embed/' . $this->video->id;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

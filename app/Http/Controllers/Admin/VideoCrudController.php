@@ -51,7 +51,7 @@ class VideoCrudController extends CrudController
                 'label' => 'Video',
                 'hint' => 'youtube link',
                 'type' => 'video',
-                'youtube_api_key' => 'AIzaSyD18NomcL0M4uAZZiDxkUgwEHre9Lk-KU0',
+                'youtube_api_key' => config('app.youtube_api_key'),
             ],
             [
                 'name' => 'published_at',

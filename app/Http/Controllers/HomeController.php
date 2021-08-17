@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Publication;
+use App\Models\Video;
 use App\Models\Tile;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,7 @@ class HomeController extends Controller
         $posts = $posts->take(4)->get();
         $featured_post = Post::inRandomOrder()->first();
         $publications = Publication::published()->orderBy('published_at','desc')->take(2)->get();
+        $videos = Video::published()->orderBy('published_at','desc')->take(3)->get();
         $tiles = Tile::published()->orderBy('published_at', 'desc')->get();
         $contestFilterOptions = [
             ['key' => trans('contests.upcoming'), 'title' => trans('contests.upcoming')],
@@ -22,6 +24,6 @@ class HomeController extends Controller
             ['key' => trans('contests.finished'), 'title' => trans('contests.finished')],
         ];
 
-        return view('home', compact('posts', 'featured_post', 'publications', 'tiles', 'contestFilterOptions'));
+        return view('home', compact('posts', 'featured_post', 'publications', 'videos', 'tiles', 'contestFilterOptions'));
     }
 }
