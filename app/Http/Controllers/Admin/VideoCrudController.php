@@ -76,8 +76,6 @@ class VideoCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // columns
-
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
