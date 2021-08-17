@@ -82,8 +82,8 @@ class PostCrudController extends CrudController
                 'options' => [
                     'entity_encoding' => 'raw',
                     'height' => 480,
-                    'plugins' => 'image,link,media,anchor,fullscreen',
-                    'toolbar' => 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | fullscreen'
+                    'plugins' => 'image,link,media,anchor,fullscreen,code',
+                    'toolbar' => 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | code | fullscreen'
                 ]
             ],
             [

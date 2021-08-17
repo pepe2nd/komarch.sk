@@ -55,7 +55,7 @@
 
     <div class="mb-9">
         <div class="mb-1">{{ __('works.about_the_work') }}:</div>
-        {!! nl2br($work->annotation) !!}
+        {!! $work->annotation !!}
     </div>
 
     @if ($work->citationPublications->count() > 0)

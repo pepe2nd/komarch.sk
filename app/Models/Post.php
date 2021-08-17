@@ -46,6 +46,7 @@ class Post extends Model implements HasMedia
         'slug',
         'perex',
         'text',
+        'wp_post_name',
         'published_at',
         'is_featured',
         'cover_image',
