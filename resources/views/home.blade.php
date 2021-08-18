@@ -41,8 +41,8 @@
         <div class="flex-1">
             <x-section-videos
                 title="Videá"
-                embedUrl="https://www.youtube.com/embed/NL1XKbI3x68"
-                linkUrl="#"
+                :videos="$videos"
+                linkUrl="https://www.youtube.com/channel/UCxQENQWdqg7ug0dz8lEk-uQ"
                 :linkTitle="trans('home.more_video')"
             />
             <x-section-publications
