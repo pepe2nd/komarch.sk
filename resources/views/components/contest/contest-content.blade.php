@@ -62,6 +62,19 @@
     @endforeach
 </div>
 
+{{-- rewards --}}
+<div class="post-content mx-auto mb-5">
+    @if ($contest->rewards->count() > 0)
+        <h3 class="mb-3">{{ __('contests.rewards') }}:</h3>
+        <div class="mb-3">
+        @foreach ($contest->rewards as $reward)
+            {{ $reward->name }}: @money($reward->amount)<br>
+        @endforeach
+        </div>
+    @endif
+</div>
+
+
 <div class="post-content mx-auto mb-5">
     @if ($contest->web_terms)
     <div>
@@ -90,3 +103,7 @@
         </x-link-arrow>
     @endforeach
 </div>
+
+{{-- vysledky sutaze  --}}
+{{-- data z contestresults  --}}
+{{-- contestresults.reward. (napr. 1. mestio) : --}}
