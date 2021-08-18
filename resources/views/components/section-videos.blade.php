@@ -1,6 +1,6 @@
 <section class="mt-20">
     <x-heading-section>
-        <x-link-arrow :url="$linkUrl">
+        <x-link-arrow :url="$linkUrl" target="_blank">
             {{ $title }}
         </x-link-arrow>
     </x-heading-section>
@@ -17,7 +17,7 @@
             </iframe>
         </div>
     @endforeach
-    <x-link-arrow :url="$linkUrl">
+    <x-link-arrow :url="$linkUrl" target="_blank">
         {{ $linkTitle }}
     </x-link-arrow>
 </section>
