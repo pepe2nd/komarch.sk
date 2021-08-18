@@ -23,4 +23,6 @@ return [
     'ongoing' => 'Prebiehajúce',
     'upcoming' => 'Pripavované',
     'finished' => 'Ukončené',
+    'results' => 'Výsledky súťaže',
+    'jury_comment' => 'Komentár poroty',
 ];

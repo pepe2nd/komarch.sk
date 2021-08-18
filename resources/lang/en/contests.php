@@ -23,4 +23,6 @@ return [
     'ongoing' => 'Ongoing',
     'upcoming' => 'Upcoming',
     'finished' => 'Finished',
+    'results' => 'Contest results',
+    'jury_comment' => 'Jury comment',
 ];
