@@ -40,7 +40,7 @@ class ContestController extends Controller
             trans('contests.finished') => $contests->where('state', 'finished')->count(),
         ];
         foreach (Contest::$filterable as $filter) {
-            $filters[$filter] = $contests->pluck($filter)->flatten()->countBy('name');
+            $filters[$filter] = $contests->pluck($filter)->flatten()->countBy('name')->sortDesc()->take(5);
         }
         return $filters;
     }
