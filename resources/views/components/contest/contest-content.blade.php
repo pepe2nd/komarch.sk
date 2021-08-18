@@ -47,7 +47,7 @@
 <div class="post-content mx-auto mb-5">
     <h3 class="mb-3">{{ __('contests.jurors') }}:</h3>
     {{-- types: r-riadny/n-nahradnik/e-expert/o-overovatel za komoru --}}
-    @foreach (['r', 'e', 'n'] as $type)
+    @foreach (['p', 'r', 'e', 'n'] as $type)
         @if (($contest->architects->where('pivot.type', $type)->count() > 0) || ($contest->jurors->where('type', $type)->count() > 0))
             <h4 class="mt-5 mb-2">{{ __('contests.jurors.' . $type) }}:</h4>
             <div class="leading-relaxed">

@@ -13,6 +13,7 @@ return [
     'finished_at' => 'Predpokladaná lehota na vyhodnotenie súťaže',
     'results_published_at' => 'Predpokladaný termín oznámenia a zverejnenia výsledkov',
     'jurors' => 'Porota',
+    'jurors.p' => 'Predseda',
     'jurors.r' => 'Riadni členovia',
     'jurors.e' => 'Experti',
     'jurors.n' => 'Náhradníci poroty',
