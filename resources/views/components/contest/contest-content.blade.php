@@ -45,10 +45,6 @@
 </div>
 
 <div class="post-content mx-auto mb-5">
-    {!! $contest->note !!}
-</div>
-
-<div class="post-content mx-auto mb-5">
     <h3 class="mb-3">{{ __('contests.jurors') }}:</h3>
     {{-- types: r-riadny/n-nahradnik/e-expert/o-overovatel za komoru --}}
     @foreach (['r', 'e', 'n'] as $type)
