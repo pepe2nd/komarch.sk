@@ -119,9 +119,9 @@
                 <div class="mb-3">
                     {!! $reward->result->jury_comment !!}
                 </div>
+                <image-gallery class="mt-10 mb-16" source-url="contest-results/{{ $reward->result->id }}/images"></image-gallery>
             @endif
         @endforeach
-
     @endif
 </div>
 
