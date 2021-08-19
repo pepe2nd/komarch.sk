@@ -108,12 +108,14 @@ class PageCrudController extends CrudController
             [
                 'name' => 'text',
                 'type' => 'tinymce',
+                'hint' => 'use Shift+Enter for new line',
                 'options' => [
                     'entity_encoding' => 'raw',
                     'height' => 480,
-                    'plugins' => 'image,link,media,anchor,fullscreen,code',
-                    'toolbar' => 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | code | fullscreen'
-
+                    'plugins' => 'paste,image,link,media,anchor,fullscreen,code',
+                    'paste_as_text' => true,
+                    'default_link_target' => '_blank',
+                    'toolbar' => 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | link code | fullscreen'
                 ]
             ],
             [

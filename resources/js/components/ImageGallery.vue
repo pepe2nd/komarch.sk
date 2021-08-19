@@ -1,7 +1,6 @@
 <template>
   <div
     v-if="images && images.length > 0"
-    class="mt-16"
   >
     <ImageGalleryDetail :image="images[selectedIndex]" />
     <Swiper
@@ -45,20 +44,9 @@ export default {
     axiosGet
   ],
   props: {
-    workId: Number,
+    sourceUrl: String,
     required: true
   },
-  //   images: {
-  //     type: Array,
-  //     default: () => [
-  //       { src: 'http://localhost:8000/storage/35/1.jpg', alt: 'Image' },
-  //       { src: 'http://localhost:8000/storage/41/CEZAAR2020-01.jpg', alt: 'Image' },
-  //       { src: 'http://localhost:8000/storage/47/Malovcova-(2).jpg', alt: 'Image' },
-  //       { src: 'http://localhost:8000/storage/51/A3UMFIT_DSC8312.jpg', alt: 'Image' },
-  //       { src: 'http://localhost:8000/storage/57/_vmo5540-2.jpg', alt: 'Image' }
-  //     ]
-  //   }
-  // },
   data () {
     return {
       images: [],
@@ -82,7 +70,7 @@ export default {
     }
   },
   async created () {
-    const { data } = await this.axiosGet('works/'+ this.workId +'/images')
+    const { data } = await this.axiosGet(this.sourceUrl)
     this.images = data
   },
   methods: {

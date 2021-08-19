@@ -45,13 +45,9 @@
 </div>
 
 <div class="post-content mx-auto mb-5">
-    {!! $contest->note !!}
-</div>
-
-<div class="post-content mx-auto mb-5">
     <h3 class="mb-3">{{ __('contests.jurors') }}:</h3>
     {{-- types: r-riadny/n-nahradnik/e-expert/o-overovatel za komoru --}}
-    @foreach (['r', 'e', 'n'] as $type)
+    @foreach (['p', 'r', 'e', 'n'] as $type)
         @if (($contest->architects->where('pivot.type', $type)->count() > 0) || ($contest->jurors->where('type', $type)->count() > 0))
             <h4 class="mt-5 mb-2">{{ __('contests.jurors.' . $type) }}:</h4>
             <div class="leading-relaxed">
@@ -65,6 +61,19 @@
         @endif
     @endforeach
 </div>
+
+{{-- rewards --}}
+<div class="post-content mx-auto mb-5">
+    @if ($contest->rewards->count() > 0)
+        <h3 class="mb-3">{{ __('contests.rewards') }}:</h3>
+        <div class="mb-3">
+        @foreach ($contest->rewards as $reward)
+            {{ $reward->name }}: @money($reward->amount)<br>
+        @endforeach
+        </div>
+    @endif
+</div>
+
 
 <div class="post-content mx-auto mb-5">
     @if ($contest->web_terms)
@@ -94,3 +103,27 @@
         </x-link-arrow>
     @endforeach
 </div>
+
+{{-- reward results--}}
+<div class="post-content mx-auto mb-5">
+    @if ($contest->results->count() > 0)
+        <h3 class="mb-3">{{ __('contests.results') }}:</h3>
+        @foreach ($contest->rewards as $reward)
+            @if ($reward->result)
+                <h4 class="text-xl tracking-tight leading-snug my-5 lg:my-12">
+                    {{ $reward->name }} (@money($reward->amount))
+                    –
+                    {{ $reward->result->subject_name }}
+                </h4>
+                <div class="mb-3">{{ __('contests.jury_comment') }}:</div>
+                <div class="mb-3">
+                    {!! $reward->result->jury_comment !!}
+                </div>
+                <image-gallery class="mt-10 mb-16" source-url="contest-results/{{ $reward->result->id }}/images"></image-gallery>
+            @endif
+        @endforeach
+    @endif
+</div>
+
+{{-- data z contestresults  --}}
+{{-- contestresults.reward. (napr. 1. mestio) : --}}

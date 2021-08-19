@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Reward extends Model
 {
     use HasFactory;
+
+    public function result()
+    {
+        return $this->hasOne(ContestResult::class);
+    }
+
 }

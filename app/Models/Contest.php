@@ -130,4 +130,9 @@ class Contest extends Model implements HasMedia
         return $this->hasMany(Reward::class)->orderBy('order');
     }
 
+    public function results()
+    {
+        return $this->hasManyThrough(ContestResult::class, Reward::class);
+    }
+
 }

@@ -13,6 +13,7 @@ return [
     'finished_at' => 'Estimated date for evaluation of the competition',
     'results_published_at' => 'Expected date of announcement and publication of results',
     'jurors' => 'Jury',
+    'jurors.p' => 'Chair',
     'jurors.r' => 'Full members',
     'jurors.e' => 'Experts',
     'jurors.n' => 'Substitutes of the jury',
@@ -22,4 +23,6 @@ return [
     'ongoing' => 'Ongoing',
     'upcoming' => 'Upcoming',
     'finished' => 'Finished',
+    'results' => 'Contest results',
+    'jury_comment' => 'Jury comment',
 ];
