@@ -105,7 +105,18 @@ return [
         'shared_dirs' => [
             'public/packages',
             'storage'
-        ]
+        ],
+        'writable_dirs' => [
+            'bootstrap/cache',
+            'storage',
+            'storage/app',
+            'storage/app/public',
+            'storage/framework',
+            'storage/framework/cache',
+            'storage/framework/sessions',
+            'storage/framework/views',
+            'storage/logs',
+        ],
 
     ],
 
