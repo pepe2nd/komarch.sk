@@ -21,6 +21,7 @@ Vue.component('WorksOverview', require('./components/works-overview/WorksOvervie
 Vue.component('ArchitectWorks', require('./components/works-overview/ArchitectWorks').default)
 Vue.component('ImageGallery', require('./components/ImageGallery').default)
 Vue.component('Clock', require('./components/Clock').default)
+Vue.component('InputSearch', require('./components/InputSearch').default)
 
 Vue.use(VueRouter)
 Vue.use(VueMapbox, { mapboxgl: Mapbox })
