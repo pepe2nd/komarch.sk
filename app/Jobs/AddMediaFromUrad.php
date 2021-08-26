@@ -15,21 +15,17 @@ class AddMediaFromUrad implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private Model $entity;
-    private int $urad_id;
-    private string $urad_path;
-    private string $collection_name;
+    private object $sourceMedium;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Model $entity, int $urad_id, string $urad_path, string $collection_name)
+    public function __construct(Model $entity, object $sourceMedium)
     {
         $this->entity = $entity->withoutRelations();
-        $this->urad_id = $urad_id;
-        $this->urad_path = $urad_path;
-        $this->collection_name = $collection_name;
+        $this->sourceMedium = $sourceMedium;
     }
 
     /**
@@ -40,11 +36,11 @@ class AddMediaFromUrad implements ShouldQueue
     public function handle()
     {
         $this->entity
-            ->addMediaFromDisk($this->urad_path, 'urad')
+            ->addMediaFromDisk("lab_sng/{$this->sourceMedium->id}/{$this->sourceMedium->file_name}", 'urad')
             ->preservingOriginal()
             ->withCustomProperties([
-                'urad_id' => $this->urad_id,
+                'urad_id' => $this->sourceMedium->id,
             ])
-            ->toMediaCollection($this->collection_name);
+            ->toMediaCollection($this->sourceMedium->collection_name);
     }
 }

@@ -137,10 +137,10 @@ class ImportFromUrad implements ShouldQueue
         // Import Media not yet present in our database
         $this->getSourceDb()->table('lab_media')
             ->whereIn('id', $sourceUradIds->diff($importedUradIds)->values())
+            ->select('id', 'file_name', 'collection_name')
             ->lazyById()
             ->each(function ($sourceMedium) use ($entity) {
-                $urad_path = "lab_sng/{$sourceMedium->id}/{$sourceMedium->file_name}";
-                AddMediaFromUrad::dispatch($entity, $sourceMedium->id, $urad_path, $sourceMedium->collection_name);
+                AddMediaFromUrad::dispatch($entity, $sourceMedium);
             });
 
         // Remove Media no longer present in the source
