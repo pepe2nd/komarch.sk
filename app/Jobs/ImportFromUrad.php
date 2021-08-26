@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Jobs\AddMediaFromUrad;
 use App\Models\Contest;
 use App\Models\ContestResult;
 use App\Models\Work;
@@ -136,15 +137,10 @@ class ImportFromUrad implements ShouldQueue
         // Import Media not yet present in our database
         $this->getSourceDb()->table('lab_media')
             ->whereIn('id', $sourceUradIds->diff($importedUradIds)->values())
+            ->select('id', 'file_name', 'collection_name')
             ->lazyById()
             ->each(function ($sourceMedium) use ($entity) {
-                $entity
-                    ->addMediaFromDisk("lab_sng/{$sourceMedium->id}/{$sourceMedium->file_name}", 'urad')
-                    ->preservingOriginal()
-                    ->withCustomProperties([
-                        'urad_id' => $sourceMedium->id,
-                    ])
-                    ->toMediaCollection($sourceMedium->collection_name);
+                AddMediaFromUrad::dispatch($entity, $sourceMedium);
             });
 
         // Remove Media no longer present in the source
