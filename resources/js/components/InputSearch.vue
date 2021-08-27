@@ -15,7 +15,7 @@
       <aside class="absolute z-10 flex flex-col items-start w-72 md:w-96 bg-white border rounded-md shadow-sm mt-1"
              role="menu" aria-labelledby="menu-heading" v-if="Object.keys(this.lists).length > 0 && showSearchItems == true">
           <div v-for="(items, category) in lists" v-if="items.length > 0" class="w-full">
-            <h5 class="tracking-tight mt-2 text-gray-500 px-2">{{ __('search.' + category) }}</h5>
+            <h5 class="tracking-tight mt-3 mb-1 text-gray-500 px-2">{{ __('search.' + category) }}</h5>
             <ul class="flex flex-col w-full">
                 <li
                     class="px-2 py-1 space-x-2 hover:bg-blue hover:text-white focus:bg-blue focus:text-white focus:outline-none"
