@@ -61,6 +61,7 @@ return [
             'artisan:view:clear',
             'artisan:config:cache',
             'artisan:migrate',
+            'artisan:queue:restart',
         ],
 
         // Deployment is done and live
@@ -105,7 +106,18 @@ return [
         'shared_dirs' => [
             'public/packages',
             'storage'
-        ]
+        ],
+        'writable_dirs' => [
+            'bootstrap/cache',
+            'storage',
+            'storage/app',
+            'storage/app/public',
+            'storage/framework',
+            'storage/framework/cache',
+            'storage/framework/sessions',
+            'storage/framework/views',
+            'storage/logs',
+        ],
 
     ],
 
