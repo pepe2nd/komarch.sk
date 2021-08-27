@@ -8,18 +8,18 @@
               :placeholder="placeholder"
               aria-label="Search"
               v-model="search"
-              @input="showSearchItems = true"
+              @input="onChange"
               ref="searchBox"
           />
       </div>
       <aside class="absolute z-10 flex flex-col items-start w-64 bg-white border rounded-md shadow-md mt-1"
-             role="menu" aria-labelledby="menu-heading" v-if="filteredList.length > 0 && showSearchItems == true">
+             role="menu" aria-labelledby="menu-heading" v-if="contests.length > 0 && showSearchItems == true">
           <ul class="flex flex-col w-full">
               <li
-                  class="px-2 py-3 space-x-2 hover:bg-blue-600 hover:text-white focus:bg-blue-600 focus:text-white focus:outline-none "
-                  v-for="(item, index) in filteredList"
+                  class="px-2 py-3 space-x-2 hover:bg-blue hover:text-white focus:bg-blue focus:text-white focus:outline-none "
+                  v-for="(item, index) in contests"
                   :key="index"
-                  @click="selectSearchItem(item); showSearchItems = false;">{{ item.name }}</li>
+                  @click="selectSearchItem(item); showSearchItems = false;">{{ item.title }}</li>
           </ul>
       </aside>
   </div>
@@ -30,10 +30,6 @@
 
 export default {
   props: {
-      // lists: {
-      //   type: Array,
-      //   default: []
-      // },
       clearInputWhenClicked: {
         type: Boolean,
         default: false
@@ -45,45 +41,28 @@ export default {
   },
   data() {
       return {
-        lists: [
-            {
-              id: 17,
-              name: "Nová plaváreň, rekonštrukcia hokejového štadióna a dostavba nekomerčných ubytovacích kapacít pre športovcov",
-            },
-            {
-              id: 16,
-              name: "Plaváreň pod Borinou",
-            },
-            {
-              id: 15,
-              name: "Kultúrny dom Malacky",
-            }
-          ],
           search: "",
           selectedItem: "",
           showSearchItems: false,
-          isMouseOverList: false,
-          searchItemList: [] // this.list
+          contests: []
       };
   },
   created () {
-    // this.searchItemList = this.lists
-  },
-  computed: {
-      filteredList() {
-        this.searchItemList = this.lists
-        return this.searchItemList.filter((item) => {
-            return (item.name.toLowerCase().includes(this.search.toLowerCase()));
-        });
-      },
-      classProps() {
-        return [...this.inputClass]
-      }
+    this.fetch()
   },
   methods: {
+      async fetch () {
+        const response = await axios.get('/api/contests', { params: { q: this.search.toLowerCase() } })
+        this.contests = response.data.data
+      },
+      onChange() {
+        this.showSearchItems=true
+        this.fetch()
+      },
       selectSearchItem(item) {
-          this.search = item.name;
-          this.selectedItem = item.name;
+          this.search = item.title;
+          window.location.href = item.url;
+          // this.selectedItem = item.name;
           this.showSearchItems = false;
           this.$emit('selected', item)
           if(this.clearInputWhenClicked){
@@ -95,19 +74,7 @@ export default {
               this.showSearchItems = false
           }
       }
-  },
-  created() {
-      if(this.selectedData != 0){
-          const selected = this.lists.filter((item) => {
-              if(item.id == this.selectedData){
-                  return true
-              }
-              return false
-          })
-          this.selectedItem = selected[0].name
-          this.search = selected[0].name
-      }
-  },
+  }
 };
 
 </script>
