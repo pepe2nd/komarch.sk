@@ -65,9 +65,7 @@ export default {
       selectSearchItem(item) {
           this.search = item.title;
           window.location.href = item.url;
-          // this.selectedItem = item.name;
           this.showSearchItems = false;
-          this.$emit('selected', item)
           if(this.clearInputWhenClicked){
               this.search = ''
           }
