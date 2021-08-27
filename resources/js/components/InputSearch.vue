@@ -12,15 +12,18 @@
               ref="searchBox"
           />
       </div>
-      <aside class="absolute z-10 flex flex-col items-start w-64 bg-white border rounded-md shadow-md mt-1"
-             role="menu" aria-labelledby="menu-heading" v-if="contests.length > 0 && showSearchItems == true">
-          <ul class="flex flex-col w-full">
-              <li
-                  class="px-2 py-3 space-x-2 hover:bg-blue hover:text-white focus:bg-blue focus:text-white focus:outline-none "
-                  v-for="(item, index) in contests"
-                  :key="index"
-                  @click="selectSearchItem(item); showSearchItems = false;">{{ item.title }}</li>
-          </ul>
+      <aside class="absolute z-10 flex flex-col items-start w-72 md:w-96 bg-white border rounded-md shadow-sm mt-1"
+             role="menu" aria-labelledby="menu-heading" v-if="Object.keys(this.lists).length > 0 && showSearchItems == true">
+          <div v-for="(items, category) in lists" v-if="items.length > 0" class="w-full">
+            <h5 class="tracking-tight mt-2 text-gray-500 px-2">{{ __('search.' + category) }}</h5>
+            <ul class="flex flex-col w-full">
+                <li
+                    class="px-2 py-1 space-x-2 hover:bg-blue hover:text-white focus:bg-blue focus:text-white focus:outline-none"
+                    v-for="(item, index) in items"
+                    :key="index"
+                    @click="selectSearchItem(item); showSearchItems = false;">{{ item.title }}</li>
+            </ul>
+          </div>
       </aside>
   </div>
 </template>
@@ -44,7 +47,7 @@ export default {
           search: "",
           selectedItem: "",
           showSearchItems: false,
-          contests: []
+          lists: {}
       };
   },
   created () {
@@ -52,8 +55,8 @@ export default {
   },
   methods: {
       async fetch () {
-        const response = await axios.get('/api/contests', { params: { q: this.search.toLowerCase() } })
-        this.contests = response.data.data
+        const response = await axios.get('/api/search-sugestions', { params: { search: this.search.toLowerCase() } })
+        this.lists = response.data
       },
       onChange() {
         this.showSearchItems=true

@@ -9,14 +9,20 @@ use App\Models\Page;
 use App\Models\Post;
 use App\Models\Work;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class SearchSuggestionController extends Controller
 {
     private $limit = 4;
+    private $min_length = 2;
 
     public function index(Request $request)
     {
         $search = $request->get('search', '');
+
+        if (!$search || Str::length($search) < $this->min_length) {
+            return [];
+        }
 
         return [
             'architects' => $this->architects($search),
