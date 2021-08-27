@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Bus;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\ResponsiveImages\Jobs\GenerateResponsiveImagesJob;
@@ -14,7 +15,7 @@ class MediaLibraryRegenerateResponsiveImages extends Command
      *
      * @var string
      */
-    protected $signature = 'media-library:regenerate-responsive-images
+    protected $signature = 'media-library:regenerate-responsive-images {modelType?}
     {--only-missing : Regenerate only for missing}';
 
     /**
@@ -42,6 +43,11 @@ class MediaLibraryRegenerateResponsiveImages extends Command
     public function handle()
     {
         $query = Media::query();
+
+        if ($this->argument('modelType')) {
+            $query->where('model_type', $this->argument('modelType'));
+        }
+
         if ($this->option('only-missing')) $query->whereJsonLength('responsive_images', 0);
         
         foreach ($query->lazy() as $media) {
