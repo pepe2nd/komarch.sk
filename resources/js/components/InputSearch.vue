@@ -81,7 +81,25 @@ export default {
           this.focusedIndex--
         } else if (event.keyCode == 40 && this.focusedIndex < this.listsLength) {
           this.focusedIndex++
+        } else if (event.keyCode == 13 && this.focusedIndex > 0) {
+          event.preventDefault();
+          this.onItemSelected(this.getFocusedItem())
         }
+      },
+      getFocusedItem() {
+        var self = this
+        var iterator = 0
+        var focusedItem = null
+        _.forEach(this.lists, function(items, category) {
+          items.forEach(function(item, index) {
+            iterator++
+            if (iterator == self.focusedIndex) {
+              focusedItem = item;
+              return
+            }
+          })
+        })
+        return focusedItem;
       },
       isActive(thisCategory, thisIndex) {
         var self = this
