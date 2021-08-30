@@ -196,7 +196,10 @@ export default {
             properties: {
               id: work.id,
               title: work.name,
-              description: '',
+              architects: [
+                ..._.map(work.architects, 'full_name'),
+                ..._.map(work.architects, 'name')
+              ],
               url: work.url
             }
           }))

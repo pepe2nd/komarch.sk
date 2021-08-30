@@ -7,9 +7,13 @@
     <h3>
       {{ artwork.properties.title }}
     </h3>
-    <p>
-      {{ artwork.properties.description }}
-    </p>
+    <span
+      v-for="architect in JSON.parse(artwork.properties.architects)"
+      class="group inline-block leading-relaxed mr-2"
+    >
+      {{ architect }}
+    </span>
+
     <LinkArrow
       :url="artwork.properties.url"
       class="mt-3"
