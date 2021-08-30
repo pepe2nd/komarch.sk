@@ -60,11 +60,6 @@ class Work extends Model implements HasMedia
             ->withResponsiveImages();
     }
 
-    public function getTitleAttribute(): string
-    {
-        return $this->name;
-    }
-
     public function getUrlAttribute(): string
     {
         return route('works.detail', [$this->id, $this->slug]);

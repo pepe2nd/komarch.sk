@@ -36,13 +36,25 @@ class SearchSuggestionController extends Controller
     private function architects(string $search)
     {
         $architects = Architect::search("*{$search}*")->take($this->limit)->get();
-        return $architects->map->only('id', 'url', 'title');
+        return $architects->map(function ($architect) {
+            return [
+              'id' => $architect->id,
+              'url' => $architect->url,
+              'title' => $architect->full_name,
+            ];
+        });
     }
 
     private function works(string $search)
     {
         $works = Work::search("*{$search}*")->take($this->limit)->get();
-        return $works->map->only('id', 'url', 'title');
+        return $works->map(function ($work) {
+            return [
+              'id' => $work->id,
+              'url' => $work->url,
+              'title' => $work->name,
+            ];
+        });
     }
 
     private function contests(string $search)

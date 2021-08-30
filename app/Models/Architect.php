@@ -77,11 +77,6 @@ class Architect extends Model
         ])->filter()->join(' ');
     }
 
-    public function getTitleAttribute()
-    {
-        return $this->full_name;
-    }
-
     public function getUrlAttribute(): string
     {
         return route('architects.detail', [$this->id, $this->slug]);

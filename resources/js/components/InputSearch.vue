@@ -21,7 +21,7 @@
                     class="px-2 py-1 space-x-2 hover:bg-blue hover:text-white focus:bg-blue focus:text-white focus:outline-none"
                     v-for="(item, index) in items"
                     :key="index"
-                    @click="selectSearchItem(item); showSearchItems = false;">{{ item.title }}</li>
+                    @click="onItemSelected(item); showSearchItems = false;">{{ item.title }}</li>
             </ul>
           </div>
       </aside>
@@ -33,13 +33,8 @@
 
 export default {
   props: {
-      clearInputWhenClicked: {
-        type: Boolean,
-        default: false
-      },
       placeholder: {
-        type: String,
-        default: 'Search here...'
+        type: String
       }
   },
   data() {
@@ -62,13 +57,10 @@ export default {
         this.showSearchItems=true
         this.fetch()
       },
-      selectSearchItem(item) {
-          this.search = item.title;
-          window.location.href = item.url;
-          this.showSearchItems = false;
-          if(this.clearInputWhenClicked){
-              this.search = ''
-          }
+      onItemSelected(item) {
+          this.search = item.title
+          window.location.href = item.url
+          this.showSearchItems = false
       },
       hideMenu(){
           if(this.showSearchItems == true){
