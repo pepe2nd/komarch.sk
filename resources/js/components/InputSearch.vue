@@ -44,9 +44,17 @@ export default {
           selectedItem: "",
           showSearchItems: false,
           lists: {},
-          listsLength: 0,
           focusedIndex: 0
       };
+  },
+  computed: {
+    listsLength () {
+      var listsLength = 0
+      _.forEach(this.lists, function(items, key) {
+        listsLength += items.length
+      });
+      return listsLength
+    }
   },
   created () {
     this.fetch()
@@ -56,11 +64,6 @@ export default {
         const response = await axios.get('/api/search-sugestions', { params: { search: this.search.toLowerCase() } })
         this.lists = response.data
         this.focusedIndex = 0
-        var listsLength = 0
-        _.forEach(this.lists, function(items, key) {
-          listsLength += items.length
-        });
-        this.listsLength = listsLength
       },
       onChange() {
         this.showSearchItems=true
