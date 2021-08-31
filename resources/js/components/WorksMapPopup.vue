@@ -13,6 +13,7 @@
       :src="coverImage.url"
       :width="coverImage.width"
       :height="coverImage.height"
+      @load="onImgLoad"
     >
     <div class="p-4">
       <h3>
@@ -48,9 +49,23 @@ export default {
       required: true
     }
   },
+  data () {
+    return {
+      imgIsLoaded: false
+    }
+  },
   computed: {
     coverImage: function () {
       return JSON.parse(this.artwork.properties.cover_image)
+    }
+  },
+  methods: {
+    onImgLoad () {
+      if (!this.imgIsLoaded) {
+        this.imgIsLoaded = true
+        const size = this.$refs.img.getBoundingClientRect().width
+        this.$refs.img.sizes =  Math.ceil(size / window.innerWidth * 100) + 'vw'
+      }
     }
   }
 }
