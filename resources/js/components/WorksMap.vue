@@ -198,7 +198,7 @@ export default {
               title: work.name,
               architects: [
                 ..._.map(work.architects, 'full_name'),
-                ..._.map(work.architects, 'name')
+                ..._.map(work.other_architects, 'name')
               ],
               url: work.url,
               cover_image: work.cover_image
