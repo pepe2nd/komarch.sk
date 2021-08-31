@@ -421,10 +421,7 @@ a.mapboxgl-ctrl-logo.mapboxgl-compact {
 
 .mapboxgl-popup-content {
     position: relative;
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    padding: 10px 10px 15px;
+    padding: 0;
     pointer-events: auto;
 }
 

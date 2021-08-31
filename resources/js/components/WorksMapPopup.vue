@@ -1,25 +1,37 @@
 <template>
   <div
     v-if="artwork && artwork.properties"
-    class="p-2"
+    class="bg-white rounded-xl shadow-xl"
   >
-    <!-- TODO: add artwork preview image once available -->
-    <h3>
-      {{ artwork.properties.title }}
-    </h3>
-    <span
-      v-for="architect in JSON.parse(artwork.properties.architects)"
-      class="group inline-block leading-relaxed mr-2"
+    <img
+      v-if="coverImage"
+      ref="img"
+      :srcset="coverImage.srcset"
+      :alt="artwork.properties.title"
+      class="rounded-t-xl"
+      sizes="1px"
+      :src="coverImage.url"
+      :width="coverImage.width"
+      :height="coverImage.height"
     >
-      {{ architect }}
-    </span>
+    <div class="p-4">
+      <h3>
+        {{ artwork.properties.title }}
+      </h3>
+      <span
+        v-for="architect in JSON.parse(artwork.properties.architects)"
+        class="group inline-block leading-relaxed mr-2"
+      >
+        {{ architect }}
+      </span>
 
-    <LinkArrow
-      :url="artwork.properties.url"
-      class="mt-3"
-    >
-      {{ __('buildings.building_more') }}
-    </LinkArrow>
+      <LinkArrow
+        :url="artwork.properties.url"
+        class="mt-3"
+      >
+        {{ __('buildings.building_more') }}
+      </LinkArrow>
+    </div>
   </div>
 </template>
 
@@ -34,6 +46,11 @@ export default {
     artwork: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    coverImage: function () {
+      return JSON.parse(this.artwork.properties.cover_image)
     }
   }
 }

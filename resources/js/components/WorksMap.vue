@@ -200,7 +200,8 @@ export default {
                 ..._.map(work.architects, 'full_name'),
                 ..._.map(work.architects, 'name')
               ],
-              url: work.url
+              url: work.url,
+              cover_image: work.cover_image
             }
           }))
         }))
