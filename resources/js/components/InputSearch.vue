@@ -71,7 +71,7 @@ export default {
   methods: {
       async fetch () {
         const response = await axios.get('/api/search-sugestions', { params: { search: this.search.toLowerCase() } })
-        this.lists = response.data
+        this.lists = _.omitBy(response.data, _.isEmpty)
         this.focusedIndex = {
             'category': null,
             'item': null
