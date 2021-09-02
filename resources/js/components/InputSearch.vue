@@ -9,20 +9,24 @@
               aria-label="Search"
               v-model="search"
               @input="onChange"
-              @keydown="nextItem"
+              @keyup.up="onPrevItemFocused"
+              @keyup.down="onNextItemFocused"
+              @keyup.enter="onFocusedItemSelected"
               ref="searchBox"
           />
       </div>
       <aside class="absolute z-10 flex flex-col items-start w-72 md:w-96 bg-white border rounded-md shadow-sm mt-1"
              role="menu" aria-labelledby="menu-heading" v-if="Object.keys(this.lists).length > 0 && showSearchItems == true">
-          <div v-for="(items, category) in lists" v-if="items.length > 0" class="w-full">
+          <div v-for="(items, category, categoryIndex) in lists" v-if="items.length > 0" class="w-full">
             <h5 class="tracking-tight mt-3 mb-1 text-gray-500 px-2">{{ __('search.' + category) }}</h5>
             <ul class="flex flex-col w-full">
                 <li
-                    class="px-2 py-1 space-x-2 hover:bg-blue hover:text-white focus:bg-blue focus:text-white focus:outline-none"
-                    :class="{ 'bg-blue text-white': isActive(category, index) }"
-                    v-for="(item, index) in items"
-                    @click="onItemSelected(item); showSearchItems = false;">{{ item.title }}</li>
+                    class="px-2 py-1 space-x-2"
+                    :class="{ 'bg-blue text-white': isActive(categoryIndex, itemIndex) }"
+                    v-for="(item, itemIndex) in items"
+                    @mouseover="focusedIndex = {'category' : categoryIndex, 'item': itemIndex}"
+                    @click="onItemSelected(item)"
+                >{{ item.title }}</li>
             </ul>
           </div>
       </aside>
@@ -44,16 +48,15 @@ export default {
           selectedItem: "",
           showSearchItems: false,
           lists: {},
-          focusedIndex: 0
-      };
+          focusedIndex: {
+              'category': -1,
+              'item': -1
+          }
+      }
   },
   computed: {
-    listsLength () {
-      var listsLength = 0
-      _.forEach(this.lists, function(items, key) {
-        listsLength += items.length
-      });
-      return listsLength
+    focusedItem() {
+      return this.lists[Object.keys(this.lists)[this.focusedIndex.category]][this.focusedIndex.item]
     }
   },
   created () {
@@ -63,7 +66,10 @@ export default {
       async fetch () {
         const response = await axios.get('/api/search-sugestions', { params: { search: this.search.toLowerCase() } })
         this.lists = response.data
-        this.focusedIndex = 0
+        this.focusedIndex = {
+            'category': -1,
+            'item': -1
+        }
       },
       onChange() {
         this.showSearchItems=true
@@ -79,47 +85,36 @@ export default {
               this.showSearchItems = false
           }
       },
-      nextItem: function(event) {
-        if (event.keyCode == 38 && this.focusedIndex > 0) {
-          this.focusedIndex--
-        } else if (event.keyCode == 40 && this.focusedIndex < this.listsLength) {
-          this.focusedIndex++
-        } else if (event.keyCode == 13 && this.focusedIndex > 0) {
-          event.preventDefault()
-          this.onItemSelected(this.getFocusedItem())
+      isActive(categoryIndex, itemIndex) {
+        return (this.focusedIndex.category == categoryIndex && this.focusedIndex.item == itemIndex)
+      },
+      onPrevItemFocused() {
+        if (
+          this.focusedIndex.category!==-1 &&
+          this.focusedIndex.item > 0
+        ) {
+          this.focusedIndex.item--
+        } else if (this.focusedIndex.category > 0) {
+          this.focusedIndex.category--
+          this.focusedIndex.item = this.lists[Object.keys(this.lists)[this.focusedIndex.category]].length - 1
         }
       },
-      getFocusedItem() {
-        var self = this
-        var iterator = 0
-        var focusedItem = null
-        _.forEach(this.lists, function(items, category) {
-          items.forEach(function(item, index) {
-            iterator++
-            if (iterator == self.focusedIndex) {
-              focusedItem = item
-              return
-            }
-          })
-        })
-        return focusedItem
+      onNextItemFocused() {
+        if (
+          this.focusedIndex.category!==-1 &&
+          this.focusedIndex.item < (this.lists[Object.keys(this.lists)[this.focusedIndex.category]].length - 1)
+        ) {
+          this.focusedIndex.item++
+        } else if (this.focusedIndex.category < (Object.keys(this.lists).length - 1)) {
+          this.focusedIndex.item = 0
+          this.focusedIndex.category++
+        }
       },
-      isActive(thisCategory, thisIndex) {
-        var self = this
-        var iterator = 0
-        var isActive = false
-        _.forEach(this.lists, function(items, category) {
-          items.forEach(function(item, index) {
-            iterator++
-            if ((thisCategory == category) && (thisIndex == index)) {
-              if (iterator == self.focusedIndex) {
-                isActive = true
-                return
-              }
-            }
-          })
-        })
-        return isActive
+      onFocusedItemSelected(event) {
+        if (!_.isEmpty(this.focusedItem)) {
+          event.preventDefault()
+          this.onItemSelected(this.focusedItem)
+        }
       }
   }
 };
