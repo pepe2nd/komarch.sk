@@ -55,14 +55,14 @@ export default {
       }
   },
   computed: {
-    focusedCetegory() {
+    focusedCategory() {
       return Object.keys(this.lists)[this.focusedIndex.category]
     },
     focusedItem() {
       if (this.focusedIndex.category == null) {
         return {}
       }
-      return this.lists[this.focusedCetegory][this.focusedIndex.item]
+      return this.lists[this.focusedCategory][this.focusedIndex.item]
     }
   },
   created () {
@@ -103,14 +103,14 @@ export default {
           this.focusedIndex.item--
         } else if (this.focusedIndex.category > 0) {
           this.focusedIndex.category--
-          this.focusedIndex.item = this.lists[this.focusedCetegory].length - 1
+          this.focusedIndex.item = this.lists[this.focusedCategory].length - 1
         }
       },
       onNextItemFocused() {
         if (this.focusedIndex.category == null) {
           this.focusedIndex.item = 0
           this.focusedIndex.category = 0
-        } else if (this.focusedIndex.item < (this.lists[this.focusedCetegory].length - 1)) {
+        } else if (this.focusedIndex.item < (this.lists[this.focusedCategory].length - 1)) {
           this.focusedIndex.item++
         } else if (this.focusedIndex.category < (Object.keys(this.lists).length - 1)) {
           this.focusedIndex.item = 0
