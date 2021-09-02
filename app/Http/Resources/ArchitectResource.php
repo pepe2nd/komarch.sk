@@ -22,6 +22,7 @@ class ArchitectResource extends JsonResource
             ),
             [
                 'location_city' => $this->whenLoaded('address', fn () => $this->address->location_city),
+                'full_name' => $this->full_name,
                 'url' => $this->url,
             ],
         );
