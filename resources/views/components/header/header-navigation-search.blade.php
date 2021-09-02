@@ -1,11 +1,4 @@
-<form action="{{ route('posts.index') }}" class="my-5 flex align-center">
-    <input
-        type="search"
-        name="search"
-        placeholder="{{ __('app.search_placeholder') }}"
-        aria-label="{{ __('app.search_placeholder') }}"
-        class="border-b border-gray-900 w-full outline-none text-sm"
-        value="{{ request()->input('search') }}"
-    >
+<form action="{{ route('posts.index') }}" class="my-5 flex align-center" autocomplete="off">
+    <input-search placeholder="{{ __('app.search_placeholder') }}"></input-search>
     <span class="icon-search ml-1"></span>
 </form>
