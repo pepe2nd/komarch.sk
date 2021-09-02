@@ -49,14 +49,20 @@ export default {
           showSearchItems: false,
           lists: {},
           focusedIndex: {
-              'category': -1,
-              'item': -1
+              'category': null,
+              'item': null
           }
       }
   },
   computed: {
+    focusedCetegory() {
+      return Object.keys(this.lists)[this.focusedIndex.category]
+    },
     focusedItem() {
-      return this.lists[Object.keys(this.lists)[this.focusedIndex.category]][this.focusedIndex.item]
+      if (this.focusedIndex.category == null) {
+        return {}
+      }
+      return this.lists[this.focusedCetegory][this.focusedIndex.item]
     }
   },
   created () {
@@ -67,8 +73,8 @@ export default {
         const response = await axios.get('/api/search-sugestions', { params: { search: this.search.toLowerCase() } })
         this.lists = response.data
         this.focusedIndex = {
-            'category': -1,
-            'item': -1
+            'category': null,
+            'item': null
         }
       },
       onChange() {
@@ -83,27 +89,28 @@ export default {
       hideMenu(){
           if(this.showSearchItems == true){
               this.showSearchItems = false
+              this.focusedIndex = {
+                  'category': null,
+                  'item': null
+              }
           }
       },
       isActive(categoryIndex, itemIndex) {
         return (this.focusedIndex.category == categoryIndex && this.focusedIndex.item == itemIndex)
       },
       onPrevItemFocused() {
-        if (
-          this.focusedIndex.category!==-1 &&
-          this.focusedIndex.item > 0
-        ) {
+        if (this.focusedIndex.item > 0) {
           this.focusedIndex.item--
         } else if (this.focusedIndex.category > 0) {
           this.focusedIndex.category--
-          this.focusedIndex.item = this.lists[Object.keys(this.lists)[this.focusedIndex.category]].length - 1
+          this.focusedIndex.item = this.lists[this.focusedCetegory].length - 1
         }
       },
       onNextItemFocused() {
-        if (
-          this.focusedIndex.category!==-1 &&
-          this.focusedIndex.item < (this.lists[Object.keys(this.lists)[this.focusedIndex.category]].length - 1)
-        ) {
+        if (this.focusedIndex.category == null) {
+          this.focusedIndex.item = 0
+          this.focusedIndex.category = 0
+        } else if (this.focusedIndex.item < (this.lists[this.focusedCetegory].length - 1)) {
           this.focusedIndex.item++
         } else if (this.focusedIndex.category < (Object.keys(this.lists).length - 1)) {
           this.focusedIndex.item = 0
