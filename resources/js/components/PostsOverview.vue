@@ -80,7 +80,7 @@ export default {
       }
 
       if (this.$route.query.categories) {
-        return this.filters.find(({ queryValue }) => queryValue === this.$route.query.categories)
+        return this.filters.find(({ queryValue }) => queryValue === this.$route.query.categories) || {}
       }
 
       return {}
