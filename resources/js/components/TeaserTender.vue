@@ -1,6 +1,9 @@
 <template>
   <article class="py-10 grid grid-cols-3 place-items-start items-center">
-    <TagDate class="col-span-2 whitespace-nowrap">{{ tender.date }}</TagDate>
+    <TagDate class="col-span-2 whitespace-nowrap">
+      {{ tender.announced_at }}
+      <span v-if="tender.finished_at"> – {{ tender.finished_at }}</span>
+    </TagDate>
     <TagDate class="h-6 flex items-center">
       <span class="icon-clock mr-1" />
       {{ tender.days }}
