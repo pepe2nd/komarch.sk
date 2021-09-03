@@ -33,13 +33,13 @@
           v-else
           class="py-10"
         >
-          Nenašli sa žiadne články.
+          {{ __('posts.no_posts') }}
         </p>
       </div>
     </transition>
 
     <LinkArrow url="/spravy">
-      Informácie SKA
+      {{ __('posts.title') }}
     </LinkArrow>
   </section>
 </template>
