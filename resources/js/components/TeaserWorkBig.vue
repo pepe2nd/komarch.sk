@@ -26,9 +26,7 @@
         v-for="(filter, index) in item.filters"
         :key="index"
         @click="onTagClicked(filter)"
-      >
-        {{ filter }}
-      </TagHash>
+      >{{ filter }}</TagHash>
     </div>
     <div class="flex flex-wrap mt-4">
       <a
