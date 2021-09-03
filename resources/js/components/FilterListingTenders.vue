@@ -50,7 +50,7 @@ export default {
   },
   data () {
     return {
-      selectedOption: this.options[0],
+      selectedOption: this.options[1],
       contests: [],
       fetchedOption: null
     }
