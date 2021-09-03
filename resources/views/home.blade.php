@@ -56,7 +56,6 @@
 
     <x-section-map
         worksUrl="{{ route('works') }}"
-        mapUrl="#"
     />
 </div>
 
