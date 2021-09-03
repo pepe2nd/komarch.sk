@@ -1,14 +1,14 @@
 <template>
-  <article class="py-10 grid grid-cols-3 place-items-start items-center">
-    <TagDate class="col-span-2 whitespace-nowrap">
+  <article class="py-10 grid grid-cols-5 place-items-start items-center">
+    <TagDate class="col-span-3 whitespace-nowrap">
       {{ tender.announced_at }}
       <span v-if="tender.finished_at"> – {{ tender.finished_at }}</span>
     </TagDate>
-    <TagDate class="h-6 flex items-center">
+    <TagDate class="col-span-2 h-6 flex items-center whitespace-nowrap" v-if="tender.finished_at" :title="tender.finished_at">
       <span class="icon-clock mr-1" />
-      {{ tender.days }}
+      {{ tender.finished_at_diff }}
     </TagDate>
-    <h3 class="mt-1 text-xl col-span-3 tracking tight">
+    <h3 class="mt-1 text-xl col-span-5 tracking tight">
       <LinkTitle :url="tender.url">
         {{ tender.title }}
       </LinkTitle>

@@ -21,6 +21,7 @@ class ContestResource extends JsonResource
             'state' => $this->state,
             'announced_at' => optional($this->announced_at)->format(config('settings.date_short_format')),
             'finished_at' => optional($this->finished_at)->format(config('settings.date_short_format')),
+            'finished_at_diff' => optional($this->finished_at)->diffForHumans(),
             'results_published_at' => optional($this->results_published_at)->format(config('settings.date_short_format')),
             'created_at' => optional($this->created_at)->format(config('settings.date_short_format')),
             'updated_at' => optional($this->updated_at)->format(config('settings.date_short_format')),
