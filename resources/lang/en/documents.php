@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'title' => 'Documents',
+    'perex' => '',
     'preview' => 'Preview',
     'download' => 'Download',
     'no_documents' => 'No documents found',

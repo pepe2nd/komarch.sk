@@ -2,6 +2,7 @@
 
 return [
     'title' => 'Zoznam architektov',
+    'perex' => '',
     'navigate_back' => 'Späť na zoznam architektov',
     'no_results' => 'Nenašli sa žiadni architekti',
     'last_name' => 'Priezvisko',

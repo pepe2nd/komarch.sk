@@ -2,6 +2,7 @@
 
 return [
     'title' => 'Competitions',
+    'perex' => '',
     'navigate_back' => 'Back to all competitions',
     'no_results' => 'No competitions found',
     'state' => 'State',

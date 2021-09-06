@@ -8,7 +8,7 @@
 <div class="container mx-auto px-6">
     <x-intro
         :title="trans('architects.title')"
-        text="“{{ __('app.intro') }}”"
+        :text="trans('architects.perex')"
     />
     <architects-overview
         :authorization-labels="{{ json_encode( __('architects.authorizations')) }}"

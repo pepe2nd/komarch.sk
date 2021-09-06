@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'perex' => '',
     'search_placeholder' => 'Architect, work, ...',
     'awards' => 'Awards',
     'design_year' => 'Design year',

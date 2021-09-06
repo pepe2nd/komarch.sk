@@ -2,6 +2,7 @@
 
 return [
     'title' => 'List of architects',
+    'perex' => '',
     'navigate_back' => 'Back to the list of architects',
     'no_results' => 'No architects found',
     'last_name' => 'Last name',

@@ -8,7 +8,7 @@
 <div class="container mx-auto px-6">
     <x-intro
     :title="trans('posts.title')"
-        text="“{{ __('app.intro') }}”"
+    :text="trans('posts.perex')"
     />
     <posts-overview />
 </div>

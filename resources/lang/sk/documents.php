@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'title' => 'Právne dokumenty',
+    'perex' => '',
     'preview' => 'Náhľad',
     'download' => 'Stiahnuť',
     'no_documents' => 'Nenašli sa žiadne dokumenty',
