@@ -106,6 +106,10 @@ class PageCrudController extends CrudController
                 'hint' => 'Leave empty to hide from navigation'
             ],
             [
+                'name' => 'perex',
+                'type' => 'textarea',
+            ],
+            [
                 'name' => 'text',
                 'type' => 'tinymce',
                 'hint' => 'use Shift+Enter for new line',
