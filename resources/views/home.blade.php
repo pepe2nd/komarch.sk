@@ -48,7 +48,7 @@
             <x-section-publications
                 title="Publikácie"
                 :publications="$publications"
-                linkUrl="#"
+                linkUrl="https://issuu.com/institutska"
                 :linkTitle="trans('home.read_on_issuu')"
             />
         </div>
@@ -56,7 +56,6 @@
 
     <x-section-map
         worksUrl="{{ route('works') }}"
-        mapUrl="#"
     />
 </div>
 

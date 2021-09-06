@@ -3,6 +3,7 @@
 return [
     'title' => 'Súťaže',
     'perex' => '',
+    'more' => 'Viac súťaží',
     'navigate_back' => 'Späť na všetky súťaže',
     'no_results' => 'Nenašli sa žiadne súťaže',
     'state' => 'Stav',
