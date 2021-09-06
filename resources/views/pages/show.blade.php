@@ -23,7 +23,7 @@
 
     <x-intro
         :title="$page->title"
-        text="“{{ __('app.intro') }}”"
+        :text="$page->perex"
     />
     <x-page.page-header :page="$page"></x-page.page-header>
     <x-page.page-content :page="$page"></x-page.page-content>
