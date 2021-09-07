@@ -14,7 +14,7 @@ return [
     'public' => 'Public',
     'private' => 'Private',
     'works_register' => 'Works register',
-    'typology_of_the_work' => 'Typology of the work',
+    'typology' => 'Typology of the work',
     'address' => 'Address',
     'awards' => 'Awards',
     'authors' => 'Authors',

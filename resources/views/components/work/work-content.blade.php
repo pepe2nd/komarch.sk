@@ -13,12 +13,12 @@
         </div>
     @endif
 
-    @if ($work->functions->count() > 0)
+    @if ($work->typologies->count() > 0)
         <div class="mb-9">
             <div class="mb-1">{{ __('works.typology_of_the_work') }}:</div>
-            @foreach ($work->functions as $function)
-                <x-link-arrow url="{{ route('works', ['function' => $function->name]) }}">
-                    {{ $function->name }}
+            @foreach ($work->typologies as $typology)
+                <x-link-arrow url="{{ route('works', ['typologies[]' => $typology->name]) }}">
+                    {{ $typology->name }}
                 </x-link-arrow>
             @endforeach
         </div>
