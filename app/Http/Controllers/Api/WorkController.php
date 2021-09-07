@@ -57,8 +57,8 @@ class WorkController extends Controller
         $works->with(['media', 'other_architects', 'architects']);
 
         // apply filters
-        if ($request->has('tags')) {
-            $works->withAnyTags($request->input('tags', []));
+        if ($request->has('typologies')) {
+            $works->withAnyTags($request->input('typologies', []));
         }
 
         $investor = implode($request->input('investors', []));
