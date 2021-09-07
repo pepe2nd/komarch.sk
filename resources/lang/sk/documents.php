@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'title' => 'Právne dokumenty',
+    'title' => 'Legislatíva a dokumenty',
     'perex' => '',
     'preview' => 'Náhľad',
     'download' => 'Stiahnuť',

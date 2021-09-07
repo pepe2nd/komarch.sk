@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'title' => 'Documents',
+    'title' => 'Legislation and documents',
     'perex' => '',
     'preview' => 'Preview',
     'download' => 'Download',
