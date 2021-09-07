@@ -14,7 +14,7 @@ return [
     'public' => 'Verejný',
     'private' => 'Súkromný',
     'works_register' => 'Register diel',
-    'typology_of_the_work' => 'Typológia diela',
+    'typology' => 'Typológia diela',
     'address' => 'Adresa',
     'awards' => 'Ocenenia',
     'authors' => 'Autori/Autorky',
