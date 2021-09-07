@@ -58,7 +58,7 @@ import RangeSlider from '../atoms/RangeSlider'
 import ButtonClearFilters from '../atoms/buttons/ButtonClearFilters'
 
 const FILTER_AWARDS = 'awards'
-const FILTER_INVESTOR = 'has_public_investor'
+const FILTER_INVESTORS = 'investors'
 
 export default {
   components: {
@@ -94,7 +94,7 @@ export default {
     filterParams () {
       const params = {
         awards: this.selectedFilters.filter(filter => filter.type === FILTER_AWARDS).map(filter => filter.title),
-        has_public_investor: this.selectedFilters.filter(filter => filter.type === FILTER_INVESTOR).map(filter => filter.title)
+        investors: this.selectedFilters.filter(filter => filter.type === FILTER_INVESTORS).map(filter => filter.title)
       }
 
       if (this.sorting.name) {
@@ -163,8 +163,8 @@ export default {
         awards.push({ key: key, title: key, items: filtersResponse.awards[key], type: FILTER_AWARDS })
       }
 
-      for (const key in filtersResponse.has_public_investor) {
-        investors.push({ key: key, title: key, items: filtersResponse.has_public_investor[key], type: FILTER_INVESTOR })
+      for (const key in filtersResponse.investors) {
+        investors.push({ key: key, title: key, items: filtersResponse.investors[key], type: FILTER_INVESTORS })
       }
 
       this.filters = {

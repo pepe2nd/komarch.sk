@@ -37,7 +37,7 @@ class WorkController extends Controller
         foreach (Work::$filterable as $filter) {
             $filters[$filter] = $works->pluck($filter)->flatten()->countBy('name');
         }
-        $filters['has_public_investor'] = [
+        $filters['investors'] = [
             trans('works.public') => $works->where('has_public_investor', true)->count(),
             trans('works.private') => $works->where('has_public_investor', false)->count(),
         ];
@@ -61,8 +61,12 @@ class WorkController extends Controller
             $works->withAnyTags($request->input('tags', []));
         }
 
-        if ($request->has('has_public_investor')) {
-            $works->where('has_public_investor', '=', $request->input('has_public_investor'));
+        if ($request->has('investors')) {
+            if (in_array(trans('works.public'), $request->input('investors', []))) {
+                $works->where('has_public_investor', true);
+            } elseif (in_array(trans('works.private'), $request->input('investors', []))) {
+                $works->where('has_public_investor', false);
+            }
         }
 
         if ($request->has('year_from')) {
