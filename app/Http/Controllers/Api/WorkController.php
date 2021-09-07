@@ -61,12 +61,14 @@ class WorkController extends Controller
             $works->withAnyTags($request->input('tags', []));
         }
 
-        if ($request->has('investors')) {
-            if (in_array(trans('works.public'), $request->input('investors', []))) {
+        $investor = implode($request->input('investors', []));
+        switch ($investor) {
+            case trans('works.public'):
                 $works->where('has_public_investor', true);
-            } elseif (in_array(trans('works.private'), $request->input('investors', []))) {
+                break;
+            case trans('works.private'):
                 $works->where('has_public_investor', false);
-            }
+                break;
         }
 
         if ($request->has('year_from')) {
