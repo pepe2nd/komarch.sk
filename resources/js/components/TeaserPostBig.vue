@@ -46,7 +46,7 @@ export default {
   },
   computed: {
     tagUrl () {
-      return `${window.location.origin}/spravy?categories[]=${this.post.tags[0].name}`
+      return `${window.location.origin}/spravy?categories=${this.post.tags[0].name}`
     }
   },
   mounted () {

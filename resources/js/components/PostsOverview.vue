@@ -48,6 +48,15 @@ import ButtonClearFilters from './atoms/buttons/ButtonClearFilters'
 import axiosGet from './axiosGetMixin'
 import isotope from 'vueisotope'
 
+const staticFilters = [
+  {
+    key: 'featured',
+    title: 'Dôležité',
+    queryName: 'featured',
+    queryValue: 1
+  }
+]
+
 export default {
   components: {
     ButtonClearFilters,
@@ -61,14 +70,7 @@ export default {
   ],
   data () {
     return {
-      filters: [
-        {
-          key: 'featured',
-          title: 'Dôležité',
-          queryName: 'featured',
-          queryValue: 1
-        }
-      ],
+      dynamicFilters: [],
       posts: [],
       hasNextPage: true
     }
@@ -80,35 +82,31 @@ export default {
       }
 
       if (this.$route.query.categories) {
-        return this.filters.find(({ queryValue }) => queryValue === this.$route.query.categories)
+        return this.filters.find(({ queryValue }) => queryValue === this.$route.query.categories) || {}
       }
 
       return {}
     },
     pageNumber () {
       return parseInt(this.$route.query.page || 1)
+    },
+    filters () {
+      return [...staticFilters, ...this.dynamicFilters]
     }
   },
   watch: {
-    $route (to, from) {
-      if (to.query.featured !== from.query.featured ||
-          to.query.categories !== from.query.categories ||
-          to.query.page !== from.query.page
-      ) {
-        this.fetchPosts()
-      }
+    activeFilter (to, from) {
+      if (to.key !== from.key) this.fetchPosts()
     }
   },
   async created () {
     const { categories } = await this.axiosGet('posts-filters')
-    for (const category in categories) {
-      this.filters.push({
-        key: category,
-        title: category,
-        queryName: 'categories',
-        queryValue: category
-      })
-    }
+    this.dynamicFilters = Object.keys(categories).map(category => ({
+      key: category,
+      title: category,
+      queryName: 'categories',
+      queryValue: category
+    }))
   },
   mounted () {
     this.fetchPosts()
@@ -138,7 +136,7 @@ export default {
           ...this.$route.query,
           page: undefined,
           featured: filter.queryName === 'featured' ? null : undefined,
-          categories: filter.queryName === 'categories' ? filter.queryValue : undefined,
+          categories: filter.queryName === 'categories' ? filter.queryValue : undefined
         }
       })
     },
