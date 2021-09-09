@@ -32,6 +32,7 @@
         "spatie/laravel-sluggable": "^2.6",
         "spatie/laravel-tags": "^3.0",
         "spatie/laravel-translatable": "^4.6",
+        "spatie/pdf-to-image": "^2.1",
         "staudenmeir/eloquent-has-many-deep": "^1.13"
     },
     "require-dev": {
