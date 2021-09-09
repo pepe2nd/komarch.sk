@@ -67,7 +67,7 @@
             {{ document.created_at }}
           </td>
           <td>
-            <DocumentsOverviewResultsPreview :document="document" />
+            <DocumentsOverviewResultsPreview :document="document" v-if="document.file.thumb" />
           </td>
           <td>
             <DocumentsOverviewResultsDownload :document="document" />
