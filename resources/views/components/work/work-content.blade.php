@@ -36,7 +36,7 @@
             <div class="mb-1">{{ __('works.awards') }}:</div>
             @foreach ($work->awards as $award)
                 <x-link-arrow url="{{ route('works', ['award' => $award->name]) }}">
-                    {{ $award->name }}
+                    {{ $award->name }} ({{ $award->pivot->year }})
                 </x-link-arrow>
             @endforeach
         </div>
