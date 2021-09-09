@@ -25,7 +25,10 @@ class Work extends Model implements HasMedia
 
     public function awards()
     {
-        return $this->belongsToMany(Award::class);
+        return $this->belongsToMany(Award::class)
+            ->withPivot('year', 'nomination', 'winning')
+            ->wherePivot('nomination', 1)
+            ->orWherePivot('winning', 1);
     }
 
     public function citationPublications()
