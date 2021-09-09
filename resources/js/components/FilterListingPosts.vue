@@ -2,7 +2,7 @@
   <section class="mt-20">
     <h2 class="text-xl mb-10">
       <LinkArrow url="/spravy">
-        Informácie SKA
+        {{ __('posts.title') }}
       </LinkArrow>
     </h2>
 
@@ -33,13 +33,13 @@
           v-else
           class="py-10"
         >
-          Nenašli sa žiadne články.
+          {{ __('posts.no_posts') }}
         </p>
       </div>
     </transition>
 
     <LinkArrow url="/spravy">
-      Informácie SKA
+      {{ __('posts.title') }}
     </LinkArrow>
   </section>
 </template>
@@ -61,7 +61,7 @@ export default {
       default: () => [
         { key: 'newest', title: 'Najnovšie', params: '' },
         { key: 'important', title: 'Dôležité', params: '?featured' },
-        { key: 'COVID-19', title: 'COVID-19', params: '?categories=COVID-19' }
+        { key: 'Vzdelávanie', title: 'Vzdelávanie', params: '?categories=Vzdelávanie' }
       ]
     }
   },

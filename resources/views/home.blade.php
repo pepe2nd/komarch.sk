@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'správy')
+@section('title', __('home.title'))
 
 @section('content')
 
@@ -8,7 +8,7 @@
 {{-- @include('components.notification_bar') --}}
 
 <div class="container mx-auto px-6">
-    <x-intro :text="trans('home.intro')"/>
+    <x-intro :text="trans('home.perex')"/>
 
     <div class="mt-10 md:mt-32 md:grid grid-cols-2 gap-10">
         <div style="height: 300px">
@@ -48,7 +48,7 @@
             <x-section-publications
                 title="Publikácie"
                 :publications="$publications"
-                linkUrl="#"
+                linkUrl="https://issuu.com/institutska"
                 :linkTitle="trans('home.read_on_issuu')"
             />
         </div>
@@ -56,7 +56,6 @@
 
     <x-section-map
         worksUrl="{{ route('works') }}"
-        mapUrl="#"
     />
 </div>
 

@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'title' => 'Legislation and documents',
+    'perex' => '',
     'preview' => 'Preview',
     'download' => 'Download',
     'no_documents' => 'No documents found',

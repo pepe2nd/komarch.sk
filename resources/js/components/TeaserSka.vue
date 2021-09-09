@@ -3,9 +3,7 @@
     <TagHash
       v-if="post.tags[0]"
       :url="tagUrl"
-    >
-      {{ post.tags[0].name }}
-    </TagHash>
+    >{{ post.tags[0].name }}</TagHash>
     <TagDate>{{ post.date }}</TagDate>
     <h3 class="mt-1 text-xl col-span-2 tracking-tight">
       <LinkTitle :url="post.url">

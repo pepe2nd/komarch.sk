@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'perex' => '',
     'search_placeholder' => 'Architekt, architektka, dielo, ...',
     'awards' => 'Ocenenia',
     'realisation_year' => 'Rok realizácie',
@@ -13,7 +14,7 @@ return [
     'public' => 'Verejný',
     'private' => 'Súkromný',
     'works_register' => 'Register diel',
-    'typology_of_the_work' => 'Typológia diela',
+    'typology' => 'Typológia diela',
     'address' => 'Adresa',
     'awards' => 'Ocenenia',
     'authors' => 'Autori/Autorky',

@@ -21,7 +21,7 @@ class Work extends Model implements HasMedia
 
     public $with = ['other_architects', 'awards'];
 
-    public static $filterable = ['other_architects', 'awards'];
+    public static $filterable = ['other_architects', 'typologies', 'awards'];
 
     public function awards()
     {
@@ -48,9 +48,9 @@ class Work extends Model implements HasMedia
         return $this->morphToMany(Tag::class, 'taggable')->where('type', 'other_architect');
     }
 
-    public function functions()
+    public function typologies()
     {
-        return $this->morphToMany(Tag::class, 'taggable')->where('type', '');
+        return $this->morphToMany(Tag::class, 'taggable')->whereNull('type');
     }
 
     public function registerMediaCollections(): void

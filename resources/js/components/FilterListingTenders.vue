@@ -8,14 +8,14 @@
     <template #before-list>
       <h2 class="text-xl mb-10">
         <LinkArrow url="/sutaze">
-          Súťaže
+          {{ __('contests.title') }}
         </LinkArrow>
       </h2>
     </template>
 
     <template #empty-list>
       <p class="py-10">
-        Nenašli sa žiadne súťaže.
+        {{ __('contests.no_results') }}
       </p>
     </template>
 
@@ -25,7 +25,7 @@
 
     <template #after-list>
       <LinkArrow url="/sutaze">
-        Viac súťaží
+        {{ __('contests.title') }}
       </LinkArrow>
     </template>
   </FilterListing>

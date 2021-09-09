@@ -31,6 +31,7 @@ class Page extends Model implements HasMedia
 
     public $translatable = [
         'title',
+        'perex',
         'text',
     ];
 
@@ -42,6 +43,7 @@ class Page extends Model implements HasMedia
         'parent_id',
         'title',
         'slug',
+        'perex',
         'menu_order',
         'text',
         'wp_post_name',

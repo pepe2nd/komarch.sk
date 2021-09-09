@@ -19,6 +19,11 @@ class MediaResource extends JsonResource
             'size' => $this->size,
             'mime_type' => $this->mime_type,
             'url' => $this->getFullUrl(),
+            $this->mergeWhen($this->hasGeneratedConversion('thumb'), function () {
+                return [
+                    'thumb' => $this->getUrl('thumb'),
+                ];
+            }),
             $this->mergeWhen($this->hasResponsiveImages(), function () {
                 $responsiveImage = $this->responsiveImages()->files->first();
                 return [

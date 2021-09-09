@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'title' => 'Legislatíva a dokumenty',
+    'perex' => '',
     'preview' => 'Náhľad',
     'download' => 'Stiahnuť',
     'no_documents' => 'Nenašli sa žiadne dokumenty',

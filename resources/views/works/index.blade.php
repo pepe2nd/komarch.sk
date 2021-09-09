@@ -7,8 +7,8 @@
 
 <div class="container mx-auto px-6">
     <x-intro
-        title="{{ __('works.works_register') }}"
-        text="“{{ __('app.intro') }}”"
+        :title="trans('works.works_register')"
+        :text="trans('works.perex')"
     />
     <works-overview></works-overview>
 </div>
