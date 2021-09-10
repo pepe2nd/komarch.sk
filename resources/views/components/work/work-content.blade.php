@@ -15,7 +15,7 @@
 
     @if ($work->typologies->count() > 0)
         <div class="mb-9">
-            <div class="mb-1">{{ __('works.typology_of_the_work') }}:</div>
+            <div class="mb-1">{{ __('works.typology') }}:</div>
             @foreach ($work->typologies as $typology)
                 <x-link-arrow url="{{ route('works', ['typologies[]' => $typology->name]) }}">
                     {{ $typology->name }}
