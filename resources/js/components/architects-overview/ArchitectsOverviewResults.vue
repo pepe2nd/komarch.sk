@@ -10,17 +10,11 @@
         class="border-b py-3 flex items-start justify-between"
       >
         <div>
-          <div>
-            <LinkArrowHover :url="architect.url">
-              {{ architect.last_name }}
-            </LinkArrowHover>
-          </div>
-          <div>
-            {{ architect.first_name }}
-          </div>
-          <div>
+          <LinkArrowHover :url="architect.url">
+            {{ architect.last_name }}<br>
+            {{ architect.first_name }}<br>
             {{ architect.location_city }}
-          </div>
+          </LinkArrowHover>
         </div>
       </div>
     </div>
