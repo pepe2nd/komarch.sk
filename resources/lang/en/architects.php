@@ -26,4 +26,5 @@ return [
     'address' => 'Address',
     'awards' => 'Awards',
     'contests' => 'Jury participation ',
+    'number' => 'Registration number',
 ];
