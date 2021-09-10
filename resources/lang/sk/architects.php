@@ -26,4 +26,5 @@ return [
     'address' => 'Adresa',
     'awards' => 'Ocenenia',
     'contests' => 'Účasti v porote',
+    'number' => 'Registračné číslo',
 ];

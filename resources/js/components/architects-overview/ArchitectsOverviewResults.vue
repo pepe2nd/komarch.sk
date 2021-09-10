@@ -10,17 +10,11 @@
         class="border-b py-3 flex items-start justify-between"
       >
         <div>
-          <div>
-            <LinkArrowHover :url="architect.url">
-              {{ architect.last_name }}
-            </LinkArrowHover>
-          </div>
-          <div>
-            {{ architect.first_name }}
-          </div>
-          <div>
+          <LinkArrowHover :url="architect.url">
+            {{ architect.last_name }}<br>
+            {{ architect.first_name }}<br>
             {{ architect.location_city }}
-          </div>
+          </LinkArrowHover>
         </div>
       </div>
     </div>
@@ -79,12 +73,12 @@
           </th>
           <th>
             <ButtonSortable
-              :value="getSortingDirectionFor('contests_count')"
+              :value="getSortingDirectionFor('number')"
               style="min-width: 200px"
               class="pb-10 text-sm"
-              @input="setSorting('contests_count', $event)"
+              @input="setSorting('number', $event)"
             >
-              {{ __('architects.contests_count') }}
+              {{ __('architects.number') }}
             </ButtonSortable>
           </th>
         </tr>
@@ -113,7 +107,7 @@
             {{ architect.awards_count }}
           </td>
           <td class="py-1">
-            {{ architect.contests_count }}
+            {{ architect.number }}
           </td>
         </tr>
       </tbody>

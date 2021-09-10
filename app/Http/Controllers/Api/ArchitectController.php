@@ -12,9 +12,11 @@ class ArchitectController extends Controller
     public function index(Request $request)
     {
         $architects = Architect::query()
-            ->with('address')
+            ->with('address', 'number')
             ->withCount(['works', 'awards', 'contests'])
+            ->has('number')
             ->leftJoin('addresses', 'addresses.architect_id', '=', 'architects.id')
+            ->leftJoin('numbers', 'numbers.architect_id', '=', 'architects.id')
 
             ->filtered($request)
 
@@ -29,7 +31,16 @@ class ArchitectController extends Controller
 
     private function getOrderBy(Request $request)
     {
-        if ($request->query === 'location_city') return 'addresses.location_city';
+        switch ($request->query('sortby')) {
+            case 'location_city':
+                return 'addresses.location_city';
+                break;
+
+            case 'number':
+                return 'numbers.architect_number';
+                break;
+        }
+
         return $request->query('sortby', 'last_name');
     }
 }
