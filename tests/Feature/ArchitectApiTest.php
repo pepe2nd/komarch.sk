@@ -37,6 +37,7 @@ class ArchitectApiTest extends TestCase
                 ['id' => $this->faker->unique()->randomNumber()]
             )
             ->hasAddress(1, ['location_city' => 'Bratislava'])
+            ->hasNumbers(1)
             ->create([
                 'id' => 1,
                 'first_name' => 'Ján Miloslav',
@@ -60,8 +61,8 @@ class ArchitectApiTest extends TestCase
 
     public function test_search()
     {
-        Architect::factory()->create(['last_name' => 'Bahna']);
-        Architect::factory()->create(['last_name' => 'Králik']);
+        Architect::factory()->hasNumbers(1)->create(['last_name' => 'Bahna']);
+        Architect::factory()->hasNumbers(1)->create(['last_name' => 'Králik']);
 
         $this->get(route('api.architects.index', ['q' => 'bah']))
             ->assertJsonCount(1, 'data')
@@ -72,8 +73,8 @@ class ArchitectApiTest extends TestCase
 
     public function test_filtering_by_first_letter()
     {
-        Architect::factory()->create(['last_name' => 'Bahna']);
-        Architect::factory()->create(['last_name' => 'Králik']);
+        Architect::factory()->hasNumbers(1)->create(['last_name' => 'Bahna']);
+        Architect::factory()->hasNumbers(1)->create(['last_name' => 'Králik']);
 
         $this->get(route('api.architects.index', ['startsWith' => 'b']))
             ->assertJsonCount(1, 'data')
