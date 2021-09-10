@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
-use App\Models\Work;
-use App\Models\Architect;
 use App\Http\Resources\WorkResource;
+use App\Models\Architect;
+use App\Models\Work;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 
 class WorkController extends Controller
 {
@@ -52,6 +52,13 @@ class WorkController extends Controller
         if ($request->has('architect_id')) {
             $architect = Architect::findOrFail($request->input('architect_id'));
             $works = $architect->works();
+        }
+
+        // filter by awards
+        if ($request->has('awards')) {
+            $works->whereHas('awards', function (Builder $query) use ($request) {
+                $query->whereIn('name', $request->input('awards', []));
+            });
         }
 
         $works->with(['media', 'other_architects', 'architects']);
