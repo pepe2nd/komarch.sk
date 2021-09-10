@@ -12,8 +12,9 @@ class ArchitectController extends Controller
     public function index(Request $request)
     {
         $architects = Architect::query()
-            ->with('address')
+            ->with('address', 'number')
             ->withCount(['works', 'awards', 'contests'])
+            ->has('number')
             ->leftJoin('addresses', 'addresses.architect_id', '=', 'architects.id')
 
             ->filtered($request)
