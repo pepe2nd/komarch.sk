@@ -78,8 +78,8 @@ module.exports = {
     transitionProperty: {
       none: 'none',
       all: 'all',
-      DEFAULT: 'background-color, border-color, color, fill, stroke, opacity, box-shadow, transform',
-      colors: 'background-color, border-color, color, fill, stroke',
+      DEFAULT: 'background-color, border-color, border-radius, color, fill, stroke, opacity, box-shadow, transform',
+      colors: 'background-color, border-color, border-radius, color, fill, stroke',
       opacity: 'opacity',
       shadow: 'box-shadow',
       transform: 'transform',
@@ -91,7 +91,8 @@ module.exports = {
       translate: ['group-hover'],
       backgroundColor: ['checked', 'group-hover'],
       borderWidth: ['group-hover '],
-      display: ['group-hover']
+      display: ['group-hover'],
+      borderRadius: ['group-hover', 'hover']
     }
   },
   plugins: [

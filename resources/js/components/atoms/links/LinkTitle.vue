@@ -1,7 +1,7 @@
 <template>
   <a
     :href="url"
-    class="block leading-snug hover:text-blue cursor-pointer"
+    class="block leading-snug hover:text-blue group-hover:text-blue cursor-pointer"
   >
     <slot />
   </a>

@@ -3,7 +3,7 @@
     class="group w-20 flex justify-center items-center cursor-pointer hover:text-blue focus:outline-none"
     @click="onClick"
   >
-    <span class="group-hover:hidden text-xl icon-link" />
+    <span class="group-hover:hidden text-lg icon-link" />
     <span class="hidden group-hover:block">{{ copied ? copiedText : copyText }}</span>
   </button>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="relative h-8 mt-7">
     <vue-slider
       :value="value"
       v-bind="$attrs"
@@ -15,13 +15,13 @@
     />
     <input
       :value="value[0]"
-      class="absolute left-0 bottom-0 mb-3 focus:outline-none w-12 text-left md:text-sm"
+      class="absolute left-0 bottom-0 mt-10 focus:outline-none w-12 text-left md:text-sm"
       :placeholder="$attrs.min"
       @input="onMinChanged"
     >
     <input
       :value="value[1]"
-      class="absolute right-0 bottom-0 mb-3 focus:outline-none w-12 text-right md:text-sm"
+      class="absolute right-0 bottom-0 mt-10 focus:outline-none w-12 text-right md:text-sm"
       :placeholder="$attrs.max"
       @input="onMaxChanged"
     >

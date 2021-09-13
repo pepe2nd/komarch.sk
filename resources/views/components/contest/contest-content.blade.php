@@ -1,15 +1,15 @@
-<div class="post-content mx-auto mt-10 mb-5">
+<div class="post-content mx-auto mt-10 mb-10">
     {!! $contest->perex !!}
 </div>
 
-<div class="post-content mx-auto mb-5">
-    <h3 class="mb-3">{{ __('contests.participation_conditions') }}:</h3>
+<div class="post-content mx-auto mb-10">
+    <x-label>{{ __('contests.participation_conditions') }}:</x-label>
     {!! $contest->participation_conditions !!}
 </div>
 
 {{-- terminy --}}
-<div class="post-content mx-auto mb-5">
-    <h3 class="mb-3">{{ __('contests.terms') }}:</h3>
+<div class="post-content mx-auto mb-10">
+    <x-label>{{ __('contests.terms') }}:</x-label>
 
     @if ($contest->announced_at)
         <div class="mb-3">
@@ -44,8 +44,8 @@
 
 </div>
 
-<div class="post-content mx-auto mb-5">
-    <h3 class="mb-3">{{ __('contests.jurors') }}:</h3>
+<div class="post-content mx-auto mb-10">
+    <x-label>{{ __('contests.jurors') }}:</x-label>
     {{-- types: r-riadny/n-nahradnik/e-expert/o-overovatel za komoru --}}
     @foreach (['p', 'r', 'e', 'n'] as $type)
         @if (($contest->architects->where('pivot.type', $type)->count() > 0) || ($contest->jurors->where('type', $type)->count() > 0))
@@ -63,9 +63,9 @@
 </div>
 
 {{-- rewards --}}
-<div class="post-content mx-auto mb-5">
+<div class="post-content mx-auto mb-10">
     @if ($contest->rewards->count() > 0)
-        <h3 class="mb-3">{{ __('contests.rewards') }}:</h3>
+        <x-label>{{ __('contests.rewards') }}:</x-label>
         <div class="mb-3">
         @foreach ($contest->rewards as $reward)
             {{ $reward->name }}: @money($reward->amount)<br>
@@ -75,7 +75,7 @@
 </div>
 
 
-<div class="post-content mx-auto mb-5">
+<div class="post-content mx-auto mb-10">
     @if ($contest->web_terms)
     <div>
         {{ __('contests.web_terms') }}:
@@ -95,7 +95,7 @@
     @endif
 </div>
 
-<div class="post-content mx-auto mb-5">
+<div class="post-content mx-auto mb-10">
     @foreach ($contest->attachments as $attachment)
         {{-- @TODO: show download icon instead of arrow after it's fixed in the font --}}
         <x-link-arrow url="{{ $attachment->getUrl() }}">
@@ -105,9 +105,9 @@
 </div>
 
 {{-- reward results--}}
-<div class="post-content mx-auto mb-5">
+<div class="post-content mx-auto mb-10">
     @if ($contest->results->count() > 0)
-        <h3 class="mb-3">{{ __('contests.results') }}:</h3>
+        <x-label>{{ __('contests.results') }}:</x-label>
         @foreach ($contest->rewards as $reward)
             @if ($reward->result)
                 <h4 class="text-xl tracking-tight leading-snug my-5 lg:my-12">

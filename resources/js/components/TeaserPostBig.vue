@@ -1,5 +1,5 @@
 <template>
-  <article class="py-10 grid grid-cols-2 place-items-start items-center">
+  <article class="py-10 grid grid-cols-2 place-items-start items-center group">
     <TagHash
       v-if="post.tags[0]"
       :url="tagUrl"
@@ -13,17 +13,17 @@
     <p class="mt-5 col-span-2 leading-snug">
       {{ post.perex }}
     </p>
-    <img
-      v-if="post.cover_image"
-      :srcset="post.cover_image.srcset"
-      :alt="post.title"
-      sizes="1px"
-      :src="post.cover_image.url"
-      class="my-5 rounded-lg col-span-2"
-      :width="post.cover_image.width"
-      :height="post.cover_image.height"
-      ref="img"
-    >
+    <a :href="post.url" class="w-full d-block col-span-2"><img
+          v-if="post.cover_image"
+          :srcset="post.cover_image.srcset"
+          :alt="post.title"
+          sizes="1px"
+          :src="post.cover_image.url"
+          class="my-5 rounded-2xl col-span-2 group-hover:rounded-none transition transition-all"
+          :width="post.cover_image.width"
+          :height="post.cover_image.height"
+          ref="img"
+        ></a>
   </article>
 </template>
 

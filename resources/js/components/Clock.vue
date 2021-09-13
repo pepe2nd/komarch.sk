@@ -1,5 +1,5 @@
 <template>
-    <svg viewBox="0 0 40 40" height="100%" class="mx-auto md:ml-0" ref="svg" >
+    <svg viewBox="0 0 40 40" class="mx-auto md:ml-0 h-full w-auto" ref="svg" >
       <circle cx="20" cy="20" r="19" />
       <line x1="-1" y1="0" x2="11" y2="0" class="hour" />
       <line x1="-1" y1="0" x2="15" y2="0" class="minute" />
@@ -32,7 +32,6 @@ export default {
 
 <style scoped>
   svg {
-    height: 200px;
     width:  auto;
     fill: none;
     stroke: #000;

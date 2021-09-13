@@ -6,9 +6,9 @@
     />
     <div class="md:flex flex-wrap items-center">
       <div class="flex-1 md:max-w-sm">
-        <div class="mb-6">
+        <h3 class="text-sm">
           {{ `${__('works.realisation_year')}:` }}
-        </div>
+        </h3>
         <RangeSlider
           v-model="yearRange"
           :min="minYear"
@@ -17,7 +17,7 @@
       </div>
       <InputSearch
         v-model="searchTerm"
-        class="mt-16 md:mt-8 pb-1 md:ml-24 md:max-w-sm flex-1"
+        class="mt-16 md:mt-4 pb-1 md:ml-24 md:max-w-sm flex-1"
         :placeholder="__('works.search_placeholder')"
       />
     </div>
