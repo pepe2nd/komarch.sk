@@ -65,7 +65,8 @@
         <tr
           v-for="contest in results"
           :key="contest.id"
-          class="border-b"
+          @click="goToDetail(contest.url)"
+          class="border-b hover:text-blue hover:border-black group cursor-pointer"
         >
           <td class="py-1">
             {{ contest.announced_at }}
@@ -77,7 +78,7 @@
             {{ contest.results_published_at }}
           </td>
           <td class="py-1">
-            <LinkArrowHover :url="contest.url">
+            <LinkArrowHover :url="contest.url" class="link-area">
               {{ contest.title }}
             </LinkArrowHover>
           </td>
@@ -151,6 +152,11 @@ export default {
           resultsPublishedAt: newValue
         })
       }
+    }
+  },
+  methods: {
+    goToDetail(url) {
+      window.location.href = url
     }
   }
 }
