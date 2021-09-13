@@ -55,6 +55,11 @@ class WorkController extends Controller
             $works = $architect->works();
         }
 
+        // filter by location_districts
+        if ($request->has('location_districts')) {
+            $works->whereIn('location_district', $request->input('location_districts', []));
+        }
+
         // filter by awards
         if ($request->has('awards')) {
             $works->whereHas('awards', function (Builder $query) use ($request) {
