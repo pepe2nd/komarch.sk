@@ -7,7 +7,7 @@
       <div
         v-for="contest in results"
         :key="contest.id"
-        class="border-b py-3 flex items-start justify-between"
+        class="border-b border-black py-3 flex items-start justify-between"
       >
         <div>
           <div>
@@ -66,7 +66,7 @@
           v-for="contest in results"
           :key="contest.id"
           @click="goToDetail(contest.url)"
-          class="border-b hover:text-blue hover:border-black group cursor-pointer"
+          class="border-b border-black hover:text-blue relative"
         >
           <td class="py-1">
             {{ contest.announced_at }}
