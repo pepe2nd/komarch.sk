@@ -1,5 +1,5 @@
 <template>
-  <div class="mr-12 mb-8">
+  <div class="mr-10 mb-8">
     <h3 class="mb-5 text-sm">
       {{ title }}
     </h3>
@@ -9,7 +9,7 @@
         :key="option.key"
         :value="value"
         :option="option"
-        class="mr-12 py-1"
+        class="mr-10 py-1"
         @input="$emit('input', $event)"
       />
     </div>

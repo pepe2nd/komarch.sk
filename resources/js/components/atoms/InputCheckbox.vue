@@ -9,10 +9,7 @@
       @change="onChange"
     >
     <span class="ml-2">
-      {{ option.title }}
-      <template v-if="option.items !== undefined">
-        ({{ option.items }})
-      </template>
+      {{ option.title }}<template v-if="option.items !== undefined">&nbsp;({{ option.items }})</template>
     </span>
   </label>
 </template>
