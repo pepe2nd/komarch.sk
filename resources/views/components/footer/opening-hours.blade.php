@@ -1,5 +1,5 @@
 <div>
-    <table>
+    <table class="text-sm md:text-base">
         @foreach ($days as $day => $times)
         <tr>
             <td class="w-32 xl:w-24">{{ $day }}</td>
