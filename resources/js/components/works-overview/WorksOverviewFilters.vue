@@ -29,6 +29,13 @@
       :title="`${__('works.investor')}:`"
       @input="onInput"
     />
+    <InputCheckboxGroup
+      v-if="filters.citations && filters.citations.length > 0"
+      :filters="filters.citations"
+      :value="value"
+      :title="`${__('works.citations')}:`"
+      @input="onInput"
+    />
   </div>
 </template>
 

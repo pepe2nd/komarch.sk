@@ -21,4 +21,5 @@ return [
     'authors' => 'Autori/Autorky',
     'about_the_work' => 'O diele',
     'literature' => 'Literatúra',
+    'citations' => 'Publikácie',
 ];
