@@ -19,7 +19,7 @@
           :alt="post.title"
           sizes="1px"
           :src="post.cover_image.url"
-          class="my-5 rounded-lg col-span-2 group-hover:rounded-none transition transition-all"
+          class="my-5 rounded-2xl col-span-2 group-hover:rounded-none transition transition-all"
           :width="post.cover_image.width"
           :height="post.cover_image.height"
           ref="img"
