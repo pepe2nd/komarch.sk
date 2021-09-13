@@ -4,6 +4,6 @@
     v-on="$listeners"
   >
     <slot />
-    <span class="icon-arrow-r-long transform group-hover:translate-x-2 ml-2 duration-200" />
+    <span class="icon-arrow-b transform group-hover:translate-y-2 ml-2 duration-200" />
   </button>
 </template>
