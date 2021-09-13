@@ -6,7 +6,7 @@
         ref="img"
         :srcset="item.cover_image.srcset"
         :alt="item.name"
-        class="rounded-2xl"
+        class="rounded-2xl group-hover:rounded-none transition transition-all"
         sizes="1px"
         :src="item.cover_image.url"
         :width="item.cover_image.width"
