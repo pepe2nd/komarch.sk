@@ -8,6 +8,13 @@
       @input="onInput"
     />
     <InputCheckboxGroup
+      v-if="filters.location_districts && filters.location_districts.length > 0"
+      :filters="filters.location_districts"
+      :value="value"
+      :title="`${__('works.location_districts')}:`"
+      @input="onInput"
+    />
+    <InputCheckboxGroup
       v-if="filters.awards && filters.awards.length > 0"
       :filters="filters.awards"
       :value="value"

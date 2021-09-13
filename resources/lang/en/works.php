@@ -3,6 +3,7 @@
 return [
     'perex' => '',
     'search_placeholder' => 'Architect, work, ...',
+    'location_districts' => 'Work location',
     'awards' => 'Awards',
     'design_year' => 'Design year',
     'realisation_year' => 'Realisation year',

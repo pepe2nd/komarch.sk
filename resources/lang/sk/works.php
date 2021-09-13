@@ -3,6 +3,7 @@
 return [
     'perex' => '',
     'search_placeholder' => 'Architekt, architektka, dielo, ...',
+    'location_districts' => 'Lokalita diela',
     'awards' => 'Ocenenia',
     'realisation_year' => 'Rok realizácie',
     'design_year' => 'Rok vzniku',
