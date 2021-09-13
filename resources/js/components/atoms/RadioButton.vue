@@ -12,7 +12,7 @@
       :class="{'group-hover:border-blue group-hover:border-2': !isChecked}"
       @change="$emit('input', option)"
     >
-    <span class="ml-4">
+    <span class="ml-2">
       {{ option.title }}
     </span>
   </label>
