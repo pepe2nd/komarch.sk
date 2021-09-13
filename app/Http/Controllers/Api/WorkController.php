@@ -41,6 +41,7 @@ class WorkController extends Controller
             trans('works.public') => $works->where('has_public_investor', true)->count(),
             trans('works.private') => $works->where('has_public_investor', false)->count(),
         ];
+        $filters['location_districts'] = $this->getLocationDistricts($request);
         return $filters;
     }
 
@@ -92,5 +93,31 @@ class WorkController extends Controller
         }
 
         return $works;
+    }
+
+    private function getLocationDistricts(Request $request)
+    {
+        $districts_with_count = $this->loadWorks($request)
+            ->groupBy('location_district')
+            ->select('location_district')
+            ->selectRaw('count(*) as count')
+            ->whereNotNull('location_district')
+            ->orderBy('count', 'desc')
+            ->get()
+            ->pluck('count', 'location_district')->toArray();
+
+        return array_merge(
+            [
+                'BL' => 0,
+                'ZI' => 0,
+                'TC' => 0,
+                'PV' => 0,
+                'KI' => 0,
+                'NI' => 0,
+                'TA' => 0,
+                'BC' => 0,
+            ],
+            $districts_with_count,
+        );
     }
 }
