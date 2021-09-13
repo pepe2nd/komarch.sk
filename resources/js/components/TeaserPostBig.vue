@@ -13,17 +13,20 @@
     <p class="mt-5 col-span-2 leading-snug">
       {{ post.perex }}
     </p>
-    <a :href="post.url" class="w-full d-block col-span-2"><img
+    <a :href="post.url" class="w-full d-block col-span-2">
+      <img
           v-if="post.cover_image"
           :srcset="post.cover_image.srcset"
           :alt="post.title"
           sizes="1px"
           :src="post.cover_image.url"
-          class="my-5 rounded-2xl col-span-2 group-hover:rounded-none transition transition-all"
+          class="my-5 rounded-2xl col-span-2 group-hover:rounded-none transition"
           :width="post.cover_image.width"
           :height="post.cover_image.height"
           ref="img"
-        ></a>
+        >
+        <NoImage class="my-5" v-else></NoImage>
+      </a>
   </article>
 </template>
 
@@ -31,12 +34,14 @@
 import TagHash from './atoms/tags/TagHash'
 import TagDate from './atoms/tags/TagDate'
 import LinkTitle from './atoms/links/LinkTitle'
+import NoImage from './atoms/NoImage'
 
 export default {
   components: {
     TagHash,
     TagDate,
-    LinkTitle
+    LinkTitle,
+    NoImage
   },
   props: {
     post: {

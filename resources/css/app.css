@@ -132,4 +132,8 @@
         @apply icon;
         content: '\00D7'
     }
+
+    .pb-full {
+        padding-bottom: 100%;
+    }
 }
