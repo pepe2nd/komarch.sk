@@ -4,7 +4,7 @@
         href="mailto:?to=&body={{ Request::url() }}"
         target="_blank"
     >
-        <span class="group-hover:hidden text-xl icon-mail"></span>
+        <span class="group-hover:hidden text-lg icon-mail"></span>
         <span class="hidden group-hover:block">{{ __('sharing.share_mail')}}</span>
     </a>
     <button-copy
@@ -17,7 +17,7 @@
         href="https://www.facebook.com/sharer/sharer.php?u={{ Request::url() }}"
         target="_blank"
     >
-        <span class="group-hover:hidden text-xl icon-share"></span>
+        <span class="group-hover:hidden text-lg icon-share"></span>
         <span class="hidden group-hover:block">{{ __('sharing.share_facebook')}}</span>
     </a>
 </div>
