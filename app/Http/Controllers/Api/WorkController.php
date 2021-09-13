@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\WorkResource;
 use App\Models\Architect;
+use App\Models\CitationPublication;
 use App\Models\Work;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ class WorkController extends Controller
     public function index(Request $request)
     {
         $works = $this->loadWorks($request);
+        $works->with(['media', 'other_architects', 'architects']);
 
         // search
         if ($request->filled('q')) {
@@ -42,6 +44,7 @@ class WorkController extends Controller
             trans('works.private') => $works->where('has_public_investor', false)->count(),
         ];
         $filters['location_districts'] = $this->getLocationDistricts($request);
+        $filters['citations'] = $this->getCitations($request);
         return $filters;
     }
 
@@ -55,49 +58,7 @@ class WorkController extends Controller
             $works = $architect->works();
         }
 
-        // filter by location_districts
-        if ($request->has('location_districts')) {
-            $works->whereIn('location_district', $request->input('location_districts', []));
-        }
-
-        // filter by awards
-        if ($request->has('awards')) {
-            $works->whereHas('awards', function (Builder $query) use ($request) {
-                $query->whereIn('name', $request->input('awards', []));
-            });
-        }
-
-        $works->with(['media', 'other_architects', 'architects']);
-
-        // apply filters
-        if ($request->has('typologies')) {
-            $works->withAnyTags($request->input('typologies', []));
-        }
-
-        $investor = implode($request->input('investors', []));
-        switch ($investor) {
-            case trans('works.public'):
-                $works->where('has_public_investor', true);
-                break;
-            case trans('works.private'):
-                $works->where('has_public_investor', false);
-                break;
-        }
-
-        if ($request->has('year_from')) {
-            $works->where('date_construction_start', '>=', $request->input('year_from'));
-        }
-
-        if ($request->has('year_until')) {
-            $works->where('date_construction_ending', '<=', $request->input('year_until'));
-        }
-
-        if ($request->has('with_gps')) {
-            $works->whereNotNull('location_lat');
-            $works->whereNotNull('location_lng');
-        }
-
-        return $works;
+        return $works->filtered($request);
     }
 
     private function getLocationDistricts(Request $request)
@@ -123,6 +84,31 @@ class WorkController extends Controller
                 'BC' => 0,
             ],
             $districts_with_count,
+        );
+    }
+
+    private function getCitations(Request $request)
+    {
+
+        // get all
+        $all_publications = CitationPublication::all()->flatMap(fn ($row) => [$row->publication_name => 0])
+            ->toArray();
+
+        // get counts for  current query
+        $filtered_publications =  CitationPublication::query()
+            ->whereHas('works', function (Builder $query) use ($request) {
+                $query->filtered($request);
+            })
+            ->select('publication_name')
+            ->selectRaw('count(*) as count')
+            ->groupBy('publication_name')
+            ->get()
+            ->flatMap(fn ($row) => [$row->publication_name => $row->count])
+            ->toArray();
+
+        return array_merge(
+            $all_publications,
+            $filtered_publications,
         );
     }
 }

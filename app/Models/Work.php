@@ -11,6 +11,8 @@ use Spatie\Tags\HasTags;
 use Illuminate\Support\Str;
 use App\Traits\HasShortDescription;
 use Laravel\Scout\Searchable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 
 class Work extends Model implements HasMedia
 {
@@ -134,6 +136,51 @@ class Work extends Model implements HasMedia
             $result .= ' - ' . $ending;
         }
         return $result;
+    }
+
+    public function scopeFiltered(Builder $query, Request $request)
+    {
+        // filter by location_districts
+        if ($request->has('location_districts')) {
+            $query->whereIn('location_district', $request->input('location_districts', []));
+        }
+
+        // filter by awards
+        if ($request->has('awards')) {
+            $query->whereHas('awards', function (Builder $query) use ($request) {
+                $query->whereIn('name', $request->input('awards', []));
+            });
+        }
+
+        // apply filters
+        if ($request->has('typologies')) {
+            $query->withAnyTags($request->input('typologies', []));
+        }
+
+        $investor = implode($request->input('investors', []));
+        switch ($investor) {
+            case trans('works.public'):
+                $query->where('has_public_investor', true);
+                break;
+            case trans('works.private'):
+                $query->where('has_public_investor', false);
+                break;
+        }
+
+        if ($request->has('year_from')) {
+            $query->where('date_construction_start', '>=', $request->input('year_from'));
+        }
+
+        if ($request->has('year_until')) {
+            $query->where('date_construction_ending', '<=', $request->input('year_until'));
+        }
+
+        if ($request->has('with_gps')) {
+            $query->whereNotNull('location_lat');
+            $query->whereNotNull('location_lng');
+        }
+
+        return $query;
     }
 
     public function toSearchableArray()
