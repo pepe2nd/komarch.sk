@@ -13,6 +13,7 @@
       :value="value"
       :title="`${__('works.location_districts')}:`"
       @input="onInput"
+      :cols=2
     />
     <InputCheckboxGroup
       v-if="filters.awards && filters.awards.length > 0"

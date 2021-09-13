@@ -3,14 +3,16 @@
     <h3 class="mb-5 text-sm">
       {{ title }}
     </h3>
-    <input-checkbox
-      v-for="option in filters"
-      :key="option.key"
-      :value="value"
-      :option="option"
-      class="mr-12 py-1"
-      @input="$emit('input', $event)"
-    />
+    <div :class="gridColumns">
+      <input-checkbox
+        v-for="option in filters"
+        :key="option.key"
+        :value="value"
+        :option="option"
+        class="mr-12 py-1"
+        @input="$emit('input', $event)"
+      />
+    </div>
   </div>
 </template>
 
@@ -33,6 +35,20 @@ export default {
     filters: {
       type: Array,
       required: true
+    },
+    cols: {
+      type: Number,
+      default: 1
+    }
+  },
+  computed: {
+    gridColumns () {
+      let class_name = '';
+      if (this.cols > 1) {
+        class_name = 'grid'
+        class_name += ' grid-cols-' + this.cols
+      }
+      return class_name
     }
   }
 }
