@@ -58,7 +58,7 @@
         <tr
           v-for="document in results"
           :key="document.id"
-          class="border-b"
+          class="border-b hover:text-blue hover:border-black"
         >
           <td class="py-1">
             {{ document.name }}
