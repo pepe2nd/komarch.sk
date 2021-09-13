@@ -180,6 +180,12 @@ class Work extends Model implements HasMedia
             $query->whereNotNull('location_lng');
         }
 
+        if ($request->filled('citations')) {
+            $query->whereHas('citationPublications', function (Builder $query) use ($request) {
+                $query->whereIn('publication_name', $request->input('citations', []));
+            });
+        }
+
         return $query;
     }
 
