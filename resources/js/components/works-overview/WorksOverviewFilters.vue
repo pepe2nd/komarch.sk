@@ -8,6 +8,15 @@
       @input="onInput"
     />
     <InputCheckboxGroup
+      v-if="filters.location_districts && filters.location_districts.length > 0"
+      :filters="filters.location_districts"
+      :value="value"
+      :title="`${__('works.location_districts')}:`"
+      @input="onInput"
+      :cols=2
+      class="flex-grow w-72"
+    />
+    <InputCheckboxGroup
       v-if="filters.awards && filters.awards.length > 0"
       :filters="filters.awards"
       :value="value"
@@ -19,6 +28,13 @@
       :filters="filters.investors"
       :value="value"
       :title="`${__('works.investor')}:`"
+      @input="onInput"
+    />
+    <InputCheckboxGroup
+      v-if="filters.citations && filters.citations.length > 0"
+      :filters="filters.citations"
+      :value="value"
+      :title="`${__('works.citations')}:`"
       @input="onInput"
     />
   </div>

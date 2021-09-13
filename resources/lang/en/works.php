@@ -3,6 +3,7 @@
 return [
     'perex' => '',
     'search_placeholder' => 'Architect, work, ...',
+    'location_districts' => 'Work location',
     'awards' => 'Awards',
     'design_year' => 'Design year',
     'realisation_year' => 'Realisation year',
@@ -20,4 +21,5 @@ return [
     'authors' => 'Authors',
     'about_the_work' => 'About the work',
     'literature' => 'Literature',
+    'citations' => 'Publications',
 ];

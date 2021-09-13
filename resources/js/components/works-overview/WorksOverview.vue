@@ -58,8 +58,10 @@ import RangeSlider from '../atoms/RangeSlider'
 import ButtonClearFilters from '../atoms/buttons/ButtonClearFilters'
 
 const FILTER_TYPOLOGIES = 'typologies'
+const FILTER_LOCATION_DISTRICTS = 'location_districts'
 const FILTER_AWARDS = 'awards'
 const FILTER_INVESTORS = 'investors'
+const FILTER_CITATIONS = 'citations'
 
 export default {
   components: {
@@ -96,7 +98,9 @@ export default {
       const params = {
         typologies: this.selectedFilters.filter(filter => filter.type === FILTER_TYPOLOGIES).map(filter => filter.title),
         awards: this.selectedFilters.filter(filter => filter.type === FILTER_AWARDS).map(filter => filter.title),
-        investors: this.selectedFilters.filter(filter => filter.type === FILTER_INVESTORS).map(filter => filter.title)
+        location_districts: this.selectedFilters.filter(filter => filter.type === FILTER_LOCATION_DISTRICTS).map(filter => filter.title),
+        investors: this.selectedFilters.filter(filter => filter.type === FILTER_INVESTORS).map(filter => filter.title),
+        citations: this.selectedFilters.filter(filter => filter.type === FILTER_CITATIONS).map(filter => filter.title)
       }
 
       if (this.sorting.name) {
@@ -159,11 +163,17 @@ export default {
       ])
 
       const typologies = []
+      const location_districts = []
       const awards = []
       const investors = []
+      const citations = []
 
       for (const key in filtersResponse.typologies) {
         typologies.push({ key: key, title: key, items: filtersResponse.typologies[key], type: FILTER_TYPOLOGIES })
+      }
+
+      for (const key in filtersResponse.location_districts) {
+        location_districts.push({ key: key, title: key, items: filtersResponse.location_districts[key], type: FILTER_LOCATION_DISTRICTS })
       }
 
       for (const key in filtersResponse.awards) {
@@ -174,10 +184,16 @@ export default {
         investors.push({ key: key, title: key, items: filtersResponse.investors[key], type: FILTER_INVESTORS })
       }
 
+      for (const key in filtersResponse.citations) {
+        citations.push({ key: key, title: key, items: filtersResponse.citations[key], type: FILTER_CITATIONS })
+      }
+
       this.filters = {
         typologies,
+        location_districts,
         awards,
-        investors
+        investors,
+        citations
       }
 
       this.results = worksResponse.data
