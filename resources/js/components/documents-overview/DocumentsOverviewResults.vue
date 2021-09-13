@@ -7,7 +7,7 @@
       <div
         v-for="document in results"
         :key="document.id"
-        class="border-b py-3 flex items-start justify-between"
+        class="border-b border-black py-3 flex items-start justify-between"
       >
         <div>
           <div>
@@ -58,7 +58,7 @@
         <tr
           v-for="document in results"
           :key="document.id"
-          class="border-b hover:text-blue hover:border-black"
+          class="border-b border-black hover:text-blue relative"
         >
           <td class="py-1">
             {{ document.name }}

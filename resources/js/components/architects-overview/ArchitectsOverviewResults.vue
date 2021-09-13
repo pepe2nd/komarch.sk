@@ -7,7 +7,7 @@
       <div
         v-for="architect in results"
         :key="architect.id"
-        class="border-b py-3 flex items-start justify-between"
+        class="border-b border-black py-3 flex items-start justify-between"
       >
         <div>
           <LinkArrowHover :url="architect.url">
@@ -88,7 +88,7 @@
           v-for="architect in results"
           :key="architect.id"
           @click="goToDetail(architect.url)"
-          class="border-b hover:text-blue hover:border-black group cursor-pointer"
+          class="border-b border-black hover:text-blue relative"
         >
           <td class="py-1">
             <LinkArrowHover :url="architect.url">
