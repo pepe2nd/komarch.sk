@@ -13,7 +13,8 @@
     <p class="mt-5 col-span-2 leading-snug">
       {{ post.perex }}
     </p>
-    <a :href="post.url" class="w-full d-block col-span-2"><img
+    <a :href="post.url" class="w-full d-block col-span-2">
+      <img
           v-if="post.cover_image"
           :srcset="post.cover_image.srcset"
           :alt="post.title"
@@ -23,7 +24,9 @@
           :width="post.cover_image.width"
           :height="post.cover_image.height"
           ref="img"
-        ></a>
+        >
+        <div class="pb-full w-full bg-gray-200 my-5 rounded-2xl col-span-2 group-hover:rounded-none transition transition-all" v-else></div>
+      </a>
   </article>
 </template>
 
