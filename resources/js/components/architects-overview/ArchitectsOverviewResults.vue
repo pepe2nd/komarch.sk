@@ -87,7 +87,8 @@
         <tr
           v-for="architect in results"
           :key="architect.id"
-          class="border-b"
+          @click="goToDetail(architect.url)"
+          class="border-b hover:text-blue hover:border-black group cursor-pointer"
         >
           <td class="py-1">
             <LinkArrowHover :url="architect.url">
@@ -146,6 +147,9 @@ export default {
     },
     setSorting (name, direction) {
       this.$emit('input', { name, direction })
+    },
+    goToDetail(url) {
+      window.location.href = url
     }
   }
 }
