@@ -14,6 +14,7 @@
       :title="`${__('works.location_districts')}:`"
       @input="onInput"
       :cols=2
+      class="flex-grow w-96"
     />
     <InputCheckboxGroup
       v-if="filters.awards && filters.awards.length > 0"

@@ -9,7 +9,7 @@
         :key="option.key"
         :value="value"
         :option="option"
-        class="mr-10 py-1"
+        class="mr-5 py-1"
         @input="$emit('input', $event)"
       />
     </div>
