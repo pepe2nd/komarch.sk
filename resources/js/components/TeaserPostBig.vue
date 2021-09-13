@@ -25,7 +25,7 @@
           :height="post.cover_image.height"
           ref="img"
         >
-        <div class="pb-full w-full bg-gray-200 my-5 rounded-2xl col-span-2 group-hover:rounded-none transition transition-all" v-else></div>
+        <NoImage v-else></NoImage>
       </a>
   </article>
 </template>
@@ -34,12 +34,14 @@
 import TagHash from './atoms/tags/TagHash'
 import TagDate from './atoms/tags/TagDate'
 import LinkTitle from './atoms/links/LinkTitle'
+import NoImage from './atoms/NoImage'
 
 export default {
   components: {
     TagHash,
     TagDate,
-    LinkTitle
+    LinkTitle,
+    NoImage
   },
   props: {
     post: {
