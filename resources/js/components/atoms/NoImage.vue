@@ -1,3 +1,3 @@
 <template>
-  <div class="my-5 pb-full w-full bg-gray-200 rounded-2xl col-span-2 group-hover:rounded-none transition transition-all"></div>
+  <div class="pb-full w-full bg-gray-200 rounded-2xl group-hover:rounded-none transition"></div>
 </template>

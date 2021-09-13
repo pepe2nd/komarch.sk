@@ -6,12 +6,13 @@
         ref="img"
         :srcset="item.cover_image.srcset"
         :alt="item.name"
-        class="rounded-2xl group-hover:rounded-none transition transition-all"
+        class="rounded-2xl group-hover:rounded-none transition"
         sizes="1px"
         :src="item.cover_image.url"
         :width="item.cover_image.width"
         :height="item.cover_image.height"
       >
+      <NoImage v-else></NoImage>
       <h3 class="mt-4 group-hover:text-blue leading-normal">
         <a
           :href="item.url"
@@ -52,10 +53,12 @@
 <script>
 
 import TagHash from './atoms/tags/TagHash'
+import NoImage from './atoms/NoImage'
 
 export default {
   components: {
-    TagHash
+    TagHash,
+    NoImage
   },
   props: {
     item: {
