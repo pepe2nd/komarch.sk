@@ -97,6 +97,9 @@ export default {
   watch: {
     activeFilter (to, from) {
       if (to.key !== from.key) this.fetchPosts()
+    },
+    pageNumber () {
+      this.fetchPosts()
     }
   },
   async created () {
