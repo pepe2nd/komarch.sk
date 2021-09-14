@@ -25,6 +25,7 @@ class ContestResource extends JsonResource
             'next_proposal' => $this->whenLoaded('nextProposal', fn () => $this->nextProposal->date->format(config('settings.date_short_format'))),
             'next_proposal_diff' => $this->whenLoaded('nextProposal', fn () => $this->nextProposal->date->diffForHumans(null, CarbonInterface::DIFF_ABSOLUTE)),
             'results_published_at' => optional($this->results_published_at)->format(config('settings.date_short_format')),
+            'results_published_is_passed' => optional($this->results_published_at)->isPast(),
             'created_at' => optional($this->created_at)->format(config('settings.date_short_format')),
             'updated_at' => optional($this->updated_at)->format(config('settings.date_short_format')),
             'tags' => TagResource::collection($this->whenLoaded('tags')),

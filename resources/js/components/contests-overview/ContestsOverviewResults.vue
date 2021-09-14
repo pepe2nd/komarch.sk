@@ -84,7 +84,7 @@
             </span>
 
           </td>
-          <td class="py-1">
+          <td class="py-1" :class="{'text-gray-500' : contest.results_published_is_passed}">
             {{ contest.results_published_at }}
           </td>
           <td class="py-1">
