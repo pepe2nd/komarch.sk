@@ -11,9 +11,6 @@
       >
         <div>
           <div>
-            {{ document.created_at }}
-          </div>
-          <div>
             {{ document.name }}
           </div>
         </div>
@@ -29,15 +26,6 @@
               class="pb-10 text-sm"
             >
               {{ __('generic.name') }}
-            </ButtonSortable>
-          </th>
-          <th>
-            <ButtonSortable
-              v-model="sortingDate"
-              style="min-width: 200px"
-              class="pb-10 text-sm"
-            >
-              {{ __('generic.created') }}
             </ButtonSortable>
           </th>
           <th
@@ -62,9 +50,6 @@
         >
           <td class="py-1">
             {{ document.name }}
-          </td>
-          <td>
-            {{ document.created_at }}
           </td>
           <td>
             <DocumentsOverviewResultsPreview :document="document" v-if="document.file.thumb" />
@@ -115,16 +100,6 @@ export default {
       set (newValue) {
         this.$emit('input', {
           name: newValue
-        })
-      }
-    },
-    sortingDate: {
-      get () {
-        return this.value.date
-      },
-      set (newValue) {
-        this.$emit('input', {
-          date: newValue
         })
       }
     }
