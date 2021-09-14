@@ -39,7 +39,7 @@
               style="min-width: 200px"
               class="pb-10 text-sm"
             >
-              {{ __('generic.next_proposal') }}
+              {{ __('generic.finished_at') }}
             </ButtonSortable>
           </th>
           <th>
@@ -73,8 +73,8 @@
           </td>
           <td class="py-1">
             <span class="whitespace-nowrap" v-if="contest.next_proposal">
-              {{ contest.next_proposal }}
-              <TagDate class="ml-3" :title="contest.next_proposal">
+              <span class="w-20 inline-block">{{ contest.next_proposal }}</span>
+              <TagDate class="ml-2" :title="contest.next_proposal">
                 <span class="icon-clock" />
                 {{ contest.next_proposal_diff }}
               </TagDate>
