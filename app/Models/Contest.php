@@ -115,6 +115,11 @@ class Contest extends Model implements HasMedia
         return $this->hasMany(Proposal::class);
     }
 
+    public function nextProposal()
+    {
+        return $this->hasOne(Proposal::class)->where('date', '>=', Carbon::now())->orderBy('date', 'asc');
+    }
+
     public function jurors()
     {
         return $this->hasMany(Juror::class);

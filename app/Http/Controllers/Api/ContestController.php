@@ -14,6 +14,7 @@ class ContestController extends Controller
     public function index(Request $request)
     {
         $contests = $this->loadContests($request);
+        $contests->with('nextProposal');
 
         // search
         if ($request->filled('q')) {
