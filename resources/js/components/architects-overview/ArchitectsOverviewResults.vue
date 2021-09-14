@@ -91,7 +91,7 @@
           class="border-b border-black hover:text-blue relative"
         >
           <td class="py-1">
-            <LinkArrowHover :url="architect.url">
+            <LinkArrowHover :url="architect.url" class="link-area">
               {{ architect.last_name }}
             </LinkArrowHover>
           </td>
