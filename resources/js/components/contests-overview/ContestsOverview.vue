@@ -94,6 +94,7 @@ export default {
   },
   watch: {
     searchTerm () {
+      this.page = 1
       const debounceTime = 300
       clearTimeout(this.searchTermDebounceTimeout)
 
@@ -102,9 +103,11 @@ export default {
       }, debounceTime)
     },
     sorting () {
+      this.page = 1
       this.fetchData()
     },
     selectedFilters () {
+      this.page = 1
       this.fetchData()
     }
   },
