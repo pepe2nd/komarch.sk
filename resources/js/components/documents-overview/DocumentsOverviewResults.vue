@@ -42,7 +42,7 @@
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="text-sm">
         <tr
           v-for="document in results"
           :key="document.id"

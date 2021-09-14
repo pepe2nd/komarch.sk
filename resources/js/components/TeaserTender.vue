@@ -2,11 +2,11 @@
   <article class="py-10 grid grid-cols-5 place-items-start items-center">
     <TagDate class="col-span-3 whitespace-nowrap">
       {{ tender.announced_at }}
-      <span v-if="tender.finished_at"> – {{ tender.finished_at }}</span>
+      <span v-if="tender.next_proposal"> – {{ tender.next_proposal }}</span>
     </TagDate>
-    <TagDate class="col-span-2 h-6 flex items-center whitespace-nowrap" v-if="tender.finished_at" :title="tender.finished_at">
+    <TagDate class="col-span-2 h-6 flex items-center whitespace-nowrap" v-if="tender.next_proposal" :title="tender.next_proposal">
       <span class="icon-clock mr-1" />
-      {{ tender.finished_at_diff }}
+      {{ tender.next_proposal_diff }}
     </TagDate>
     <h3 class="mt-1 text-xl col-span-5 tracking tight">
       <LinkTitle :url="tender.url">

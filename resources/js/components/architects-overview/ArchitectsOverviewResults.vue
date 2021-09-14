@@ -83,7 +83,7 @@
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="text-sm">
         <tr
           v-for="architect in results"
           :key="architect.id"

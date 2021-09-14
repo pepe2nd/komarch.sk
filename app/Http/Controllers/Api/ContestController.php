@@ -14,6 +14,7 @@ class ContestController extends Controller
     public function index(Request $request)
     {
         $contests = $this->loadContests($request);
+        $contests->with('nextProposal');
 
         // search
         if ($request->filled('q')) {
@@ -26,7 +27,7 @@ class ContestController extends Controller
             $request->input('direction', 'desc')
         );
 
-        $per_page = (int)min($request->get('per_page', 8), 100);
+        $per_page = (int)min($request->get('per_page', 20), 100);
         return ContestResource::collection($contests->paginate($per_page));
     }
 

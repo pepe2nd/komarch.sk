@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     async fetch () {
-      const response = await axios.get('/api/contests', { params: { states: [this.selectedOption.key] } })
+      const response = await axios.get('/api/contests', { params: { per_page: 5, states: [this.selectedOption.key] } })
       this.fetchedOption = this.selectedOption.key
       this.contests = response.data.data
     }

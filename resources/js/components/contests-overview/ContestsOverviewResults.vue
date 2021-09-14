@@ -61,7 +61,7 @@
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="text-sm">
         <tr
           v-for="contest in results"
           :key="contest.id"
@@ -72,9 +72,19 @@
             {{ contest.announced_at }}
           </td>
           <td class="py-1">
-            {{ contest.finished_at }}
+            <span class="whitespace-nowrap" v-if="contest.next_proposal">
+              <span class="w-20 inline-block">{{ contest.next_proposal }}</span>
+              <TagDate class="ml-2" :title="contest.next_proposal">
+                <span class="icon-clock" />
+                {{ contest.next_proposal_diff }}
+              </TagDate>
+            </span>
+            <span class="text-gray-500" v-else>
+              {{ contest.finished_at }}
+            </span>
+
           </td>
-          <td class="py-1">
+          <td class="py-1" :class="{'text-gray-500' : contest.results_published_is_passed}">
             {{ contest.results_published_at }}
           </td>
           <td class="py-1">
@@ -97,10 +107,12 @@
 <script>
 import ButtonSortable from '../atoms/buttons/ButtonSortable'
 import LinkArrowHover from '../atoms/links/LinkArrowHover'
+import TagDate from '../atoms/tags/TagDate'
 export default {
   components: {
     ButtonSortable,
-    LinkArrowHover
+    LinkArrowHover,
+    TagDate
   },
   props: {
     value: {

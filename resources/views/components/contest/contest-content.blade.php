@@ -47,10 +47,10 @@
 <div class="post-content mx-auto mb-10">
     <x-label>{{ __('contests.jurors') }}:</x-label>
     {{-- types: r-riadny/n-nahradnik/e-expert/o-overovatel za komoru --}}
-    @foreach (['p', 'r', 'e', 'n'] as $type)
+    @foreach (['p', 'r', 'n', 'e'] as $type)
         @if (($contest->architects->where('pivot.type', $type)->count() > 0) || ($contest->jurors->where('type', $type)->count() > 0))
-            <h4 class="mt-5 mb-2">{{ __('contests.jurors.' . $type) }}:</h4>
-            <div class="leading-relaxed">
+            <h4 class="mb-4">{{ __('contests.jurors.' . $type) }}:</h4>
+            <div class="leading-relaxed mb-10">
                 @foreach ($contest->architects->where('pivot.type', $type) as $architect)
                     <x-link-architect url="{{ $architect->url }}" external>{{ $architect->full_name }}</x-link-architect><br>
                 @endforeach
