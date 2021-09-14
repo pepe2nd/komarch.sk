@@ -22,6 +22,7 @@
       @endif
     </title>
 
+    @include('components.favicons')
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     @stack('styles')
   </head>
