@@ -6,5 +6,7 @@
     <meta property="og:url" content="{{ $url }}"/>
     @if ($attributes->has('image') && !is_null($image))
         <meta property="og:image" content="{{ $image->getFullUrl() }}"/>
+    @else
+        <meta property="og:image" content="{{ asset('og-image.jpg') }}"/>
     @endif
 @stop
