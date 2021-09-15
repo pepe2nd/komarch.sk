@@ -133,6 +133,16 @@
         content: '\00D7'
     }
 
+    .icon-download:before {
+        @apply icon;
+        content: "\8615";
+    }
+
+    .icon-preview:before {
+        @apply icon;
+        content: "\1F441";
+    }
+
     .pb-full {
         padding-bottom: 100%;
     }

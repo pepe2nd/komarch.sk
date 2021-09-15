@@ -4,9 +4,9 @@
     :download="document.file.name"
     class="focus:outline-none hover:text-blue"
     target="_blank"
+    :title="__('documents.download')"
   >
-    <!-- TODO: add icon when available -->
-    Download
+    <span class="pl-2 text-lg icon-download"></span>
   </a>
 </template>
 
