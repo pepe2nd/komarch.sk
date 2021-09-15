@@ -6,7 +6,7 @@
 
 @layer base {
     body {
-        @apply font-komarch no-ligatures antialiased;
+        @apply font-komarch;
     }
 }
 

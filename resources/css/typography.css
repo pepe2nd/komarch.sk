@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'Komarch';
     src:
-        url("../fonts/komarch-400.woff2") format("woff2"),
-        url("../fonts/komarch-400.woff") format("woff"),
-        url("../fonts/komarch-400.ttf") format("truetype"),
-        url("../fonts/komarch-400.eot") format("embedded-opentype");
+        url("../fonts/Komora2.2-Regular.woff2") format("woff2"),
+        url("../fonts/Komora2.2-Regular.woff") format("woff"),
+        url("../fonts/Komora2.2-Regular.otf") format("opentype"),
+        url("../fonts/Komora2.2-Regular.eot") format("embedded-opentype");
     font-weight: 400;
     font-style: normal;
 }
