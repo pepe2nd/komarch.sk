@@ -29,14 +29,12 @@
             </ButtonSortable>
           </th>
           <th
-            class="select-none font-normal pb-10 text-sm"
-            style="min-width: 90px"
+            class="select-none font-normal pb-10 text-sm w-20"
           >
             {{ __('documents.preview') }}
           </th>
           <th
-            class="select-none font-normal pb-10 text-sm"
-            style="min-width: 200px"
+            class="select-none font-normal pb-10 text-sm w-80"
           >
             {{ __('documents.download') }}
           </th>

@@ -5,9 +5,9 @@
       class="focus:outline-none hover:text-blue"
       target="_blank"
       @click.prevent.stop="isDetailOpen = true"
+      :title="__('documents.preview')"
     >
-      <!-- TODO: add icon when available -->
-      Preview
+      <span class="pl-2 text-lg icon-preview"></span>
     </a>
 
     <transition
