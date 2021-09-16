@@ -11,14 +11,16 @@
     <x-intro :text="trans('home.perex')"/>
 
     <div class="mt-10 md:mt-32 md:grid grid-cols-2 gap-10">
-        <div style="height: 300px">
+        <div class="h-56 md:h-80">
             {{-- <img src="{{ asset('images/clock.svg') }}" alt="clock" class="mb-5"> --}}
-            <div class="mb-3 md:mb-5" style="height: 250px">
+            <div class="mb-3 md:mb-5 h-36 md:h-64">
                 <Clock />
             </div>
 
             <x-link-arrow url="http://cezaar.tv/" target="_blank">
-                Odovzdávanie ceny za architektúru C E ZA AR 2021<br> 07.10.2021 20:00
+                Odovzdávanie ceny za architektúru C&nbsp;E&nbsp;ZA&nbsp;AR 2021
+                <br class="hidden md:block" />
+                07.10.2021&nbsp;20:00
             </x-link-arrow>
         </div>
         @foreach ($tiles as $tile)
