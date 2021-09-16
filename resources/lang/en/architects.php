@@ -18,6 +18,8 @@ return [
         'HA' => 'Visiting architect',
         'HKA' => 'Visiting landscape architect',
         'DC' => 'Voluntary member',
+        'C' => 'Removed',
+        'Z' => 'Removed (deceased)',
     ],
     'registration_number' => 'Registration number',
     'location' => 'Place of operation',
