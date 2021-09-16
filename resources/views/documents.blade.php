@@ -1,6 +1,11 @@
 @extends('layouts.app')
 @section('title', __('documents.title'))
 
+<x-og :title="__('documents.title')"
+      :description="__('documents.perex')"
+      :url="route('documents')"
+></x-og>
+
 @section('content')
 
 @include('components.header.header')
