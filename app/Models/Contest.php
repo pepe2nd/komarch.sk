@@ -87,7 +87,8 @@ class Contest extends Model implements HasMedia
 
     public function scopeUpcoming($query)
     {
-        return $query->whereDate('announced_at', '>', Carbon::now());
+        return $query->whereDate('announced_at', '>', Carbon::now())
+            ->orWhereNull('announced_at');
     }
 
     public function scopeFinished($query)
