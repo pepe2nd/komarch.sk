@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'perex' => '',
+    'perex' => 'Prostredníctvom registra diel môže verejnosť získať prehľad a bližšie informácie o výsledkoch práce architektov na Slovensku.',
     'search_placeholder' => 'Architekt, architektka, dielo, ...',
     'location_districts' => 'Lokalita diela',
     'awards' => 'Ocenenia',
