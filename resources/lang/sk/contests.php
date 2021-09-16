@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Súťaže',
-    'perex' => '',
+    'perex' => 'Komora overuje podmienky súťaží návrhov v oblasti architektúry, urbanizmu a krajiny. Súťaže sú najlepšou formou obstarávania kvalitných riešení pre rozvoj a udržateľnosť budovaného prostredia.',
     'more' => 'Viac súťaží',
     'navigate_back' => 'Späť na všetky súťaže',
     'no_results' => 'Nenašli sa žiadne súťaže',
