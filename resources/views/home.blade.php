@@ -17,8 +17,8 @@
                 <Clock />
             </div>
 
-            <x-link-arrow url="#">
-                3 dni a 11 hodín do odovzdania návrhov na predĺženie promenády na Železnej studienke
+            <x-link-arrow url="http://cezaar.tv/" target="_blank">
+                Odovzdávanie ceny za architektúru C E ZA AR 2021<br> 07.10.2021 20:00
             </x-link-arrow>
         </div>
         @foreach ($tiles as $tile)
