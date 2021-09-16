@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Zoznam architektov',
-    'perex' => '',
+    'perex' => 'Základnou úlohou Komory je registrovať autorizovaných architektov a autorizovaných krajinných architektov.',
     'navigate_back' => 'Späť na zoznam architektov',
     'no_results' => 'Nenašli sa žiadni architekti',
     'last_name' => 'Priezvisko',
