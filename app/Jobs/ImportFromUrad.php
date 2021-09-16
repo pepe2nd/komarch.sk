@@ -61,8 +61,6 @@ class ImportFromUrad implements ShouldQueue
         $this->importTable('lab_architect_contestresult', 'architect_contestresult');
         $this->importTable('lab_architect_work', 'architect_work');
 
-        if ($this->dangerouslyDisableConstraints) DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-
         $sourceDb = $this->getSourceDb();
 
         // Remove entities no longer present in source DB
@@ -84,6 +82,8 @@ class ImportFromUrad implements ShouldQueue
         Media::whereNotNull('custom_properties->urad_id')
             ->whereNotIn('custom_properties->urad_id', $sourceDb->table('lab_media')->pluck('id'))->delete();
         DB::table('works')->whereNotIn('id', $sourceDb->table('lab_works')->pluck('id'))->delete();
+
+        if ($this->dangerouslyDisableConstraints) DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         // Synchronize tags & media
         foreach (Work::cursor() as $work) {
