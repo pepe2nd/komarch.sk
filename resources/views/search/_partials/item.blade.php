@@ -1,4 +1,4 @@
-<li class="pb-2 pt-2 border-top list-unstyled">
+<li class="pb-2 pt-2 border-top border-black list-unstyled">
     <a href="{{ $post->url }}">
         {{ $post->title }}
     </a>
