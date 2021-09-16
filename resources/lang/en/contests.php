@@ -27,4 +27,5 @@ return [
     'finished' => 'Finished',
     'results' => 'Contest results',
     'jury_comment' => 'Jury comment',
+    'in_verification' => 'in verification',
 ];
