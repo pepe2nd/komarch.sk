@@ -27,4 +27,5 @@ return [
     'awards' => 'Awards',
     'contests' => 'Jury participation ',
     'number' => 'Registration number',
+    'removed' => 'removed',
 ];
