@@ -17,10 +17,10 @@
                 <Clock />
             </div>
 
-            <x-link-arrow url="http://cezaar.tv/" target="_blank">
-                Odovzdávanie ceny za architektúru C&nbsp;E&nbsp;ZA&nbsp;AR 2021
+            <x-link-arrow url="https://www.cezaar.tv/" target="_blank">
+                Odovzdávanie ceny za architektúru CE&nbsp;ZA&nbsp;AR 2021
                 <br class="hidden md:block" />
-                07.10.2021&nbsp;20:00
+                7.10.2021&nbsp;20:00
             </x-link-arrow>
         </div>
         @foreach ($tiles as $tile)
