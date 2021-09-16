@@ -4,7 +4,7 @@
       type="search"
       :placeholder="placeholder"
       :aria-label="placeholder"
-      class="border-b border-gray-900 w-full outline-none md:text-sm"
+      class="border-b border-black w-full outline-none md:text-sm"
       :value="value"
       @input="$emit('input', $event.target.value)"
     >
