@@ -2,7 +2,7 @@
 
 return [
     'title' => '',
-    'perex' => 'Slovenská Komora Architektov je odbornou organizáciou, ktorá sa zameriava na vzdelávanie a informovanie verejnosti o potrebách kvalitnej architektúry',
+    'perex' => 'Podporujeme rozvoj kvalitnej architektúry a stavebnej kultúry. Prostredníctvom Ceny za architektúru presadzujeme tvorbu harmonického a zodpovedného prostredia',
     'more_video' => 'Pozrite si ďalšie videá',
     'read_on_issuu' => 'Čítajte na ISSUU',
 ];
