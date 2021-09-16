@@ -27,4 +27,6 @@ return [
     'finished' => 'Ukončené',
     'results' => 'Výsledky súťaže',
     'jury_comment' => 'Komentár poroty',
+    'in_verification' => 'v overovaní',
+    'depended' => 'závislý od vyhlasovateľa',
 ];

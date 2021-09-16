@@ -69,7 +69,8 @@
           class="border-b border-black hover:text-blue relative"
         >
           <td class="py-1">
-            {{ contest.announced_at }}
+            <span v-if="contest.announced_at">{{ contest.announced_at }}</span>
+            <span class="text-gray-500" v-else>{{ __('contests.in_verification') }}</span>
           </td>
           <td class="py-1">
             <span class="whitespace-nowrap" v-if="contest.next_proposal">
