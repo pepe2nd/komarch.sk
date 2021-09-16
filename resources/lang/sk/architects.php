@@ -18,6 +18,8 @@ return [
         'HA' => 'Hosťujúci architekt',
         'HKA' => 'Hosťujúci krajinný architekt',
         'DC' => 'Dobrovoľný člen',
+        'C' => 'Vyčiarknutý',
+        'Z' => 'Vyčiarknutý (zosnulý)',
     ],
     'registration_number' => 'Registračné číslo',
     'location' => 'Miesto pôsobenia',
