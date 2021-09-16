@@ -52,10 +52,18 @@
             <h4 class="mb-4">{{ __('contests.jurors.' . $type) }}:</h4>
             <div class="leading-relaxed mb-10">
                 @foreach ($contest->architects->where('pivot.type', $type) as $architect)
-                    <x-link-architect url="{{ $architect->url }}" external>{{ $architect->full_name }}</x-link-architect><br>
+                    <x-link-architect url="{{ $architect->url }}" external>{{ $architect->full_name }}</x-link-architect>
+                    @if ($architect->pivot->depended)
+                        &nbsp;({{ __('contests.depended') }})
+                    @endif
+                    <br>
                 @endforeach
                 @foreach ($contest->jurors->where('type', $type) as $juror)
-                    {{ $juror->name }}<br>
+                    {{ $juror->name }}
+                    @if ($juror->depended)
+                        &nbsp;({{ __('contests.depended') }})
+                    @endif
+                    <br>
                 @endforeach
             </div>
         @endif

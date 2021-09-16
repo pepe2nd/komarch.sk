@@ -28,4 +28,5 @@ return [
     'results' => 'Contest results',
     'jury_comment' => 'Jury comment',
     'in_verification' => 'in verification',
+    'depended' => 'dependent on the announcer',
 ];
