@@ -104,6 +104,7 @@ return [
         'bin/php' => 'php7.4',
         'bin/composer' => 'php7.4 $(which composer)',
         'shared_dirs' => [
+            'public/wp-content',
             'public/packages',
             'storage'
         ],
