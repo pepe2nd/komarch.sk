@@ -11,8 +11,9 @@
       :placeholder="__('documents.search_placeholder')"
     />
     <ArchitectsOverviewResults
-      v-model="sorting"
+      :sort="sorting"
       :results="results"
+      @sort="sorting = $event"
     />
     <ButtonLoadMore
       v-if="hasNextPage"
