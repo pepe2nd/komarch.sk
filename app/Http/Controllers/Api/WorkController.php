@@ -15,7 +15,7 @@ class WorkController extends Controller
     public function index(Request $request)
     {
         $works = $this->loadWorks($request);
-        $works->with(['media', 'architects']);
+        $works->with(['media', 'architects', 'awards']);
 
         // search
         if ($request->filled('q')) {
