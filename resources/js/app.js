@@ -4,6 +4,7 @@ import VueMapbox from 'vue-mapbox'
 import Mapbox from 'mapbox-gl'
 import vClickOutside from 'v-click-outside'
 import { Lang } from 'laravel-vue-lang'
+import qs from 'qs'
 
 require('./bootstrap')
 
@@ -31,5 +32,13 @@ Vue.use(vClickOutside)
 // eslint-disable-next-line no-unused-vars
 const app = new Vue({
   el: '#app',
-  router: new VueRouter({ mode: 'history' })
+  router: new VueRouter({
+    mode: 'history',
+    parseQuery: qs.parse,
+    // qs stringifies array params better (closer to Laravel)
+    stringifyQuery (query) {
+      const result = qs.stringify(query)
+      return result ? ('?' + result) : ''
+    }
+  })
 })
