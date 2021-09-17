@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Contest;
 use App\Http\Resources\ContestResource;
@@ -13,19 +14,26 @@ class ContestController extends Controller
 {
     public function index(Request $request)
     {
-        $contests = $this->loadContests($request);
+        $contests = $this->loadContests($request)->leftJoin('proposals as p', function ($join) {
+           $join->on('p.contest_id', '=', 'contests.id')
+             ->on('p.date', '=',
+               DB::raw('(select min(date) from proposals where contest_id = p.contest_id and date >= NOW())'))
+             ->whereRaw('p.date >= NOW()');
+         })->select('contests.*', 'p.date');
+
         $contests->with('nextProposal');
 
         // search
         if ($request->filled('q')) {
-            $contests->whereIn('id', Contest::search("*{$request->query('q')}*")->keys());;
+            $contests->whereIn('contests.id', Contest::search("*{$request->query('q')}*")->keys());;
         }
 
         // sort
         $contests->orderBy(
-            $request->input('sortby', 'created_at'),
+            $request->input('sortby', 'date'),
             $request->input('direction', 'desc')
         );
+        $contests->orderBy('finished_at', $request->input('direction', 'desc'));
 
         $per_page = (int)min($request->get('per_page', 20), 100);
         return ContestResource::collection($contests->paginate($per_page));

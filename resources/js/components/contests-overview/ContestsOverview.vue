@@ -76,7 +76,7 @@ export default {
       }
 
       if (this.sorting.finishedAt) {
-        params.sortby = 'finished_at'
+        params.sortby = 'date'
         params.direction = this.sorting.finishedAt
       }
 
