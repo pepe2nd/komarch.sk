@@ -1,6 +1,6 @@
 <template>
   <div class="mr-10 mb-8">
-    <h3 class="mb-5 text-sm">
+    <h3 class="mb-5 text-sm whitespace-nowrap">
       {{ title }}
     </h3>
     <div :class="gridColumns">
