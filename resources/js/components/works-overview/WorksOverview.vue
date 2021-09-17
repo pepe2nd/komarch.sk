@@ -165,7 +165,7 @@ export default {
     },
     onSortChange (sort) {
       if (!sort.name || !sort.direction) {
-        this.updateQuery({ sortby: undefined, direction: undefined, page: undefined })
+        this.updateQuery({ sortby: undefined, direction: undefined })
         return
       }
 
