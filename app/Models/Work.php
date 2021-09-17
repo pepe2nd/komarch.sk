@@ -140,6 +140,13 @@ class Work extends Model implements HasMedia
 
     public function scopeFiltered(Builder $query, Request $request)
     {
+        // filter by architect
+        if ($request->has('architect_id')) {
+            $query->whereHas('architects', function (Builder $query) use ($request) {
+                $query->where('architects.id', $request->input('architect_id'));
+            });
+        }
+
         // filter by location_districts
         if ($request->has('location_districts')) {
             $query->whereIn('location_district', $request->input('location_districts', []));
@@ -184,6 +191,10 @@ class Work extends Model implements HasMedia
             $query->whereHas('citationPublications', function (Builder $query) use ($request) {
                 $query->whereIn('publication_name', $request->input('citations', []));
             });
+        }
+
+        if ($request->filled('q')) {
+            $query->whereIn('id', self::search("{$request->query('q')}*")->keys());
         }
 
         return $query;
