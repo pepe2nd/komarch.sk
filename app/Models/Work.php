@@ -194,7 +194,7 @@ class Work extends Model implements HasMedia
         }
 
         if ($request->filled('q')) {
-            $query->whereIn('id', self::search("{$request->query('q')}*")->keys());
+            $query->whereIn('works.id', self::search("{$request->query('q')}*")->keys());
         }
 
         return $query;
