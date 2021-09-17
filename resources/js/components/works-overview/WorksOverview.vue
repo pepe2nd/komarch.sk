@@ -179,6 +179,7 @@ export default {
       this.$router.push({
         query: {
           ...this.$route.query,
+          page: undefined,
           ...newQuery
         }
       })
