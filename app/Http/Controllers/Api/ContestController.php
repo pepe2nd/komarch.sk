@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Contest;
@@ -19,7 +18,7 @@ class ContestController extends Controller
            $join->on('p.contest_id', '=', 'contests.id')
              ->on('p.date', '=',
                DB::raw('(select min(date) from proposals where contest_id = p.contest_id and date >= NOW())'))
-             ->where('p.date', '>=', Carbon::now());
+             ->whereRaw('p.date >= NOW()');
          })->select('contests.*', 'p.date');
 
         $contests->with('nextProposal');
