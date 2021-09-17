@@ -1,23 +1,32 @@
 <template>
   <div>
-    <div class="flex flex-wrap" v-if="!this.hideFilters">
+    <div
+      v-if="!hideFilters"
+      class="flex flex-wrap"
+    >
       <span class="w-full mb-4 sm:mb-0 sm:w-32 text-sm">
         {{ count }}
       </span>
       <ButtonSortable
-        v-model="sortingName"
+        :value="getSortDirectionFor('name')"
         class="sm:ml-8 text-sm"
+        @input="setSort('name', $event)"
       >
         {{ __('generic.name') }}
       </ButtonSortable>
       <ButtonSortable
-        v-model="sortingYear"
+        :value="getSortDirectionFor('created_at')"
         class="sm:ml-16 text-sm"
+        @input="setSort('created_at', $event)"
       >
         {{ __('generic.year') }}
       </ButtonSortable>
     </div>
-    <isotope :options="getIsotopeOptions()" :list="results" class="md:-mx-5">
+    <isotope
+      :options="getIsotopeOptions()"
+      :list="results"
+      class="md:-mx-5"
+    >
       <TeaserWorkBig
         v-for="item in results"
         :key="item.id"
@@ -30,6 +39,7 @@
 </template>
 
 <script>
+import sortableMixin from '../sortableMixin'
 import ButtonSortable from '../atoms/buttons/ButtonSortable'
 import TeaserWorkBig from '../TeaserWorkBig'
 import isotope from 'vueisotope'
@@ -40,11 +50,10 @@ export default {
     TeaserWorkBig,
     isotope
   },
+  mixins: [
+    sortableMixin
+  ],
   props: {
-    value: {
-      type: Object,
-      required: true
-    },
     results: {
       type: Array,
       required: true
@@ -72,35 +81,15 @@ export default {
       }
 
       return `(${this.total}) ${this.__(localizedObjectsLabel)}`
-    },
-    sortingName: {
-      get () {
-        return this.value.name
-      },
-      set (newValue) {
-        this.$emit('input', {
-          name: newValue
-        })
-      }
-    },
-    sortingYear: {
-      get () {
-        return this.value.year
-      },
-      set (newValue) {
-        this.$emit('input', {
-          year: newValue
-        })
-      }
     }
   },
   methods: {
-    getIsotopeOptions() {
+    getIsotopeOptions () {
       return {
         itemSelector: '[data-grid-item]',
-        percentPosition: true,
-      };
-    },
+        percentPosition: true
+      }
+    }
   }
 }
 </script>
