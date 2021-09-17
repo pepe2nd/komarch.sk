@@ -175,11 +175,11 @@ class Work extends Model implements HasMedia
         }
 
         if ($request->has('year_from')) {
-            $query->where('date_construction_start', '>=', $request->input('year_from'));
+            $query->where('date_design_start', '>=', $request->input('year_from'));
         }
 
-        if ($request->has('year_until')) {
-            $query->where('date_construction_ending', '<=', $request->input('year_until'));
+        if ($request->has('year_to')) {
+            $query->where('date_design_start', '<=', $request->input('year_to'));
         }
 
         if ($request->has('with_gps')) {
