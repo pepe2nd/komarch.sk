@@ -27,19 +27,13 @@
         v-for="award in item.awards"
         :key="award.id"
         :to="{ query: { awards: [award.name] }}"
-      >
-        {{ award.name }}
-      </TagHashLink>
+      >{{ award.name }}</TagHashLink>
       <TagHashLink
         :to="{ query: { location_districts: [item.location_district] }}"
-      >
-        {{ item.location_district }}
-      </TagHashLink>
+      >{{ item.location_district }}</TagHashLink>
       <TagHashLink
         :to="{ query: { year_from: item.year, year_to: item.year }}"
-      >
-        {{ item.year }}
-      </TagHashLink>
+      >{{ item.year }}</TagHashLink>
     </div>
     <div class="flex flex-wrap mt-4">
       <a
