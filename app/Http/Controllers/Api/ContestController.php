@@ -25,7 +25,7 @@ class ContestController extends Controller
 
         // search
         if ($request->filled('q')) {
-            $contests->whereIn('id', Contest::search("*{$request->query('q')}*")->keys());;
+            $contests->whereIn('contests.id', Contest::search("*{$request->query('q')}*")->keys());;
         }
 
         // sort
