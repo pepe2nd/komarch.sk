@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Contest;
 use App\Http\Resources\ContestResource;
@@ -13,7 +15,13 @@ class ContestController extends Controller
 {
     public function index(Request $request)
     {
-        $contests = $this->loadContests($request);
+        $contests = $this->loadContests($request)->leftJoin('proposals as p', function ($join) {
+           $join->on('p.contest_id', '=', 'contests.id')
+             ->on('p.date', '=',
+               DB::raw('(select min(date) from proposals where contest_id = p.contest_id and date >= NOW())'))
+             ->where('p.date', '>=', Carbon::now());
+         })->select('contests.*', 'p.date');
+
         $contests->with('nextProposal');
 
         // search
@@ -23,7 +31,7 @@ class ContestController extends Controller
 
         // sort
         $contests->orderBy(
-            $request->input('sortby', 'created_at'),
+            $request->input('sortby', 'p.date'),
             $request->input('direction', 'desc')
         );
 
