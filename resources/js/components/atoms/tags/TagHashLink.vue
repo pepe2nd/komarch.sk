@@ -3,6 +3,6 @@
     class="px-1 mr-2 hover:text-blue cursor-pointer text-sm"
     v-bind="$attrs"
   >
-    <span class="pr-1">❪</span>#<slot /><span class="pl-1">❫</span>
+    ❪<span class="px-1">#<slot /></span>❫
   </router-link>
 </template>
