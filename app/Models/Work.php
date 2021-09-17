@@ -23,7 +23,7 @@ class Work extends Model implements HasMedia
 
     public $with = ['other_architects', 'awards'];
 
-    public static $filterable = ['other_architects', 'typologies', 'awards'];
+    public static $filterable = ['typologies', 'awards'];
 
     public function awards()
     {
