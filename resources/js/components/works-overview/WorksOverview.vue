@@ -171,8 +171,7 @@ export default {
 
       this.updateQuery({
         sortby: sort.name,
-        direction: sort.direction,
-        page: undefined
+        direction: sort.direction
       })
     },
     updateQuery (newQuery) {
