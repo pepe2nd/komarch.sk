@@ -1,6 +1,6 @@
 <a
-    class="px-1 mr-4 hover:text-blue flex items-center text-sm"
+    class="px-1 mr-2 hover:text-blue cursor-pointer text-sm"
     href="{{ $url }}"
 >
-    ❪#{{ $slot }}❫
+    ❪<span class="px-1">#{{ $slot }}</span>❫
 </a>
