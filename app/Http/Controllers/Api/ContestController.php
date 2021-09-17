@@ -31,9 +31,10 @@ class ContestController extends Controller
 
         // sort
         $contests->orderBy(
-            $request->input('sortby', 'p.date'),
+            $request->input('sortby', 'date'),
             $request->input('direction', 'desc')
         );
+        $contests->orderBy('finished_at', $request->input('direction', 'desc'));
 
         $per_page = (int)min($request->get('per_page', 20), 100);
         return ContestResource::collection($contests->paginate($per_page));
