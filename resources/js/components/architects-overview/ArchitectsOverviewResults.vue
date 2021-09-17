@@ -23,60 +23,60 @@
         <tr>
           <th>
             <ButtonSortable
-              :value="getSortingDirectionFor('last_name')"
+              :value="getSortDirectionFor('last_name')"
               style="min-width: 200px"
               class="pb-10 text-sm"
-              @input="setSorting('last_name', $event)"
+              @input="setSort('last_name', $event)"
             >
               {{ __('architects.last_name') }}
             </ButtonSortable>
           </th>
           <th>
             <ButtonSortable
-              :value="getSortingDirectionFor('first_name')"
+              :value="getSortDirectionFor('first_name')"
               style="min-width: 200px"
               class="pb-10 text-sm"
-              @input="setSorting('first_name', $event)"
+              @input="setSort('first_name', $event)"
             >
               {{ __('architects.first_name') }}
             </ButtonSortable>
           </th>
           <th>
             <ButtonSortable
-              :value="getSortingDirectionFor('location_city')"
+              :value="getSortDirectionFor('location_city')"
               style="min-width: 200px"
               class="pb-10 text-sm"
-              @input="setSorting('location_city', $event)"
+              @input="setSort('location_city', $event)"
             >
               {{ __('architects.location_city') }}
             </ButtonSortable>
           </th>
           <th>
             <ButtonSortable
-              :value="getSortingDirectionFor('works_count')"
+              :value="getSortDirectionFor('works_count')"
               style="min-width: 200px"
               class="pb-10 text-sm"
-              @input="setSorting('works_count', $event)"
+              @input="setSort('works_count', $event)"
             >
               {{ __('architects.works_count') }}
             </ButtonSortable>
           </th>
           <th>
             <ButtonSortable
-              :value="getSortingDirectionFor('awards_count')"
+              :value="getSortDirectionFor('awards_count')"
               style="min-width: 200px"
               class="pb-10 text-sm"
-              @input="setSorting('awards_count', $event)"
+              @input="setSort('awards_count', $event)"
             >
               {{ __('architects.awards_count') }}
             </ButtonSortable>
           </th>
           <th>
             <ButtonSortable
-              :value="getSortingDirectionFor('number')"
+              :value="getSortDirectionFor('number')"
               style="min-width: 200px"
               class="pb-10 text-sm"
-              @input="setSorting('number', $event)"
+              @input="setSort('number', $event)"
             >
               {{ __('architects.number') }}
             </ButtonSortable>
@@ -123,6 +123,7 @@
 </template>
 
 <script>
+import sortableMixin from '../sortableMixin'
 import ButtonSortable from '../atoms/buttons/ButtonSortable'
 import LinkArrowHover from '../atoms/links/LinkArrowHover'
 export default {
@@ -130,25 +131,17 @@ export default {
     ButtonSortable,
     LinkArrowHover
   },
+  mixins: [
+    sortableMixin
+  ],
   props: {
-    value: {
-      type: Object,
-      required: true
-    },
     results: {
       type: Array,
       required: true
     }
   },
   methods: {
-    getSortingDirectionFor (name) {
-      if (this.value.name === name) return this.value.direction
-      return null
-    },
-    setSorting (name, direction) {
-      this.$emit('input', { name, direction })
-    },
-    goToDetail(url) {
+    goToDetail (url) {
       window.location.href = url
     }
   }

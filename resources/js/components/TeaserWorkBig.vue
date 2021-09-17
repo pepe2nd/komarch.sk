@@ -12,7 +12,7 @@
         :width="item.cover_image.width"
         :height="item.cover_image.height"
       >
-      <NoImage v-else></NoImage>
+      <NoImage v-else />
       <h3 class="mt-4 group-hover:text-blue leading-normal">
         <a
           :href="item.url"
@@ -23,11 +23,17 @@
       </h3>
     </div>
     <div class="flex flex-wrap mt-4">
-      <TagHash
-        v-for="(filter, index) in item.filters"
-        :key="index"
-        @click="onTagClicked(filter)"
-      >{{ filter }}</TagHash>
+      <TagHashLink
+        v-for="award in item.awards"
+        :key="award.id"
+        :to="{ query: { awards: [award.name] }}"
+      >{{ award.name }}</TagHashLink>
+      <TagHashLink
+        :to="{ query: { location_districts: [item.location_district] }}"
+      >{{ item.location_district }}</TagHashLink>
+      <TagHashLink
+        :to="{ query: { year_from: item.year, year_to: item.year }}"
+      >{{ item.year }}</TagHashLink>
     </div>
     <div class="flex flex-wrap mt-4">
       <a
@@ -52,12 +58,12 @@
 
 <script>
 
-import TagHash from './atoms/tags/TagHash'
+import TagHashLink from './atoms/tags/TagHashLink'
 import NoImage from './atoms/NoImage'
 
 export default {
   components: {
-    TagHash,
+    TagHashLink,
     NoImage
   },
   props: {

@@ -14,15 +14,10 @@ class WorkController extends Controller
 {
     public function index(Request $request)
     {
-        $works = $this->loadWorks($request);
-        $works->with(['media', 'other_architects', 'architects']);
+        $works = Work::query()
+            ->filtered($request)
+            ->with(['media', 'architects', 'awards']);
 
-        // search
-        if ($request->filled('q')) {
-            $works->whereIn('id', Work::search("{$request->query('q')}*")->keys());
-        }
-
-        // sort
         $works->orderBy(
             $request->input('sortby', 'created_at'),
             $request->input('direction', 'desc')
@@ -34,7 +29,11 @@ class WorkController extends Controller
 
     public function filters(Request $request)
     {
-        $works = $this->loadWorks($request)->get();
+        $works = Work::query()
+            ->filtered($request)
+            ->with('typologies')
+            ->get();
+
         $filters = collect();
         foreach (Work::$filterable as $filter) {
             $filters[$filter] = $works->pluck($filter)->flatten()->countBy('name');
@@ -48,22 +47,9 @@ class WorkController extends Controller
         return $filters;
     }
 
-    private function loadWorks(Request $request)
-    {
-        $works = Work::query();
-
-        // filter by architect
-        if ($request->has('architect_id')) {
-            $architect = Architect::findOrFail($request->input('architect_id'));
-            $works = $architect->works();
-        }
-
-        return $works->filtered($request);
-    }
-
     private function getLocationDistricts(Request $request)
     {
-        $districts_with_count = $this->loadWorks($request)
+        $districts_with_count = Work::filtered($request)
             ->groupBy('location_district')
             ->select('location_district')
             ->selectRaw('count(*) as count')

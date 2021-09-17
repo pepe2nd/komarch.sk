@@ -23,7 +23,7 @@ class Work extends Model implements HasMedia
 
     public $with = ['other_architects', 'awards'];
 
-    public static $filterable = ['other_architects', 'typologies', 'awards'];
+    public static $filterable = ['typologies', 'awards'];
 
     public function awards()
     {
@@ -140,6 +140,13 @@ class Work extends Model implements HasMedia
 
     public function scopeFiltered(Builder $query, Request $request)
     {
+        // filter by architect
+        if ($request->has('architect_id')) {
+            $query->whereHas('architects', function (Builder $query) use ($request) {
+                $query->where('architects.id', $request->input('architect_id'));
+            });
+        }
+
         // filter by location_districts
         if ($request->has('location_districts')) {
             $query->whereIn('location_district', $request->input('location_districts', []));
@@ -168,11 +175,11 @@ class Work extends Model implements HasMedia
         }
 
         if ($request->has('year_from')) {
-            $query->where('date_construction_start', '>=', $request->input('year_from'));
+            $query->where('date_design_start', '>=', $request->input('year_from'));
         }
 
-        if ($request->has('year_until')) {
-            $query->where('date_construction_ending', '<=', $request->input('year_until'));
+        if ($request->has('year_to')) {
+            $query->where('date_design_start', '<=', $request->input('year_to'));
         }
 
         if ($request->has('with_gps')) {
@@ -184,6 +191,10 @@ class Work extends Model implements HasMedia
             $query->whereHas('citationPublications', function (Builder $query) use ($request) {
                 $query->whereIn('publication_name', $request->input('citations', []));
             });
+        }
+
+        if ($request->filled('q')) {
+            $query->whereIn('works.id', self::search("{$request->query('q')}*")->keys());
         }
 
         return $query;

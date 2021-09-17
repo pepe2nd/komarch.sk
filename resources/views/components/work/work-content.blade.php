@@ -35,7 +35,7 @@
         <div class="mb-9">
             <div class="mb-1">{{ __('works.awards') }}:</div>
             @foreach ($work->awards as $award)
-                <x-link-arrow url="{{ route('works', ['award' => $award->name]) }}">
+                <x-link-arrow url="{{ route('works', ['awards[]' => $award->name]) }}">
                     {{ $award->name }} ({{ $award->pivot->year }})
                 </x-link-arrow>
             @endforeach
@@ -62,7 +62,7 @@
         <div class="mb-9">
             <div class="mb-1">{{ __('works.literature') }}:</div>
             @foreach ($work->citationPublications as $publication)
-                <x-link-arrow url="{{ route('works', ['publication' => $publication->publication_name]) }}">
+                <x-link-arrow url="{{ route('works', ['publications[]' => $publication->publication_name]) }}">
                     {{ $publication->publication_name }}
                 </x-link-arrow>
             @endforeach
