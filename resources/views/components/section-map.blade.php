@@ -1,4 +1,4 @@
-<section class="mt-20">
+<section class="py-10">
     <x-heading-section>
         <x-link-arrow :url="$worksUrl">
             {{ __('buildings.architecture_register' )}}

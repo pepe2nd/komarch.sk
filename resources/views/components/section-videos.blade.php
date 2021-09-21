@@ -1,4 +1,4 @@
-<section class="mt-20">
+<section class="border-b border-black md:border-b-0 py-10">
     <x-heading-section>
         <x-link-arrow :url="$linkUrl" target="_blank" :title="$linkTitle">
             {{ $title }}
