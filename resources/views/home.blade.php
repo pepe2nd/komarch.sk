@@ -32,7 +32,7 @@
             <x-tile
             :title="$tile->title"
             :url="$tile->url"
-            class="{{ ($loop->last) ? 'border-b' : '' }}"
+            class="{{ ($loop->last) ? 'border-b md:border-b-0' : '' }}"
         />
         @endforeach
     </div>
@@ -46,7 +46,7 @@
                 :options="{{ json_encode($contestFilterOptions) }}"
             />
         </div>
-        <div class="flex-1">
+        <div class="flex-1 md:order-3">
             <x-section-videos
                 title="Videá"
                 :videos="$videos"
