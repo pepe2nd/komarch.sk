@@ -1,10 +1,10 @@
 <template>
   <div class="w-full" v-click-outside="hideMenu">
-      <div class="mt-1 flex rounded-md shadow-sm">
+      <div class="flex">
           <input
               type="text"
               name="search"
-              class="border-b border-black w-full outline-none text-sm focus:shadow-outline"
+              class="border-0 border-b border-black w-full outline-none text-sm focus:ring-0 focus:border-blue px-1 py-0.5"
               :placeholder="placeholder"
               aria-label="Search"
               v-model="search"
