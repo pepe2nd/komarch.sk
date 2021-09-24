@@ -59,8 +59,9 @@ module.exports = {
       sm: ['13px'],
       base: ['16px'],
       lg: ['18px'],
-      xl: ['28px'],
-      '2xl': ['40px']
+      xl: ['24px'],
+      '2xl': ['28px'],
+      '3xl': ['40px']
     },
     fontWeight: {
       normal: '400'

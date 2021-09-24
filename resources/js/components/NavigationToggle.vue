@@ -6,7 +6,7 @@
     @click="onClicked"
   >
     <svg
-          class="mt-1 mr-1 w-8 h-10 text-black"
+          class="mr-1 w-8 h-10 text-black"
           v-show="!open"
           fill="none"
           stroke-width="1"

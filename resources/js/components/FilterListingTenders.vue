@@ -6,7 +6,7 @@
     :items="contests"
   >
     <template #before-list>
-      <h2 class="text-xl mb-10">
+      <h2 class="text-2xl mb-10">
         <LinkArrow url="/sutaze">
           {{ __('contests.title') }}
         </LinkArrow>

@@ -1,6 +1,6 @@
 <div class="my-6 md:my-0">
     @if (isSet($title))
-        <div class="text-xl mb-2 hidden md:block">
+        <div class="text-2xl mb-2 hidden md:block">
             {{ $title }}
         </div>
     @endif

@@ -1,6 +1,6 @@
 <template>
   <section class="border-b border-black md:border-b-0 py-10">
-    <h2 class="text-xl mb-10">
+    <h2 class="text-2xl mb-10">
       <LinkArrow url="/spravy">
         {{ __('posts.title') }}
       </LinkArrow>

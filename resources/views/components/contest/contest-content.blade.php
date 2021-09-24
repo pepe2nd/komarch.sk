@@ -117,7 +117,7 @@
         <x-label>{{ __('contests.results') }}:</x-label>
         @foreach ($contest->rewards as $reward)
             @if ($reward->result)
-                <h4 class="text-xl tracking-tight leading-snug my-5 lg:my-12">
+                <h4 class="text-2xl tracking-tight leading-snug my-5 lg:my-12">
                     {{ $reward->name }} (@money($reward->amount))
                     –
                     {{ $reward->result->subject_name }}

@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <div class="text-xl tracking-tight leading-snug">Vlastné diela</div>
+    <div class="text-2xl tracking-tight leading-snug">Vlastné diela</div>
 
     <WorksOverviewResults
       v-model="sorting"

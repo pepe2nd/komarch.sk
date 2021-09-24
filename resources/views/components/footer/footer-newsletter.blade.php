@@ -1,7 +1,7 @@
 <form class="lg:flex items-center flex-wrap mb-6 lg:m-0">
     <label
         for="newsletter-email"
-        class="block pr-20 lg:p-0 text-xl tracking-tight leading-snug mr-4"
+        class="block pr-20 lg:p-0 text-2xl tracking-tight leading-snug mr-4"
     >
         Prihláste sa na odber nášho newslettra
     </label>
@@ -13,7 +13,7 @@
         required
         class="block mt-10 lg:m-0 w-full border-b border-black flex-1 focus:outline-none h-8"
     >
-    <button class="group flex text-xl tracking-tight px-4 -ml-4 mt-4 lg:m-0">
+    <button class="group flex text-2xl tracking-tight px-4 -ml-4 mt-4 lg:m-0">
         odoslať
         <span class="ml-2 transform group-hover:translate-x-3 duration-200 icon-arrow-r-long"></span>
     </button>
