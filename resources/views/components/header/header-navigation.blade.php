@@ -5,9 +5,9 @@
         class="nav-menu md:flex text-xl md:text-base"
     >
         @foreach($navItems->split(2) as $i=>$items)
-            <div class="flex-1 flex flex-col {{ ($i==0) ? 'lg:ml-40' : 'md:ml-24 lg:ml-16'}}">
+            <div class="flex-1 flex flex-col mb-8 md:mb-0 {{ ($i==0) ? 'lg:ml-40' : 'md:ml-24 lg:ml-16'}}">
                 @if ($i==0)
-                    <x-header.header-navigation-search class="md:order-last" />
+                    <x-header.header-navigation-search class="md:order-last pt-10 md:pt-0" />
                 @endif
                 <x-header.header-navigation-list :items="$items" />
             </div>
