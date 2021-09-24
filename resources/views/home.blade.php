@@ -17,7 +17,6 @@
 
     <div class="mt-10 md:mt-32 md:grid grid-cols-2 gap-10 mb-20 md:mb-0">
         <div class="h-56 md:h-80 my-16 md:my-0 text-center md:text-left">
-            {{-- <img src="{{ asset('images/clock.svg') }}" alt="clock" class="mb-5"> --}}
             <div class="mb-5 h-36 md:h-64">
                 <Clock />
             </div>

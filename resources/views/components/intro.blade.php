@@ -1,8 +1,8 @@
-<div class="my-10 md:my-24">
+<div class="my-10 md:my-24 text-center md:text-left">
     @isset($title)
-        <h1 class="text-xl tracking-tight leading-tight text-left">{{ $title }}</h1>
+        <h1 class="text-xl tracking-tight leading-snug md:leading-tight">{{ $title }}</h1>
     @endisset
     @isset($text)
-        <p class="text-lg md:text-xl tracking-tight leading-tight text-left mt-8">{{ $text }}</p>
+        <p class="text-xl tracking-tight leading-tight mt-8">{{ $text }}</p>
     @endisset
 </div>
