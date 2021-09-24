@@ -2,7 +2,7 @@
     <navigation-toggle></navigation-toggle>
     <div
         id="nav-content"
-        class="nav-menu md:flex text-xl md:text-base"
+        class="nav-menu md:flex text-xl md:text-base relative"
     >
         @foreach($navItems->split(2) as $i=>$items)
             <div class="flex-1 flex flex-col mb-8 md:mb-0 {{ ($i==0) ? 'lg:ml-40' : 'md:ml-24 lg:ml-16'}}">
@@ -12,5 +12,7 @@
                 <x-header.header-navigation-list :items="$items" />
             </div>
         @endforeach
+
+        <navigation-close></navigation-close>
     </div>
 </nav>
