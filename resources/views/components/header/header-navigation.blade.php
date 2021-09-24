@@ -1,4 +1,4 @@
-<nav class="border rounded-2xl md:border-0 md:flex-1 mt-6 md:mt-10 lg:mt-10">
+<nav class="md:flex-1 mt-0 mb-10 md:mb-0 md:mt-10 lg:mt-10 md:order-2 border-black">
     <navigation-toggle></navigation-toggle>
     <div
         id="nav-content"

@@ -1,5 +1,5 @@
 <!-- TODO: add the mobile version when the design gets finished -->
-<ul class="hidden lg:block">
+<ul class="hidden lg:block md:order-3">
     @foreach(LaravelLocalization::getLocalesOrder() as $localeCode => $properties)
     <li class="capitalize">
         <a
