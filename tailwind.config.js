@@ -85,7 +85,7 @@ module.exports = {
       opacity: 'opacity',
       shadow: 'box-shadow',
       transform: 'transform',
-      'max-h': 'max-height'
+      'h': 'height'
     }
   },
   variants: {
