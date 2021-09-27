@@ -1,4 +1,3 @@
-<!-- TODO: replace with a proper logo once available -->
-<a href="{{ route('home') }}">
-    <img src="{{ asset('images/ska_logo.svg') }}" alt="{{ __('app.title') }}">
+<a href="{{ route('home') }}" class="text-center md:order-1">
+    <img src="{{ asset('images/logo/logo_SKA_'.rand(0,4).'.svg') }}" alt="{{ __('app.title') }}" class="w-full md:w-64 my-20 md:my-0">
 </a>

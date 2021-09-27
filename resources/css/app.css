@@ -12,11 +12,11 @@
 
 @layer components {
     .nav-menu {
-        @apply max-h-0 transition-max-h duration-500 overflow-hidden;
+        @apply h-0 transition-h duration-500 overflow-hidden;
     }
 
     .nav-menu-expanded {
-        max-height: 700px;
+        height: 100vh;
     }
 
     .map-artworks {
@@ -25,7 +25,7 @@
 
     @screen md {
         .nav-menu {
-            max-height: unset;
+            height: unset;
         }
     }
 

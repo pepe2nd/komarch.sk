@@ -2,12 +2,12 @@
   <div>
     <div class="flex justify-between">
       <button
-        class="text-xl icon-arrow-l-long focus:outline-none hover:text-blue"
+        class="text-2xl icon-arrow-l-long focus:outline-none hover:text-blue"
         :class="{ 'hidden': isBeginning }"
         @click="onPrev"
       />
       <button
-        class="text-xl icon-arrow-r-long focus:outline-none hover:text-blue ml-auto"
+        class="text-2xl icon-arrow-r-long focus:outline-none hover:text-blue ml-auto"
         :class="{ 'hidden': isEnd }"
         @click="onNext"
       />

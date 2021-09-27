@@ -14,7 +14,7 @@
 @section('content')
 <x-header.header></x-header.header>
 <div class="container mx-auto px-6">
-    <x-work.work-back :work="$work"></x-work.work-back>
+    <x-title-with-back :back_title="__('works.works_register')" :back_url="route('works')"></x-title-with-back>
     <x-work.work-header :work="$work"></x-work.work-header>
     <x-work.work-content :work="$work"></x-work.work-content>
 </div>

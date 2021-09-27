@@ -8,7 +8,7 @@
       <span class="icon-clock mr-1" />
       {{ tender.next_proposal_diff }}
     </TagDate>
-    <h3 class="mt-1 text-xl col-span-5 tracking tight">
+    <h3 class="mt-1 text-2xl col-span-5 tracking tight">
       <LinkTitle :url="tender.url">
         {{ tender.title }}
       </LinkTitle>

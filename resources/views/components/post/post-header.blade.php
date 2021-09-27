@@ -7,5 +7,5 @@
         <x-post.post-header-meta :post="$post"></x-post.post-header-meta>
         <x-share-bar></x-share-bar>
     </div>
-    <h1 class="text-xl tracking-tight leading-snug mt-4 lg:mt-14">{{ $post->title }}</h1>
+    <h1 class="text-2xl tracking-tight leading-snug mt-4 lg:mt-14">{{ $post->title }}</h1>
 </header>

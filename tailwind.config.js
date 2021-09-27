@@ -59,8 +59,9 @@ module.exports = {
       sm: ['13px'],
       base: ['16px'],
       lg: ['18px'],
-      xl: ['28px'],
-      '2xl': ['40px']
+      xl: ['24px'],
+      '2xl': ['28px'],
+      '3xl': ['40px']
     },
     fontWeight: {
       normal: '400'
@@ -84,7 +85,7 @@ module.exports = {
       opacity: 'opacity',
       shadow: 'box-shadow',
       transform: 'transform',
-      'max-h': 'max-height'
+      'h': 'height'
     }
   },
   variants: {
@@ -97,6 +98,7 @@ module.exports = {
     }
   },
   plugins: [
-    require('@tailwindcss/aspect-ratio')
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/forms')
   ]
 }

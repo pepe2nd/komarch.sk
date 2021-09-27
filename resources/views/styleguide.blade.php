@@ -167,19 +167,17 @@
     <h2>Component: tile</h2>
 
     <div class="cd-box">
-        @include('components.tile', [
-                    'title' => 'Ako sa stať autorizovaným členom?',
-                    'text' => 'Pozrite ako na to',
-                    'url' => '#',
-                ])
+        <x-tile
+            title="Ako sa stať autorizovaným členom?"
+            url="#"
+        />
     </div>
 
     <div class="cd-box code lang-php hljs xml">
-        @@include('components.tile', [
-                    'title' => 'Ako sa stať autorizovaným členom?',
-                    'text' => 'Pozrite ako na to',
-                    'url' => '#',
-                ])
+        &lt;x-tile
+            title="Ako sa stať autorizovaným členom?"
+            url="#"
+        /&gt;
     </div>
 </section>
 

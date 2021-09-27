@@ -1,6 +1,6 @@
 <template>
   <ButtonArrow
-    class="text-xl mt-10 h-20"
+    class="text-2xl mt-10 h-20"
     v-on="$listeners"
   >
     {{ __('generic.load_more') }}

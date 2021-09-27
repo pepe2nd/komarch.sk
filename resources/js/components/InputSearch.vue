@@ -1,10 +1,10 @@
 <template>
   <div class="w-full" v-click-outside="hideMenu">
-      <div class="mt-1 flex rounded-md shadow-sm">
+      <div class="flex">
           <input
               type="text"
               name="search"
-              class="border-b border-black w-full outline-none text-sm focus:shadow-outline"
+              class="border-0 border-b border-black w-full outline-none text-sm focus:ring-0 focus:border-blue px-1 py-0.5"
               :placeholder="placeholder"
               aria-label="Search"
               v-model="search"
@@ -15,7 +15,7 @@
               ref="searchBox"
           />
       </div>
-      <aside class="absolute z-10 flex flex-col items-start w-72 md:w-96 bg-white border border-black -m-px"
+      <aside class="absolute z-10 flex flex-col items-start w-80 md:w-96 bg-white border border-black -m-px text-lg md:text-base"
              role="menu" aria-labelledby="menu-heading" v-if="Object.keys(this.lists).length > 0 && showSearchItems == true">
           <div v-for="(items, category, categoryIndex) in lists" v-if="items.length > 0" class="w-full">
             <h5 class="tracking-tight mt-3 mb-1 text-gray-500 px-2">{{ __('search.' + category) }}</h5>

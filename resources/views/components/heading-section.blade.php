@@ -1,3 +1,3 @@
-<h2 class="text-xl tracking-tight">
+<h2 class="text-2xl tracking-tight">
     {{ $slot }}
 </h2>

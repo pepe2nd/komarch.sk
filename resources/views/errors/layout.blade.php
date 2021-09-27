@@ -9,7 +9,7 @@
 <x-header.header></x-header.header>
 
 <div class="container mx-auto text-center mt-20">
-        <div class="text-xl tracking-tight md:text-2xl">
+        <div class="text-2xl tracking-tight md:text-3xl">
           ERROR<br>
           {{ $error_number }}
         </div>

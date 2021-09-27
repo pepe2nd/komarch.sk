@@ -29,7 +29,7 @@
 
   <body>
     <div id="app">
-      <main role="main">
+      <main role="main" class="antialiased">
         @yield('content')
       </main>
     </div>

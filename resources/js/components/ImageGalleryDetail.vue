@@ -33,7 +33,7 @@
             class="w-14 h-14 absolute top-0 right-0 focus:outline-none flex items-center justify-center"
             @click="isDetailOpen = false"
           >
-            <span class="icon-close text-2xl text-white" />
+            <span class="icon-close text-3xl text-white" />
           </button>
         </div>
       </div>

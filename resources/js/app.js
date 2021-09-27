@@ -9,6 +9,7 @@ import qs from 'qs'
 require('./bootstrap')
 
 Vue.component('NavigationToggle', require('./components/NavigationToggle').default)
+Vue.component('NavigationClose', require('./components/NavigationClose').default)
 Vue.component('FilterListingPosts', require('./components/FilterListingPosts').default)
 Vue.component('FilterListingTenders', require('./components/FilterListingTenders').default)
 Vue.component('WorksMap', require('./components/WorksMap').default)

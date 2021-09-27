@@ -15,10 +15,9 @@
 <div class="container mx-auto px-6">
     <x-intro :text="trans('home.perex')"/>
 
-    <div class="mt-10 md:mt-32 md:grid grid-cols-2 gap-10">
-        <div class="h-56 md:h-80">
-            {{-- <img src="{{ asset('images/clock.svg') }}" alt="clock" class="mb-5"> --}}
-            <div class="mb-3 md:mb-5 h-36 md:h-64">
+    <div class="mt-10 md:mt-32 md:grid grid-cols-2 gap-10 mb-20 md:mb-0">
+        <div class="h-56 md:h-80 my-16 md:my-0 text-center md:text-left">
+            <div class="mb-5 h-36 md:h-64">
                 <Clock />
             </div>
 
@@ -32,20 +31,21 @@
             <x-tile
             :title="$tile->title"
             :url="$tile->url"
+            class="{{ ($loop->last) ? 'border-b md:border-b-0' : '' }}"
         />
         @endforeach
     </div>
 
     <div class="lg:flex">
-        <div class="flex-1 md:mr-14">
+        <div class="flex-1 md:mr-14 md:order-2">
+            <filter-listing-posts />
+        </div>
+        <div class="flex-1 md:mr-14 md:order-1">
             <filter-listing-tenders
                 :options="{{ json_encode($contestFilterOptions) }}"
             />
         </div>
-        <div class="flex-1 md:mr-14">
-            <filter-listing-posts />
-        </div>
-        <div class="flex-1">
+        <div class="flex-1 md:order-3">
             <x-section-videos
                 title="Videá"
                 :videos="$videos"
