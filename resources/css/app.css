@@ -25,7 +25,7 @@
 
     @screen md {
         .nav-menu {
-            max-height: unset;
+            height: unset;
         }
     }
 
