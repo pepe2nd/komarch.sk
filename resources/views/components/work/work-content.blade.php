@@ -1,4 +1,4 @@
-<div class="post-content mx-auto mt-10">
+<div class="post-content mx-auto my-8 lg:my-16">
     @if ($work->date_design)
         <div class="mb-9">
             <div class="mb-1">{{ __('works.design_year') }}:</div>
