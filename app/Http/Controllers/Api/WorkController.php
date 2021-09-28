@@ -29,6 +29,7 @@ class WorkController extends Controller
 
     public function related($id, Request $request)
     {
+        $per_page = (int) $request->get('per_page', 8);
         $related_works = Work::boolSearch($id)
             ->must(
                 'more_like_this',
@@ -40,10 +41,10 @@ class WorkController extends Controller
                     'min_term_freq' => 1,
                     'min_doc_freq' => 1,
                 ])
-            ->size(10)
-            ->execute();
+            ->paginate($per_page);
 
-        return WorkResource::collection($related_works->models());
+        $related_works->setCollection($related_works->models());
+        return WorkResource::collection($related_works);
     }
 
     public function filters(Request $request)
