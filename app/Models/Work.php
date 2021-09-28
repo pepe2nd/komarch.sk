@@ -11,13 +11,14 @@ use Spatie\Tags\HasTags;
 use Illuminate\Support\Str;
 use App\Traits\HasShortDescription;
 use Laravel\Scout\Searchable;
+use ElasticScoutDriverPlus\QueryDsl;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class Work extends Model implements HasMedia
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
-    use HasFactory, InteractsWithMedia, HasTags, HasShortDescription, Searchable;
+    use HasFactory, InteractsWithMedia, HasTags, HasShortDescription, Searchable, QueryDsl;
 
     public $incrementing = false;
 

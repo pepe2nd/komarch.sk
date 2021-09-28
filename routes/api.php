@@ -39,6 +39,7 @@ Route::get('/document/{id}/download', 'App\Http\Controllers\Api\DocumentControll
 
 Route::get('/works', 'App\Http\Controllers\Api\WorkController@index')->name('api.works.index');
 Route::get('/works-filters', 'App\Http\Controllers\Api\WorkController@filters')->name('api.works-filters.index');
+Route::get('/works/{id}/related', 'App\Http\Controllers\Api\WorkController@related');
 Route::get('/works/{work}/images', fn (Work $work) => MediaResource::collection($work->media));
 
 Route::get('/contests', 'App\Http\Controllers\Api\ContestController@index')->name('api.contests.index');

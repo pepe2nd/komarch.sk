@@ -27,6 +27,25 @@ class WorkController extends Controller
         return WorkResource::collection($works->paginate($per_page));
     }
 
+    public function related($id, Request $request)
+    {
+        $related_works = Work::boolSearch($id)
+            ->must(
+                'more_like_this',
+                [
+                    'fields' => ['name', 'location_city'],
+                    'like' => [
+                        '_id' => $id
+                    ],
+                    'min_term_freq' => 1,
+                    'min_doc_freq' => 1,
+                ])
+            ->size(10)
+            ->execute();
+
+        return WorkResource::collection($related_works->models());
+    }
+
     public function filters(Request $request)
     {
         $works = Work::query()
