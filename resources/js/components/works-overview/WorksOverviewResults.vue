@@ -31,7 +31,7 @@
         v-for="item in results"
         :key="item.id"
         :item="item"
-        class="md:p-5 md:w-1/4"
+        class="w-full md:p-5 md:w-1/4"
         data-grid-item
       />
     </isotope>

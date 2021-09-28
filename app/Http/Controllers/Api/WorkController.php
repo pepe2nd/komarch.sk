@@ -43,7 +43,7 @@ class WorkController extends Controller
                 ])
             ->paginate($per_page);
 
-        $related_works->setCollection($related_works->models());
+        $related_works->setCollection($related_works->models()->load(['media', 'architects', 'awards']));
         return WorkResource::collection($related_works);
     }
 
