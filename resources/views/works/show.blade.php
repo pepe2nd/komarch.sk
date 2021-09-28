@@ -17,6 +17,8 @@
     <x-title-with-back :back_title="__('works.works_register')" :back_url="route('works')"></x-title-with-back>
     <x-work.work-header :work="$work"></x-work.work-header>
     <x-work.work-content :work="$work"></x-work.work-content>
+
+    <related-works work-id="{{ $work->id }}"></related-works>
 </div>
 <x-footer.footer></x-footer.footer>
 @endsection
