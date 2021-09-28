@@ -21,11 +21,18 @@
                 <Clock />
             </div>
 
+            @if ($deadline)
+                <x-link-arrow :url="$deadline->url">
+                    {{ $deadline->deadline_at->diffForHumans() }}
+                    {{ $deadline->title }}
+                </x-link-arrow>
+            @else
             <x-link-arrow url="https://www.cezaar.tv/" target="_blank">
                 Odovzdávanie ceny za architektúru CE&nbsp;ZA&nbsp;AR 2021
                 <br class="hidden md:block" />
                 7.10.2021&nbsp;20:00
             </x-link-arrow>
+            @endif
         </div>
         @foreach ($tiles as $tile)
             <x-tile
