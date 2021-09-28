@@ -98,6 +98,7 @@ class ImportFromUrad implements ShouldQueue
 
         foreach (Contestresult::cursor() as $contestResult) {
             $this->importModelMedia('App\Models\Contestresult', $contestResult, ['contestresult_pictures']);
+            $this->importModelTags('App\Models\Contestresult', $contestResult);
         }
     }
 
