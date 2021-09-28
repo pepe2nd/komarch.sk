@@ -22,4 +22,5 @@ return [
     'about_the_work' => 'O diele',
     'literature' => 'Literatúra',
     'citations' => 'Publikácie',
+    'related' => 'Súvisiace diela',
 ];

@@ -22,4 +22,5 @@ return [
     'about_the_work' => 'About the work',
     'literature' => 'Literature',
     'citations' => 'Publications',
+    'related' => 'Related works',
 ];

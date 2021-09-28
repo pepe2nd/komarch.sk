@@ -1,5 +1,5 @@
 <template>
-  <div class="py-10 mb-10">
+  <div class="py-10 mb-0 md:mb-10">
     <div class="relative group">
       <img
         v-if="item.cover_image"

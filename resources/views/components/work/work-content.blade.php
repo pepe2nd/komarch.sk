@@ -1,73 +1,64 @@
-<div class="post-content mx-auto mt-10">
+<div class="post-content mx-auto my-8 lg:my-16">
     @if ($work->date_design)
-        <div class="mb-9">
-            <div class="mb-1">{{ __('works.design_year') }}:</div>
+        <x-attribute-with-label :label="__('works.design_year')">
             {{ $work->date_design }}
-        </div>
+        </x-attribute-with-label>
     @endif
 
     @if ($work->date_construction)
-        <div class="mb-9">
-            <div class="mb-1">{{ __('works.realisation_year') }}:</div>
+        <x-attribute-with-label :label="__('works.realisation_year')">
             {{ $work->date_construction }}
-        </div>
+        </x-attribute-with-label>
     @endif
 
     @if ($work->typologies->count() > 0)
-        <div class="mb-9">
-            <div class="mb-1">{{ __('works.typology') }}:</div>
+        <x-attribute-with-label :label="__('works.typology')">
             @foreach ($work->typologies as $typology)
                 <x-link-arrow url="{{ route('works', ['typologies[]' => $typology->name]) }}">
                     {{ $typology->name }}
                 </x-link-arrow>
             @endforeach
-        </div>
+        </x-attribute-with-label>
     @endif
 
     @if ($work->location)
-        <div class="mb-9">
-            <div class="mb-1">{{ __('works.address') }}:</div>
+        <x-attribute-with-label :label="__('works.address')">
             {{ $work->location }}
-        </div>
+        </x-attribute-with-label>
     @endif
 
     @if ($work->awards->count() > 0)
-        <div class="mb-9">
-            <div class="mb-1">{{ __('works.awards') }}:</div>
+        <x-attribute-with-label :label="__('works.awards')">
             @foreach ($work->awards as $award)
                 <x-link-arrow url="{{ route('works', ['awards[]' => $award->name]) }}">
                     {{ $award->name }} ({{ $award->pivot->year }})
                 </x-link-arrow>
             @endforeach
-        </div>
+        </x-attribute-with-label>
     @endif
 
     @if (($work->architects->count() > 0) || ($work->other_architects->count() > 0))
-        <div class="mb-9">
-            <div class="mb-1">{{ __('works.authors') }}:</div>
-
+        <x-attribute-with-label :label="__('works.authors')">
             @foreach ($work->architects as $architect)
                 <x-link-architect url="{{ $architect->url }}" external>{{ $architect->full_name }}</x-link-architect>{{ ($loop->last && !($work->other_architects->count() > 0)) ? '' : ', ' }}
             @endforeach
             {{ $work->other_architects->implode('name', ', ') }}
-        </div>
+        </x-attribute-with-label>
     @endif
 
-    <div class="mb-9">
-        <div class="mb-1">{{ __('works.about_the_work') }}:</div>
-        {!! $work->annotation !!}
-    </div>
+    @if ($work->annotation)
+        <x-attribute-with-label :label="__('works.about_the_work')">
+            {!! $work->annotation !!}
+        </x-attribute-with-label>
+    @endif
 
     @if ($work->citationPublications->count() > 0)
-        <div class="mb-9">
-            <div class="mb-1">{{ __('works.literature') }}:</div>
+        <x-attribute-with-label :label="__('works.literature')">
             @foreach ($work->citationPublications as $publication)
                 <x-link-arrow url="{{ route('works', ['publications[]' => $publication->publication_name]) }}">
                     {{ $publication->publication_name }}
                 </x-link-arrow>
             @endforeach
-        </div>
+        </x-attribute-with-label>
     @endif
-
-
 </div>
