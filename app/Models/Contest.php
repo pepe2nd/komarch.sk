@@ -138,7 +138,7 @@ class Contest extends Model implements HasMedia
 
     public function results()
     {
-        return $this->hasManyThrough(ContestResult::class, Reward::class);
+        return $this->hasManyThrough(Contestresult::class, Reward::class);
     }
 
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class ContestResult extends Model implements HasMedia
+class Contestresult extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
@@ -22,6 +22,11 @@ class ContestResult extends Model implements HasMedia
     public function architects()
     {
         return $this->belongsToMany(Architect::class, 'architect_contestresult', 'contestresult_id', 'architect_id')->withPivot('type');
+    }
+
+    public function other_architects()
+    {
+        return $this->morphToMany(Tag::class, 'taggable')->where('type', 'contestresult_author');
     }
 
 }

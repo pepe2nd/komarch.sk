@@ -5,7 +5,7 @@ use App\Http\Controllers\Api\ArchitectFiltersController;
 use App\Http\Controllers\Api\ImportFromUrad;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Resources\MediaResource;
-use App\Models\ContestResult;
+use App\Models\Contestresult;
 use App\Models\Work;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +43,6 @@ Route::get('/works/{work}/images', fn (Work $work) => MediaResource::collection(
 
 Route::get('/contests', 'App\Http\Controllers\Api\ContestController@index')->name('api.contests.index');
 Route::get('/contests-filters', 'App\Http\Controllers\Api\ContestController@filters')->name('api.contests-filters.index');
-Route::get('/contest-results/{result}/images', fn (ContestResult $result) => MediaResource::collection($result->media));
+Route::get('/contest-results/{result}/images', fn (Contestresult $result) => MediaResource::collection($result->media));
 
 Route::get('search-sugestions', 'App\Http\Controllers\Api\SearchSuggestionController@index')->name('search-sugestions');

@@ -11,7 +11,7 @@ class Reward extends Model
 
     public function result()
     {
-        return $this->hasOne(ContestResult::class);
+        return $this->hasOne(Contestresult::class);
     }
 
 }
