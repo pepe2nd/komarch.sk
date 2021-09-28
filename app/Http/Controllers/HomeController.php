@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Deadline;
 use App\Models\Post;
 use App\Models\Publication;
-use App\Models\Video;
 use App\Models\Tile;
+use App\Models\Video;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,6 +25,8 @@ class HomeController extends Controller
             ['key' => trans('contests.finished'), 'title' => trans('contests.finished')],
         ];
 
-        return view('home', compact('posts', 'featured_post', 'publications', 'videos', 'tiles', 'contestFilterOptions'));
+        $deadline = Deadline::published()->due()->orderBy('published_at', 'desc')->first();
+
+        return view('home', compact('posts', 'featured_post', 'publications', 'videos', 'deadline', 'tiles', 'contestFilterOptions'));
     }
 }

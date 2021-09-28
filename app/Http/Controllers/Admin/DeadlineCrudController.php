@@ -53,6 +53,7 @@ class DeadlineCrudController extends CrudController
             [
                 'name' => 'title',
                 'type' => 'text',
+                'hint' => 'Keep lowercased ("in on week {title}")',
             ],
             [
                 'name' => 'url',

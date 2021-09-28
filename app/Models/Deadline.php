@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Illuminate\Database\Eloquent\Model;
-use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
 use App\Traits\Publishable;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 
 class Deadline extends Model
 {
@@ -24,31 +25,13 @@ class Deadline extends Model
 
     /*
     |--------------------------------------------------------------------------
-    | FUNCTIONS
-    |--------------------------------------------------------------------------
-    */
-
-    /*
-    |--------------------------------------------------------------------------
-    | RELATIONS
-    |--------------------------------------------------------------------------
-    */
-
-    /*
-    |--------------------------------------------------------------------------
     | SCOPES
     |--------------------------------------------------------------------------
     */
 
-    /*
-    |--------------------------------------------------------------------------
-    | ACCESSORS
-    |--------------------------------------------------------------------------
-    */
+    public function scopeDue($query)
+    {
+        return $query->where('deadline_at', '>=', Carbon::now());
+    }
 
-    /*
-    |--------------------------------------------------------------------------
-    | MUTATORS
-    |--------------------------------------------------------------------------
-    */
 }
