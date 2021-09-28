@@ -122,6 +122,20 @@
                     –
                     {{ $reward->result->subject_name }}
                 </h4>
+
+                {{-- architects --}}
+                @if (($reward->result->architects->count() > 0) || ($reward->result->other_architects->count() > 0))
+                    <div class="mb-3">{{ __('works.authors') }}:</div>
+
+                    <div class="mb-9">
+                        @foreach ($reward->result->architects as $architect)
+                            <x-link-architect url="{{ $architect->url }}" external>{{ $architect->full_name }}</x-link-architect>{{ ($loop->last && !($reward->result->other_architects->count() > 0)) ? '' : ', ' }}
+                        @endforeach
+                        {{ $reward->result->other_architects->implode('name', ', ') }}
+                    </div>
+                @endif
+                {{-- /architects --}}
+
                 <div class="mb-3">{{ __('contests.jury_comment') }}:</div>
                 <div class="mb-3">
                     {!! $reward->result->jury_comment !!}

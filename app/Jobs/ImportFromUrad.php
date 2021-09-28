@@ -4,7 +4,7 @@ namespace App\Jobs;
 
 use App\Jobs\AddMediaFromUrad;
 use App\Models\Contest;
-use App\Models\ContestResult;
+use App\Models\Contestresult;
 use App\Models\Work;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -96,8 +96,9 @@ class ImportFromUrad implements ShouldQueue
             $this->importModelTags('App\Models\Contest', $contest);
         }
 
-        foreach (ContestResult::cursor() as $contestResult) {
+        foreach (Contestresult::cursor() as $contestResult) {
             $this->importModelMedia('App\Models\Contestresult', $contestResult, ['contestresult_pictures']);
+            $this->importModelTags('App\Models\Contestresult', $contestResult);
         }
     }
 
