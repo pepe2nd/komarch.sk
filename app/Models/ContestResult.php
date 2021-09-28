@@ -18,4 +18,10 @@ class ContestResult extends Model implements HasMedia
             ->addMediaCollection('contestresult_pictures')
             ->withResponsiveImages();
     }
+
+    public function architects()
+    {
+        return $this->belongsToMany(Architect::class, 'architect_contestresult', 'contestresult_id', 'architect_id')->withPivot('type');
+    }
+
 }
