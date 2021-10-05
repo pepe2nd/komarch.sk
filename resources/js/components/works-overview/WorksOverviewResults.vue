@@ -15,9 +15,9 @@
         {{ __('generic.name') }}
       </ButtonSortable>
       <ButtonSortable
-        :value="getSortDirectionFor('created_at')"
+        :value="getSortDirectionFor('date_design_start')"
         class="sm:ml-16 text-sm"
-        @input="setSort('created_at', $event)"
+        @input="setSort('date_design_start', $event)"
       >
         {{ __('generic.year') }}
       </ButtonSortable>
