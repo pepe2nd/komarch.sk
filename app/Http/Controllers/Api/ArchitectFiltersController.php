@@ -56,6 +56,8 @@ class ArchitectFiltersController extends Controller
                 'HA' => 0,
                 'HKA' => 0,
                 'DC' => 0,
+                'C' => 0,
+                'Z' => 0,
             ],
             $counts,
         );

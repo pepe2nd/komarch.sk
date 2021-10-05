@@ -106,11 +106,13 @@ class Architect extends Model
         if ($request->filled('authorizationsIn')) {
             $query->whereHas('numbers', function (Builder $query) use ($request) {
                 // Search by a regexp like: (AA|BB)$
-                $regexp = '(' . join('|', $request->query('authorizationsIn')) . ')$';
+                $regexp = collect($request->get('authorizationsIn'))->map(function ($name) {
+                    return '(^| )' . $name;
+                })->join('|');
+                $regexp = '(' . $regexp . ')$';
                 $query->where('architect_number', 'REGEXP', $regexp);
             });
         }
-
         return $query;
     }
 
