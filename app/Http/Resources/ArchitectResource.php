@@ -21,7 +21,7 @@ class ArchitectResource extends JsonResource
                 ['id', 'first_name', 'last_name', 'works_count', 'awards_count', 'contests_count']
             ),
             [
-                'number' => $this->whenLoaded('number', fn () => $this->number->architect_number),
+                'number' => $this->architect_number,
                 'location_city' => $this->whenLoaded('address', fn () => $this->address->location_city),
                 'full_name' => $this->full_name,
                 'url' => $this->url,

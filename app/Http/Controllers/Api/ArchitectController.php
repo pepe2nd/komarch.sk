@@ -12,7 +12,7 @@ class ArchitectController extends Controller
     public function index(Request $request)
     {
         $architects = Architect::query()
-            ->with('address', 'number')
+            ->with('address')
             ->withCount(['works', 'awards', 'contests'])
             ->has('number')
             ->leftJoin('addresses', 'addresses.architect_id', '=', 'architects.id')
@@ -23,7 +23,7 @@ class ArchitectController extends Controller
             ->orderBy(
                 $this->getOrderBy($request),
                 $request->query('direction', 'asc')
-            );
+            )->addSelect('numbers.architect_number as architect_number');
 
         $perPage = min($request->get('perPage', 10), 15);
         return ArchitectResource::collection($architects->paginate($perPage));

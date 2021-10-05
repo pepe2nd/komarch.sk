@@ -1,8 +1,8 @@
 <div class="grid md:grid-cols-2 mx-auto post-content my-8 lg:my-16">
     <div>
-        @if ($architect->number)
+        @if ($architect->numbers->count() > 0)
             <x-attribute-with-label :label="__('architects.registration_number')">
-                {{ $architect->number->architect_number }}
+                {!! $architect->numbers->pluck('architect_number')->join('<br>') !!}
             </x-attribute-with-label>
         @endif
 
