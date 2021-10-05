@@ -16,12 +16,20 @@ class WorkController extends Controller
     {
         $works = Work::query()
             ->filtered($request)
-            ->with(['media', 'architects', 'awards']);
+            ->with(['media', 'architects', 'awards'])
+            ->withCount('awards', 'citationPublications');
 
-        $works->orderBy(
-            $request->input('sortby', 'created_at'),
-            $request->input('direction', 'desc')
-        );
+        if ($request->has('sortby')) {
+            $works->orderBy(
+                $request->input('sortby', 'created_at'),
+                $request->input('direction', 'desc')
+            );
+        }
+
+        $works->orderBy('awards_count', 'desc');
+        $works->orderBy('citation_publications_count', 'desc');
+        $works->orderBy('has_public_investor', 'desc');
+        $works->orderBy('has_valuable_social_function', 'desc');
 
         $per_page = (int) $request->get('per_page', 8);
         return WorkResource::collection($works->paginate($per_page));
