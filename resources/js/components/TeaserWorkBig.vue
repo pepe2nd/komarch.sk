@@ -23,17 +23,19 @@
       </h3>
     </div>
     <div class="flex flex-wrap mt-4">
-      <TagHashLink
+      <TagHash
         v-for="award in item.awards"
         :key="award.id"
-        :to="{ query: { awards: [award.name] }}"
-      >{{ award.name }}</TagHashLink>
-      <TagHashLink
-        :to="{ query: { location_districts: [item.location_district] }}"
-      >{{ item.location_district }}</TagHashLink>
-      <TagHashLink
-        :to="{ query: { year_from: item.year, year_to: item.year }}"
-      >{{ item.year }}</TagHashLink>
+        :url="'/diela?awards[]=' + award.name"
+      >{{ award.name }}</TagHash>
+      <TagHash
+        :v-if="item.location_district"
+        :url="'/diela?location_districts[]=' + item.location_district"
+      >{{ item.location_district }}</TagHash>
+      <TagHash
+        :v-if="item.year"
+        :url="'/diela?year_from=' + item.year + '&year_to=' + item.year"
+      >{{ item.year }}</TagHash>
     </div>
     <div class="flex flex-wrap mt-4">
       <a
@@ -58,12 +60,12 @@
 
 <script>
 
-import TagHashLink from './atoms/tags/TagHashLink'
+import TagHash from './atoms/tags/TagHash'
 import NoImage from './atoms/NoImage'
 
 export default {
   components: {
-    TagHashLink,
+    TagHash,
     NoImage
   },
   props: {
