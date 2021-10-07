@@ -9,19 +9,19 @@ use Illuminate\Support\Str;
 class Number extends Model
 {
     use HasFactory;
-    protected $removed = ['C', 'Z'];
+    protected static $removed = ['C', 'Z'];
 
     public function getArchitectNumberAttribute()
     {
-        if ($this->isRemoved()) {
+        if (self::isRemoved($this->attributes['architect_number'])) {
             return trans('architects.removed');
         }
         return $this->attributes['architect_number'];
     }
 
-    public function isRemoved()
+    public static function isRemoved($number)
     {
-        return in_array($this->attributes['architect_number'], $this->removed);
+        return in_array($number, self::$removed);
     }
 
     public function architect()
