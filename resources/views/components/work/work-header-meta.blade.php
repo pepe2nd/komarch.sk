@@ -4,11 +4,15 @@
             {{ $award->name }}
         </x-tag-hash>
     @endforeach
-    <x-tag-hash :url="route('works', ['location_districts[]' => $work->location_district])">
-        {{ $work->location_district }}
-    </x-tag-hash>
+    @if ($work->location_district)
+        <x-tag-hash :url="route('works', ['location_districts[]' => $work->location_district])">
+            {{ $work->location_district }}
+        </x-tag-hash>
+    @endif
 
-    <x-tag-hash :url="route('works', ['year_from[]' => $work->date_design_start])">
-        {{ $work->date_design_start }}
-    </x-tag-hash>
+    @if ($work->date_design_start)
+        <x-tag-hash :url="route('works', ['year_from[]' => $work->date_design_start])">
+            {{ $work->date_design_start }}
+        </x-tag-hash>
+    @endif
 </div>

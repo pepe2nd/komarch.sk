@@ -4,7 +4,7 @@
     :href="url"
     v-on="$listeners"
   >
-    ❪#<slot />❫
+    ❪<span class="px-1">#<slot /></span>❫
   </a>
 </template>
 

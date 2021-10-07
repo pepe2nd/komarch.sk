@@ -29,11 +29,11 @@
         :url="'/diela?awards[]=' + award.name"
       >{{ award.name }}</TagHash>
       <TagHash
-        :v-if="item.location_district"
+        v-if="item.location_district"
         :url="'/diela?location_districts[]=' + item.location_district"
       >{{ item.location_district }}</TagHash>
       <TagHash
-        :v-if="item.year"
+        v-if="item.year"
         :url="'/diela?year_from=' + item.year + '&year_to=' + item.year"
       >{{ item.year }}</TagHash>
     </div>
