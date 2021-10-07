@@ -22,7 +22,7 @@ class ArchitectResource extends JsonResource
                 ['id', 'first_name', 'last_name', 'works_count', 'awards_count', 'contests_count']
             ),
             [
-                'number' => (Number::isRemoved($this->architect_number)) ? trans('architects.removed') : $this->architect_number,
+                'number' => (Number::isRemoved($this->architect_number)) ? trans_choice('architects.removed', $this->gender) : $this->architect_number,
                 'location_city' => $this->whenLoaded('address', fn () => $this->address->location_city),
                 'full_name' => $this->full_name,
                 'url' => $this->url,

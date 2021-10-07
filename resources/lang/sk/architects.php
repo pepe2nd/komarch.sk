@@ -29,5 +29,5 @@ return [
     'awards' => 'Ocenenia',
     'contests' => 'Účasti v porote',
     'number' => 'Registračné číslo',
-    'removed' => 'vyčiarknutý',
+    'removed' => '{M}vyčiarknutý|{F}vyčiarknutá',
 ];

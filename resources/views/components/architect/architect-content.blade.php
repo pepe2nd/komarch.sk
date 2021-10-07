@@ -2,7 +2,10 @@
     <div>
         @if ($architect->numbers->count() > 0)
             <x-attribute-with-label :label="__('architects.registration_number')">
-                {!! $architect->numbers->pluck('architect_number')->join('<br>') !!}
+                @foreach ($architect->numbers as $number)
+                    {{ ($number::isRemoved($number->architect_number)) ? trans_choice('architects.removed', $architect->gender) : $number->architect_number }}
+                    {!! (!$loop->last) ? '<br>' : '' !!}
+                @endforeach
             </x-attribute-with-label>
         @endif
 
