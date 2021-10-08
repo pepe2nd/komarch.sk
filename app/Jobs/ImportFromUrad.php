@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Jobs\AddMediaFromUrad;
+use App\Models\Architect;
 use App\Models\Contest;
 use App\Models\Contestresult;
 use App\Models\Work;
@@ -100,6 +101,10 @@ class ImportFromUrad implements ShouldQueue
             $this->importModelMedia('App\Models\Contestresult', $contestResult, ['contestresult_pictures']);
             $this->importModelTags('App\Models\Contestresult', $contestResult);
         }
+
+        Architect::query()->searchable();
+        Work::query()->searchable();
+        Contest::query()->searchable();
     }
 
     private function getSourceDb(): ConnectionInterface
