@@ -29,4 +29,5 @@ return [
     'jury_comment' => 'Jury comment',
     'in_verification' => 'in verification',
     'depended' => 'dependent on the announcer',
+    'approved_info' => 'The competition conditions were verified by the Slovak Chamber of Architects at :approved_at with the number :number.',
 ];

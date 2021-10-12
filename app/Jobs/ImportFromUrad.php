@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Jobs\AddMediaFromUrad;
+use App\Models\Architect;
 use App\Models\Contest;
 use App\Models\Contestresult;
 use App\Models\Work;
@@ -70,10 +71,14 @@ class ImportFromUrad implements ShouldQueue
         DB::table('numbers')->whereNotIn('id', $sourceDb->table('lab_numbers')->pluck('id'))->delete();
         DB::table('business_numbers')->whereNotIn('id', $sourceDb->table('lab_business_numbers')->pluck('id'))->delete();
         DB::table('addresses')->whereNotIn('id', $sourceDb->table('lab_addresses')->pluck('id'))->delete();
-        DB::table('architects')->whereNotIn('id', $sourceDb->table('lab_architects')->pluck('id'))->delete();
+
+        $this->deleteAndForget('lab_architects', Architect::class);
+
         DB::table('proposals')->whereNotIn('id', $sourceDb->table('lab_proposals')->pluck('id'))->delete();
         DB::table('jurors')->whereNotIn('id', $sourceDb->table('lab_jurors')->pluck('id'))->delete();
-        DB::table('contests')->whereNotIn('id', $sourceDb->table('lab_contests')->pluck('id'))->delete();
+
+        $this->deleteAndForget('lab_contests', Contest::class);
+
         DB::table('citation_publication_work')->whereNotIn('id', $sourceDb->table('lab_publication_work')->pluck('id'))->delete();
         DB::table('citation_publications')->whereNotIn('id', $sourceDb->table('lab_publications')->pluck('id'))->delete();
         DB::table('award_work')->whereNotIn('id', $sourceDb->table('lab_award_work')->pluck('id'))->delete();
@@ -81,7 +86,8 @@ class ImportFromUrad implements ShouldQueue
 
         Media::whereNotNull('custom_properties->urad_id')
             ->whereNotIn('custom_properties->urad_id', $sourceDb->table('lab_media')->pluck('id'))->delete();
-        DB::table('works')->whereNotIn('id', $sourceDb->table('lab_works')->pluck('id'))->delete();
+
+        $this->deleteAndForget('lab_works', Work::class);
 
         if ($this->dangerouslyDisableConstraints) DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
@@ -100,6 +106,10 @@ class ImportFromUrad implements ShouldQueue
             $this->importModelMedia('App\Models\Contestresult', $contestResult, ['contestresult_pictures']);
             $this->importModelTags('App\Models\Contestresult', $contestResult);
         }
+
+        Architect::query()->searchable();
+        Work::query()->searchable();
+        Contest::query()->searchable();
     }
 
     private function getSourceDb(): ConnectionInterface
@@ -169,5 +179,12 @@ class ImportFromUrad implements ShouldQueue
                 $type = $tags[0]->type;
                 $entity->syncTagsWithType($tags->pluck('name'), $type);
             });
+    }
+
+    private function deleteAndForget(string $sourceTableName, $model)
+    {
+        $existing_records = $this->getSourceDb()->table($sourceTableName)->pluck('id');
+        $model::whereNotIn('id', $existing_records)->unsearchable();
+        $model::whereNotIn('id', $existing_records)->delete();
     }
 }

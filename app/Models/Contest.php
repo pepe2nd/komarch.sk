@@ -29,6 +29,7 @@ class Contest extends Model implements HasMedia
 
     protected $dates = [
         'announced_at',
+        'approved_at',
         'finished_at',
         'results_published_at',
         'created_at',
@@ -69,6 +70,11 @@ class Contest extends Model implements HasMedia
         }
 
         return 'finished';
+    }
+
+    public function getFullNumberAttribute()
+    {
+        return "KA-" . $this->file_number_serial . "/" . $this->file_number_year;
     }
 
     public function typologies()

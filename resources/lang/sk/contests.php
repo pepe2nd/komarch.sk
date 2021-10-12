@@ -29,4 +29,5 @@ return [
     'jury_comment' => 'Komentár poroty',
     'in_verification' => 'v overovaní',
     'depended' => 'závislý od vyhlasovateľa',
+    'approved_info' => 'Súťažné podmienky boli overené Slovenskou komorou architektov dňa :approved_at pod číslom :number.',
 ];
