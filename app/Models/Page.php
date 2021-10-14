@@ -105,8 +105,11 @@ class Page extends Model implements HasMedia
         $id = $this->parent_id;
         while ($id!=0) {
             $model = self::find($id);
-            $breadcrumbs[] = self::find($id);
-            $id = $model->parent_id;
+            $id = 0;
+            if ($model) {
+                $breadcrumbs[] = $model;
+                $id = $model->parent_id;
+            }
         }
         $breadcrumbs = array_reverse($breadcrumbs);
 
