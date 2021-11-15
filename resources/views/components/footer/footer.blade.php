@@ -4,11 +4,9 @@
         :navigation="[
             'title' => 'Rýchle odkazy',
             'navItems' => [
-                ['title' => 'Kontakty na úrady', 'url' => '/urad'],
-                ['title' => 'Časté otázky', 'url' => '/najcastejsie-otazky'],
-                ['title' => 'Ako podať disciplinárny podnet', 'url' => '/ako-podat-disciplinarny-podnet'],
-                ['title' => 'Právne poradenstvo', 'url' => '/ako-podat-disciplinarny-podnet'],
-                ['title' => 'Činnosť SKA', 'url' => '/vykon-povolania'],
+                ['title' => 'Kontakty na úrad', 'url' => '/urad'],
+                ['title' => 'FAQ / Časté otázky', 'url' => '/frekventovane-otazky'],
+                ['title' => 'Impressum', 'url' => '/tiraz'],
             ]
         ]"
         :openingTimes="[
