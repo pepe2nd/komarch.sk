@@ -15,7 +15,7 @@
     </x-footer.footer-navigation-column>
     <x-footer.footer-navigation-column title="Kontakt">
         Námeste SNP 18, 811 06 Bratislava
-        <x-link-arrow url="mailto:komarch@komarch.sk" class="mt-6 md:mt-4" external>
+        <x-link-arrow url="mailto:komarch@komarch.sk" external>
             komarch@komarch.sk
         </x-link-arrow>
         <x-link-arrow-hover url="tel:+421254431254" class="mt-6 md:mt-4" external>
