@@ -19,7 +19,7 @@ return [
         'HKA' => 'Hosťujúci krajinný architekt',
         'DC' => 'Dobrovoľný člen',
         'C' => 'Vyčiarknutý',
-        'Z' => 'Vyčiarknutý (zosnulý)',
+        'Z' => 'Zosnulý',
     ],
     'registration_number' => 'Registračné číslo',
     'location' => 'Miesto pôsobenia',
@@ -29,5 +29,5 @@ return [
     'awards' => 'Ocenenia',
     'contests' => 'Účasti v porote',
     'number' => 'Registračné číslo',
-    'removed' => '{M}vyčiarknutý|{F}vyčiarknutá',
+    'removed' => '{CM}Vyčiarknutý|{CF}Vyčiarknutá|{ZM}Zosnulý|{ZF}Zosnulá',
 ];
