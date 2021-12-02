@@ -19,7 +19,7 @@ return [
         'HKA' => 'Visiting landscape architect',
         'DC' => 'Voluntary member',
         'C' => 'Removed',
-        'Z' => 'Removed (deceased)',
+        'Z' => 'Deceased',
     ],
     'registration_number' => 'Registration number',
     'location' => 'Place of operation',
@@ -29,5 +29,5 @@ return [
     'awards' => 'Awards',
     'contests' => 'Jury participation ',
     'number' => 'Registration number',
-    'removed' => 'removed',
+    'removed' => '{CM}Removed|{CF}Removed|{ZM}Deceased|{ZF}Deceased',
 ];
