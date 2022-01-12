@@ -76,6 +76,8 @@ class ImportFromUrad implements ShouldQueue
 
         DB::table('proposals')->whereNotIn('id', $sourceDb->table('lab_proposals')->pluck('id'))->delete();
         DB::table('jurors')->whereNotIn('id', $sourceDb->table('lab_jurors')->pluck('id'))->delete();
+        DB::table('contestresults')->whereNotIn('id', $sourceDb->table('lab_contestresults')->pluck('id'))->delete();
+        DB::table('rewards')->whereNotIn('id', $sourceDb->table('lab_rewards')->pluck('id'))->delete();
 
         $this->deleteAndForget('lab_contests', Contest::class);
 
