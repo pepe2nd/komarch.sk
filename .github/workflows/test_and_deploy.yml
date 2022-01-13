@@ -46,6 +46,9 @@ jobs:
           php-version: 7.4
           extensions: mbstring, bcmath, fileinfo, pdo_mysql
       - run: composer install --no-progress --no-interaction
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
       - run: npm install && npm run production
       - run: ./vendor/bin/phpunit
         env:
