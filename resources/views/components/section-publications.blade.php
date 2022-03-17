@@ -7,15 +7,14 @@
 
     @foreach ($publications as $publication)
         <div class="px-5 sm:px-10">
-            <img
-                src="{{ Storage::url($publication->cover_image) }}"
-                alt="{{ $publication->name }}"
-                class="object-cover mt-10 mb-7 mx-auto shadow-2xl sm:max-w-xs"
-            />
+            <a href="{{ $publication->issuu_url }}" target="_blank">
+                <img
+                    src="{{ Storage::url($publication->cover_image) }}"
+                    alt="{{ $publication->name }}"
+                    class="object-cover mt-10 mb-10 mx-auto shadow-2xl sm:max-w-xs"
+                />
+            </a>
         </div>
-        <x-link-arrow :url="$publication->issuu_url" class="mb-5">
-            {{ trans('home.read_on_issuu') }}
-        </x-link-arrow>
     @endforeach
 
 </section>
