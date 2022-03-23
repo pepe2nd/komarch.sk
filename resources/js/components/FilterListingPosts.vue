@@ -60,7 +60,7 @@ export default {
       type: Array,
       default: () => [
         { key: 'newest', title: 'Najnovšie', params: '' },
-        { key: 'important', title: 'Dôležité', params: '?featured' },
+        { key: 'important', title: 'Dôležité', params: '?categories=Dôležité' },
         { key: 'Vzdelávanie', title: 'Vzdelávanie', params: '?categories=Vzdelávanie' }
       ]
     }
