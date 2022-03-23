@@ -26,7 +26,7 @@ class PostController extends Controller
         }
 
         // sort
-        $posts->orderBy(
+        $posts->orderBy('is_featured', 'desc')->orderBy(
             $request->input('sortby', 'published_at'),
             $request->input('direction', 'desc')
         );
@@ -77,9 +77,6 @@ class PostController extends Controller
         // apply filters
         if ($request->has('categories')) {
             $posts->withAnyTags($request->input('categories', []));
-        }
-        if ($request->has('featured')) {
-            $posts->featured();
         }
 
         return $posts;
