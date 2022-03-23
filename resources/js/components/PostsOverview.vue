@@ -48,14 +48,7 @@ import ButtonClearFilters from './atoms/buttons/ButtonClearFilters'
 import axiosGet from './axiosGetMixin'
 import isotope from 'vueisotope'
 
-const staticFilters = [
-  {
-    key: 'featured',
-    title: 'Dôležité',
-    queryName: 'featured',
-    queryValue: 1
-  }
-]
+const staticFilters = []
 
 export default {
   components: {
@@ -77,10 +70,6 @@ export default {
   },
   computed: {
     activeFilter () {
-      if (this.$route.query.featured !== undefined) {
-        return this.filters[0]
-      }
-
       if (this.$route.query.categories) {
         return this.filters.find(({ queryValue }) => queryValue === this.$route.query.categories) || {}
       }
