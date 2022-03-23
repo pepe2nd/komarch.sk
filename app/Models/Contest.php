@@ -77,6 +77,11 @@ class Contest extends Model implements HasMedia
         return "KA-" . $this->file_number_serial . "/" . $this->file_number_year;
     }
 
+    public function getInVerificationAttribute()
+    {
+        return empty($this->announced_at);
+    }
+
     public function typologies()
     {
         return $this->morphToMany(Tag::class, 'taggable')->whereNull('type');

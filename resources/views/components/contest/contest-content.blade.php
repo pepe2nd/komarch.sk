@@ -1,9 +1,11 @@
-<div class="post-content mx-auto mt-10 mb-10">
-    {{ __('contests.approved_info', [
-        'approved_at' => optional($contest->approved_at)->format(config('settings.date_short_format')),
-        'number' => $contest->full_number,
-    ]) }}
-</div>
+@if (!$contest->in_verification)
+    <div class="post-content mx-auto mt-10 mb-10">
+        {{ __('contests.approved_info', [
+            'approved_at' => optional($contest->approved_at)->format(config('settings.date_short_format')),
+            'number' => $contest->full_number,
+        ]) }}
+    </div>
+@endif
 
 <div class="post-content mx-auto mt-10 mb-10">
     {!! $contest->perex !!}

@@ -1,7 +1,7 @@
 <div class="flex flex-wrap items-center">
 
     <span class="whitespace-nowrap">
-        @if (empty($contest->announced_at))
+        @if ($contest->in_verification)
             <span class="text-gray-500">{{ __('contests.in_verification') }}</span>
         @elseif ($contest->nextProposal && $contest->nextProposal->date)
             {{ $contest->announced_at->format(config('settings.date_short_without_year_format')) }} – {{ $contest->nextProposal->date->format(config('settings.date_short_format')) }}
