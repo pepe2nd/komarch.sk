@@ -8,6 +8,6 @@ return [
     'no_documents' => 'No documents found',
     'document_type' => 'Document type',
     'topic' => 'Topic',
-    'role' => 'Role',
+    'role' => 'Search as',
     'search_placeholder' => 'Keyword, document...'
 ];

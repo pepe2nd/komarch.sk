@@ -1,6 +1,13 @@
 <template>
   <div class="md:flex items-start">
     <InputCheckboxGroup
+      v-if="filters.roles && filters.roles.length > 0"
+      :filters="filters.roles"
+      :value="value"
+      :title="`${__('documents.role')}:`"
+      @input="onInput"
+    />
+    <InputCheckboxGroup
       v-if="filters.types && filters.types.length > 0"
       :filters="filters.types"
       :value="value"
@@ -12,13 +19,6 @@
       :filters="filters.topics"
       :value="value"
       :title="`${__('documents.topic')}:`"
-      @input="onInput"
-    />
-    <InputCheckboxGroup
-      v-if="filters.roles && filters.roles.length > 0"
-      :filters="filters.roles"
-      :value="value"
-      :title="`${__('documents.role')}:`"
       @input="onInput"
     />
     <ButtonClearFilters

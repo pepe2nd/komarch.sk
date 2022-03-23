@@ -8,6 +8,6 @@ return [
     'no_documents' => 'Nenašli sa žiadne dokumenty',
     'document_type' => 'Typ dokumentu',
     'topic' => 'Téma',
-    'role' => 'Rola',
+    'role' => 'Hladať ako',
     'search_placeholder' => 'Kľúčové slovo, dokument...'
 ];
