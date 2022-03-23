@@ -9,7 +9,6 @@
     <InputCheckboxGroup
       :filters="filters.location_districts || []"
       :value="value"
-      :cols="2"
       :title="`${__('works.location_districts')}:`"
       class="flex-grow w-72"
       @input="onInput"
