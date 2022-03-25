@@ -22,12 +22,22 @@ class Contestresult extends Model implements HasMedia
 
     public function architects()
     {
-        return $this->belongsToMany(Architect::class)->withPivot('type');
+        return $this->belongsToMany(Architect::class)->wherePivot('type','a');
+    }
+
+    public function collaborators()
+    {
+        return $this->belongsToMany(Architect::class)->wherePivot('type','c');
     }
 
     public function other_architects()
     {
         return $this->morphToMany(Tag::class, 'taggable')->where('type', 'contestresult_author');
+    }
+
+    public function other_collaborators()
+    {
+        return $this->morphToMany(Tag::class, 'taggable')->where('type', 'contestresult_collaborator');
     }
 
 }

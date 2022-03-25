@@ -145,6 +145,19 @@
                 @endif
                 {{-- /architects --}}
 
+                {{-- collaborators --}}
+                @if (($reward->result->collaborators->count() > 0) || ($reward->result->other_collaborators->count() > 0))
+                    <div class="mb-3">{{ __('works.collaborators') }}:</div>
+
+                    <div class="mb-9">
+                        @foreach ($reward->result->collaborators as $collaborator)
+                            <x-link-architect url="{{ $collaborator->url }}" external>{{ $collaborator->full_name }}</x-link-architect>{{ ($loop->last && !($reward->result->other_collaborators->count() > 0)) ? '' : ', ' }}
+                        @endforeach
+                        {{ $reward->result->other_collaborators->implode('name', ', ') }}
+                    </div>
+                @endif
+                {{-- /collaborators --}}
+
                 <div class="mb-3">{{ __('contests.jury_comment') }}:</div>
                 <div class="mb-3">
                     {!! $reward->result->jury_comment !!}
