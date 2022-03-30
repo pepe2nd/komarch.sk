@@ -203,7 +203,11 @@ class Work extends Model implements HasMedia
 
     public function toSearchableArray()
     {
-        return Arr::only($this->toArray(), ['name', 'annotation']);
+        $array = Arr::only($this->toArray(), ['name', 'annotation']);
+        $array['architects'] = $this->architects->map(function ($data) {
+            return $data['full_name'];
+        })->toArray();
+        return $array;
     }
 
 }
