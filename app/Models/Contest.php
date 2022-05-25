@@ -79,7 +79,7 @@ class Contest extends Model implements HasMedia
 
     public function getInVerificationAttribute()
     {
-        return empty($this->announced_at);
+        return empty($this->approved_at);
     }
 
     public function typologies()
