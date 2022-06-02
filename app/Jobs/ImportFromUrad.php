@@ -16,6 +16,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Support\Facades\Log;
 
 class ImportFromUrad implements ShouldQueue
 {
@@ -23,6 +24,7 @@ class ImportFromUrad implements ShouldQueue
 
     private bool $dangerouslyDisableConstraints;
     private bool $skipMediaImports;
+    protected $log;
 
     /**
      * Create a new job instance.
@@ -42,6 +44,8 @@ class ImportFromUrad implements ShouldQueue
      */
     public function handle()
     {
+        Log::channel('stdout')->notice('Started ImportFromUrad');
+
         if ($this->dangerouslyDisableConstraints) DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         $this->importTable('lab_works', 'works');
@@ -65,6 +69,8 @@ class ImportFromUrad implements ShouldQueue
         $sourceDb = $this->getSourceDb();
 
         // Remove entities no longer present in source DB
+        Log::channel('stdout')->info('Remove entities no longer present in source DB');
+
         DB::table('architect_work')->whereNotIn('id', $sourceDb->table('lab_architect_work')->pluck('id'))->delete();
         DB::table('architect_contestresult')->whereNotIn('id', $sourceDb->table('lab_architect_contestresult')->pluck('id'))->delete();
         DB::table('architect_contest')->whereNotIn('id', $sourceDb->table('lab_architect_contest')->pluck('id'))->delete();
@@ -94,6 +100,7 @@ class ImportFromUrad implements ShouldQueue
         if ($this->dangerouslyDisableConstraints) DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         // Synchronize tags & media
+        Log::channel('stdout')->info('Synchronize tags & media');
         foreach (Work::cursor() as $work) {
             $this->importModelMedia('App\Models\Work', $work, ['work_pictures']);
             $this->importModelTags('App\Models\Work', $work);
@@ -109,9 +116,12 @@ class ImportFromUrad implements ShouldQueue
             $this->importModelTags('App\Models\Contestresult', $contestResult);
         }
 
+        Log::channel('stdout')->info('Make imported data searchable');
         Architect::query()->searchable();
         Work::query()->searchable();
         Contest::query()->searchable();
+
+        Log::channel('stdout')->notice('Finished ImportFromUrad');
     }
 
     private function getSourceDb(): ConnectionInterface
@@ -121,6 +131,8 @@ class ImportFromUrad implements ShouldQueue
 
     private function importTable(string $sourceTableName, string $targetTableName)
     {
+        Log::channel('stdout')->info('Import table ' . $targetTableName);
+
         $this->getSourceDb()->table($sourceTableName)
             ->orderBy('id')
             ->chunk(100, function ($rows) use ($targetTableName) {
