@@ -24,17 +24,18 @@ class ImportFromUrad implements ShouldQueue
 
     private bool $dangerouslyDisableConstraints;
     private bool $skipMediaImports;
-    protected $log;
+    private string $logChannel;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($dangerouslyDisableConstraints = true, $skipMediaImports = false)
+    public function __construct($dangerouslyDisableConstraints = true, $skipMediaImports = false, $logChannel = 'imports')
     {
         $this->dangerouslyDisableConstraints = $dangerouslyDisableConstraints;
         $this->skipMediaImports = $skipMediaImports;
+        $this->logChannel = $logChannel;
     }
 
     /**
@@ -44,7 +45,7 @@ class ImportFromUrad implements ShouldQueue
      */
     public function handle()
     {
-        Log::channel('stdout')->notice('Started ImportFromUrad');
+        Log::channel($this->logChannel)->notice('Started ImportFromUrad');
 
         if ($this->dangerouslyDisableConstraints) DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
@@ -69,7 +70,7 @@ class ImportFromUrad implements ShouldQueue
         $sourceDb = $this->getSourceDb();
 
         // Remove entities no longer present in source DB
-        Log::channel('stdout')->info('Remove entities no longer present in source DB');
+        Log::channel($this->logChannel)->info('Remove entities no longer present in source DB');
 
         DB::table('architect_work')->whereNotIn('id', $sourceDb->table('lab_architect_work')->pluck('id'))->delete();
         DB::table('architect_contestresult')->whereNotIn('id', $sourceDb->table('lab_architect_contestresult')->pluck('id'))->delete();
@@ -100,7 +101,7 @@ class ImportFromUrad implements ShouldQueue
         if ($this->dangerouslyDisableConstraints) DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         // Synchronize tags & media
-        Log::channel('stdout')->info('Synchronize tags & media');
+        Log::channel($this->logChannel)->info('Synchronize tags & media');
         foreach (Work::cursor() as $work) {
             $this->importModelMedia('App\Models\Work', $work, ['work_pictures']);
             $this->importModelTags('App\Models\Work', $work);
@@ -116,12 +117,12 @@ class ImportFromUrad implements ShouldQueue
             $this->importModelTags('App\Models\Contestresult', $contestResult);
         }
 
-        Log::channel('stdout')->info('Make imported data searchable');
+        Log::channel($this->logChannel)->info('Make imported data searchable');
         Architect::query()->searchable();
         Work::query()->searchable();
         Contest::query()->searchable();
 
-        Log::channel('stdout')->notice('Finished ImportFromUrad');
+        Log::channel($this->logChannel)->notice('Finished ImportFromUrad');
     }
 
     private function getSourceDb(): ConnectionInterface
@@ -131,7 +132,7 @@ class ImportFromUrad implements ShouldQueue
 
     private function importTable(string $sourceTableName, string $targetTableName)
     {
-        Log::channel('stdout')->info('Import table ' . $targetTableName);
+        Log::channel($this->logChannel)->info('Import table ' . $targetTableName);
 
         $this->getSourceDb()->table($sourceTableName)
             ->orderBy('id')

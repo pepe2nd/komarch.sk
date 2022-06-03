@@ -81,6 +81,12 @@ return [
             ],
         ],
 
+        'imports' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/imports.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+        ],
+
         'stdout' => [
             'driver' => 'monolog',
             'handler' => StreamHandler::class,
