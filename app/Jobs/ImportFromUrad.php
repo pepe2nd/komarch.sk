@@ -22,6 +22,7 @@ class ImportFromUrad implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $timeout = 900; // 15 min
     private bool $dangerouslyDisableConstraints;
     private bool $skipMediaImports;
     private string $logChannel;
