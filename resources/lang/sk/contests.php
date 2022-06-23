@@ -23,7 +23,7 @@ return [
     'web_terms' => 'webstránka súťaže',
     'web_results' => 'webstránka s výsledkami',
     'ongoing' => 'Prebiehajúce',
-    'upcoming' => 'Pripavované',
+    'upcoming' => 'Pripravované',
     'finished' => 'Ukončené',
     'results' => 'Výsledky súťaže',
     'jury_comment' => 'Komentár poroty',
