@@ -181,20 +181,23 @@ class ImportFromUrad implements ShouldQueue
 
     private function importModelTags(string $sourceDbModelClassname, Model $entity)
     {
-        $this->getSourceDb()
+
+        $sourceTagsByType = $this->getSourceDb()
             ->table('lab_tags')
             ->select('name->sk as name', 'type')
             ->join('lab_taggables', 'lab_taggables.tag_id', '=', 'lab_tags.id')
             ->where('taggable_type', $sourceDbModelClassname)
             ->where('taggable_id', $entity->id)
             ->get()
+            ->groupBy('type');
 
-            ->groupBy('type')
-            ->each(function ($tags) use ($entity) {
-                // NULL types get grouped as empty strings
-                $type = $tags[0]->type;
-                $entity->syncTagsWithType($tags->pluck('name'), $type);
-            });
+        $entity->tags()->whereNotIn('type', $sourceTagsByType->keys())->delete();
+
+        $sourceTagsByType->each(function ($tags) use ($entity) {
+            // NULL types get grouped as empty strings
+            $type = $tags[0]->type;
+            $entity->syncTagsWithType($tags->pluck('name'), $type);
+        });
     }
 
     private function deleteAndForget(string $sourceTableName, $model)
