@@ -182,28 +182,21 @@ class ImportFromUrad implements ShouldQueue
     private function importModelTags(string $sourceDbModelClassname, Model $entity)
     {
 
-        $source_types = $this->getSourceDb()
-            ->table('lab_tags')
-            ->select('type')->distinct()
-            ->join('lab_taggables', 'lab_taggables.tag_id', '=', 'lab_tags.id')
-            ->where('taggable_type', $sourceDbModelClassname)
-            ->where('taggable_id', $entity->id)
-            ->get()->pluck('type');
-
-        $local_types = $entity->tags()->select('type')->get()->pluck('type')->unique('type');
-
-        $available_types = $source_types->merge($local_types)->unique();
-
-        $source_tags = $this->getSourceDb()
+        $sourceTagsByType = $this->getSourceDb()
             ->table('lab_tags')
             ->select('name->sk as name', 'type')
             ->join('lab_taggables', 'lab_taggables.tag_id', '=', 'lab_tags.id')
             ->where('taggable_type', $sourceDbModelClassname)
             ->where('taggable_id', $entity->id)
-            ->get();
+            ->get()
+            ->groupBy('type');
 
-        $available_types->each(function ($type) use ($source_tags, $entity) {
-            $entity->syncTagsWithType($source_tags->where('type', $type)->pluck('name'), $type);
+        $entity->tags()->whereNotIn('type', $sourceTagsByType->keys())->delete();
+
+        $sourceTagsByType->each(function ($tags) use ($entity) {
+            // NULL types get grouped as empty strings
+            $type = $tags[0]->type;
+            $entity->syncTagsWithType($tags->pluck('name'), $type);
         });
     }
 
