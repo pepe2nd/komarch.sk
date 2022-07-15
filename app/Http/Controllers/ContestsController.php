@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Page;
 use App\Models\Contest;
 use Illuminate\Http\Request;
 
@@ -9,7 +10,8 @@ class ContestsController extends Controller
 {
     public function index(Request $request)
     {
-        return view('contests.index');
+        $page = Page::findOrFail(340); // legacy page "Súťaže"
+        return view('contests.index', compact('page'));
     }
 
     public function show($id, $slug, Request $request)

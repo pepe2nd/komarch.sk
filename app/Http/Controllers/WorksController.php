@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Page;
 use App\Models\Work;
+use Illuminate\Http\Request;
 
 class WorksController extends Controller
 {
     public function index(Request $request)
     {
-        return view('works.index');
+        $page = Page::findOrFail(410); // legacy page "Register diel"
+        return view('works.index', compact('page'));
     }
 
     public function show($id, $slug, Request $request)
