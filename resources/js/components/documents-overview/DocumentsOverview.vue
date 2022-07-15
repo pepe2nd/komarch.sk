@@ -34,7 +34,6 @@ import InputSearch from '../atoms/InputSearch'
 import axiosGet from '../axiosGetMixin'
 import isEqual from 'lodash/isEqual'
 import isEmpty from 'lodash/isEmpty'
-import debounce from 'lodash/debounce'
 import omit from 'lodash/omit'
 
 function getQueryFilterParams (query) {

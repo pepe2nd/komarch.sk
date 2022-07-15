@@ -2,18 +2,21 @@
   <!-- TODO: Implement a nice spinner for loading state -->
   <div>
     <ArchitectsOverviewFilters
-      v-model="selectedFilters"
+      :value="selectedFilters"
       :filters="filters"
+      @input="onSelectedFiltersChange"
     />
     <InputSearch
-      v-model="searchTerm"
+      :value="searchTerm"
       class="mt-16 md:mt-8 md:max-w-sm"
       :placeholder="__('documents.search_placeholder')"
+      @input="onSearchTermChange"
     />
     <ArchitectsOverviewResults
       :sort="sorting"
       :results="results"
-      @sort="sorting = $event"
+      :total="total"
+      @sort="onSortChange"
     />
     <ButtonLoadMore
       v-if="hasNextPage"
@@ -29,8 +32,15 @@ import ArchitectsOverviewFilters from './ArchitectsOverviewFilters'
 import ButtonLoadMore from '../atoms/buttons/ButtonLoadMore'
 import InputSearch from '../atoms/InputSearch'
 import axiosGet from '../axiosGetMixin'
+import isEqual from 'lodash/isEqual'
+import isEmpty from 'lodash/isEmpty'
+import debounce from 'lodash/debounce'
+import omit from 'lodash/omit'
 
-const FILTER_AUTHORIZATIONS = 'authorizationsIn'
+function getQueryFilterParams (query) {
+  const nonFilterParams = ['sortby', 'direction', 'page']
+  return omit(query, nonFilterParams)
+}
 
 export default {
   components: {
@@ -42,87 +52,118 @@ export default {
   mixins: [
     axiosGet
   ],
-  props: {
-    authorizationLabels: {
-      type: Object,
-      required: true
-    }
-  },
   data () {
     return {
       filters: {},
-      selectedFilters: [],
-      searchTerm: null,
-      sorting: {},
       results: [],
-      page: 1,
+      total: 0,
       hasNextPage: true
     }
   },
   computed: {
-    filterParams () {
+    query () {
+      return this.$route.query
+    },
+    searchTerm () {
+      return this.query.q
+    },
+    selectedFilters () {
+      const facetFilterParams = omit(this.query, ['q', 'sortby', 'direction', 'page'])
+
+      return Object.entries(facetFilterParams)
+        .flatMap(([type, keys]) => keys.flatMap(key => [{ key, type }])) || []
+    },
+    sorting () {
       return {
-        authorizationsIn: this.selectedFilters.filter(filter => filter.type === FILTER_AUTHORIZATIONS).map(filter => filter.key),
-        sortby: this.sorting.name,
-        direction: this.sorting.direction,
-        q: this.searchTerm
+        name: this.query.sortby,
+        direction: this.query.direction
       }
+    },
+    page () {
+      return this.query.page || 1
+    },
+    areFiltersApplied () {
+      return !isEmpty(getQueryFilterParams(this.query))
     }
   },
   watch: {
-    searchTerm () {
-      const debounceTime = 300
-      clearTimeout(this.searchTermDebounceTimeout)
+    $route: function (route, oldRoute) {
+      this.fetchResults()
 
-      this.searchTermDebounceTimeout = setTimeout(() => {
-        this.fetchData()
-      }, debounceTime)
-    },
-    sorting () {
-      this.fetchData()
-    },
-    selectedFilters () {
-      this.fetchData()
+      // Re-fetch filters only if new route differs by filter parameters
+      if (!isEqual(getQueryFilterParams(route.query), getQueryFilterParams(oldRoute.query))) {
+        this.fetchFilters()
+      }
     }
   },
   created () {
-    this.fetchData()
+    this.fetchResults()
+    this.fetchFilters()
   },
   methods: {
-    async fetchData () {
-      const [architectsResponse, filtersResponse] = await Promise.all([
-        this.axiosGet('architects', this.filterParams),
-        this.axiosGet('architects-filters', this.filterParams)
-      ])
+    onSearchTermChange (searchTerm) {
+      this.updateQuery({
+        q: isEmpty(searchTerm) ? undefined : searchTerm
+      })
+    },
+    onSelectedFiltersChange (selectedFilters) {
+      const filters = {}
 
-      const authorizationsIn = []
-
-      for (const key in filtersResponse.authorizationsIn) {
-        authorizationsIn.push({
-          key: key,
-          title: this.authorizationLabels[key] || key,
-          items: filtersResponse.authorizationsIn[key],
-          type: FILTER_AUTHORIZATIONS
-        })
-      }
-      this.filters = {
-        authorizationsIn
+      for (const filterType in this.filters) {
+        filters[filterType] = selectedFilters
+          .filter(({ type }) => type === filterType)
+          .map(({ key }) => key)
       }
 
-      this.results = architectsResponse.data
-      this.hasNextPage = architectsResponse.meta.current_page < architectsResponse.meta.last_page
+      this.updateQuery(filters)
+    },
+    onSortChange (sort) {
+      if (!sort.name || !sort.direction) {
+        this.updateQuery({ sortby: undefined, direction: undefined })
+        return
+      }
+
+      this.updateQuery({
+        sortby: sort.name,
+        direction: sort.direction
+      })
+    },
+    updateQuery (newQuery) {
+      this.$router.push({
+        query: {
+          ...this.$route.query,
+          page: undefined,
+          ...newQuery
+        }
+      })
+    },
+    async fetchFilters () {
+      const response = await this.axiosGet('architects-filters', this.query)
+
+      const filters = {}
+      for (const filterType in response) {
+        filters[filterType] = []
+
+        for (const [key, items] of Object.entries(response[filterType])) {
+          filters[filterType].push({ key, title: key, items, type: filterType })
+        }
+      }
+
+      this.filters = filters
+    },
+    async fetchResults () {
+      const response = await this.axiosGet('architects', this.query)
+      if (response.meta.current_page === 1) this.results = []
+
+      this.results.push(...response.data)
+      this.total = response.meta.total
+      this.hasNextPage = response.meta.current_page < response.meta.last_page
     },
     async onLoadMore () {
-      const params = {
-        ...this.filterParams,
-        page: this.page + 1
-      }
-
-      const architectsResponse = await this.axiosGet('architects', params)
-
-      this.page = architectsResponse.meta.current_page
-      this.hasNextPage = architectsResponse.meta.current_page < architectsResponse.meta.last_page
-      this.results.push(...architectsResponse.data)
+      this.updateQuery({ page: parseInt(this.page) + 1 })
+    },
+    onClearFilters () {
+      this.$router.push({ query: {} })
     }
   }
 }
