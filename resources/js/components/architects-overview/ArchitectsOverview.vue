@@ -52,6 +52,12 @@ export default {
   mixins: [
     axiosGet
   ],
+  props: {
+    authorizationLabels: {
+      type: Object,
+      required: true
+    }
+  },
   data () {
     return {
       filters: {},
@@ -145,7 +151,7 @@ export default {
         filters[filterType] = []
 
         for (const [key, items] of Object.entries(response[filterType])) {
-          filters[filterType].push({ key, title: key, items, type: filterType })
+          filters[filterType].push({ key, title: this.authorizationLabels[key] || key, items, type: filterType })
         }
       }
 
