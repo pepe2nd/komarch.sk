@@ -11,6 +11,7 @@
 @include('components.header.header')
 
 <div class="container mx-auto px-6">
+    <x-nav-submenu :page="$page"></x-nav-submenu>
     <x-intro
         :title="trans('works.works_register')"
         :text="trans('works.perex')"
