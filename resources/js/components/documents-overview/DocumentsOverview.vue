@@ -11,8 +11,9 @@
       :placeholder="__('documents.search_placeholder')"
     />
     <DocumentsOverviewResults
-      v-model="sorting"
+      :sort="sorting"
       :results="results"
+      @sort="sorting = $event"
     />
     <ButtonLoadMore
       v-if="hasNextPage"
@@ -48,10 +49,7 @@ export default {
       filters: {},
       selectedFilters: [],
       searchTerm: null,
-      sorting: {
-        name: null,
-        date: null
-      },
+      sorting: {},
       results: [],
       page: 1,
       hasNextPage: true
@@ -59,27 +57,14 @@ export default {
   },
   computed: {
     filterParams () {
-      const params = {
+      return {
         roles: this.selectedFilters.filter(filter => filter.type === FILTER_ROLES).map(filter => filter.title),
         topics: this.selectedFilters.filter(filter => filter.type === FILTER_TOPICS).map(filter => filter.title),
-        types: this.selectedFilters.filter(filter => filter.type === FILTER_TYPES).map(filter => filter.title)
+        types: this.selectedFilters.filter(filter => filter.type === FILTER_TYPES).map(filter => filter.title),
+        sortby: this.sorting.name,
+        direction: this.sorting.direction,
+        q: this.searchTerm
       }
-
-      if (this.sorting.name) {
-        params.sortby = 'name'
-        params.direction = this.sorting.name
-      }
-
-      if (this.sorting.date) {
-        params.sortby = 'created_at'
-        params.direction = this.sorting.date
-      }
-
-      if (this.searchTerm) {
-        params.q = this.searchTerm
-      }
-
-      return params
     }
   },
   watch: {
