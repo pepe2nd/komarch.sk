@@ -2,17 +2,21 @@
   <!-- TODO: Implement a nice spinner for loading state -->
   <div>
     <DocumentsOverviewFilters
-      v-model="selectedFilters"
+      :value="selectedFilters"
       :filters="filters"
+      @input="onSelectedFiltersChange"
     />
     <InputSearch
-      v-model="searchTerm"
+      :value="searchTerm"
       class="mt-16 md:mt-8 md:max-w-sm"
       :placeholder="__('documents.search_placeholder')"
+      @input="onSearchTermChange"
     />
     <DocumentsOverviewResults
-      v-model="sorting"
+      :sort="sorting"
       :results="results"
+      :total="total"
+      @sort="onSortChange"
     />
     <ButtonLoadMore
       v-if="hasNextPage"
@@ -28,10 +32,14 @@ import DocumentsOverviewFilters from './DocumentsOverviewFilters'
 import ButtonLoadMore from '../atoms/buttons/ButtonLoadMore'
 import InputSearch from '../atoms/InputSearch'
 import axiosGet from '../axiosGetMixin'
+import isEqual from 'lodash/isEqual'
+import isEmpty from 'lodash/isEmpty'
+import omit from 'lodash/omit'
 
-const FILTER_ROLES = 'roles'
-const FILTER_TOPICS = 'topics'
-const FILTER_TYPES = 'types'
+function getQueryFilterParams (query) {
+  const nonFilterParams = ['sortby', 'direction', 'page']
+  return omit(query, nonFilterParams)
+}
 
 export default {
   components: {
@@ -46,104 +54,115 @@ export default {
   data () {
     return {
       filters: {},
-      selectedFilters: [],
-      searchTerm: null,
-      sorting: {
-        name: null,
-        date: null
-      },
       results: [],
-      page: 1,
+      total: 0,
       hasNextPage: true
     }
   },
   computed: {
-    filterParams () {
-      const params = {
-        roles: this.selectedFilters.filter(filter => filter.type === FILTER_ROLES).map(filter => filter.title),
-        topics: this.selectedFilters.filter(filter => filter.type === FILTER_TOPICS).map(filter => filter.title),
-        types: this.selectedFilters.filter(filter => filter.type === FILTER_TYPES).map(filter => filter.title)
-      }
+    query () {
+      return this.$route.query
+    },
+    searchTerm () {
+      return this.query.q
+    },
+    selectedFilters () {
+      const facetFilterParams = omit(this.query, ['q', 'sortby', 'direction', 'page'])
 
-      if (this.sorting.name) {
-        params.sortby = 'name'
-        params.direction = this.sorting.name
+      return Object.entries(facetFilterParams)
+        .flatMap(([type, keys]) => keys.flatMap(key => [{ key, type }])) || []
+    },
+    sorting () {
+      return {
+        name: this.query.sortby,
+        direction: this.query.direction
       }
-
-      if (this.sorting.date) {
-        params.sortby = 'created_at'
-        params.direction = this.sorting.date
-      }
-
-      if (this.searchTerm) {
-        params.q = this.searchTerm
-      }
-
-      return params
+    },
+    page () {
+      return this.query.page || 1
+    },
+    areFiltersApplied () {
+      return !isEmpty(getQueryFilterParams(this.query))
     }
   },
   watch: {
-    searchTerm () {
-      const debounceTime = 300
-      clearTimeout(this.searchTermDebounceTimeout)
+    $route: function (route, oldRoute) {
+      this.fetchResults()
 
-      this.searchTermDebounceTimeout = setTimeout(() => {
-        this.fetchData()
-      }, debounceTime)
-    },
-    sorting () {
-      this.fetchData()
-    },
-    selectedFilters () {
-      this.fetchData()
+      // Re-fetch filters only if new route differs by filter parameters
+      if (!isEqual(getQueryFilterParams(route.query), getQueryFilterParams(oldRoute.query))) {
+        this.fetchFilters()
+      }
     }
   },
   created () {
-    this.fetchData()
+    this.fetchResults()
+    this.fetchFilters()
   },
   methods: {
-    async fetchData () {
-      const [documentsResponse, filtersResponse] = await Promise.all([
-        this.axiosGet('documents', this.filterParams),
-        this.axiosGet('documents-filters', this.filterParams)
-      ])
+    onSearchTermChange (searchTerm) {
+      this.updateQuery({
+        q: isEmpty(searchTerm) ? undefined : searchTerm
+      })
+    },
+    onSelectedFiltersChange (selectedFilters) {
+      const filters = {}
 
-      const roles = []
-      const topics = []
-      const types = []
-
-      for (const key in filtersResponse.roles) {
-        roles.push({ key: key, title: key, items: filtersResponse.roles[key], type: FILTER_ROLES })
+      for (const filterType in this.filters) {
+        filters[filterType] = selectedFilters
+          .filter(({ type }) => type === filterType)
+          .map(({ key }) => key)
       }
 
-      for (const key in filtersResponse.topics) {
-        topics.push({ key: key, title: key, items: filtersResponse.topics[key], type: FILTER_TOPICS })
+      this.updateQuery(filters)
+    },
+    onSortChange (sort) {
+      if (!sort.name || !sort.direction) {
+        this.updateQuery({ sortby: undefined, direction: undefined })
+        return
       }
 
-      for (const key in filtersResponse.types) {
-        types.push({ key: key, title: key, items: filtersResponse.types[key], type: FILTER_TYPES })
+      this.updateQuery({
+        sortby: sort.name,
+        direction: sort.direction
+      })
+    },
+    updateQuery (newQuery) {
+      this.$router.push({
+        query: {
+          ...this.$route.query,
+          page: undefined,
+          ...newQuery
+        }
+      })
+    },
+    async fetchFilters () {
+      const response = await this.axiosGet('documents-filters', this.query)
+
+      const filters = {}
+      for (const filterType in response) {
+        filters[filterType] = []
+
+        for (const [key, items] of Object.entries(response[filterType])) {
+          filters[filterType].push({ key, title: key, items, type: filterType })
+        }
       }
 
-      this.filters = {
-        roles,
-        topics,
-        types
-      }
+      this.filters = filters
+    },
+    async fetchResults () {
+      const response = await this.axiosGet('documents', this.query)
+      if (response.meta.current_page === 1) this.results = []
 
-      this.results = documentsResponse.data
-      this.hasNextPage = documentsResponse.meta.current_page < documentsResponse.meta.last_page
+      this.results.push(...response.data)
+      this.total = response.meta.total
+      this.hasNextPage = response.meta.current_page < response.meta.last_page
     },
     async onLoadMore () {
-      const params = {
-        ...this.filterParams,
-        page: this.page + 1
-      }
-
-      const documentsResponse = await this.axiosGet('documents', params)
-
-      this.page = documentsResponse.meta.current_page
-      this.hasNextPage = documentsResponse.meta.current_page < documentsResponse.meta.last_page
-      this.results.push(...documentsResponse.data)
+      this.updateQuery({ page: parseInt(this.page) + 1 })
+    },
+    onClearFilters () {
+      this.$router.push({ query: {} })
     }
   }
 }

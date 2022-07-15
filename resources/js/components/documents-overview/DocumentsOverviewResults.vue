@@ -22,7 +22,8 @@
         <tr>
           <th>
             <ButtonSortable
-              v-model="sortingName"
+              :value="getSortDirectionFor('name')"
+              @input="setSort('name', $event)"
               class="pb-10 text-sm"
             >
               {{ __('generic.name') }}
@@ -68,6 +69,7 @@
 </template>
 
 <script>
+import sortableMixin from '../sortableMixin'
 import ButtonSortable from '../atoms/buttons/ButtonSortable'
 import DocumentsOverviewResultsMenu from './DocumentsOverviewResultsMenu'
 import DocumentsOverviewResultsPreview from './DocumentsOverviewResultsPreview'
@@ -80,26 +82,13 @@ export default {
     DocumentsOverviewResultsMenu,
     ButtonSortable
   },
+  mixins: [
+    sortableMixin
+  ],
   props: {
-    value: {
-      type: Object,
-      required: true
-    },
     results: {
       type: Array,
       required: true
-    }
-  },
-  computed: {
-    sortingName: {
-      get () {
-        return this.value.name
-      },
-      set (newValue) {
-        this.$emit('input', {
-          name: newValue
-        })
-      }
     }
   }
 }
