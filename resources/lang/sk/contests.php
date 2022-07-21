@@ -30,4 +30,5 @@ return [
     'in_verification' => 'v overovaní',
     'depended' => 'závislý od vyhlasovateľa',
     'approved_info' => 'Súťažné podmienky boli overené Slovenskou komorou architektov dňa :approved_at pod číslom :number.',
+    'search_placeholder' => 'Kľúčové slovo, súťaž...'
 ];

@@ -9,7 +9,7 @@
     <InputSearch
       :value="searchTerm"
       class="mt-16 md:mt-8 md:max-w-sm"
-      :placeholder="__('documents.search_placeholder')"
+      :placeholder="__('contests.search_placeholder')"
       @input="onSearchTermChange"
     />
     <ContestsOverviewResults
@@ -141,7 +141,7 @@ export default {
       })
     },
     async fetchFilters () {
-      const response = await this.axiosGet('documents-filters', this.query)
+      const response = await this.axiosGet('contests-filters', this.query)
 
       const filters = {}
       for (const filterType in response) {
@@ -151,7 +151,6 @@ export default {
           filters[filterType].push({ key, title: key, items, type: filterType })
         }
       }
-
       this.filters = filters
     },
     async fetchResults () {
