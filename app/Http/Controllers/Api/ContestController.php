@@ -30,10 +30,9 @@ class ContestController extends Controller
 
         // sort
         $contests->orderBy(
-            $request->input('sortby', 'date'),
-            $request->input('direction', 'desc')
+            $request->input('sortby', 'finished_at'),
+            $request->input('direction', 'asc')
         );
-        $contests->orderBy('finished_at', $request->input('direction', 'desc'));
 
         $per_page = (int)min($request->get('per_page', 20), 100);
         return ContestResource::collection($contests->paginate($per_page));
@@ -63,17 +62,24 @@ class ContestController extends Controller
             $contests->withAnyTags($request->input('typologies', []));
         }
 
-        $state = implode($request->input('states', []));
-        switch ($state) {
-            case trans('contests.ongoing'):
-                $contests->ongoing();
-                break;
-            case trans('contests.upcoming'):
-                $contests->upcoming();
-                break;
-            case trans('contests.finished'):
-                $contests->finished();
-                break;
+        if ($request->has('states')) {
+            $contests->where(function ($query) use ($request) {
+                if (in_array(trans('contests.ongoing'), $request->get('states', []))) {
+                    $query->orWhere(function ($q) {
+                        $q->ongoing();
+                    });
+                }
+                if (in_array(trans('contests.upcoming'), $request->get('states', []))) {
+                    $query->orWhere(function ($q) {
+                        $q->upcoming();
+                    });
+                }
+                if (in_array(trans('contests.finished'), $request->get('states', []))) {
+                    $query->orWhere(function ($q) {
+                        $q->finished();
+                    });
+                }
+            });
         }
 
         return $contests;

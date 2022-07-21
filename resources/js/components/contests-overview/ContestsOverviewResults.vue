@@ -26,7 +26,8 @@
         <tr>
           <th>
             <ButtonSortable
-              v-model="sortingAnnounced"
+              :value="getSortDirectionFor('announced_at')"
+              @input="setSort('announced_at', $event)"
               style="min-width: 200px"
               class="pb-10 text-sm"
             >
@@ -35,7 +36,8 @@
           </th>
           <th>
             <ButtonSortable
-              v-model="sortingFinished"
+              :value="getSortDirectionFor('finished_at')"
+              @input="setSort('finished_at', $event)"
               style="min-width: 200px"
               class="pb-10 text-sm"
             >
@@ -44,7 +46,8 @@
           </th>
           <th>
             <ButtonSortable
-              v-model="sortingResultsPublished"
+              :value="getSortDirectionFor('results_published_at')"
+              @input="setSort('results_published_at', $event)"
               style="min-width: 200px"
               class="pb-10 text-sm"
             >
@@ -53,7 +56,8 @@
           </th>
           <th>
             <ButtonSortable
-              v-model="sortingTitle"
+              :value="getSortDirectionFor('title')"
+              @input="setSort('title', $event)"
               class="pb-10 text-sm"
             >
               {{ __('generic.title') }}
@@ -106,65 +110,24 @@
 </template>
 
 <script>
+import sortableMixin from '../sortableMixin'
 import ButtonSortable from '../atoms/buttons/ButtonSortable'
 import LinkArrowHover from '../atoms/links/LinkArrowHover'
 import TagDate from '../atoms/tags/TagDate'
+
 export default {
   components: {
     ButtonSortable,
     LinkArrowHover,
     TagDate
   },
+  mixins: [
+    sortableMixin
+  ],
   props: {
-    value: {
-      type: Object,
-      required: true
-    },
     results: {
       type: Array,
       required: true
-    }
-  },
-  computed: {
-    sortingTitle: {
-      get () {
-        return this.value.title
-      },
-      set (newValue) {
-        this.$emit('input', {
-          title: newValue
-        })
-      }
-    },
-    sortingAnnounced: {
-      get () {
-        return this.value.announcedAt
-      },
-      set (newValue) {
-        this.$emit('input', {
-          announcedAt: newValue
-        })
-      },
-    },
-    sortingFinished: {
-      get () {
-        return this.value.finishedAt
-      },
-      set (newValue) {
-        this.$emit('input', {
-          finishedAt: newValue
-        })
-      }
-    },
-    sortingResultsPublished: {
-      get () {
-        return this.value.resultsPublishedAt
-      },
-      set (newValue) {
-        this.$emit('input', {
-          resultsPublishedAt: newValue
-        })
-      }
     }
   },
   methods: {
