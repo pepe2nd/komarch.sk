@@ -114,6 +114,7 @@ import sortableMixin from '../sortableMixin'
 import ButtonSortable from '../atoms/buttons/ButtonSortable'
 import LinkArrowHover from '../atoms/links/LinkArrowHover'
 import TagDate from '../atoms/tags/TagDate'
+
 export default {
   components: {
     ButtonSortable,

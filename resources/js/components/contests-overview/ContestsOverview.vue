@@ -34,11 +34,7 @@ import InputSearch from '../atoms/InputSearch'
 import axiosGet from '../axiosGetMixin'
 import isEqual from 'lodash/isEqual'
 import isEmpty from 'lodash/isEmpty'
-import debounce from 'lodash/debounce'
 import omit from 'lodash/omit'
-
-// const FILTER_TYPOLOGIES = 'typologies'
-// const FILTER_STATES = 'states'
 
 function getQueryFilterParams (query) {
   const nonFilterParams = ['sortby', 'direction', 'page']
