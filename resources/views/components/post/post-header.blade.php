@@ -1,6 +1,6 @@
 <header class="container-narrow mx-auto">
     @if ($post->cover_image)
-        {!! $post->cover_image->img()->attributes(['alt' => e($post->title), 'class' => 'mt-14 h-64 w-auto']) !!}
+        {!! $post->cover_image->img()->attributes(['alt' => e($post->title), 'class' => 'mt-14 max-h-64 w-auto']) !!}
     @endif
 
     <div class="lg:flex mt-14 text-sm">
