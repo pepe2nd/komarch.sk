@@ -5,6 +5,7 @@ import Mapbox from 'mapbox-gl'
 import vClickOutside from 'v-click-outside'
 import { Lang } from 'laravel-vue-lang'
 import qs from 'qs'
+import VueEasyLightbox from "vue-easy-lightbox";
 
 require('./bootstrap')
 
@@ -30,6 +31,7 @@ Vue.use(VueRouter)
 Vue.use(VueMapbox, { mapboxgl: Mapbox })
 Vue.use(Lang)
 Vue.use(vClickOutside)
+Vue.use(VueEasyLightbox);
 
 // eslint-disable-next-line no-unused-vars
 const app = new Vue({
