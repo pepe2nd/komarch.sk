@@ -26,7 +26,7 @@
           :height="image.height"
           ref="img"
           :alt="image.alt"
-          class="w-full h-24 object-cover cursor-pointer"
+          class="w-auto h-24 cursor-pointer"
           @click="onThumbnailClicked(index)"
           onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});"
         >
@@ -59,20 +59,8 @@ export default {
       images: [],
       selectedIndex: 0,
       swiperOptions: {
-        slidesPerView: 2,
-        spaceBetween: 20,
-        breakpoints: {
-          // when window width is >= 640px
-          640: {
-            slidesPerView: 3,
-            spaceBetween: 20
-          },
-          // when window width is >= 1024px
-          1024: {
-            slidesPerView: 4,
-            spaceBetween: 20
-          }
-        }
+        slidesPerView: 'auto',
+        spaceBetween: 20
       }
     }
   },
@@ -84,7 +72,6 @@ export default {
   async created () {
     const { data } = await this.axiosGet(this.sourceUrl)
     this.images = data
-    console.log(this.imgs)
   },
   methods: {
     onThumbnailClicked (index) {
@@ -103,5 +90,8 @@ export default {
 <style>
 .toolbar-btn__rotate, .toolbar-btn__resize {
   display: none;
+}
+.swiper-container .swiper-slide {
+  width: auto;
 }
 </style>
