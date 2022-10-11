@@ -7,12 +7,7 @@
       <ImageGalleryDetail :image="images[selectedIndex]"  />
     </div>  
       
-    <vue-easy-lightbox
-      :visible="visible"
-      :imgs="imgs"
-      :index="selectedIndex"
-      @hide="handleHide"
-    ></vue-easy-lightbox>
+    <vue-easy-lightbox :visible="visible" :imgs="imgs" :index="selectedIndex" @hide="handleHide"></vue-easy-lightbox>
     
     <Swiper
       v-if="images.length > 1"
@@ -104,3 +99,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.toolbar-btn__rotate, .toolbar-btn__resize {
+  display: none;
+}
+</style>
