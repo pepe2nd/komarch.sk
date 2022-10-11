@@ -2,7 +2,13 @@
   <div
     v-if="images && images.length > 0"
   >
-    <ImageGalleryDetail :image="images[selectedIndex]" />
+    
+    <div @click="() => showImg(selectedIndex)">
+      <ImageGalleryDetail :image="images[selectedIndex]"  />
+    </div>  
+      
+    <vue-easy-lightbox :visible="visible" :imgs="imgs" :index="selectedIndex" @hide="handleHide"></vue-easy-lightbox>
+    
     <Swiper
       v-if="images.length > 1"
       :options="swiperOptions"
@@ -21,7 +27,7 @@
           ref="img"
           :alt="image.alt"
           class="w-full h-24 object-cover cursor-pointer"
-          @click="onImageClicked(index)"
+          @click="onThumbnailClicked(index)"
           onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});"
         >
       </SwiperSlide>
@@ -49,6 +55,7 @@ export default {
   },
   data () {
     return {
+      visible: false,
       images: [],
       selectedIndex: 0,
       swiperOptions: {
@@ -69,14 +76,32 @@ export default {
       }
     }
   },
+  computed: {
+    imgs() {
+      return this.images.map(o => o['url'])
+    }
+  },
   async created () {
     const { data } = await this.axiosGet(this.sourceUrl)
     this.images = data
+    console.log(this.imgs)
   },
   methods: {
-    onImageClicked (index) {
+    onThumbnailClicked (index) {
       this.selectedIndex = index
+    },
+    showImg (index) {
+      this.visible = true
+    },
+    handleHide () {
+      this.visible = false
     }
   }
 }
 </script>
+
+<style>
+.toolbar-btn__rotate, .toolbar-btn__resize {
+  display: none;
+}
+</style>
