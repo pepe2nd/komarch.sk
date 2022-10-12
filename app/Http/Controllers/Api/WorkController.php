@@ -104,19 +104,17 @@ class WorkController extends Controller
     {
 
         // get all
-        $all_publications = CitationPublication::all()->flatMap(fn ($row) => [$row->publication_name => 0])
+        $all_publications = CitationPublication::withCount('works')->having('works_count', '>', 0)->orderBy('works_count', 'desc')->get()->flatMap(fn ($row) => [$row->publication_name => 0])
             ->toArray();
 
         // get counts for current query
-        $filtered_publications =  CitationPublication::query()
-            ->whereHas('works', function (Builder $query) use ($request) {
-                $query->filtered($request);
-            })
-            ->select('publication_name')
-            ->selectRaw('count(*) as count')
-            ->groupBy('publication_name')
+        $filtered_publications =  CitationPublication::query()    
+            ->withCount(['works' => function (Builder $query) use ($request) {
+                    $query->filtered($request);
+            }])
+            ->having('works_count', '>', 0)
             ->get()
-            ->flatMap(fn ($row) => [$row->publication_name => $row->count])
+            ->flatMap(fn ($row) => [$row->publication_name => $row->works_count])
             ->toArray();
 
         return array_merge(
