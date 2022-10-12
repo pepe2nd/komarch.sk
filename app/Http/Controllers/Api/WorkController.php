@@ -64,7 +64,7 @@ class WorkController extends Controller
 
         $filters = collect();
         foreach (Work::$filterable as $filter) {
-            $filters[$filter] = $works->pluck($filter)->flatten()->countBy('name');
+            $filters[$filter] = $works->pluck($filter)->flatten()->countBy('name')->sortDesc()->take(8);
         }
         $filters['investors'] = [
             trans('works.public') => $works->where('has_public_investor', true)->count(),
