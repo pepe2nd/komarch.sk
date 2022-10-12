@@ -21,7 +21,6 @@ return [
     'authors' => 'Autori/Autorky',
     'collaborators' => 'Spolupracovníci/Spolupracovníčky',
     'about_the_work' => 'O diele',
-    'literature' => 'Literatúra',
-    'citations' => 'Publikácie',
+    'citations' => 'Publikované',
     'related' => 'Súvisiace diela',
 ];

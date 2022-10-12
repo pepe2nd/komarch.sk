@@ -39,7 +39,7 @@ class Work extends Model implements HasMedia
             'citation_publication_work',
             'work_id',
             'publication_id'
-        );
+        )->withPivot('source');
     }
 
     public function architects()
@@ -50,6 +50,11 @@ class Work extends Model implements HasMedia
     public function other_architects()
     {
         return $this->morphToMany(Tag::class, 'taggable')->where('type', 'other_architect');
+    }
+
+    public function other_publications()
+    {
+        return $this->morphToMany(Tag::class, 'taggable')->where('type', 'other_publication');
     }
 
     public function typologies()

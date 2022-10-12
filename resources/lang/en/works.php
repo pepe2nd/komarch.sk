@@ -21,7 +21,6 @@ return [
     'authors' => 'Authors',
     'collaborators' => 'Collaborators',
     'about_the_work' => 'About the work',
-    'literature' => 'Literature',
-    'citations' => 'Publications',
+    'citations' => 'Published in',
     'related' => 'Related works',
 ];

@@ -52,13 +52,18 @@
         </x-attribute-with-label>
     @endif
 
-    @if ($work->citationPublications->count() > 0)
-        <x-attribute-with-label :label="__('works.literature')">
+    @if ($work->citationPublications->count() > 0 || ($work->other_publications->count() > 0))
+        <x-attribute-with-label :label="__('works.citations')">
             @foreach ($work->citationPublications as $publication)
-                <x-link-arrow url="{{ route('works', ['publications[]' => $publication->publication_name]) }}">
-                    {{ $publication->publication_name }}
-                </x-link-arrow>
+                @if ($publication->pivot->source && Str::startsWith($publication->pivot->source, 'http'))
+                    <x-link-arrow url="{{ $publication->pivot->source }}" target="_blank">
+                        {{ $publication->publication_name }}
+                    </x-link-arrow>
+                @else
+                    {{ $publication->publication_name }}<br>
+                @endif
             @endforeach
+            {!! $work->other_publications->implode('name', '<br>') !!}
         </x-attribute-with-label>
     @endif
 </div>
