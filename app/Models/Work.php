@@ -57,6 +57,11 @@ class Work extends Model implements HasMedia
         return $this->morphToMany(Tag::class, 'taggable')->where('type', 'other_publication');
     }
 
+    public function other_awards()
+    {
+        return $this->morphToMany(Tag::class, 'taggable')->where('type', 'other_award');
+    }
+
     public function typologies()
     {
         return $this->morphToMany(Tag::class, 'taggable')->whereNull('type');
