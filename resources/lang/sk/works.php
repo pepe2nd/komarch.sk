@@ -19,6 +19,7 @@ return [
     'address' => 'Adresa',
     'awards' => 'Ocenenia',
     'authors' => 'Autori/Autorky',
+    'studio' => 'Ateliér',
     'collaborators' => 'Spolupracovníci/Spolupracovníčky',
     'about_the_work' => 'O diele',
     'citations' => 'Publikované',

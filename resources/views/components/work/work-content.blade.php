@@ -45,6 +45,12 @@
         </x-attribute-with-label>
     @endif
 
+    @if ($work->studio)
+        <x-attribute-with-label :label="__('works.studio')">
+            {{ $work->studio }}
+        </x-attribute-with-label>
+    @endif
+
     @if ($work->annotation)
         <x-attribute-with-label :label="__('works.about_the_work')">
             {!! $work->annotation !!}

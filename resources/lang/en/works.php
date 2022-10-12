@@ -19,6 +19,7 @@ return [
     'address' => 'Address',
     'awards' => 'Awards',
     'authors' => 'Authors',
+    'studio' => 'Studio',
     'collaborators' => 'Collaborators',
     'about_the_work' => 'About the work',
     'citations' => 'Published in',
