@@ -23,4 +23,6 @@ return [
     'about_the_work' => 'O diele',
     'citations' => 'Publikované',
     'related' => 'Súvisiace diela',
+    'winning' => 'víťaz',
+    'nomination' => 'nominácia',
 ];

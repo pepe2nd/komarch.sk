@@ -27,13 +27,12 @@
         </x-attribute-with-label>
     @endif
 
-    @if ($work->awards->count() > 0)
+    @if ($work->awards->count() > 0 || ($work->other_awards->count() > 0))
         <x-attribute-with-label :label="__('works.awards')">
             @foreach ($work->awards as $award)
-                <x-link-arrow url="{{ route('works', ['awards[]' => $award->name]) }}">
-                    {{ $award->name }} ({{ $award->pivot->year }})
-                </x-link-arrow>
+                {{ $award->name }} ({{ $award->pivot->year }}) {{ ( $award->pivot->winning) ? __('works.winning') :  __('works.nomination') }}<br>
             @endforeach
+            {!! $work->other_awards->implode('name', '<br>') !!}
         </x-attribute-with-label>
     @endif
 

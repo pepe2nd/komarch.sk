@@ -23,4 +23,6 @@ return [
     'about_the_work' => 'About the work',
     'citations' => 'Published in',
     'related' => 'Related works',
+    'winning' => 'winning',
+    'nomination' => 'nomination',
 ];
