@@ -27,7 +27,7 @@
         v-for="award in item.awards"
         :key="award.id"
         :url="'/diela?awards[]=' + award.name"
-      >{{ award.name }}</TagHash>
+      >{{ award.name }} {{ (award.pivot.winning) ? __('works.winning') : __('works.nomination') }}</TagHash>
       <TagHash
         v-if="item.location_district"
         :url="'/diela?location_districts[]=' + item.location_district"
