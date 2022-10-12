@@ -77,7 +77,15 @@ class WorkController extends Controller
 
     private function getLocationDistricts(Request $request)
     {
-        $districts_with_count = Work::filtered($request)
+        $all_districts = Work::groupBy('location_district')
+            ->select('location_district')
+            ->selectRaw('count(*) as count')
+            ->whereNotNull('location_district')
+            ->orderBy('count', 'desc')
+            ->get()
+            ->flatMap(fn ($row) => [$row->location_district => 0])->toArray();
+
+        $filtered_districts = Work::filtered($request)
             ->groupBy('location_district')
             ->select('location_district')
             ->selectRaw('count(*) as count')
@@ -87,17 +95,8 @@ class WorkController extends Controller
             ->pluck('count', 'location_district')->toArray();
 
         return array_merge(
-            [
-                'BL' => 0,
-                'ZI' => 0,
-                'TC' => 0,
-                'PV' => 0,
-                'KI' => 0,
-                'NI' => 0,
-                'TA' => 0,
-                'BC' => 0,
-            ],
-            $districts_with_count,
+            $all_districts,
+            $filtered_districts,
         );
     }
 
@@ -108,7 +107,7 @@ class WorkController extends Controller
         $all_publications = CitationPublication::all()->flatMap(fn ($row) => [$row->publication_name => 0])
             ->toArray();
 
-        // get counts for  current query
+        // get counts for current query
         $filtered_publications =  CitationPublication::query()
             ->whereHas('works', function (Builder $query) use ($request) {
                 $query->filtered($request);
