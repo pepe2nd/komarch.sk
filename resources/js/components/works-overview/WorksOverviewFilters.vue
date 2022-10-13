@@ -5,7 +5,7 @@
       :value="value"
       :title="`${__('works.typology')}:`"
       @input="onInput"
-      class="flex-grow lg:whitespace-nowrap"
+      class="flex-grow xl:whitespace-nowrap"
     />
     <InputCheckboxGroup
       :filters="filters.location_districts || []"
@@ -18,6 +18,7 @@
       :value="value"
       :title="`${__('works.awards')}:`"
       @input="onInput"
+      class="lg:flex-grow lg:whitespace-nowrap"
     />
     <InputCheckboxGroup
       :filters="filters.investors || []"
@@ -30,6 +31,7 @@
       :value="value"
       :title="`${__('works.citations')}:`"
       @input="onInput"
+      class="xl:flex-grow xl:whitespace-nowrap"
     />
   </div>
 </template>

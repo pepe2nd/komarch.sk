@@ -32,7 +32,7 @@
       />
     </div>
     <WorksOverviewResults
-      class="mt-16 md:mt-32"
+      class="mt-16 md:mt-24"
       :sort="sorting"
       :results="results"
       :total="total"
