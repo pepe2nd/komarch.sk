@@ -90,10 +90,7 @@ class Contest extends Model implements HasMedia
     public function scopeOngoing($query)
     {
         return $query->whereDate('announced_at', '<', Carbon::now())
-            ->where(function ($subquery) {
-                $subquery->whereDate('finished_at', '>', Carbon::now())
-                    ->orWhereNull('finished_at');
-        });
+            ->whereDate('p.date', '>=', Carbon::now());
     }
 
     public function scopeUpcoming($query)
@@ -129,7 +126,7 @@ class Contest extends Model implements HasMedia
 
     public function nextProposal()
     {
-        return $this->hasOne(Proposal::class)->where('date', '>=', Carbon::now())->orderBy('date', 'asc');
+        return $this->hasOne(Proposal::class)->orderBy('date', 'asc');
     }
 
     public function jurors()

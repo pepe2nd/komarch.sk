@@ -36,8 +36,8 @@
           </th>
           <th>
             <ButtonSortable
-              :value="getSortDirectionFor('finished_at')"
-              @input="setSort('finished_at', $event)"
+              :value="getSortDirectionFor('deadline_at')"
+              @input="setSort('deadline_at', $event)"
               style="min-width: 200px"
               class="pb-10 text-sm"
             >

@@ -14,12 +14,7 @@ class ContestController extends Controller
 {
     public function index(Request $request)
     {
-        $contests = $this->loadContests($request)->leftJoin('proposals as p', function ($join) {
-           $join->on('p.contest_id', '=', 'contests.id')
-             ->on('p.date', '=',
-               DB::raw('(select min(date) from proposals where contest_id = p.contest_id and date >= NOW())'))
-             ->whereRaw('p.date >= NOW()');
-         })->select('contests.*', 'p.date');
+        $contests = $this->loadContests($request);
 
         $contests->with('nextProposal');
 
@@ -55,7 +50,14 @@ class ContestController extends Controller
 
     private function loadContests(Request $request)
     {
-        $contests = Contest::query();
+        $contests = Contest::query()->leftJoin('proposals as p', function ($join) {
+            $join->on('p.contest_id', '=', 'contests.id')
+                ->on(
+                    'p.date',
+                    '=',
+                    DB::raw('(select min(date) from proposals where contest_id = p.contest_id)')
+                );
+        })->select('contests.*', 'p.date as deadline_at');
 
         // apply filters
         if ($request->has('typologies')) {
