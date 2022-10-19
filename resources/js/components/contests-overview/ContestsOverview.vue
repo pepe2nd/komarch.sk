@@ -12,7 +12,7 @@
       :placeholder="__('contests.search_placeholder')"
       @input="onSearchTermChange"
     />
-    <ContestsOverviewResults
+    <FinishedContestsOverviewResults
       :sort="sorting"
       :results="results"
       :total="total"
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import ContestsOverviewResults from './ContestsOverviewResults'
+import FinishedContestsOverviewResults from './FinishedContestsOverviewResults'
 import ContestsOverviewFilters from './ContestsOverviewFilters'
 import ButtonLoadMore from '../atoms/buttons/ButtonLoadMore'
 import InputSearch from '../atoms/InputSearch'
@@ -45,7 +45,7 @@ export default {
   components: {
     InputSearch,
     ContestsOverviewFilters,
-    ContestsOverviewResults,
+    FinishedContestsOverviewResults,
     ButtonLoadMore
   },
   mixins: [
