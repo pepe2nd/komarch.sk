@@ -37,11 +37,6 @@ class ContestController extends Controller
     {
         $contests = $this->loadContests($request)->get();
         $filters = collect();
-        $filters['states'] = [
-            trans('contests.ongoing') => $contests->where('state', 'ongoing')->count(),
-            trans('contests.upcoming') => $contests->where('state', 'upcoming')->count(),
-            trans('contests.finished') => $contests->where('state', 'finished')->count(),
-        ];
         foreach (Contest::$filterable as $filter) {
             $filters[$filter] = $contests->pluck($filter)->flatten()->countBy('name')->sortDesc()->take(5);
         }
@@ -59,29 +54,23 @@ class ContestController extends Controller
                 );
         })->select('contests.*', 'p.date as deadline_at');
 
+        switch ($request->get('state')) {
+            case 'upcoming':
+                $contests->upcoming();
+                break;
+
+            case 'finished':
+                $contests->finished();
+                break;
+
+            default:
+                $contests->ongoing();
+                break;
+        }
+        
         // apply filters
         if ($request->has('typologies')) {
             $contests->withAnyTags($request->input('typologies', []));
-        }
-
-        if ($request->has('states')) {
-            $contests->where(function ($query) use ($request) {
-                if (in_array(trans('contests.ongoing'), $request->get('states', []))) {
-                    $query->orWhere(function ($q) {
-                        $q->ongoing();
-                    });
-                }
-                if (in_array(trans('contests.upcoming'), $request->get('states', []))) {
-                    $query->orWhere(function ($q) {
-                        $q->upcoming();
-                    });
-                }
-                if (in_array(trans('contests.finished'), $request->get('states', []))) {
-                    $query->orWhere(function ($q) {
-                        $q->finished();
-                    });
-                }
-            });
         }
 
         return $contests;
