@@ -101,7 +101,9 @@ class Contest extends Model implements HasMedia
 
     public function scopeFinished($query)
     {
-        return $query->whereDate('finished_at', '<', Carbon::now());
+        // return $query->whereDate('finished_at', '<', Carbon::now()); // might return back soon :P
+        return $query->whereDate('announced_at', '<', Carbon::now())
+            ;
     }
 
     public function registerMediaCollections(): void

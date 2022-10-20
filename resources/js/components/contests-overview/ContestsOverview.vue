@@ -59,7 +59,7 @@ import isEmpty from 'lodash/isEmpty'
 import omit from 'lodash/omit'
 
 function getQueryFilterParams (query) {
-  const nonFilterParams = ['sortby', 'direction', 'page', 'state']
+  const nonFilterParams = ['sortby', 'direction', 'page']
   return omit(query, nonFilterParams)
 }
 
