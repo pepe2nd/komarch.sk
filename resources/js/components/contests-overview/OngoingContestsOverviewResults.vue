@@ -36,22 +36,12 @@
           </th>
           <th>
             <ButtonSortable
-              :value="getSortDirectionFor('finished_at')"
-              @input="setSort('finished_at', $event)"
+              :value="getSortDirectionFor('deadline_at')"
+              @input="setSort('deadline_at', $event)"
               style="min-width: 200px"
               class="pb-10 text-sm"
             >
               {{ __('generic.finished_at') }}
-            </ButtonSortable>
-          </th>
-          <th>
-            <ButtonSortable
-              :value="getSortDirectionFor('results_published_at')"
-              @input="setSort('results_published_at', $event)"
-              style="min-width: 200px"
-              class="pb-10 text-sm"
-            >
-              {{ __('generic.results_published_at') }}
             </ButtonSortable>
           </th>
           <th>
@@ -73,24 +63,10 @@
           class="border-b border-black hover:text-blue relative"
         >
           <td class="py-1">
-            <span v-if="contest.announced_at">{{ contest.announced_at }}</span>
-            <span class="text-gray-500" v-else>{{ __('contests.in_verification') }}</span>
+            <span>{{ contest.announced_at }}</span>
           </td>
           <td class="py-1">
-            <span class="whitespace-nowrap" v-if="contest.next_proposal">
               <span class="w-20 inline-block">{{ contest.next_proposal }}</span>
-              <TagDate class="ml-2" :title="contest.next_proposal">
-                <span class="icon-clock" />
-                {{ contest.next_proposal_diff }}
-              </TagDate>
-            </span>
-            <span class="text-gray-500" v-else>
-              {{ contest.finished_at }}
-            </span>
-
-          </td>
-          <td class="py-1" :class="{'text-gray-500' : contest.results_published_is_passed}">
-            {{ contest.results_published_at }}
           </td>
           <td class="py-1">
             <LinkArrowHover :url="contest.url" class="link-area">

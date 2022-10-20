@@ -14,18 +14,13 @@ class ContestController extends Controller
 {
     public function index(Request $request)
     {
-        $contests = $this->loadContests($request)->leftJoin('proposals as p', function ($join) {
-           $join->on('p.contest_id', '=', 'contests.id')
-             ->on('p.date', '=',
-               DB::raw('(select min(date) from proposals where contest_id = p.contest_id and date >= NOW())'))
-             ->whereRaw('p.date >= NOW()');
-         })->select('contests.*', 'p.date');
+        $contests = $this->loadContests($request);
 
         $contests->with('nextProposal');
 
         // search
         if ($request->filled('q')) {
-            $contests->whereIn('contests.id', Contest::search("*{$request->query('q')}*")->keys());;
+            $contests->where('contests.title', 'like', "%{$request->query('q')}%");
         }
 
         // sort
@@ -40,46 +35,52 @@ class ContestController extends Controller
 
     public function filters(Request $request)
     {
-        $contests = $this->loadContests($request)->get();
+        // get all
+        $all_contests = Contest::all();
         $filters = collect();
-        $filters['states'] = [
-            trans('contests.ongoing') => $contests->where('state', 'ongoing')->count(),
-            trans('contests.upcoming') => $contests->where('state', 'upcoming')->count(),
-            trans('contests.finished') => $contests->where('state', 'finished')->count(),
-        ];
         foreach (Contest::$filterable as $filter) {
-            $filters[$filter] = $contests->pluck($filter)->flatten()->countBy('name')->sortDesc()->take(5);
+            $filters[$filter] = $all_contests->pluck($filter)->flatten()->countBy('name')->sortDesc()->
+            mapWithKeys(function ($item, $key) {
+                return [$key => 0];
+            });
+        }
+
+        // get counts for current query
+        $contests = $this->loadContests($request)->get();
+        foreach (Contest::$filterable as $filter) {
+            $filters[$filter] = $filters[$filter]->merge($contests->pluck($filter)->flatten()->countBy('name'))->take(5);
         }
         return $filters;
     }
 
     private function loadContests(Request $request)
     {
-        $contests = Contest::query();
+        $contests = Contest::query()->leftJoin('proposals as p', function ($join) {
+            $join->on('p.contest_id', '=', 'contests.id')
+                ->on(
+                    'p.date',
+                    '=',
+                    DB::raw('(select min(date) from proposals where contest_id = p.contest_id)')
+                );
+        })->select('contests.*', 'p.date as deadline_at');
 
+        switch ($request->get('state')) {
+            case 'upcoming':
+                $contests->upcoming();
+                break;
+
+            case 'finished':
+                $contests->finished();
+                break;
+
+            default:
+                $contests->ongoing();
+                break;
+        }
+        
         // apply filters
         if ($request->has('typologies')) {
             $contests->withAnyTags($request->input('typologies', []));
-        }
-
-        if ($request->has('states')) {
-            $contests->where(function ($query) use ($request) {
-                if (in_array(trans('contests.ongoing'), $request->get('states', []))) {
-                    $query->orWhere(function ($q) {
-                        $q->ongoing();
-                    });
-                }
-                if (in_array(trans('contests.upcoming'), $request->get('states', []))) {
-                    $query->orWhere(function ($q) {
-                        $q->upcoming();
-                    });
-                }
-                if (in_array(trans('contests.finished'), $request->get('states', []))) {
-                    $query->orWhere(function ($q) {
-                        $q->finished();
-                    });
-                }
-            });
         }
 
         return $contests;

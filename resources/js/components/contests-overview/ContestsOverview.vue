@@ -1,6 +1,10 @@
 <template>
   <!-- TODO: Implement a nice spinner for loading state -->
   <div>
+    <div class="mb-8 md:flex flex-wrap">
+      <radio-button v-for="option in availableStates" :key="option.key" :value="{ key: selectedState }" 
+        :option="option" name="state" class="mr-12 py-2" @input="onSelectedStateChange" />
+    </div>
     <ContestsOverviewFilters
       :value="selectedFilters"
       :filters="filters"
@@ -12,7 +16,22 @@
       :placeholder="__('contests.search_placeholder')"
       @input="onSearchTermChange"
     />
-    <ContestsOverviewResults
+    <OngoingContestsOverviewResults
+      v-if="selectedState == 'ongoing'"
+      :sort="sorting"
+      :results="results"
+      :total="total"
+      @sort="onSortChange"
+    />
+    <UpcomingContestsOverviewResults
+      v-else-if="selectedState == 'upcoming'"
+      :sort="sorting"
+      :results="results"
+      :total="total"
+      @sort="onSortChange"
+    />
+    <FinishedContestsOverviewResults
+      v-else-if="selectedState == 'finished'"
       :sort="sorting"
       :results="results"
       :total="total"
@@ -27,7 +46,10 @@
 </template>
 
 <script>
-import ContestsOverviewResults from './ContestsOverviewResults'
+import RadioButton from '../atoms/RadioButton'
+import OngoingContestsOverviewResults from './OngoingContestsOverviewResults'
+import UpcomingContestsOverviewResults from './UpcomingContestsOverviewResults'
+import FinishedContestsOverviewResults from './FinishedContestsOverviewResults'
 import ContestsOverviewFilters from './ContestsOverviewFilters'
 import ButtonLoadMore from '../atoms/buttons/ButtonLoadMore'
 import InputSearch from '../atoms/InputSearch'
@@ -41,12 +63,17 @@ function getQueryFilterParams (query) {
   return omit(query, nonFilterParams)
 }
 
+const stateOptions = ['ongoing', 'upcoming', 'finished'];
+
 export default {
   components: {
     InputSearch,
     ContestsOverviewFilters,
-    ContestsOverviewResults,
-    ButtonLoadMore
+    OngoingContestsOverviewResults,
+    UpcomingContestsOverviewResults,
+    FinishedContestsOverviewResults,
+    ButtonLoadMore,
+    RadioButton
   },
   mixins: [
     axiosGet
@@ -56,7 +83,7 @@ export default {
       filters: {},
       results: [],
       total: 0,
-      hasNextPage: true
+      hasNextPage: true,
     }
   },
   computed: {
@@ -67,7 +94,7 @@ export default {
       return this.query.q
     },
     selectedFilters () {
-      const facetFilterParams = omit(this.query, ['q', 'sortby', 'direction', 'page'])
+      const facetFilterParams = omit(this.query, ['q', 'sortby', 'direction', 'page', 'state'])
 
       return Object.entries(facetFilterParams)
         .flatMap(([type, keys]) => keys.flatMap(key => [{ key, type }])) || []
@@ -80,6 +107,17 @@ export default {
     },
     page () {
       return this.query.page || 1
+    },
+    selectedState () {
+      return this.query.state || stateOptions[0]
+    },
+    availableStates () {
+      let states = []
+      for (const state of stateOptions) {
+        states.push({
+          key: state, title: this.__('contests.' + state) })
+      }
+      return states
     },
     areFiltersApplied () {
       return !isEmpty(getQueryFilterParams(this.query))
@@ -104,6 +142,21 @@ export default {
       this.updateQuery({
         q: isEmpty(searchTerm) ? undefined : searchTerm
       })
+    },
+    onSelectedStateChange (newState) {
+      let sort = {
+        name: 'deadline_at',
+        direction: 'asc'
+      }
+
+      if (newState.key == 'upcoming') {
+        sort.name = 'title'
+      } else if (newState.key == 'finished') {
+        sort.name = 'results_published_at'
+        sort.direction = 'desc'
+      }
+
+      this.updateQuery({ state: newState.key, sortby: sort.name, direction: sort.direction })
     },
     onSelectedFiltersChange (selectedFilters) {
       const filters = {}
