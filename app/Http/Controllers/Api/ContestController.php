@@ -35,10 +35,20 @@ class ContestController extends Controller
 
     public function filters(Request $request)
     {
-        $contests = $this->loadContests($request)->get();
+        // get all
+        $all_contests = Contest::all();
         $filters = collect();
         foreach (Contest::$filterable as $filter) {
-            $filters[$filter] = $contests->pluck($filter)->flatten()->countBy('name')->sortDesc()->take(5);
+            $filters[$filter] = $all_contests->pluck($filter)->flatten()->countBy('name')->sortDesc()->
+            mapWithKeys(function ($item, $key) {
+                return [$key => 0];
+            });
+        }
+
+        // get counts for current query
+        $contests = $this->loadContests($request)->get();
+        foreach (Contest::$filterable as $filter) {
+            $filters[$filter] = $filters[$filter]->merge($contests->pluck($filter)->flatten()->countBy('name'))->take(5);
         }
         return $filters;
     }
