@@ -20,9 +20,9 @@ class HomeController extends Controller
         $videos = Video::published()->orderBy('published_at','desc')->take(3)->get();
         $tiles = Tile::published()->orderBy('published_at', 'desc')->get();
         $contestFilterOptions = [
-            ['key' => trans('contests.upcoming'), 'title' => trans('contests.upcoming')],
-            ['key' => trans('contests.ongoing'), 'title' => trans('contests.ongoing')],
-            ['key' => trans('contests.finished'), 'title' => trans('contests.finished')],
+            ['key' => 'ongoing', 'title' => trans('contests.ongoing')],
+            ['key' => 'upcoming', 'title' => trans('contests.upcoming')],
+            ['key' => 'finished', 'title' => trans('contests.finished')],
         ];
 
         $deadline = Deadline::published()->due()->orderBy('published_at', 'desc')->first();

@@ -50,7 +50,7 @@ export default {
   },
   data () {
     return {
-      selectedOption: this.options[1],
+      selectedOption: this.options[0],
       contests: [],
       fetchedOption: null
     }
@@ -65,7 +65,19 @@ export default {
   },
   methods: {
     async fetch () {
-      const response = await axios.get('/api/contests', { params: { per_page: 5, states: [this.selectedOption.key] } })
+      let sort = {
+        name: 'deadline_at',
+        direction: 'asc'
+      }
+
+      if (this.selectedOption.key == 'upcoming') {
+        sort.name = 'title'
+      } else if (this.selectedOption.key == 'finished') {
+        sort.name = 'results_published_at'
+        sort.direction = 'desc'
+      }
+
+      const response = await axios.get('/api/contests', { params: { per_page: 5, state: this.selectedOption.key, sortby: sort.name, direction: sort.direction } })
       this.fetchedOption = this.selectedOption.key
       this.contests = response.data.data
     }
