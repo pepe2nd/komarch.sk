@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Contest;
+use App\Models\Proposal;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ContestFactory extends Factory
+class ProposalFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Contest::class;
+    protected $model = Proposal::class;
 
     /**
      * Define the model's default state.
@@ -23,7 +23,7 @@ class ContestFactory extends Factory
     {
         return [
             'id' => $this->faker->unique()->randomNumber(),
-            'announced_at' => $this->faker->dateTimeBetween('-1 year')
+            'date' => $this->faker->dateTimeBetween('+1 days', '+1 year')
         ];
     }
 }

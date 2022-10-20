@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Contest;
+use App\Models\Proposal;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\RefreshSearchIndex;
 use Tests\TestCase;
@@ -20,8 +21,8 @@ class ContestApiTest extends TestCase
 
     public function testSearchByName()
     {
-        Contest::factory()->create(['title' => 'Vízia rozvoja obce Bernolákovo']);
-        Contest::factory()->create(['title' => 'Vízia rozvoja obce Dunajská Streda']);
+        Contest::factory()->has(Proposal::factory()->count(1), 'proposals')->create(['title' => 'Vízia rozvoja obce Bernolákovo']);
+        Contest::factory()->has(Proposal::factory()->count(3), 'proposals')->create(['title' => 'Vízia rozvoja obce Dunajská Streda']);
 
         $this->get(route('api.contests.index', ['q' => 'bernol']))
             ->assertJsonCount(1, 'data')
