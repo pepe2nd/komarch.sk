@@ -16,10 +16,10 @@ class CreateArchitectsTables extends Migration
         Schema::create('architects', function (Blueprint $table) {
             $table->bigInteger('id', false, true)->primary();
             $table->char('gender', 1);
-            $table->string('title_before', 50);
+            $table->string('title_before', 50)->nullable();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('title_after', 50);
+            $table->string('title_after', 50)->nullable();
             $table->string('webpage')->nullable();
             $table->timestamps();
         });
