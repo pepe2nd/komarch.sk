@@ -1,5 +1,5 @@
 @php
-    $class = 'group block leading-relaxed hover:text-blue whitespace-nowrap';
+    $class = 'group block leading-relaxed hover:text-blue';
     $class .= (url()->current() == $url) ? ' text-blue' : '';
 @endphp
 <a
