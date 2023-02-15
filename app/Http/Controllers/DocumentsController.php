@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use App\Models\Publication;
-use App\Models\Tile;
+use App\Models\Page;
 use Illuminate\Http\Request;
 
 class DocumentsController extends Controller
 {
     public function index(Request $request)
     {
-        return view('documents');
+        $page = Page::findOrFail(24610); // legacy page "Právne normy a dokumenty"
+        return view('documents', compact('page'));
     }
 }
