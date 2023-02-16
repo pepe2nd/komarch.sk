@@ -11,13 +11,11 @@
         :src="item.cover_image.url"
         :width="item.cover_image.width"
         :height="item.cover_image.height"
-      >
+        @load="onImgLoad"
+      />
       <NoImage v-else />
       <h3 class="mt-4 group-hover:text-blue leading-normal">
-        <a
-          :href="item.url"
-          class="link-area"
-        >
+        <a :href="item.url" class="link-area">
           {{ item.name }}
         </a>
       </h3>
@@ -27,15 +25,21 @@
         v-for="award in item.awards"
         :key="award.id"
         :url="'/diela?awards[]=' + award.name"
-      >{{ award.name }} {{ (award.pivot.winning) ? __('works.winning') : __('works.nomination') }}</TagHash>
+        >{{ award.name }}
+        {{
+          award.pivot.winning ? __("works.winning") : __("works.nomination")
+        }}</TagHash
+      >
       <TagHash
         v-if="item.location_district"
         :url="'/diela?location_districts[]=' + item.location_district"
-      >{{ item.location_district }}</TagHash>
+        >{{ item.location_district }}</TagHash
+      >
       <TagHash
         v-if="item.year"
         :url="'/diela?year_from=' + item.year + '&year_to=' + item.year"
-      >{{ item.year }}</TagHash>
+        >{{ item.year }}</TagHash
+      >
     </div>
     <div class="flex flex-wrap mt-4">
       <a
@@ -45,7 +49,9 @@
         class="group inline-block leading-normal text-blue mr-2"
       >
         {{ architect.first_name }} {{ architect.last_name }}
-        <span class="inline-block transform group-hover:translate-x-1 group-hover:-translate-y-1 duration-200 icon-arrow-tr" />
+        <span
+          class="inline-block transform group-hover:translate-x-1 group-hover:-translate-y-1 duration-200 icon-arrow-tr"
+        />
       </a>
       <span
         v-for="architect in item.other_architects"
@@ -59,9 +65,8 @@
 </template>
 
 <script>
-
-import TagHash from './atoms/tags/TagHash'
-import NoImage from './atoms/NoImage'
+import TagHash from "./atoms/tags/TagHash";
+import NoImage from "./atoms/NoImage";
 
 export default {
   components: {
@@ -74,16 +79,14 @@ export default {
       required: true
     }
   },
-  mounted () {
-    if (this.item.cover_image) {
-      const size = this.$refs.img.getBoundingClientRect().width
-      this.$refs.img.sizes = Math.ceil(size / window.innerWidth * 100) + 'vw'
-    }
-  },
   methods: {
-    onTagClicked (filter) {
-      console.log(filter) // TODO
+    onTagClicked(filter) {
+      console.log(filter); // TODO
+    },
+    onImgLoad() {
+      const size = this.$refs.img.getBoundingClientRect().width;
+      this.$refs.img.sizes = Math.ceil((size / window.innerWidth) * 100) + "vw";
     }
   }
-}
+};
 </script>
