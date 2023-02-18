@@ -25,4 +25,41 @@
         </ul>
 
     </div>
+
+    <transition name="slide">
+        <div class="fixed top-0 right-0 w-full md:w-1/2 h-full bg-black z-40 pt-16">
+            <!-- Close button -->
+            <button @click="isOpen = false"
+                class="absolute right-0 mr-5 z-50 p-3 text-white hover:text-blue focus:outline-none">
+                {{ trans('app.close') }}
+            </button>
+
+            <div class="flex flex-col py-3 px-8">
+                <!-- Navigation items -->
+                <ul>
+                    @foreach (\App\Models\Page::topMenu()->get() as $i => $item)
+                        <li class="{{ $i < 4 ? 'md:hidden' : '' }}">
+                            <x-link-arrow-hover class="whitespace-nowrap text-white" :url="$item->url">
+                                {{ $item->title }}
+                            </x-link-arrow-hover>
+                        </li>
+                    @endforeach
+                </ul>
+
+                <!-- Language switch -->
+                <ul class="mt-6">
+                    @foreach (LaravelLocalization::getLocalesOrder() as $localeCode => $properties)
+                        <li class="capitalize">
+                            <a rel="alternate" hreflang="{{ $localeCode }}" title="{{ $properties['native'] }}"
+                                href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}"
+                                class="block leading-relaxed text-white hover:text-blue {{ $localeCode == LaravelLocalization::getCurrentLocale() ? 'text-blue' : '' }}">
+                                {{ $properties['native'] }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+
+        </div>
+    </transition>
 </header>
