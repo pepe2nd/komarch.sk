@@ -12,6 +12,7 @@
         "lint:fix": "eslint --ext .js,.vue ./ --fix"
     },
     "devDependencies": {
+        "@prettier/plugin-php": "^0.19.3",
         "@tailwindcss/aspect-ratio": "^0.2.0",
         "@tailwindcss/postcss7-compat": "^2.0.4",
         "autoprefixer": "^9.8.6",
@@ -28,6 +29,8 @@
         "laravel-vue-lang": "^3.1.1",
         "mapbox-gl": "^2.2.0",
         "postcss": "^7.0.35",
+        "prettier": "^2.8.4",
+        "prettier-plugin-tailwindcss": "^0.2.3",
         "qs": "^6.10.1",
         "resolve-url-loader": "^3.1.0",
         "swiper": "^5.4.5",
