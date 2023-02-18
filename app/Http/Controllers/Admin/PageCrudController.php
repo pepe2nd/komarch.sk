@@ -6,6 +6,7 @@ use App\Http\Requests\PageRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use App\Models\Page;
+
 /**
  * Class PageCrudController
  * @package App\Http\Controllers\Admin
@@ -15,7 +16,9 @@ class PageCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate; }
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation {
+        update as traitUpdate;
+    }
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
@@ -35,8 +38,8 @@ class PageCrudController extends CrudController
                 'name' => 'title',
                 'type' => 'title_with_preview',
                 'searchLogic' => function ($query, $column, $searchTerm) {
-                    $query->orWhere('title->sk', 'like', '%'.$searchTerm.'%')
-                          ->orWhere('title->en', 'like', '%'.$searchTerm.'%');
+                    $query->orWhere('title->sk', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('title->en', 'like', '%' . $searchTerm . '%');
                 }
             ],
             [
@@ -51,11 +54,11 @@ class PageCrudController extends CrudController
                 'attribute'   => 'title',
                 'orderable' => true,
                 'orderLogic' => function ($query, $column, $columnDirection) {
-                        return $query->orderBy('parent_id', $columnDirection);
-                    },
+                    return $query->orderBy('parent_id', $columnDirection);
+                },
                 'wrapper'   => [
                     'href' => function ($crud, $column, $entry, $related_key) {
-                        return backpack_url('page/'.$related_key.'/show');
+                        return backpack_url('page/' . $related_key . '/show');
                     },
                 ],
             ],
@@ -71,7 +74,7 @@ class PageCrudController extends CrudController
                 'attribute'   => 'name',
                 'wrapper'   => [
                     'href' => function ($crud, $column, $entry, $related_key) {
-                        return backpack_url('tag/'.$related_key.'/show');
+                        return backpack_url('tag/' . $related_key . '/show');
                     },
                 ],
             ],
@@ -150,10 +153,10 @@ class PageCrudController extends CrudController
         ]);
 
         $this->crud->addFilter([
-          'name'  => 'tags',
-          'type'  => 'select2',
-          'label' => 'Tags'
-        ], function() {
+            'name'  => 'tags',
+            'type'  => 'select2',
+            'label' => 'Tags'
+        ], function () {
             return \Spatie\Tags\Tag::all()->pluck('name', 'id')->toArray();
         }, function ($value) {
             $this->crud->query = $this->crud->query->whereHas('tags', function ($query) use ($value) {
@@ -162,15 +165,26 @@ class PageCrudController extends CrudController
         });
 
         $this->crud->addFilter([
-          'name'  => 'parent_id',
-          'type'  => 'select2_wide',
-          'label' => 'Parent page'
-        ], function() {
+            'name'  => 'parent_id',
+            'type'  => 'select2_wide',
+            'label' => 'Parent page'
+        ], function () {
             return \App\Models\Page::getTree($only_parents = true);
-        }, function($value) {
+        }, function ($value) {
             $this->crud->addClause('where', 'parent_id', $value);
         });
 
+        $this->crud->addFilter(
+            [
+                'type'  => 'simple',
+                'name'  => 'topMenu',
+                'label' => 'Top menu'
+            ],
+            false,
+            function () {
+                $this->crud->addClause('topMenu');
+            }
+        );
     }
 
     /**
@@ -223,7 +237,7 @@ class PageCrudController extends CrudController
             'type' => 'text',
             'wrapper'   => [
                 'href' => function ($crud, $column, $entry, $related_key) {
-                  return $entry->url;
+                    return $entry->url;
                 },
                 'target' => '_blank',
             ],
@@ -248,7 +262,7 @@ class PageCrudController extends CrudController
             'attribute'   => 'title',
             'wrapper'   => [
                 'href' => function ($crud, $column, $entry, $related_key) {
-                    return backpack_url('page/'.$related_key.'/show');
+                    return backpack_url('page/' . $related_key . '/show');
                 },
             ],
         ]);
