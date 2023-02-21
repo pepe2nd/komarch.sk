@@ -1,11 +1,8 @@
 <template>
-  <a
-    :href="url"
-    class="group block leading-relaxed hover:text-blue"
-  >
+  <a :href="url" class="group block pr-4 leading-relaxed hover:text-blue">
     <slot />
     <span
-      class="opacity-0 inline-block transform group-hover:opacity-100 group-hover:translate-x-3 duration-200"
+      class="inline-block transform opacity-0 duration-200 group-hover:translate-x-2 group-hover:opacity-100"
       :class="external ? 'icon-arrow-r' : 'icon-arrow-r-long'"
     />
   </a>
@@ -23,5 +20,5 @@ export default {
       default: false
     }
   }
-}
+};
 </script>
