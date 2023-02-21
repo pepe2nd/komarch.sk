@@ -22,7 +22,10 @@
       </li>
     </ul>
     <transition name="slide">
-      <div v-if="isOpen" class="fixed top-0 right-0 z-40 h-full w-full bg-black pt-10 md:w-1/2 md:pt-16">
+      <div
+        v-if="isOpen"
+        class="fixed top-0 right-0 z-40 h-full w-full overflow-y-auto bg-black py-10 md:w-1/2 md:pt-16"
+      >
         <!-- Close button -->
         <button
           @click="isOpen = false"
@@ -38,6 +41,13 @@
               <LinkArrowHover :url="item.url" class="whitespace-nowrap text-white" :class="{ 'md:hidden': index < 4 }">
                 {{ item.title }}
               </LinkArrowHover>
+              <ul v-if="item.subItems" class="pl-8">
+                <li v-for="subMenuItem in item.subItems" :key="subMenuItem.id">
+                  <LinkArrowHover :url="subMenuItem.url" class="whitespace-nowrap text-white">
+                    {{ subMenuItem.title }}
+                  </LinkArrowHover>
+                </li>
+              </ul>
             </li>
           </ul>
           <!-- Language switch -->

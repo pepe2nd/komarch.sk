@@ -6,6 +6,13 @@
                 'id' => $item->id,
                 'url' => $item->url,
                 'title' => $item->getTranslation('title', $locale),
+                'subItems' => $item->children->map(function ($item) use ($locale) {
+                    return [
+                        'id' => $item->id,
+                        'url' => $item->url,
+                        'title' => $item->getTranslation('title', $locale),
+                    ];
+                })
             ];
         });
 
