@@ -6,4 +6,5 @@ return [
     'intro' => 'Podporujeme rozvoj architektúry na Slovensku. Sme odbornou organizáciou, ktorá sa zameriava na vzdelávanie a informovanie verejnosti o potrebách kvalitnej architektúry.',
     'search_placeholder' => 'Architekt / architektka, dielo, dokument, iné ...',
     'return_home' => 'Návrat domov',
+    'close' => 'Zavrieť',
 ];

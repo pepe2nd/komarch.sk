@@ -5,12 +5,11 @@ import Mapbox from 'mapbox-gl'
 import vClickOutside from 'v-click-outside'
 import { Lang } from 'laravel-vue-lang'
 import qs from 'qs'
-import VueEasyLightbox from "vue-easy-lightbox";
+import VueEasyLightbox from 'vue-easy-lightbox'
 
 require('./bootstrap')
 
-Vue.component('NavigationToggle', require('./components/NavigationToggle').default)
-Vue.component('NavigationClose', require('./components/NavigationClose').default)
+Vue.component('OffcanvasNavigation', require('./components/OffcanvasNavigation').default)
 Vue.component('FilterListingPosts', require('./components/FilterListingPosts').default)
 Vue.component('FilterListingTenders', require('./components/FilterListingTenders').default)
 Vue.component('WorksMap', require('./components/WorksMap').default)
@@ -31,7 +30,7 @@ Vue.use(VueRouter)
 Vue.use(VueMapbox, { mapboxgl: Mapbox })
 Vue.use(Lang)
 Vue.use(vClickOutside)
-Vue.use(VueEasyLightbox);
+Vue.use(VueEasyLightbox)
 
 // eslint-disable-next-line no-unused-vars
 const app = new Vue({
@@ -40,9 +39,9 @@ const app = new Vue({
     mode: 'history',
     parseQuery: qs.parse,
     // qs stringifies array params better (closer to Laravel)
-    stringifyQuery (query) {
+    stringifyQuery(query) {
       const result = qs.stringify(query)
-      return result ? ('?' + result) : ''
-    }
-  })
+      return result ? '?' + result : ''
+    },
+  }),
 })

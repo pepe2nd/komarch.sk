@@ -6,4 +6,5 @@ return [
     'intro' => 'We support the development of architecture in Slovakia. We are a professional organization that focuses on educating and informing the public about the necessary quality architectures. ',
     'search_placeholder' => 'Architect, building, document, other ... ',
     'return_home' => 'Return home',
+    'close' => 'Close'
 ];
