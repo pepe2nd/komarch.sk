@@ -1,5 +1,5 @@
 <template>
-  <a :href="url" class="group block pr-4 leading-relaxed hover:text-blue">
+  <a :href="url" class="group block pr-4 leading-relaxed hover:text-blue" :class="{ 'text-blue': url == currentUrl }">
     <slot />
     <span
       class="inline-block transform opacity-0 duration-200 group-hover:translate-x-2 group-hover:opacity-100"
@@ -13,12 +13,17 @@ export default {
   props: {
     url: {
       type: String,
-      required: true
+      required: true,
     },
     external: {
       type: Boolean,
-      default: false
-    }
-  }
-};
+      default: false,
+    },
+  },
+  computed: {
+    currentUrl() {
+      return window.location.pathname
+    },
+  },
+}
 </script>
