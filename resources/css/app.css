@@ -1,149 +1,135 @@
-@import "typography.css";
+@import 'typography.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-    body {
-        @apply font-komarch;
-    }
+  body {
+    @apply font-komarch;
+  }
 }
 
 @layer components {
-    .nav-menu {
-        @apply h-0 transition-h duration-500 overflow-hidden;
-    }
+  .map-artworks {
+    height: 585px;
+  }
 
-    .nav-menu-expanded {
-        height: 100vh;
-    }
+  .container-narrow {
+    max-width: 762px;
+  }
 
-    .map-artworks {
-        height: 585px;
-    }
+  .post-content {
+    @apply container-narrow;
+  }
 
-    @screen md {
-        .nav-menu {
-            height: unset;
-        }
-    }
+  .post-content p {
+    @apply mb-6;
+  }
 
-    .container-narrow {
-        max-width: 762px;
-    }
+  .post-content img {
+    @apply mt-6;
+  }
 
-    .post-content {
-        @apply container-narrow;
-    }
-
-    .post-content p {
-        @apply mb-6;
-    }
-
-    .post-content img {
-        @apply mt-6;
-    }
-
-    .post-content a {
-        @apply text-blue;
-    }
+  .post-content a {
+    @apply text-blue;
+  }
 }
 
 @layer utilities {
-    .no-ligatures {
-        font-variant-ligatures: none;
-    }
+  .no-ligatures {
+    font-variant-ligatures: none;
+  }
 
-    .ligatures {
-        font-variant-ligatures: common-ligatures;
-    }
+  .ligatures {
+    font-variant-ligatures: common-ligatures;
+  }
 
-    .link-area:before {
-        content: '';
-        @apply absolute inset-0;
-    }
+  .link-area:before {
+    content: '';
+    @apply absolute inset-0;
+  }
 
-    .icon {
-        line-height: 1;
-    }
+  .icon {
+    line-height: 1;
+  }
 
-    .icon-arrow-r:before {
-        @apply icon;
-        content: "\2192";
-    }
+  .icon-arrow-r:before {
+    @apply icon;
+    content: '\2192';
+  }
 
-    .icon-arrow-r-long:before {
-        @apply icon;
-        content: "\27F6";
-    }
+  .icon-arrow-r-long:before {
+    @apply icon;
+    content: '\27F6';
+  }
 
-    .icon-arrow-l:before {
-        @apply icon;
-        content: "\2190";
-    }
+  .icon-arrow-l:before {
+    @apply icon;
+    content: '\2190';
+  }
 
-    .icon-arrow-l-long:before {
-        @apply icon;
-        content: "\27F5";
-    }
+  .icon-arrow-l-long:before {
+    @apply icon;
+    content: '\27F5';
+  }
 
-    .icon-arrow-t:before {
-        @apply icon;
-        content: "\2191";
-    }
+  .icon-arrow-t:before {
+    @apply icon;
+    content: '\2191';
+  }
 
-    .icon-arrow-tr:before {
-        @apply icon;
-        content: "\2197";
-    }
+  .icon-arrow-tr:before {
+    @apply icon;
+    content: '\2197';
+  }
 
-    .icon-arrow-b:before {
-        @apply icon;
-        content: "\2193";
-    }
+  .icon-arrow-b:before {
+    @apply icon;
+    content: '\2193';
+  }
 
-    .icon-mail:before {
-        @apply icon;
-        content: "\E803";
-    }
+  .icon-mail:before {
+    @apply icon;
+    content: '\E803';
+  }
 
-    .icon-link:before {
-        @apply icon;
-        content: "\E802";
-    }
+  .icon-link:before {
+    @apply icon;
+    content: '\E802';
+  }
 
-    .icon-share:before {
-        @apply icon;
-        content: "\F08E";
-    }
+  .icon-share:before {
+    @apply icon;
+    content: '\F08E';
+  }
 
-    .icon-clock:before {
-        @apply icon;
-        content: '\01F551'
-    }
+  .icon-clock:before {
+    @apply icon;
+    content: '\01F551';
+  }
 
-    .icon-search:before {
-        @apply icon;
-        content: '\2123'
-    }
+  .icon-search:before {
+    @apply icon;
+    content: '\2123';
+  }
 
-    .icon-close:before {
-        @apply icon;
-        content: '\00D7'
-    }
+  .icon-close:before {
+    @apply icon;
+    content: '\00D7';
+  }
 
-    .icon-download:before {
-        @apply icon;
-        content: "\8615";
-    }
+  .icon-download:before {
+    @apply icon;
+    content: '\8615';
+  }
 
-    .icon-preview:before {
-        @apply icon;
-        content: "\1F441";
-    }
+  .icon-preview:before {
+    @apply icon;
+    content: '\1F441';
+  }
 
-    .pb-full {
-        padding-bottom: 100%;
-    }
+  .pb-full {
+    padding-bottom: 100%;
+  }
 }

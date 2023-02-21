@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="flex space-x-2">
-      <li v-for="item in topItems" :key="item.id">
+      <li v-for="item in topItems" :key="item.id" class="hidden md:block">
         <LinkArrowHover :url="item.url">
           {{ item.title }}
         </LinkArrowHover>
@@ -16,39 +16,26 @@
             aria-hidden="true"
             class="absolute mb-0.5 block h-px w-full -translate-y-1.5 transform bg-current"
           ></span>
-          <span
-            aria-hidden="true"
-            class="absolute mb-0.5 block h-px w-full transform bg-current"
-          ></span>
-          <span
-            aria-hidden="true"
-            class="absolute block h-px w-full translate-y-1.5 transform bg-current"
-          ></span>
+          <span aria-hidden="true" class="absolute mb-0.5 block h-px w-full transform bg-current"></span>
+          <span aria-hidden="true" class="absolute block h-px w-full translate-y-1.5 transform bg-current"></span>
         </button>
       </li>
     </ul>
     <transition name="slide">
-      <div
-        v-if="isOpen"
-        class="fixed top-0 right-0 z-40 h-full w-full bg-black pt-16 md:w-1/2"
-      >
+      <div v-if="isOpen" class="fixed top-0 right-0 z-40 h-full w-full bg-black pt-10 md:w-1/2 md:pt-16">
         <!-- Close button -->
         <button
           @click="isOpen = false"
           class="focus:outline-none absolute right-0 z-50 mr-5 p-3 text-white hover:text-blue"
         >
-          {{ __("app.close") }}
+          {{ __('app.close') }}
         </button>
 
         <div class="flex flex-col py-3 px-8">
           <!-- Navigation items -->
           <ul>
             <li v-for="(item, index) in items">
-              <LinkArrowHover
-                :url="item.url"
-                class="whitespace-nowrap text-white"
-                :class="{ 'md:hidden': index < 4 }"
-              >
+              <LinkArrowHover :url="item.url" class="whitespace-nowrap text-white" :class="{ 'md:hidden': index < 4 }">
                 {{ item.title }}
               </LinkArrowHover>
             </li>
@@ -75,7 +62,7 @@
 </template>
 
 <script>
-import LinkArrowHover from "./atoms/links/LinkArrowHover";
+import LinkArrowHover from './atoms/links/LinkArrowHover'
 
 export default {
   components: {
@@ -98,14 +85,14 @@ export default {
   data() {
     return {
       isOpen: false,
-    };
+    }
   },
   computed: {
     topItems() {
-      return this.items.slice(0, 4);
+      return this.items.slice(0, 4)
     },
   },
-};
+}
 </script>
 
 <style>
