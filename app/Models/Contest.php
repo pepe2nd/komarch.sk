@@ -151,4 +151,17 @@ class Contest extends Model implements HasMedia
         return $this->hasManyThrough(Contestresult::class, Reward::class);
     }
 
+    public function getDatesFormatedAttribute()
+    {
+        if ($this->in_verification) {
+            return trans('contests.in_verification');
+        } elseif ($this->nextProposal && $this->nextProposal->date) {
+            return $this->announced_at->format(config('settings.date_short_without_year_format')) . ' – ' . $this->nextProposal->date->format(config('settings.date_short_format'));
+        } elseif ($this->finished_at) {
+            return $this->announced_at->format(config('settings.date_short_without_year_format')) . ' – ' . $this->finished_at->format(config('settings.date_short_format'));
+        } else {
+            return $this->announced_at->format(config('settings.date_short_format'));
+        }
+    } 
+
 }

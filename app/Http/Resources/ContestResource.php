@@ -20,6 +20,7 @@ class ContestResource extends JsonResource
             'title' => $this->title,
             'url' => $this->url,
             'state' => $this->state,
+            'dates_formated' => $this->dates_formated,
             'announced_at' => optional($this->announced_at)->format(config('settings.date_short_format')),
             'finished_at' => optional($this->finished_at)->format(config('settings.date_short_format')),
             'next_proposal' => $this->whenLoaded('nextProposal', fn () => $this->nextProposal->date->isFuture() ? $this->nextProposal->date->format(config('settings.date_short_format')) : null),
