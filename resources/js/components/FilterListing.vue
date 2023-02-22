@@ -1,24 +1,28 @@
 <template>
-  <section class="border-b border-black md:border-b-0 py-10">
+  <section>
     <slot name="before-list" />
-    <radio-button
-      v-for="option in options"
-      :key="option.key"
-      v-model="selectedOption"
-      :option="option"
-    />
+    <div class="md:flex flex-wrap">
+      <radio-button
+        v-for="option in options"
+        :key="option.key"
+        v-model="selectedOption"
+        :option="option"
+        class="mr-12 py-2"
+      />
+    </div>
     <transition
       name="items-list"
       mode="out-in"
     >
       <div
         :key="fetchedOption"
-        class="mt-10"
+        class="md:flex gap-10 mt-5"
       >
         <template v-if="items.length > 0">
           <div
             v-for="(item, index) in items"
             :key="index"
+            class="lg:w-1/3"
           >
             <slot
               name="list-item"

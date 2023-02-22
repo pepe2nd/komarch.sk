@@ -1,20 +1,21 @@
-<section class="border-b border-black md:border-b-0 py-10">
+<section {{ $attributes->merge(['class' => 'py-10']) }}>
     <x-heading-section>
         <x-link-arrow :url="$linkUrl" target="_blank">
             {{ $title }}
         </x-link-arrow>
     </x-heading-section>
 
+    <div class="md:flex">
     @foreach ($publications as $publication)
-        <div class="px-5 sm:px-10">
+        <div class="pr-24">
             <a href="{{ $publication->issuu_url }}" target="_blank">
                 <img
                     src="{{ Storage::url($publication->cover_image) }}"
                     alt="{{ $publication->name }}"
-                    class="object-cover mt-10 mb-10 mx-auto shadow-2xl sm:max-w-xs"
+                    class="my-10 shadow-2xl sm:max-w-xs w-full h-auto"
                 />
             </a>
         </div>
     @endforeach
-
+    </div>
 </section>
