@@ -1,9 +1,9 @@
 <template>
   <article class="py-10 grid grid-cols-2 place-items-start group">
-    <TagDate class="col-span-3 whitespace-nowrap">
+    <TagDate class="whitespace-nowrap">
       {{ tender.dates_formated }}
     </TagDate>
-    <TagDate class="col-span-2 h-6 flex items-center whitespace-nowrap" v-if="tender.next_proposal" :title="tender.next_proposal">
+    <TagDate class="flex items-center whitespace-nowrap" v-if="tender.next_proposal" :title="tender.next_proposal">
       <span class="icon-clock mr-1" />
       {{ tender.next_proposal_diff }}
     </TagDate>
