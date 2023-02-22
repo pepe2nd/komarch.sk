@@ -43,13 +43,11 @@
         @endforeach
     </div>
 
-    <div class="lg:flex">
-        <div class="flex-1 md:mr-14 md:order-2">
-            <filter-listing-posts />
-        </div>
-        <div class="flex-1 md:mr-14 md:order-1">
-            <filter-listing-tenders :options="{{ json_encode($contestFilterOptions) }}" />
-        </div>
+    <div class="border-t border-black my-10">
+        <filter-listing-posts />
+    </div>
+    <div class="border-t border-black my-10">
+        <filter-listing-tenders :options="{{ json_encode($contestFilterOptions) }}" />
     </div>
     
     <div class="md:flex border-t border-b border-black">

@@ -6,12 +6,15 @@
       </LinkArrow>
     </h2>
 
-    <radio-button
-      v-for="option in options"
-      :key="option.key"
-      v-model="selectedOption"
-      :option="option"
-    />
+    <div class="md:flex flex-wrap">
+      <radio-button
+        v-for="option in options"
+        :key="option.key"
+        v-model="selectedOption"
+        :option="option"
+        class="mr-12 py-2"
+      />
+    </div>
 
     <transition
       name="items-list"
@@ -19,15 +22,16 @@
     >
       <div
         :key="displayOption.key"
-        class="mt-10"
+        class="flex gap-10 mt-5"
       >
         <template v-if="posts.length > 0">
-          <div
-            v-for="(post, index) in posts"
-            :key="index"
-          >
-            <TeaserSka :post="post" />
-          </div>
+          <TeaserPostBig
+            v-for="post in posts"
+            :key="post.id"
+            :post="post"
+            class="lg:w-1/3"
+            data-grid-item
+          />
         </template>
         <p
           v-else
@@ -37,21 +41,17 @@
         </p>
       </div>
     </transition>
-
-    <LinkArrow url="/spravy">
-      {{ __('posts.title') }}
-    </LinkArrow>
   </section>
 </template>
 
 <script>
 import LinkArrow from './atoms/links/LinkArrow'
-import TeaserSka from './TeaserSka'
 import RadioButton from './atoms/RadioButton'
+import TeaserPostBig from './TeaserPostBig'
 
 export default {
   components: {
-    TeaserSka,
+    TeaserPostBig,
     LinkArrow,
     RadioButton
   },
