@@ -48,24 +48,15 @@
             <filter-listing-posts />
         </div>
         <div class="flex-1 md:mr-14 md:order-1">
-            <filter-listing-tenders
-                :options="{{ json_encode($contestFilterOptions) }}"
-            />
+            <filter-listing-tenders :options="{{ json_encode($contestFilterOptions) }}" />
         </div>
-        <div class="flex-1 md:order-3">
-            <x-section-videos
-                title="Videá"
-                :videos="$videos"
-                linkUrl="https://www.youtube.com/channel/UCxQENQWdqg7ug0dz8lEk-uQ"
-                :linkTitle="trans('home.more_video')"
-            />
-            <x-section-publications
-                title="Publikácie"
-                :publications="$publications"
-                linkUrl="https://issuu.com/institutska"
-                :linkTitle="trans('home.read_on_issuu')"
-            />
-        </div>
+    </div>
+    
+    <div class="md:flex border-t border-b border-black">
+        <x-section-publications class="md:w-2/3" title="Publikácie" :publications="$publications" linkUrl="https://issuu.com/institutska"
+            :linkTitle="trans('home.read_on_issuu')" />
+        <x-section-videos class="md:w-1/3" title="Videá" :videos="$videos"
+            linkUrl="https://www.youtube.com/channel/UCxQENQWdqg7ug0dz8lEk-uQ" :linkTitle="trans('home.more_video')" />
     </div>
 
     <x-section-map
