@@ -1,5 +1,5 @@
 <template>
-  <section class="border-b border-black md:border-b-0 py-10">
+  <section>
     <h2 class="text-2xl mb-10">
       <LinkArrow url="/spravy">
         {{ __('posts.title') }}
@@ -22,7 +22,7 @@
     >
       <div
         :key="displayOption.key"
-        class="flex gap-10 mt-5"
+        class="md:flex gap-10 mt-5"
       >
         <template v-if="posts.length > 0">
           <TeaserPostBig
