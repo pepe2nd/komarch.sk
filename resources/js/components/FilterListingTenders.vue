@@ -77,7 +77,7 @@ export default {
         sort.direction = 'desc'
       }
 
-      const response = await axios.get('/api/contests', { params: { per_page: 5, state: this.selectedOption.key, sortby: sort.name, direction: sort.direction } })
+      const response = await axios.get('/api/contests', { params: { per_page: 3, state: this.selectedOption.key, sortby: sort.name, direction: sort.direction } })
       this.fetchedOption = this.selectedOption.key
       this.contests = response.data.data
     }
