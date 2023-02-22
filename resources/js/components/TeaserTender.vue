@@ -1,5 +1,5 @@
 <template>
-  <article class="py-10 grid grid-cols-2 place-items-start items-center group">
+  <article class="py-10 grid grid-cols-2 place-items-start group">
     <TagDate class="col-span-3 whitespace-nowrap">
       {{ tender.dates_formated }}
     </TagDate>

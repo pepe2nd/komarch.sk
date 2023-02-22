@@ -1,5 +1,5 @@
 <template>
-  <section class="border-b border-black md:border-b-0 py-10">
+  <section>
     <slot name="before-list" />
     <div class="md:flex flex-wrap">
       <radio-button

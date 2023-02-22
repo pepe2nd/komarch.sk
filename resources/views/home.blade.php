@@ -35,16 +35,12 @@
             @endif
         </div>
         @foreach ($tiles as $tile)
-            <x-tile
-            :title="$tile->title"
-            :url="$tile->url"
-            class="{{ ($loop->last) ? 'border-b md:border-b-0' : '' }}"
-        />
+            <x-tile :title="$tile->title" :url="$tile->url" />
         @endforeach
     </div>
 
     <div class="border-t border-black my-10">
-        <filter-listing-tenders :options="{{ json_encode($contestFilterOptions) }}" />
+        <filter-listing-tenders class="py-10" :options="{{ json_encode($contestFilterOptions) }}" />
     </div>
 
     <div class="border-t border-black my-10">

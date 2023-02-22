@@ -1,5 +1,5 @@
 <template>
-  <article class="py-10 grid grid-cols-2 place-items-start items-center group">
+  <article class="py-10 grid grid-cols-2 place-items-start group">
     <TagHash v-if="post.tags[0]" :url="tagUrl">{{ post.tags[0].name }}</TagHash>
     <TagDate>{{ post.date }}</TagDate>
     <h3 class="mt-2 text-2xl col-span-2 tracking-tight leading-snug">
