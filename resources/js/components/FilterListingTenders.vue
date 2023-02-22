@@ -23,11 +23,6 @@
       <TeaserTender :tender="item" />
     </template>
 
-    <template #after-list>
-      <LinkArrow url="/sutaze">
-        {{ __('contests.title') }}
-      </LinkArrow>
-    </template>
   </FilterListing>
 </template>
 

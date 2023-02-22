@@ -44,10 +44,11 @@
     </div>
 
     <div class="border-t border-black my-10">
-        <filter-listing-posts class="py-10" />
-    </div>
-    <div class="border-t border-black my-10">
         <filter-listing-tenders :options="{{ json_encode($contestFilterOptions) }}" />
+    </div>
+
+    <div class="border-t border-black my-10">
+        <filter-listing-posts class="py-10" />
     </div>
     
     <div class="md:flex border-t border-b border-black">

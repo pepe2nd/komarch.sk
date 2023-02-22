@@ -28,6 +28,7 @@ class ContestResource extends JsonResource
             'results_published_is_passed' => optional($this->results_published_at)->isPast(),
             'created_at' => optional($this->created_at)->format(config('settings.date_short_format')),
             'updated_at' => optional($this->updated_at)->format(config('settings.date_short_format')),
+            'cover_image' => new MediaResource($this->cover_image),
             'tags' => TagResource::collection($this->whenLoaded('tags')),
         ];
     }
