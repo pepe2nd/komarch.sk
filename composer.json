@@ -28,6 +28,7 @@
         "league/flysystem-sftp": "~1.0",
         "lorisleiva/laravel-deployer": "^0.3.5",
         "mcamara/laravel-localization": "^1.6",
+        "sentry/sentry-laravel": "^3.3",
         "spatie/laravel-medialibrary": "^9.4",
         "spatie/laravel-missing-page-redirector": "^2.7",
         "spatie/laravel-sluggable": "^2.6",
@@ -46,7 +47,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     },
     "extra": {
         "laravel": {
