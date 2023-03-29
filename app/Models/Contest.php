@@ -89,7 +89,7 @@ class Contest extends Model implements HasMedia
 
     public function scopeOngoing($query)
     {
-        return $query->whereDate('announced_at', '<', Carbon::now())
+        return $query->whereDate('announced_at', '<=', Carbon::now())
             ->whereDate('p.date', '>=', Carbon::now());
     }
 
