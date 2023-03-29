@@ -111,7 +111,7 @@ export default {
       const facetFilterParams = omit(this.query, ['year_from', 'year_to', 'q', 'sortby', 'direction', 'page'])
 
       return Object.entries(facetFilterParams)
-        .flatMap(([type, keys]) => keys.flatMap(key => [{ key, type }])) || []
+        .flatMap(([type, keys]) => Array.isArray(keys) ? keys.flatMap(key => [{ key, type }]) : []) || []
     },
     sorting () {
       return {
