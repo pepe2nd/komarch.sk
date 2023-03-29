@@ -160,7 +160,7 @@ class Contest extends Model implements HasMedia
         } elseif ($this->finished_at) {
             return $this->announced_at->format(config('settings.date_short_without_year_format')) . ' – ' . $this->finished_at->format(config('settings.date_short_format'));
         } else {
-            return $this->announced_at->format(config('settings.date_short_format'));
+            return ($this->announced_at) ? $this->announced_at->format(config('settings.date_short_format')) : null;
         }
     } 
 
