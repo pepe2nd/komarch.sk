@@ -76,7 +76,6 @@ jobs:
     - uses: shivammathur/setup-php@v2
       with:
         php-version: 7.4
-        tools: composer:v1
     - run: composer install --no-progress --no-interaction --no-dev
     - uses: atymic/deployer-php-action@0.2.0
       with:
