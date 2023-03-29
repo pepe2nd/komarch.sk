@@ -102,7 +102,7 @@ return [
         'php_fpm_service' => 'php7.4-fpm',
         'http_user' => 'www-data',
         'bin/php' => 'php7.4',
-        'bin/composer' => 'php7.4 $(which composer)',
+        'bin/composer' => 'php7.4 $(which composer2)',
         'shared_dirs' => [
             'public/wp-content',
             'public/packages',
