@@ -11,7 +11,7 @@ return [
     'participation_conditions' => 'Okruh účastníkov',
     'terms' => 'Termíny',
     'announced_at' => 'Termín vyhlásenia súťaže',
-    'proposal_at' => 'Lehota na predkladanie súťažných návrhov',
+    'proposal_at' => 'Lehota na predkladanie podkladov / súťažných návrhov',
     'finished_at' => 'Predpokladaná lehota na vyhodnotenie súťaže',
     'results_published_at' => 'Predpokladaný termín oznámenia a zverejnenia výsledkov',
     'jurors' => 'Porota',

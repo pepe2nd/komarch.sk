@@ -11,7 +11,7 @@ return [
     'participation_conditions' => 'Participantation conditions',
     'terms' => 'Dates',
     'announced_at' => 'Announcing the competition',
-    'proposal_at' => 'Deadline for submission of tenders',
+    'proposal_at' => 'Deadline for submission of documents / tender proposals',
     'finished_at' => 'Estimated date for evaluation of the competition',
     'results_published_at' => 'Expected date of announcement and publication of results',
     'jurors' => 'Jury',
