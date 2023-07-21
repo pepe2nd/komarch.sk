@@ -182,7 +182,7 @@ class ImportFromUrad implements ShouldQueue
     private function importModelTags(string $sourceDbModelClassname, Model $entity)
     {
 
-        $sourceTagsByType = $this->getSourceDb()
+        $sourceTags = $this->getSourceDb()
             ->table('lab_tags')
             ->select('name->sk as name', 'type')
             ->join('lab_taggables', 'lab_taggables.tag_id', '=', 'lab_tags.id')
@@ -191,12 +191,15 @@ class ImportFromUrad implements ShouldQueue
             ->get()
             ->groupBy('type');
 
-        $entity->tags()->whereNotIn('type', $sourceTagsByType->keys())->delete();
+        $entity->tags()->whereNotIn('type', $sourceTags->pluck('type')->unique())->delete();
 
-        $sourceTagsByType->each(function ($tags) use ($entity) {
+        $sourceTags->each(function ($tags) use ($entity) {
             // NULL types get grouped as empty strings
             $type = $tags[0]->type;
-            $entity->syncTagsWithType($tags->pluck('name'), $type);
+            // avoid SYNC with type = NULL - it will remove all other tags for other types
+            if (!empty($type)) {
+                $entity->syncTagsWithType($tags->pluck('name'), $type);
+            }
         });
     }
 
