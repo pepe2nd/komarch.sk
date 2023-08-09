@@ -86,6 +86,7 @@ export default {
     onImgLoad() {
       const size = this.$refs.img.getBoundingClientRect().width;
       this.$refs.img.sizes = Math.ceil((size / window.innerWidth) * 100) + "vw";
+      this.$refs.img.src = this.item.cover_image.url; 
     }
   }
 };
