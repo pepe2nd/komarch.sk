@@ -25,6 +25,7 @@ Vue.component('RelatedWorks', require('./components/works-overview/RelatedWorks'
 Vue.component('ImageGallery', require('./components/ImageGallery').default)
 Vue.component('Clock', require('./components/Clock').default)
 Vue.component('InputSearch', require('./components/InputSearch').default)
+Vue.component('LinkArrowBack', require('./components/atoms/links/LinkArrowBack').default)
 
 Vue.use(VueRouter)
 Vue.use(VueMapbox, { mapboxgl: Mapbox })

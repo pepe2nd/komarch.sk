@@ -4,7 +4,7 @@
             {{ $title }}
         </div>
     @endif
-    <x-link-arrow-back :url="$backUrl" class="text-lg md:text-base">
+    <link-arrow-back url="{{$backUrl}}" class="text-lg md:text-base">
         {{ $backTitle }}
-    </x-link-arrow-back>
+    </link-arrow-back>
 </div>
