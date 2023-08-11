@@ -67,6 +67,7 @@ class ImportFromUrad implements ShouldQueue
         $this->importTable('lab_architect_contest', 'architect_contest');
         $this->importTable('lab_architect_contestresult', 'architect_contestresult');
         $this->importTable('lab_architect_work', 'architect_work');
+        $this->importTable('lab_post_offices', 'post_offices');
 
         $sourceDb = $this->getSourceDb();
 
@@ -79,6 +80,7 @@ class ImportFromUrad implements ShouldQueue
         DB::table('numbers')->whereNotIn('id', $sourceDb->table('lab_numbers')->pluck('id'))->delete();
         DB::table('business_numbers')->whereNotIn('id', $sourceDb->table('lab_business_numbers')->pluck('id'))->delete();
         DB::table('addresses')->whereNotIn('id', $sourceDb->table('lab_addresses')->pluck('id'))->delete();
+        DB::table('post_offices')->whereNotIn('id', $sourceDb->table('lab_post_offices')->pluck('id'))->delete();
 
         $this->deleteAndForget('lab_architects', Architect::class);
 
