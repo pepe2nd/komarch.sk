@@ -44,9 +44,9 @@ class Architect extends Model
     public function number()
     {
         return $this->hasOne(Number::class)->where(function ($subquery) {
-                $subquery->whereDate('valid_to', '>', Carbon::now())
-                    ->orWhereNull('valid_to');
-                })->latest();
+            $subquery->whereDate('valid_to', '>', Carbon::now())
+                ->orWhereNull('valid_to');
+        })->latest();
     }
 
     public function works()
@@ -118,7 +118,14 @@ class Architect extends Model
 
     public function toSearchableArray()
     {
-        return Arr::only($this->toArray(), ['first_name', 'last_name']);
+        $searchableArray = Arr::only($this->toArray(), ['first_name', 'last_name']);
+
+        $this->load('number'); // load the relationship if it's not already loaded
+        if ($this->relationLoaded('number')) {
+            $searchableArray['architect_number'] = $this->number ? $this->number->architect_number : null;
+        }
+
+        return $searchableArray;
     }
 
     public function getShortDescriptionAttribute()
