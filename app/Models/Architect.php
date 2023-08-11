@@ -22,7 +22,7 @@ class Architect extends Model
 
     public function address()
     {
-        return $this->hasOne(Address::class);
+        return $this->hasOne(Address::class)->with('district');
     }
 
     // Note this includes both nominations and awarded awards
