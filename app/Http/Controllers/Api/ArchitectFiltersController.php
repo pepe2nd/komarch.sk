@@ -18,7 +18,7 @@ class ArchitectFiltersController extends Controller
         return [
             'startsWith' => $this->getStartsWith($request),
             'authorizationsIn' => $this->getAuthorizationsIn($request),
-            'districts' => $this->getDistricts($request)
+            'regions' => $this->getRegions($request)
         ];
     }
 
@@ -68,9 +68,9 @@ class ArchitectFiltersController extends Controller
         );
     }
 
-    function getDistricts(Request $request)
+    function getRegions(Request $request)
     {
-        $all_districts = Architect::query()
+        $all_regions = Architect::query()
             ->join('addresses', 'addresses.architect_id', '=', 'architects.id')
             ->join('post_offices', 'post_offices.psc', '=', 'addresses.location_postal_code')
             ->groupBy('post_offices.kraj')
@@ -79,7 +79,7 @@ class ArchitectFiltersController extends Controller
             ->get()
             ->flatMap(fn ($row) => [$row->kraj => 0])->toArray();
 
-        $filtered_districts = Architect::query()
+        $filtered_regions = Architect::query()
             ->filtered($request)
             ->join('addresses', 'addresses.architect_id', '=', 'architects.id')
             ->join('post_offices', 'post_offices.psc', '=', 'addresses.location_postal_code')
@@ -90,8 +90,8 @@ class ArchitectFiltersController extends Controller
             ->pluck('architect_count', 'kraj')->toArray();
 
         return array_merge(
-            $all_districts,
-            $filtered_districts,
+            $all_regions,
+            $filtered_regions,
         );
     }
 }
