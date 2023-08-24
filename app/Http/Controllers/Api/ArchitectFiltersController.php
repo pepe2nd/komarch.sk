@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Models\Architect;
 use App\Models\Number;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
+use App\Models\Architect;
+use App\Models\PostOffice;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Builder;
 
 class ArchitectFiltersController extends Controller
 {
@@ -16,17 +18,19 @@ class ArchitectFiltersController extends Controller
         return [
             'startsWith' => $this->getStartsWith($request),
             'authorizationsIn' => $this->getAuthorizationsIn($request),
+            'districts' => $this->getDistricts($request)
         ];
     }
 
-    private function getStartsWith(Request $request) {
+    private function getStartsWith(Request $request)
+    {
         $architectsFirstLetters = Architect::query()
             ->filtered($request)
             ->selectRaw('LEFT(last_name, 1) AS first_letter')
             ->groupBy('first_letter')
             ->pluck('first_letter')
             ->flatMap(fn ($letter) => [
-              (string) Str::of($letter)->ascii() => true
+                (string) Str::of($letter)->ascii() => true
             ]);
 
         $startsWith = [];
@@ -37,7 +41,8 @@ class ArchitectFiltersController extends Controller
         return $startsWith;
     }
 
-    private function getAuthorizationsIn(Request $request) {
+    private function getAuthorizationsIn(Request $request)
+    {
         $counts = Number::query()
             ->whereHas('architect', function (Builder $query) use ($request) {
                 $query->filtered($request);
@@ -60,6 +65,33 @@ class ArchitectFiltersController extends Controller
                 'Z' => 0,
             ],
             $counts,
+        );
+    }
+
+    function getDistricts(Request $request)
+    {
+        $all_districts = Architect::query()
+            ->join('addresses', 'addresses.architect_id', '=', 'architects.id')
+            ->join('post_offices', 'post_offices.psc', '=', 'addresses.location_postal_code')
+            ->groupBy('post_offices.kraj')
+            ->select(DB::raw('count(*) as architect_count, post_offices.kraj'))
+            ->orderBy('architect_count', 'desc')
+            ->get()
+            ->flatMap(fn ($row) => [$row->kraj => 0])->toArray();
+
+        $filtered_districts = Architect::query()
+            ->filtered($request)
+            ->join('addresses', 'addresses.architect_id', '=', 'architects.id')
+            ->join('post_offices', 'post_offices.psc', '=', 'addresses.location_postal_code')
+            ->groupBy('post_offices.kraj')
+            ->select(DB::raw('count(*) as architect_count, post_offices.kraj'))
+            ->orderBy('architect_count', 'desc')
+            ->get()
+            ->pluck('architect_count', 'kraj')->toArray();
+
+        return array_merge(
+            $all_districts,
+            $filtered_districts,
         );
     }
 }
