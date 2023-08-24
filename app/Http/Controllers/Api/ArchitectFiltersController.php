@@ -99,7 +99,7 @@ class ArchitectFiltersController extends Controller
     function getDistricts(Request $request)
     {
         if (empty($request->get('region'))) {
-            return null;
+            return [];
         }
         
         $all_districts = Architect::query()
