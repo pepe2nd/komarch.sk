@@ -110,7 +110,10 @@ class ArchitectFiltersController extends Controller
             ->select(DB::raw('count(*) as architect_count, post_offices.okres'))
             ->orderBy('architect_count', 'desc')
             ->get()
-            ->flatMap(fn ($row) => [$row->okres => 0])->toArray();
+            ->flatMap(fn ($row) => [$row->okres => 0])
+            ->reject(function ($value, $key) {
+                return empty($key);
+            })->toArray();
 
         $filtered_districts = Architect::query()
             ->filtered($request)
@@ -121,7 +124,10 @@ class ArchitectFiltersController extends Controller
             ->select(DB::raw('count(*) as architect_count, post_offices.okres'))
             ->orderBy('architect_count', 'desc')
             ->get()
-            ->pluck('architect_count', 'okres')->toArray();
+            ->pluck('architect_count', 'okres')
+            ->reject(function ($value, $key) {
+                return empty($key);
+            })->toArray();
 
         return array_merge(
             $all_districts,
