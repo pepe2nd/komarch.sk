@@ -17,4 +17,8 @@ class Address extends Model
             $this->location_country
         ])->filter()->join(', ');
     }
+
+    function district() {
+        return $this->hasOne(PostOffice::class, 'psc', 'location_postal_code');
+    }
 }

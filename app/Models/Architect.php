@@ -22,7 +22,7 @@ class Architect extends Model
 
     public function address()
     {
-        return $this->hasOne(Address::class);
+        return $this->hasOne(Address::class)->with('district');
     }
 
     // Note this includes both nominations and awarded awards
@@ -113,6 +113,19 @@ class Architect extends Model
                 $query->where('architect_number', 'REGEXP', $regexp);
             });
         }
+
+        if ($request->has('region')) {
+            $query->whereHas('address.district', function (Builder $query) use ($request) {
+                $query->where('kraj', $request->input('region'));
+            });
+        }
+
+        if ($request->has('district')) {
+            $query->whereHas('address.district', function (Builder $query) use ($request) {
+                $query->where('okres', $request->input('district'));
+            });
+        }
+
         return $query;
     }
 
