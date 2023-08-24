@@ -9,7 +9,7 @@
     >
       <option selected>{{ placeholder }}</option>
       <option v-for="option in filters" :key="option.key" :value="value">
-        {{ option.title }}<template v-if="option.items !== undefined">&nbsp;({{ option.items }})</template>
+        {{ __('regions.' + option.title) }}<template v-if="option.items !== undefined">&nbsp;({{ option.items }})</template>
       </option>
     </select>
   </div>
