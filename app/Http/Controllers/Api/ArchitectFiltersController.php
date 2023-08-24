@@ -18,7 +18,8 @@ class ArchitectFiltersController extends Controller
         return [
             'startsWith' => $this->getStartsWith($request),
             'authorizationsIn' => $this->getAuthorizationsIn($request),
-            'regions' => $this->getRegions($request)
+            'regions' => $this->getRegions($request),
+            'districts' => $this->getDistricts($request)
         ];
     }
 
@@ -92,6 +93,39 @@ class ArchitectFiltersController extends Controller
         return array_merge(
             $all_regions,
             $filtered_regions,
+        );
+    }
+    
+    function getDistricts(Request $request)
+    {
+        if (empty($request->get('region'))) {
+            return null;
+        }
+        
+        $all_districts = Architect::query()
+            ->join('addresses', 'addresses.architect_id', '=', 'architects.id')
+            ->join('post_offices', 'post_offices.psc', '=', 'addresses.location_postal_code')
+            ->where('post_offices.kraj', $request->get('region'))
+            ->groupBy('post_offices.okres')
+            ->select(DB::raw('count(*) as architect_count, post_offices.okres'))
+            ->orderBy('architect_count', 'desc')
+            ->get()
+            ->flatMap(fn ($row) => [$row->okres => 0])->toArray();
+
+        $filtered_districts = Architect::query()
+            ->filtered($request)
+            ->join('addresses', 'addresses.architect_id', '=', 'architects.id')
+            ->join('post_offices', 'post_offices.psc', '=', 'addresses.location_postal_code')
+            ->where('post_offices.kraj', $request->get('region'))
+            ->groupBy('post_offices.okres')
+            ->select(DB::raw('count(*) as architect_count, post_offices.okres'))
+            ->orderBy('architect_count', 'desc')
+            ->get()
+            ->pluck('architect_count', 'okres')->toArray();
+
+        return array_merge(
+            $all_districts,
+            $filtered_districts,
         );
     }
 }
