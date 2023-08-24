@@ -7,6 +7,14 @@
       :title="`${__('architects.authorization')}:`"
       @input="onInput"
     />
+    <DropdownSelect
+      v-if="filters.regions && filters.regions.length > 0"
+      :filters="filters.regions"
+      :value="value"
+      :title="`${__('architects.region')}:`"
+      :placeholder="`${__('architects.choose_region')}:`"
+      @input="onInput"
+    />
     <ButtonClearFilters
       v-show="value && value.length > 0"
       @click="onCancel"
@@ -15,14 +23,16 @@
 </template>
 
 <script>
+import DropdownSelect from '../atoms/DropdownSelect.vue'
 import ButtonClearFilters from '../atoms/buttons/ButtonClearFilters'
 import InputCheckboxGroup from './../atoms/InputCheckboxGroup'
 
 export default {
   components: {
     InputCheckboxGroup,
-    ButtonClearFilters
-  },
+    ButtonClearFilters,
+    DropdownSelect
+},
   props: {
     value: {
       type: Array,
