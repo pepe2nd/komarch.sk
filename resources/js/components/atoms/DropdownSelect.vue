@@ -48,11 +48,11 @@ export default {
       const selectedOption = this.filters.find((obj) => obj.key == event.target.value)
 
       const cleanValue =
-        selectedOption && selectedOption.type == 'regions'
+        this.filters.length > 0  && this.filters[0].type == 'regions'
           ? this.value.filter((obj) => obj.type !== 'districts' && obj.type !== 'regions')
           : this.value.filter((obj) => obj.type !== 'districts')
 
-      const newValue = [...cleanValue, selectedOption]
+      const newValue = [...cleanValue, selectedOption || '']
       this.$emit('input', newValue)
     },
   },
