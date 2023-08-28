@@ -75,7 +75,7 @@ class ArchitectFiltersController extends Controller
             ->join('addresses', 'addresses.architect_id', '=', 'architects.id')
             ->join('post_offices', 'post_offices.psc', '=', 'addresses.location_postal_code')
             ->groupBy('post_offices.kraj')
-            ->select(DB::raw('count(*) as architect_count, post_offices.kraj'))
+            ->select(DB::raw('count(distinct(architects.id)) as architect_count, post_offices.kraj'))
             ->orderBy('architect_count', 'desc')
             ->get()
             ->flatMap(fn ($row) => [$row->kraj => 0])->toArray();
@@ -85,7 +85,7 @@ class ArchitectFiltersController extends Controller
             ->join('addresses', 'addresses.architect_id', '=', 'architects.id')
             ->join('post_offices', 'post_offices.psc', '=', 'addresses.location_postal_code')
             ->groupBy('post_offices.kraj')
-            ->select(DB::raw('count(*) as architect_count, post_offices.kraj'))
+            ->select(DB::raw('count(distinct(architects.id)) as architect_count, post_offices.kraj'))
             ->orderBy('architect_count', 'desc')
             ->get()
             ->pluck('architect_count', 'kraj')->toArray();
@@ -95,19 +95,19 @@ class ArchitectFiltersController extends Controller
             $filtered_regions,
         );
     }
-    
+
     function getDistricts(Request $request)
     {
         if (empty($request->get('regions'))) {
             return [];
         }
-        
+
         $all_districts = Architect::query()
             ->join('addresses', 'addresses.architect_id', '=', 'architects.id')
             ->join('post_offices', 'post_offices.psc', '=', 'addresses.location_postal_code')
             ->whereIn('post_offices.kraj', $request->get('regions', []))
             ->groupBy('post_offices.okres')
-            ->select(DB::raw('count(*) as architect_count, post_offices.okres'))
+            ->select(DB::raw('count(distinct(architects.id)) as architect_count, post_offices.okres'))
             ->orderBy('architect_count', 'desc')
             ->get()
             ->flatMap(fn ($row) => [$row->okres => 0])
@@ -121,7 +121,7 @@ class ArchitectFiltersController extends Controller
             ->join('post_offices', 'post_offices.psc', '=', 'addresses.location_postal_code')
             ->whereIn('post_offices.kraj', $request->get('regions', []))
             ->groupBy('post_offices.okres')
-            ->select(DB::raw('count(*) as architect_count, post_offices.okres'))
+            ->select(DB::raw('count(distinct(architects.id)) as architect_count, post_offices.okres'))
             ->orderBy('architect_count', 'desc')
             ->get()
             ->pluck('architect_count', 'okres')
