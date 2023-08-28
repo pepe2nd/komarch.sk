@@ -26,6 +26,7 @@ return [
     'region' => 'Kraj',
     'all_regions' => 'Všetky kraje',
     'district' => 'Okres',
+    'all_districts' => 'Všetky okresy',
     'contact' => 'Kontakt',
     'send_email' => 'poslať e-mail',
     'address' => 'Adresa',

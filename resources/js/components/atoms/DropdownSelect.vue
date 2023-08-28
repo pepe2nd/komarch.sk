@@ -1,15 +1,15 @@
 <template>
-  <div class="mr-10 mb-8 w-60">
+  <div class="mr-10 mb-8">
     <h3 class="mb-5 whitespace-nowrap text-sm">
       {{ title }}
     </h3>
     <select
       class="w-full rounded-md border border-black bg-white px-2.5 py-1 text-sm text-black focus:border-blue focus:ring-blue"
-      @change="onChange"
+      @input="onChange"
     >
       <option>{{ placeholder }}</option>
       <option v-for="option in filters" :key="option.key" :value="option.key" :selected="isSelected(option)">
-        {{ __('regions.' + option.title)
+        {{ (translationFile) ? __(translationFile + '.' + option.title) : option.title
         }}<template v-if="option.items !== undefined">&nbsp;({{ option.items }})</template>
       </option>
     </select>
@@ -34,6 +34,10 @@ export default {
     filters: {
       type: Array,
       required: true,
+    },
+    translationFile: {
+      type: String,
+      default: null,
     },
   },
   methods: {
