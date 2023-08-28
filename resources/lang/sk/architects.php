@@ -24,7 +24,7 @@ return [
     'registration_number' => 'Registračné číslo',
     'location' => 'Miesto pôsobenia',
     'region' => 'Kraj',
-    'choose_region' => 'Zvolte kraj',
+    'all_regions' => 'Všetky kraje',
     'district' => 'Okres',
     'contact' => 'Kontakt',
     'send_email' => 'poslať e-mail',

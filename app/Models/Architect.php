@@ -114,15 +114,15 @@ class Architect extends Model
             });
         }
 
-        if ($request->has('region')) {
+        if ($request->has('regions')) {
             $query->whereHas('address.district', function (Builder $query) use ($request) {
-                $query->where('kraj', $request->input('region'));
+                $query->whereIn('kraj', $request->input('regions', []));
             });
         }
 
-        if ($request->has('district')) {
+        if ($request->has('districts')) {
             $query->whereHas('address.district', function (Builder $query) use ($request) {
-                $query->where('okres', $request->input('district'));
+                $query->whereIn('okres', $request->input('districts', []));
             });
         }
 

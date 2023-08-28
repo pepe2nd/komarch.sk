@@ -12,7 +12,7 @@
       :filters="filters.regions"
       :value="value"
       :title="`${__('architects.region')}:`"
-      :placeholder="`${__('architects.choose_region')}:`"
+      :placeholder="`${__('architects.all_regions')}`"
       @input="onInput"
     />
     <ButtonClearFilters

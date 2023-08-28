@@ -98,14 +98,14 @@ class ArchitectFiltersController extends Controller
     
     function getDistricts(Request $request)
     {
-        if (empty($request->get('region'))) {
+        if (empty($request->get('regions'))) {
             return [];
         }
         
         $all_districts = Architect::query()
             ->join('addresses', 'addresses.architect_id', '=', 'architects.id')
             ->join('post_offices', 'post_offices.psc', '=', 'addresses.location_postal_code')
-            ->where('post_offices.kraj', $request->get('region'))
+            ->whereIn('post_offices.kraj', $request->get('regions', []))
             ->groupBy('post_offices.okres')
             ->select(DB::raw('count(*) as architect_count, post_offices.okres'))
             ->orderBy('architect_count', 'desc')
@@ -119,7 +119,7 @@ class ArchitectFiltersController extends Controller
             ->filtered($request)
             ->join('addresses', 'addresses.architect_id', '=', 'architects.id')
             ->join('post_offices', 'post_offices.psc', '=', 'addresses.location_postal_code')
-            ->where('post_offices.kraj', $request->get('region'))
+            ->whereIn('post_offices.kraj', $request->get('regions', []))
             ->groupBy('post_offices.okres')
             ->select(DB::raw('count(*) as architect_count, post_offices.okres'))
             ->orderBy('architect_count', 'desc')

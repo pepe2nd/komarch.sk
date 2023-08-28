@@ -24,7 +24,7 @@ return [
     'registration_number' => 'Registration number',
     'location' => 'Place of operation',
     'region' => 'Region',
-    'choose_region' => 'Choose Region',
+    'all_regions' => 'All Regions',
     'district' => 'District',
     'contact' => 'Contact',
     'send_email' => 'send an email',
