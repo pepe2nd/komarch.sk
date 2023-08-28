@@ -9,7 +9,7 @@
     >
       <option>{{ placeholder }}</option>
       <option v-for="option in filters" :key="option.key" :value="option.key" :selected="isSelected(option)">
-        {{ (translationFile) ? __(translationFile + '.' + option.title) : option.title
+        {{ translationFile ? __(translationFile + '.' + option.title) : option.title
         }}<template v-if="option.items !== undefined">&nbsp;({{ option.items }})</template>
       </option>
     </select>
@@ -42,10 +42,18 @@ export default {
   },
   methods: {
     isSelected(option) {
-      return this.value.find((o) => o.key === option.key)
+      return this.value.find((obj) => obj.key === option.key)
     },
     onChange(event) {
-      this.$emit('input', [this.filters.find((o) => o.key == event.target.value) || ''])
+      const selectedOption = this.filters.find((obj) => obj.key == event.target.value)
+
+      const cleanValue =
+        selectedOption && selectedOption.type == 'regions'
+          ? this.value.filter((obj) => obj.type !== 'districts' && obj.type !== 'regions')
+          : this.value.filter((obj) => obj.type !== 'districts')
+
+      const newValue = [...cleanValue, selectedOption]
+      this.$emit('input', newValue)
     },
   },
 }
