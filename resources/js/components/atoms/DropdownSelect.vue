@@ -4,12 +4,13 @@
       {{ title }}
     </h3>
     <select
-      id="regions"
       class="w-full rounded-md border border-black bg-white px-2.5 py-1 text-sm text-black focus:border-blue focus:ring-blue"
+      @change="onChange"
     >
-      <option selected>{{ placeholder }}</option>
-      <option v-for="option in filters" :key="option.key" :value="value">
-        {{ __('regions.' + option.title) }}<template v-if="option.items !== undefined">&nbsp;({{ option.items }})</template>
+      <option>{{ placeholder }}</option>
+      <option v-for="option in filters" :key="option.key" :value="option.key" :selected="isSelected(option)">
+        {{ __('regions.' + option.title)
+        }}<template v-if="option.items !== undefined">&nbsp;({{ option.items }})</template>
       </option>
     </select>
   </div>
@@ -33,6 +34,14 @@ export default {
     filters: {
       type: Array,
       required: true,
+    },
+  },
+  methods: {
+    isSelected(option) {
+      return this.value.find((o) => o.key === option.key)
+    },
+    onChange(event) {
+      this.$emit('input', [this.filters.find((o) => o.key == event.target.value) || ''])
     },
   },
 }
