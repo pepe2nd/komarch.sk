@@ -32,8 +32,8 @@
 
 @push('crud_list_styles')
     <!-- include select2 css-->
-    @loadOnce('packages/select2/dist/css/select2.min.css')
-    @loadOnce('packages/select2-bootstrap-theme/dist/select2-bootstrap.min.css')
+    @basset('packages/select2/dist/css/select2.min.css')
+    @basset('packages/select2-bootstrap-theme/dist/select2-bootstrap.min.css')
     <style>
 	  .form-inline .select2-container {
 	    display: inline-block;
@@ -65,9 +65,9 @@
 
 @push('crud_list_scripts')
 	<!-- include select2 js-->
-    @loadOnce('packages/select2/dist/js/select2.full.min.js')
+    @basset('packages/select2/dist/js/select2.full.min.js')
     @if (app()->getLocale() !== 'en')
-    @loadOnce('packages/select2/dist/js/i18n/' . app()->getLocale() . '.js')
+    @basset('packages/select2/dist/js/i18n/' . app()->getLocale() . '.js')
     @endif
 
     <script>
