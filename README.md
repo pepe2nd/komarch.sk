@@ -41,6 +41,12 @@ installs as well as long as you configure them equivalently (see
 
 ## Development
 
+For Backpack Pro to work, don't forget to
+
+- Create auth.json with credentials to `backpack/pro` repository. See auth.json.example
+
+Additionaly
+
 - Run `docker-compose up` to start network services
 - Run `npm run dev` to build frontend assets
 - Run `php artisan serve` to start php development server
