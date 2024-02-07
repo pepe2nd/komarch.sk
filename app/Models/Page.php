@@ -51,7 +51,10 @@ class Page extends Model implements HasMedia
         'cover_image',
         'redirect_url',
     ];
-    protected $dates = ['published_at'];
+
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
 
     public function getRouteKeyName()
     {

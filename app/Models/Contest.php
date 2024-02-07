@@ -27,13 +27,13 @@ class Contest extends Model implements HasMedia
 
     public $incrementing = false;
 
-    protected $dates = [
-        'announced_at',
-        'approved_at',
-        'finished_at',
-        'results_published_at',
-        'created_at',
-        'updated_at',
+    protected $casts = [
+        'announced_at' => 'datetime',
+        'approved_at' => 'datetime',
+        'finished_at' => 'datetime',
+        'results_published_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     protected $appends = ['state'];

@@ -51,9 +51,10 @@ class Post extends Model implements HasMedia
         'is_featured',
         'cover_image',
     ];
-    protected $dates = ['published_at'];
+
     protected $casts = [
         'is_featured' => 'boolean',
+        'published_at' => 'datetime',
     ];
 
     public function getRouteKeyName()
