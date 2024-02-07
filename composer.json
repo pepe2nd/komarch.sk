@@ -16,7 +16,7 @@
         "backpack/filemanager": "^2.0",
         "backpack/logmanager": "^4.0",
         "backpack/pro": "1.2.8",
-        "doctrine/dbal": "^2.5",
+        "doctrine/dbal": "^3.5",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
