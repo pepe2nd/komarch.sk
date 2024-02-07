@@ -23,8 +23,11 @@ class Publication extends Model
 
     protected $table = 'publications';
     protected $guarded = ['id'];
-    protected $dates = ['published_at'];
     protected $translatable = ['title', 'description'];
+
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
 
     /*
     |--------------------------------------------------------------------------

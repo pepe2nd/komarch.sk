@@ -36,7 +36,6 @@ class Document extends Model implements HasMedia
     ];
 
     protected $hidden = [];
-    // protected $dates = [];
 
     public $with = ['types', 'topics', 'roles'];
 

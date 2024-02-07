@@ -25,7 +25,6 @@ class Tag extends Model
     protected $guarded = ['id'];
     // protected $fillable = [];
     // protected $hidden = [];
-    // protected $dates = [];
 
     protected $translatable = [
         'name',

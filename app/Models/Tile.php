@@ -19,8 +19,11 @@ class Tile extends Model
 
     protected $table = 'tiles';
     protected $guarded = ['id'];
-    protected $dates = ['published_at'];
     protected $translatable = ['title'];
+
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
 
     /*
     |--------------------------------------------------------------------------
