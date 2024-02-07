@@ -75,7 +75,7 @@ jobs:
           ${{ runner.os }}-composer-
     - uses: shivammathur/setup-php@v2
       with:
-        php-version: 7.4
+        php-version: 8.1
     - run: composer install --no-progress --no-interaction --no-dev
     - uses: atymic/deployer-php-action@0.2.0
       with:
