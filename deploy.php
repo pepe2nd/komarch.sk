@@ -26,7 +26,7 @@ host('webumenia.sk')
 
 task('build', function () {
     cd('{{release_path}}');
-    run('npm ci && npm run build');
+    run('npm ci && npm run prod');
 });
 
 // Hooks
