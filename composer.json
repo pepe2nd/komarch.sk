@@ -75,7 +75,7 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "scripts": {
-        "post-install-cmd": ["php artisan vendor:publish --provider=\"Backpack\\CRUD\\BackpackServiceProvider\" --tag=public --force", "@php artisan elfinder:publish", "php artisan storage:link --quiet"],
+        "post-install-cmd": ["@php artisan elfinder:publish"],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"

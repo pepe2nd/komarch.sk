@@ -5,12 +5,15 @@ require 'recipe/laravel.php';
 
 // Config
 
+set('writable_mode', 'chmod');
+set('writable_chmod_mode', '0775');
+
 set('bin/php', 'php8.2');
-set('bin/composer', '{{bin/php}} $(which composer2)');
+set('bin/composer', '{{bin/php}} {{deploy_path}}/.dep/composer.phar');
 
 set('repository', 'git@github.com:SlovakNationalGallery/komarch.sk.git');
 
-add('shared_files', []);
+add('shared_files', ['auth.json']);
 add('shared_dirs', ['public/wp-content']);
 
 // Hosts
