@@ -29,11 +29,11 @@
               {{ __('generic.name') }}
             </ButtonSortable>
           </th>
-          <th
+          <!-- <th
             class="select-none font-normal pb-10 text-sm w-20"
           >
             {{ __('documents.preview') }}
-          </th>
+          </th> -->
           <th
             class="select-none font-normal pb-10 text-sm w-80"
           >
@@ -50,9 +50,9 @@
           <td class="py-1">
             {{ document.name }}
           </td>
-          <td>
+          <!-- <td>
             <DocumentsOverviewResultsPreview :document="document" v-if="document.file.thumb" />
-          </td>
+          </td> -->
           <td>
             <DocumentsOverviewResultsDownload :document="document" />
           </td>
