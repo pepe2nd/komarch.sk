@@ -20,8 +20,13 @@ class Deadline extends Model
 
     protected $table = 'deadlines';
     protected $guarded = ['id'];
-    protected $dates = ['published_at', 'deadline_at'];
     protected $translatable = ['title'];
+
+    protected $casts = [
+        'published_at' => 'datetime',
+        'deadline_at' => 'datetime',
+    ];
+
 
     /*
     |--------------------------------------------------------------------------

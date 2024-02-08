@@ -12,9 +12,9 @@ installs as well as long as you configure them equivalently (see
 
 - docker
 - docker-compose
-- php 7.4
-- composer (tested with `Composer version 1.10.16 2020-10-24 09:55`)
-- node 12.13 or higher
+- php 8.2
+- composer 2
+- node 14 (or higher)
 
 ## First time setup
 
@@ -40,6 +40,12 @@ installs as well as long as you configure them equivalently (see
 1. Run `npm run dev`
 
 ## Development
+
+For Backpack Pro to work, don't forget to
+
+- Create auth.json with credentials to `backpack/pro` repository. See auth.json.example
+
+Additionaly
 
 - Run `docker-compose up` to start network services
 - Run `npm run dev` to build frontend assets

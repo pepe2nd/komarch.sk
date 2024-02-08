@@ -43,8 +43,10 @@ jobs:
             ${{ runner.os }}-node-
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.2
           extensions: mbstring, bcmath, fileinfo, pdo_mysql
+      - name: Add Composer auth credentials (for Backpack Pro)
+        run: echo '${{ secrets.COMPOSER_AUTH_JSON }}' > $GITHUB_WORKSPACE/auth.json
       - run: composer install --no-progress --no-interaction
       - uses: actions/setup-node@v2
         with:
@@ -75,7 +77,9 @@ jobs:
           ${{ runner.os }}-composer-
     - uses: shivammathur/setup-php@v2
       with:
-        php-version: 7.4
+        php-version: 8.2
+    - name: Add Composer auth credentials (for Backpack Pro)
+      run: echo '${{ secrets.COMPOSER_AUTH_JSON }}' > $GITHUB_WORKSPACE/auth.json
     - run: composer install --no-progress --no-interaction --no-dev
     - uses: atymic/deployer-php-action@0.2.0
       with:
