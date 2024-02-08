@@ -106,4 +106,8 @@ class Post extends Model implements HasMedia
             ->withResponsiveImages();
     }
 
+    public function shouldBeSearchable(): bool
+    {
+        return $this->is_published;
+    }
 }
