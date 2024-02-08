@@ -76,5 +76,5 @@ jobs:
         with:
           private-key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
           known-hosts: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
-          deployer-version: 7.3.3
+          deployer-version: 7.3.0
           dep: deploy
