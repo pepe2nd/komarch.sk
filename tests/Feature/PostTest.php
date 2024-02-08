@@ -12,7 +12,7 @@ class PostTest extends TestCase
 
     public function testDetailUrl()
     {
-        $post = \App\Models\Post::factory()->create();
+        $post = \App\Models\Post::factory()->published()->create();
         $url = route('posts.show', [$post->slug]);
         $response = $this->get($url);
         $response->assertStatus(200);
