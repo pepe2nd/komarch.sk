@@ -12,6 +12,7 @@
 
     $field['multiple'] = $field['multiple'] ?? true;
     $field['allows_null'] = $field['allows_null'] ?? $crud->model::isColumnNullable($field['name']);
+    $field['placeholder'] = $field['placeholder'] ?? trans('backpack::crud.select_entries');
 @endphp
 
 @include('crud::fields.inc.wrapper_start')
@@ -19,14 +20,20 @@
     @include('crud::fields.inc.translatable_icon')
 
 
+    <input type="hidden" name="{{ $field['name'] }}" value="" @if(in_array('disabled', $field['attributes'] ?? [])) disabled @endif />
     <select
         name="{{ $field['name'] }}[]"
         style="width: 100%"
         data-init-function="bpFieldInitSelect2MultipleElement"
+        data-field-is-inline="{{var_export($inlineCreate ?? false)}}"
         data-select-all="{{ var_export($field['select_all'] ?? false)}}"
         data-options-for-js="{{json_encode(array_values($options_tags_array))}}"
+        data-language="{{ str_replace('_', '-', app()->getLocale()) }}"
+        data-allows-null="{{var_export($field['allows_null'])}}"
+        data-placeholder="{{$field['placeholder']}}"
+        bp-field-main-input
         @include('crud::fields.inc.attributes', ['default_class' =>  'form-control select2_multiple'])
-        {{ $field['multiple'] ? 'multiple' : '' }}>
+        multiple>
 
         @if ($field['allows_null'])
             <option value="">-</option>
@@ -57,52 +64,57 @@
 
 {{-- ########################################## --}}
 {{-- Extra CSS and JS for this particular field --}}
-{{-- If a field type is shown multiple times on a form, the CSS and JS will only be loaded once --}}
-@if ($crud->fieldTypeNotLoaded($field))
-    @php
-        $crud->markFieldTypeAsLoaded($field);
-    @endphp
 
     {{-- FIELD CSS - will be loaded in the after_styles section --}}
     @push('crud_fields_styles')
-        <!-- include select2 css-->
-        @basset('packages/select2/dist/css/select2.min.css')
-        @basset('packages/select2-bootstrap-theme/dist/select2-bootstrap.min.css')
+        {{-- include select2 css --}}
+        @basset('https://unpkg.com/select2@4.0.13/dist/css/select2.min.css')
+        @basset('https://unpkg.com/select2-bootstrap-theme@0.1.0-beta.10/dist/select2-bootstrap.min.css')
     @endpush
 
     {{-- FIELD JS - will be loaded in the after_scripts section --}}
     @push('crud_fields_scripts')
-        <!-- include select2 js-->
-        @basset('packages/select2/dist/js/select2.full.min.js')
+        {{-- include select2 js --}}
+        @basset('https://unpkg.com/select2@4.0.13/dist/js/select2.full.min.js')
         @if (app()->getLocale() !== 'en')
-        @basset('packages/select2/dist/js/i18n/' . app()->getLocale() . '.js')
+            @basset('https://unpkg.com/select2@4.0.13/dist/js/i18n/' . str_replace('_', '-', app()->getLocale()) . '.js')
         @endif
+        @bassetBlock('backpack/pro/fields/select2-multiple-field.js')
         <script>
             function bpFieldInitSelect2MultipleElement(element) {
 
                 var $select_all = element.attr('data-select-all');
                 if (!element.hasClass("select2-hidden-accessible"))
-                    {
-                        var $obj = element.select2({
-                            theme: "bootstrap"
+                {
+                    let $isFieldInline = element.data('field-is-inline');
+                    let $allowClear = element.data('allows-null');
+                    let $multiple = element.attr('multiple') ?? false;
+                    let $placeholder = element.attr('placeholder');
+
+                    var $obj = element.select2({
+                        theme: "bootstrap",
+                        allowClear: $allowClear,
+                        multiple: $multiple,
+                        placeholder: $placeholder,
+                        dropdownParent: $isFieldInline ? $('#inline-create-dialog .modal-content') : $(document.body)
+                    });
+
+                    //get options ids stored in the field.
+                    var options = JSON.parse(element.attr('data-options-for-js'));
+
+                    if($select_all) {
+                        element.parent().find('.clear').on("click", function () {
+                            $obj.val([]).trigger("change");
                         });
-
-                        //get options ids stored in the field.
-                        var options = JSON.parse(element.attr('data-options-for-js'));
-
-                        if($select_all) {
-                            element.parent().find('.clear').on("click", function () {
-                                $obj.val([]).trigger("change");
-                            });
-                            element.parent().find('.select_all').on("click", function () {
-                                $obj.val(options).trigger("change");
-                            });
-                        }
+                        element.parent().find('.select_all').on("click", function () {
+                            $obj.val(options).trigger("change");
+                        });
                     }
+                }
             }
         </script>
+        @endBassetBlock
     @endpush
 
-@endif
 {{-- End of Extra CSS and JS --}}
 {{-- ########################################## --}}
