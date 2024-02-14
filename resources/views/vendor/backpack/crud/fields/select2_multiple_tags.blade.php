@@ -1,13 +1,5 @@
 <!-- select2 multiple -->
 @php
-    if (!isset($field['options'])) {
-        $field['options'] = $field['model']::all();
-    } else {
-        $field['options'] = call_user_func($field['options'], $field['model']::query());
-    }
-
-    //build option keys array to use with Select All in javascript.
-    $model_instance = new $field['model'];
     $options_tags_array = $field['options']->pluck('name', 'name')->toArray();
 
     $field['multiple'] = $field['multiple'] ?? true;
@@ -39,15 +31,13 @@
             <option value="">-</option>
         @endif
 
-        @if (isset($field['model']))
-            @foreach ($field['options'] as $option)
-                @if( (old(square_brackets_to_dots($field["name"])) && in_array($option->name, old($field["name"]))) || (is_null(old(square_brackets_to_dots($field["name"]))) && isset($field['value']) && in_array($option->name, $field['value']->pluck('name', 'name')->toArray())))
-                    <option value="{{ $option->name }}" selected>{{ $option->{$field['attribute']} }}</option>
-                @else
-                    <option value="{{ $option->name }}">{{ $option->{$field['attribute']} }}</option>
-                @endif
-            @endforeach
-        @endif
+        @foreach ($field['options'] as $option)
+            @if( (old(square_brackets_to_dots($field["name"])) && in_array($option->name, old($field["name"]))) || (is_null(old(square_brackets_to_dots($field["name"]))) && isset($field['value']) && in_array($option->name, $field['value']->pluck('name', 'name')->toArray())))
+                <option value="{{ $option->name }}" selected>{{ $option->{$field['attribute']} }}</option>
+            @else
+                <option value="{{ $option->name }}">{{ $option->{$field['attribute']} }}</option>
+            @endif
+        @endforeach
     </select>
 
     @if(isset($field['select_all']) && $field['select_all'])

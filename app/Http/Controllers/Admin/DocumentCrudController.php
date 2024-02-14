@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Tag;
 use App\Http\Requests\DocumentRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -120,41 +121,35 @@ class DocumentCrudController extends CrudController
             [
                 'name'        => 'types',
                 'type'        => 'select2_multiple_tags',
-                'entity'      => 'types',
+                'entity'      => false,
                 'attribute'   => 'name',
                 'fake'     => true,
                 'attributes' => [
                     'data-tags' => true
                 ],
-                'options'   => (function ($query) {
-                    return $query->where('type', 'document-type')->get();
-                }),
+                'options'   => Tag::where('type', 'document-type')->get(),
             ],
             [
                 'name'        => 'topics',
                 'type'        => 'select2_multiple_tags',
-                'entity'      => 'topics',
+                'entity'      => false,
                 'attribute'   => 'name',
                 'fake'     => true,
                 'attributes' => [
                     'data-tags' => true
                 ],
-                'options'   => (function ($query) {
-                    return $query->where('type', 'document-topic')->get();
-                }),
+                'options'   => Tag::where('type', 'document-topic')->get(),
             ],
             [
                 'name'        => 'roles',
                 'type'        => 'select2_multiple_tags',
-                'entity'      => 'roles',
+                'entity'      => false,
                 'attribute'   => 'name',
                 'fake'     => true,
                 'attributes' => [
                     'data-tags' => true
                 ],
-                'options'   => (function ($query) {
-                    return $query->where('type', 'document-role')->get();
-                }),
+                'options'   => Tag::where('type', 'document-role')->get(),
             ],
         ]);
 
