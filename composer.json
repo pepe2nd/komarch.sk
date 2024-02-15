@@ -24,7 +24,7 @@
         "laravel/scout": "^9.0",
         "laravel/telescope": "^4.3",
         "laravel/tinker": "^2.8",
-        "league/flysystem-sftp": "^3.0",
+        "league/flysystem-sftp-v3": "^3.0",
         "mcamara/laravel-localization": "^1.6",
         "sentry/sentry-laravel": "^3.3",
         "spatie/laravel-medialibrary": "^11.0",
