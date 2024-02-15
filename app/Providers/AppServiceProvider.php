@@ -25,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (config('app.locale') === 'sk') {
+            setlocale(LC_ALL, 'sk_SK.UTF-8');
+        }
+        
         Paginator::useBootstrap();
 
         Blade::directive('date_localized', function ($expression) {
