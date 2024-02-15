@@ -33,12 +33,12 @@
         "spatie/laravel-tags": "^4.5",
         "spatie/laravel-translatable": "^6.5",
         "spatie/pdf-to-image": "^2.1",
-        "staudenmeir/eloquent-has-many-deep": "^1.13"
+        "staudenmeir/eloquent-has-many-deep": "^1.13",
+        "fakerphp/faker": "^1.9.1"
     },
     "require-dev": {
         "backpack/generators": "^4.0",
         "deployer/deployer": "^7.3",
-        "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
