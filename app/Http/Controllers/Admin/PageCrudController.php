@@ -208,6 +208,13 @@ class PageCrudController extends CrudController
     {
         CRUD::setValidation(PageRequest::class);
 
+        Page::created(function($entry) {
+            if ($this->crud->getRequest()->input('menu_order') !== null) {
+                $this->shiftPages($entry);
+            }
+            $this->reorderPages($entry);
+        });
+
 
 
         /**
@@ -266,16 +273,6 @@ class PageCrudController extends CrudController
                 },
             ],
         ]);
-    }
-
-    public function update()
-    {
-        if ($this->crud->getRequest()->input('menu_order') !== null) {
-            $this->shiftPages($this->crud->getCurrentEntry());
-        }
-        $this->reorderPages($this->crud->getCurrentEntry());
-        $response = $this->traitUpdate();
-        return $response;
     }
 
     private function reorderPages($page)
