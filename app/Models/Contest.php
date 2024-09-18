@@ -116,11 +116,6 @@ class Contest extends Model implements HasMedia
             ->addMediaCollection('contest_attachments');
     }
 
-    public function toSearchableArray()
-    {
-        return Arr::only($this->toArray(), ['title', 'perex']);
-    }
-
     public function proposals()
     {
         return $this->hasMany(Proposal::class);
@@ -162,6 +157,14 @@ class Contest extends Model implements HasMedia
         } else {
             return ($this->announced_at) ? $this->announced_at->format(config('settings.date_short_format')) : null;
         }
-    } 
+    }
 
+    public function toSearchableArray()
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            // 'perex' => $this->perex,
+        ];
+    }
 }
