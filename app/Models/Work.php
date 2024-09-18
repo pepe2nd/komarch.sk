@@ -11,14 +11,13 @@ use Spatie\Tags\HasTags;
 use Illuminate\Support\Str;
 use App\Traits\HasShortDescription;
 use Laravel\Scout\Searchable;
-use ElasticScoutDriverPlus\QueryDsl;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class Work extends Model implements HasMedia
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
-    use HasFactory, InteractsWithMedia, HasTags, HasShortDescription, Searchable, QueryDsl;
+    use HasFactory, InteractsWithMedia, HasTags, HasShortDescription, Searchable;
 
     public $incrementing = false;
 
@@ -213,7 +212,7 @@ class Work extends Model implements HasMedia
 
     public function toSearchableArray()
     {
-        $array = Arr::only($this->toArray(), ['name', 'studio', 'annotation', 'location_city']);
+        $array = Arr::only($this->toArray(), ['id', 'name', 'studio', 'annotation', 'location_city']);
         $array['architects'] = $this->architects->map(function ($data) {
             return $data->full_name;
         })->toArray();

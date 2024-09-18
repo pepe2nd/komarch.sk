@@ -2,28 +2,27 @@
 
 namespace App\Models;
 
-use App\Traits\Publishable;
-use App\Traits\HasCoverImage;
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
-use Laravel\Scout\Searchable;
-use ElasticScoutDriverPlus\QueryDsl;
-use Spatie\Sluggable\HasSlug;
-use Spatie\Sluggable\SlugOptions;
-use Spatie\Tags\HasTags;
 use Spatie\Tags\Tag;
+use Spatie\Tags\HasTags;
+use App\Traits\Publishable;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use App\Traits\HasCoverImage;
+use Laravel\Scout\Searchable;
+use Spatie\Sluggable\HasSlug;
 use Spatie\MediaLibrary\HasMedia;
+use Spatie\Sluggable\SlugOptions;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
 
 class Post extends Model implements HasMedia
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory,
         Searchable,
-        QueryDsl,
         HasSlug,
         HasTags,
         Publishable,
@@ -56,6 +55,8 @@ class Post extends Model implements HasMedia
         'is_featured' => 'boolean',
         'published_at' => 'datetime',
     ];
+
+    public $asYouType = true;
 
     public function getRouteKeyName()
     {
@@ -109,5 +110,14 @@ class Post extends Model implements HasMedia
     public function shouldBeSearchable(): bool
     {
         return $this->is_published;
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'text' => $this->text,
+        ];
     }
 }

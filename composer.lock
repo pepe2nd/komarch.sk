@@ -4,369 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "99cbeaf626924bd2b21b0e676f7be821",
+    "content-hash": "3f57a68e7aad9383798d6b85bf269fc8",
     "packages": [
-        {
-            "name": "babenkoivan/elastic-adapter",
-            "version": "v1.17.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/babenkoivan/elastic-adapter.git",
-                "reference": "6e6461c6988cf1bc655fcec2c2aa2beeb3163f55"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/babenkoivan/elastic-adapter/zipball/6e6461c6988cf1bc655fcec2c2aa2beeb3163f55",
-                "reference": "6e6461c6988cf1bc655fcec2c2aa2beeb3163f55",
-                "shasum": ""
-            },
-            "require": {
-                "elasticsearch/elasticsearch": "^7.3",
-                "php": "^7.2 || ^8.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.16",
-                "phpstan/phpstan": "^0.12.32",
-                "phpunit/phpunit": "^9.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ElasticAdapter\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ivan Babenko",
-                    "email": "babenko.i.a@gmail.com"
-                }
-            ],
-            "description": "Adapter for official PHP Elasticsearch client",
-            "keywords": [
-                "adapter",
-                "client",
-                "elastic",
-                "elasticsearch",
-                "php"
-            ],
-            "support": {
-                "issues": "https://github.com/babenkoivan/elastic-adapter/issues",
-                "source": "https://github.com/babenkoivan/elastic-adapter/tree/v1.17.0"
-            },
-            "funding": [
-                {
-                    "url": "https://www.buymeacoffee.com/ivanbabenko",
-                    "type": "buymeacoffee"
-                },
-                {
-                    "url": "https://paypal.me/babenkoi",
-                    "type": "paypal"
-                }
-            ],
-            "time": "2021-07-19T17:33:35+00:00"
-        },
-        {
-            "name": "babenkoivan/elastic-client",
-            "version": "v1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/babenkoivan/elastic-client.git",
-                "reference": "a1e818b444c5e64afd33a578aa4a009c54aff065"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/babenkoivan/elastic-client/zipball/a1e818b444c5e64afd33a578aa4a009c54aff065",
-                "reference": "a1e818b444c5e64afd33a578aa4a009c54aff065",
-                "shasum": ""
-            },
-            "require": {
-                "elasticsearch/elasticsearch": "^7.3",
-                "php": "^7.2 || ^8.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.16",
-                "orchestra/testbench": "^6.12",
-                "phpstan/phpstan": "^0.12.32",
-                "phpunit/phpunit": "^9.5"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "ElasticClient\\ServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "ElasticClient\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ivan Babenko",
-                    "email": "babenko.i.a@gmail.com"
-                }
-            ],
-            "description": "The official PHP Elasticsearch client integrated with Laravel",
-            "keywords": [
-                "client",
-                "elastic",
-                "elasticsearch",
-                "laravel",
-                "php"
-            ],
-            "support": {
-                "issues": "https://github.com/babenkoivan/elastic-client/issues",
-                "source": "https://github.com/babenkoivan/elastic-client/tree/v1.2.0"
-            },
-            "funding": [
-                {
-                    "url": "https://www.buymeacoffee.com/ivanbabenko",
-                    "type": "buymeacoffee"
-                },
-                {
-                    "url": "https://paypal.me/babenkoi",
-                    "type": "paypal"
-                }
-            ],
-            "time": "2021-02-16T07:28:08+00:00"
-        },
-        {
-            "name": "babenkoivan/elastic-migrations",
-            "version": "v1.6.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/babenkoivan/elastic-migrations.git",
-                "reference": "358e205a557c485e161cc5d3cc844da2090b17d1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/babenkoivan/elastic-migrations/zipball/358e205a557c485e161cc5d3cc844da2090b17d1",
-                "reference": "358e205a557c485e161cc5d3cc844da2090b17d1",
-                "shasum": ""
-            },
-            "require": {
-                "babenkoivan/elastic-adapter": "^1.14",
-                "babenkoivan/elastic-client": "^1.2",
-                "php": "^7.2 || ^8.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.16",
-                "orchestra/testbench": "^6.12",
-                "phpstan/phpstan": "^0.12.32",
-                "phpunit/phpunit": "^9.5"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "ElasticMigrations\\ServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
-                "psr-4": {
-                    "ElasticMigrations\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ivan Babenko",
-                    "email": "babenko.i.a@gmail.com"
-                }
-            ],
-            "description": "Elasticsearch migrations for Laravel",
-            "keywords": [
-                "elastic",
-                "elasticsearch",
-                "laravel",
-                "migrations",
-                "php"
-            ],
-            "support": {
-                "issues": "https://github.com/babenkoivan/elastic-migrations/issues",
-                "source": "https://github.com/babenkoivan/elastic-migrations/tree/v1.6.2"
-            },
-            "funding": [
-                {
-                    "url": "https://www.buymeacoffee.com/ivanbabenko",
-                    "type": "buymeacoffee"
-                },
-                {
-                    "url": "https://paypal.me/babenkoi",
-                    "type": "paypal"
-                }
-            ],
-            "time": "2021-10-01T06:25:06+00:00"
-        },
-        {
-            "name": "babenkoivan/elastic-scout-driver",
-            "version": "v1.6.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/babenkoivan/elastic-scout-driver.git",
-                "reference": "2f7751085f385c17154a29f3553071d3be1ca205"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/babenkoivan/elastic-scout-driver/zipball/2f7751085f385c17154a29f3553071d3be1ca205",
-                "reference": "2f7751085f385c17154a29f3553071d3be1ca205",
-                "shasum": ""
-            },
-            "require": {
-                "babenkoivan/elastic-adapter": "^1.13",
-                "babenkoivan/elastic-client": "^1.2",
-                "php": "^7.2 || ^8.0"
-            },
-            "require-dev": {
-                "babenkoivan/elastic-migrations": "^1.4",
-                "friendsofphp/php-cs-fixer": "^3.0",
-                "laravel/legacy-factories": "^1.1",
-                "laravel/scout": "^9.0",
-                "orchestra/testbench": "^6.12",
-                "phpstan/phpstan": "^0.12.32",
-                "phpunit/phpunit": "^9.5"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "ElasticScoutDriver\\ServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "ElasticScoutDriver\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ivan Babenko",
-                    "email": "babenko.i.a@gmail.com"
-                }
-            ],
-            "description": "Elasticsearch driver for Laravel Scout",
-            "keywords": [
-                "driver",
-                "elastic",
-                "elasticsearch",
-                "laravel",
-                "php",
-                "scout"
-            ],
-            "support": {
-                "issues": "https://github.com/babenkoivan/elastic-scout-driver/issues",
-                "source": "https://github.com/babenkoivan/elastic-scout-driver/tree/v1.6.0"
-            },
-            "funding": [
-                {
-                    "url": "https://www.buymeacoffee.com/ivanbabenko",
-                    "type": "buymeacoffee"
-                },
-                {
-                    "url": "https://paypal.me/babenkoi",
-                    "type": "paypal"
-                }
-            ],
-            "time": "2021-08-09T21:09:19+00:00"
-        },
-        {
-            "name": "babenkoivan/elastic-scout-driver-plus",
-            "version": "v2.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/babenkoivan/elastic-scout-driver-plus.git",
-                "reference": "ede25afff02a7e4e06622f86a9e89b91e92f46d2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/babenkoivan/elastic-scout-driver-plus/zipball/ede25afff02a7e4e06622f86a9e89b91e92f46d2",
-                "reference": "ede25afff02a7e4e06622f86a9e89b91e92f46d2",
-                "shasum": ""
-            },
-            "require": {
-                "babenkoivan/elastic-adapter": "^1.17",
-                "babenkoivan/elastic-scout-driver": "^1.4.0",
-                "php": "^7.2 || ^8.0"
-            },
-            "require-dev": {
-                "babenkoivan/elastic-migrations": "^1.4",
-                "friendsofphp/php-cs-fixer": "^2.16",
-                "laravel/legacy-factories": "^1.1",
-                "laravel/scout": "^9.0",
-                "orchestra/testbench": "^6.12",
-                "phpstan/phpstan": "^0.12.32",
-                "phpunit/phpunit": "^9.5"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "ElasticScoutDriverPlus\\ServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "ElasticScoutDriverPlus\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ivan Babenko",
-                    "email": "babenko.i.a@gmail.com"
-                }
-            ],
-            "description": "Extension for Elastic Scout Driver",
-            "keywords": [
-                "driver",
-                "elastic",
-                "elasticsearch",
-                "laravel",
-                "php",
-                "scout"
-            ],
-            "support": {
-                "issues": "https://github.com/babenkoivan/elastic-scout-driver-plus/issues",
-                "source": "https://github.com/babenkoivan/elastic-scout-driver-plus/tree/v2.4.0"
-            },
-            "funding": [
-                {
-                    "url": "https://www.buymeacoffee.com/ivanbabenko",
-                    "type": "buymeacoffee"
-                },
-                {
-                    "url": "https://paypal.me/babenkoi",
-                    "type": "paypal"
-                }
-            ],
-            "time": "2021-08-05T18:42:04+00:00"
-        },
         {
             "name": "backpack/basset",
             "version": "1.2.2",
@@ -1882,179 +1521,6 @@
                 }
             ],
             "time": "2023-10-06T06:47:41+00:00"
-        },
-        {
-            "name": "elasticsearch/elasticsearch",
-            "version": "v7.17.2",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:elastic/elasticsearch-php.git",
-                "reference": "2d302233f2bb0926812d82823bb820d405e130fc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/2d302233f2bb0926812d82823bb820d405e130fc",
-                "reference": "2d302233f2bb0926812d82823bb820d405e130fc",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": ">=1.3.7",
-                "ezimuel/ringphp": "^1.1.2",
-                "php": "^7.3 || ^8.0",
-                "psr/log": "^1|^2|^3"
-            },
-            "require-dev": {
-                "ext-yaml": "*",
-                "ext-zip": "*",
-                "mockery/mockery": "^1.2",
-                "phpstan/phpstan": "^1.10",
-                "phpunit/phpunit": "^9.3",
-                "squizlabs/php_codesniffer": "^3.4",
-                "symfony/finder": "~4.0"
-            },
-            "suggest": {
-                "ext-curl": "*",
-                "monolog/monolog": "Allows for client-level logging and tracing"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/autoload.php"
-                ],
-                "psr-4": {
-                    "Elasticsearch\\": "src/Elasticsearch/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0",
-                "LGPL-2.1-only"
-            ],
-            "authors": [
-                {
-                    "name": "Zachary Tong"
-                },
-                {
-                    "name": "Enrico Zimuel"
-                }
-            ],
-            "description": "PHP Client for Elasticsearch",
-            "keywords": [
-                "client",
-                "elasticsearch",
-                "search"
-            ],
-            "time": "2023-04-21T15:31:12+00:00"
-        },
-        {
-            "name": "ezimuel/guzzlestreams",
-            "version": "3.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ezimuel/guzzlestreams.git",
-                "reference": "b4b5a025dfee70d6cd34c780e07330eb93d5b997"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ezimuel/guzzlestreams/zipball/b4b5a025dfee70d6cd34c780e07330eb93d5b997",
-                "reference": "b4b5a025dfee70d6cd34c780e07330eb93d5b997",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~9.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "GuzzleHttp\\Stream\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Dowling",
-                    "email": "mtdowling@gmail.com",
-                    "homepage": "https://github.com/mtdowling"
-                }
-            ],
-            "description": "Fork of guzzle/streams (abandoned) to be used with elasticsearch-php",
-            "homepage": "http://guzzlephp.org/",
-            "keywords": [
-                "Guzzle",
-                "stream"
-            ],
-            "support": {
-                "source": "https://github.com/ezimuel/guzzlestreams/tree/3.1.0"
-            },
-            "time": "2022-10-24T12:58:50+00:00"
-        },
-        {
-            "name": "ezimuel/ringphp",
-            "version": "1.2.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ezimuel/ringphp.git",
-                "reference": "7887fc8488013065f72f977dcb281994f5fde9f4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ezimuel/ringphp/zipball/7887fc8488013065f72f977dcb281994f5fde9f4",
-                "reference": "7887fc8488013065f72f977dcb281994f5fde9f4",
-                "shasum": ""
-            },
-            "require": {
-                "ezimuel/guzzlestreams": "^3.0.1",
-                "php": ">=5.4.0",
-                "react/promise": "~2.0"
-            },
-            "replace": {
-                "guzzlehttp/ringphp": "self.version"
-            },
-            "require-dev": {
-                "ext-curl": "*",
-                "phpunit/phpunit": "~9.0"
-            },
-            "suggest": {
-                "ext-curl": "Guzzle will use specific adapters if cURL is present"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "GuzzleHttp\\Ring\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Dowling",
-                    "email": "mtdowling@gmail.com",
-                    "homepage": "https://github.com/mtdowling"
-                }
-            ],
-            "description": "Fork of guzzle/RingPHP (abandoned) to be used with elasticsearch-php",
-            "support": {
-                "source": "https://github.com/ezimuel/ringphp/tree/1.2.2"
-            },
-            "time": "2022-12-07T11:28:53+00:00"
         },
         {
             "name": "fakerphp/faker",
@@ -5335,6 +4801,67 @@
             "time": "2023-12-29T01:59:53+00:00"
         },
         {
+            "name": "predis/predis",
+            "version": "v2.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/predis/predis.git",
+                "reference": "b1d3255ed9ad4d7254f9f9bba386c99f4bb983d1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/predis/predis/zipball/b1d3255ed9ad4d7254f9f9bba386c99f4bb983d1",
+                "reference": "b1d3255ed9ad4d7254f9f9bba386c99f4bb983d1",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.3",
+                "phpstan/phpstan": "^1.9",
+                "phpunit/phpunit": "^8.0 || ~9.4.4"
+            },
+            "suggest": {
+                "ext-relay": "Faster connection with in-memory caching (>=0.6.2)"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Predis\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Till Krüss",
+                    "homepage": "https://till.im",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "A flexible and feature-complete Redis client for PHP.",
+            "homepage": "http://github.com/predis/predis",
+            "keywords": [
+                "nosql",
+                "predis",
+                "redis"
+            ],
+            "support": {
+                "issues": "https://github.com/predis/predis/issues",
+                "source": "https://github.com/predis/predis/tree/v2.2.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/tillkruss",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-09-13T16:42:03+00:00"
+        },
+        {
             "name": "prologue/alerts",
             "version": "1.1.0",
             "source": {
@@ -5765,16 +5292,16 @@
         },
         {
             "name": "psr/log",
-            "version": "3.0.0",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "fe5ea303b0887d5caefd3d431c3e61ad47037001"
+                "reference": "f16e1d5863e37f8d8c2a01719f5b34baa2b714d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/fe5ea303b0887d5caefd3d431c3e61ad47037001",
-                "reference": "fe5ea303b0887d5caefd3d431c3e61ad47037001",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/f16e1d5863e37f8d8c2a01719f5b34baa2b714d3",
+                "reference": "f16e1d5863e37f8d8c2a01719f5b34baa2b714d3",
                 "shasum": ""
             },
             "require": {
@@ -5809,9 +5336,9 @@
                 "psr-3"
             ],
             "support": {
-                "source": "https://github.com/php-fig/log/tree/3.0.0"
+                "source": "https://github.com/php-fig/log/tree/3.0.2"
             },
-            "time": "2021-07-14T16:46:02+00:00"
+            "time": "2024-09-11T13:17:53+00:00"
         },
         {
             "name": "psr/simple-cache",
@@ -6167,78 +5694,6 @@
                 }
             ],
             "time": "2023-11-08T05:53:05+00:00"
-        },
-        {
-            "name": "react/promise",
-            "version": "v2.11.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/reactphp/promise.git",
-                "reference": "1a8460931ea36dc5c76838fec5734d55c88c6831"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/promise/zipball/1a8460931ea36dc5c76838fec5734d55c88c6831",
-                "reference": "1a8460931ea36dc5c76838fec5734d55c88c6831",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.6 || ^5.7 || ^4.8.36"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/functions_include.php"
-                ],
-                "psr-4": {
-                    "React\\Promise\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jan Sorgalla",
-                    "email": "jsorgalla@gmail.com",
-                    "homepage": "https://sorgalla.com/"
-                },
-                {
-                    "name": "Christian Lück",
-                    "email": "christian@clue.engineering",
-                    "homepage": "https://clue.engineering/"
-                },
-                {
-                    "name": "Cees-Jan Kiewiet",
-                    "email": "reactphp@ceesjankiewiet.nl",
-                    "homepage": "https://wyrihaximus.net/"
-                },
-                {
-                    "name": "Chris Boden",
-                    "email": "cboden@gmail.com",
-                    "homepage": "https://cboden.dev/"
-                }
-            ],
-            "description": "A lightweight implementation of CommonJS Promises/A for PHP",
-            "keywords": [
-                "promise",
-                "promises"
-            ],
-            "support": {
-                "issues": "https://github.com/reactphp/promise/issues",
-                "source": "https://github.com/reactphp/promise/tree/v2.11.0"
-            },
-            "funding": [
-                {
-                    "url": "https://opencollective.com/reactphp",
-                    "type": "open_collective"
-                }
-            ],
-            "time": "2023-11-16T16:16:50+00:00"
         },
         {
             "name": "sentry/sdk",
@@ -10102,6 +9557,153 @@
                 }
             ],
             "time": "2024-01-23T14:53:30+00:00"
+        },
+        {
+            "name": "teamtnt/laravel-scout-tntsearch-driver",
+            "version": "v14.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/teamtnt/laravel-scout-tntsearch-driver.git",
+                "reference": "56af782badb5986bb57ef3046d669b0815fd8978"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/teamtnt/laravel-scout-tntsearch-driver/zipball/56af782badb5986bb57ef3046d669b0815fd8978",
+                "reference": "56af782badb5986bb57ef3046d669b0815fd8978",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/bus": "~5.4|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
+                "illuminate/contracts": "~5.4|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
+                "illuminate/pagination": "~5.4|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
+                "illuminate/queue": "~5.4|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
+                "illuminate/support": "~5.4|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
+                "laravel/scout": "7.*|^8.0|^8.3|^9.0|^10",
+                "php": ">=7.1|^8",
+                "teamtnt/tntsearch": "2.7.0|^2.8|^3.0|^4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^7.0|^8.0|^9.0|^10.5"
+            },
+            "suggest": {
+                "teamtnt/tntsearch": "Required to use the TNTSearch engine."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "TeamTNT\\Scout\\TNTSearchScoutServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TeamTNT\\Scout\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "TNT Studio",
+                    "email": "info@tntstudio.hr"
+                }
+            ],
+            "description": "Driver for Laravel Scout search package based on https://github.com/teamtnt/tntsearch",
+            "keywords": [
+                "laravel",
+                "scout",
+                "search",
+                "tntsearch"
+            ],
+            "support": {
+                "issues": "https://github.com/teamtnt/laravel-scout-tntsearch-driver/issues",
+                "source": "https://github.com/teamtnt/laravel-scout-tntsearch-driver/tree/v14.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/teamtnt",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-03-16T22:37:45+00:00"
+        },
+        {
+            "name": "teamtnt/tntsearch",
+            "version": "v4.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/teamtnt/tntsearch.git",
+                "reference": "6116502589bda297d5c01a975e6b94c374977b2b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/teamtnt/tntsearch/zipball/6116502589bda297d5c01a975e6b94c374977b2b",
+                "reference": "6116502589bda297d5c01a975e6b94c374977b2b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "ext-pdo_sqlite": "*",
+                "ext-sqlite3": "*",
+                "php": "~7.1|^8",
+                "predis/predis": "^2.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "7.*|8.*|9.*",
+                "symfony/var-dumper": "^4|^5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "helper/helpers.php"
+                ],
+                "psr-4": {
+                    "TeamTNT\\TNTSearch\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nenad Tičarić",
+                    "email": "nticaric@gmail.com",
+                    "homepage": "http://www.tntstudio.us",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A fully featured full text search engine written in PHP",
+            "homepage": "https://github.com/teamtnt/tntsearch",
+            "keywords": [
+                "Fuzzy search",
+                "bm25",
+                "fulltext",
+                "geosearch",
+                "search",
+                "stemming",
+                "teamtnt",
+                "text classification",
+                "tntsearch"
+            ],
+            "support": {
+                "issues": "https://github.com/teamtnt/tntsearch/issues",
+                "source": "https://github.com/teamtnt/tntsearch/tree/v4.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/teamtnt",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-08-09T06:32:01+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
