@@ -16,12 +16,6 @@ jobs:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
         ports:
           - 3306
-      elasticsearch:
-        image: slovaknationalgallery/elasticsearch-webumenia:7.3.1
-        env:
-          discovery.type: single-node
-        ports:
-          - 9200
     steps:
       - uses: actions/checkout@v2
       - name: Get Composer Cache Directory
@@ -44,19 +38,18 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: 8.2
-          extensions: mbstring, bcmath, fileinfo, pdo_mysql
+          extensions: mbstring, bcmath, fileinfo, pdo_mysql, sqlite3
       - name: Add Composer auth credentials (for Backpack Pro)
         run: echo '${{ secrets.COMPOSER_AUTH_JSON }}' > $GITHUB_WORKSPACE/auth.json
       - run: composer install --no-progress --no-interaction
       - uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '16'
       - run: npm install && npm run production
       - run: ./vendor/bin/phpunit
         env:
           APP_KEY: base64:HXaE/pTpPoSNdHFMl5SpgX2XKtdph3EjrdmvWFDKisE=
           DATABASE_URL: mysql://root:@127.0.0.1:${{ job.services.mysql.ports[3306] }}/komarch_testing
-          ELASTIC_HOST: 127.0.0.1:${{ job.services.elasticsearch.ports[9200] }}
 
   deploy:
     name: Deploy

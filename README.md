@@ -1,7 +1,7 @@
 # Slovenská Komora Architektúry (komarch.sk)
 
 This is the web for komarch.sk. It is written in PHP and builds upon the Laravel
-framework. It uses MySQL as a database, Elasticsearch for text search
+framework. It uses MySQL as a database, TNTSearch for text search
 functionality, and Redis as a transient storage for the job queue.
 
 This readme assumes you will be using containerized services. You can use native
@@ -35,8 +35,7 @@ installs as well as long as you configure them equivalently (see
     - Run `php artisan key:generate`
     - Run `php artisan key:generate --env testing`
 1. Run `php artisan migrate`
-1. Run `php artisan elastic:migrate`
-1. Run `php artisan scout:import <model>`
+1. Run `php artisan komarch:search:import`
 1. Run `npm run dev`
 
 ## Development
