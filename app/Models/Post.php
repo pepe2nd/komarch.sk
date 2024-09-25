@@ -117,7 +117,7 @@ class Post extends Model implements HasMedia
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'text' => $this->text,
+            'perex' => $this->perex
         ];
     }
 }
