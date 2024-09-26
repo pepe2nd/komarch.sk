@@ -46,6 +46,9 @@ jobs:
         with:
           node-version: '14'
       - run: npm install && npm run production
+      # Create the TNTSearch storage directory
+      - name: Create TNTSearch Storage Directory
+        run: mkdir -p /tmp/tntsearch/indexes
       - run: ./vendor/bin/phpunit
         env:
           APP_KEY: base64:HXaE/pTpPoSNdHFMl5SpgX2XKtdph3EjrdmvWFDKisE=
