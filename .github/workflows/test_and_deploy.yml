@@ -51,7 +51,12 @@ jobs:
         run: php artisan test || exit 1
         env:
           APP_KEY: base64:HXaE/pTpPoSNdHFMl5SpgX2XKtdph3EjrdmvWFDKisE=
-          DATABASE_URL: mysql://root:@127.0.0.1:${{ job.services.mysql.ports[3306] }}/komarch_testing
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: komarch_testing
+          DB_USERNAME: root
+          DB_PASSWORD: ''
           SCOUT_DRIVER: tntsearch
           TNTSEARCH_STORAGE: /tmp/tntsearch/indexes
           SCOUT_PREFIX: komarch_test_
