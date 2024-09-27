@@ -6,6 +6,7 @@
 /public/css
 /public/fonts
 /storage/*.key
+/storage/*.index
 /vendor
 .idea
 .env

@@ -2,35 +2,50 @@
 
 namespace Tests;
 
+use App\Models\Post;
+use App\Models\Work;
+use App\Models\Contest;
+use App\Models\Architect;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Support\Facades\DB;
 
 trait RefreshSearchIndex
 {
+
+    private const SEARCHABLE_ENTITIES = [
+        Post::class,
+        Architect::class,
+        Work::class,
+        Contest::class,
+    ];
+
     /**
-     * Define hooks to migrate the database before and after each test.
+     * Refresh the search index before each test.
      *
      * @return void
      */
     public function refreshSearchIndex()
     {
-        $migrationsDbTable =  DB::table(config('elastic.migrations.table'));
+        $this->removeIndexFiles();
 
-        if (!RefreshSearchIndexState::$migrations) {
-            $this->artisan('elastic:migrate');
-            $this->app[Kernel::class]->setArtisan(null);
-
-            RefreshSearchIndexState::$migrations = $migrationsDbTable->get();
-        }
-
-        $this->beforeApplicationDestroyed(function () use ($migrationsDbTable) {
-            $migrations = RefreshSearchIndexState::$migrations->map(fn ($a) => (array) $a)->toArray();
-            $migrationsDbTable->upsert($migrations, ['migration']);
-
-            $this->artisan('elastic:migrate:reset');
-            $this->app[Kernel::class]->setArtisan(null);
-
-            RefreshSearchIndexState::$migrations = null;
+        $this->beforeApplicationDestroyed(function () {
+            $this->removeIndexFiles();
         });
+    }
+
+    private function removeIndexFiles()
+    {
+        $tntSearchIndexPath = config('scout.tntsearch.storage');
+
+        if (File::exists($tntSearchIndexPath)) {
+            $indexFiles = File::files($tntSearchIndexPath);
+
+            foreach ($indexFiles as $file) {
+                if ($file->isFile() && $file->getExtension() === 'index' && Str::startsWith($file->getFilename(), config('scout.prefix'))) {
+                    File::delete($file);
+                }
+            }
+        }
     }
 }

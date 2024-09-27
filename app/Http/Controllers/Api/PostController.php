@@ -50,23 +50,11 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        $related_posts = Post::boolSearch($post->id)
-            ->must(
-                'more_like_this',
-                [
-                    'fields' => ['title.' . app()->getLocale()],
-                    'like' => [
-                        '_id' => $post->id
-                    ],
-                    'min_term_freq' => 1,
-                    'min_doc_freq' => 1,
-                ])
-            ->size(10)
-            ->execute();
+        $related_posts = Post::search($post->title . ', ' . $post->perex)->get()->except($post->id)->take(10);
 
         return [
             'id' => $post->id,
-            'related' => PostResource::collection($related_posts->models()),
+            'related' => PostResource::collection($related_posts),
         ];
     }
 

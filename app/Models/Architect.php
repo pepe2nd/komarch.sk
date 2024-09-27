@@ -131,14 +131,14 @@ class Architect extends Model
 
     public function toSearchableArray()
     {
-        $searchableArray = Arr::only($this->toArray(), ['first_name', 'last_name']);
-
         $this->load('number'); // load the relationship if it's not already loaded
-        if ($this->relationLoaded('number')) {
-            $searchableArray['architect_number'] = $this->number ? $this->number->architect_number : null;
-        }
 
-        return $searchableArray;
+        return [
+            'id' => $this->id,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'number' => $this->number ? $this->number->architect_number : null,
+        ];
     }
 
     public function getShortDescriptionAttribute()

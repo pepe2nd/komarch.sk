@@ -1,6 +1,5 @@
 name: CI/CD
 
-# Trigger test on every push, deploy only after push on master branch after test
 on: push
 
 jobs:
@@ -10,53 +9,57 @@ jobs:
 
     services:
       mysql:
-        image: mysql:5.7.32
+        image: mysql:8.0.37
         env:
           MYSQL_DATABASE: komarch_testing
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
         ports:
-          - 3306
-      elasticsearch:
-        image: slovaknationalgallery/elasticsearch-webumenia:7.3.1
-        env:
-          discovery.type: single-node
-        ports:
-          - 9200
+          - 3306:3306
     steps:
       - uses: actions/checkout@v2
-      - name: Get Composer Cache Directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - name: Restore Composer cache
-        uses: actions/cache@v2
+
+      - uses: shivammathur/setup-php@v2
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
+          php-version: '8.2'
+          extensions: mbstring, bcmath, pdo_mysql, sqlite3
+
+      # Cache Composer dependencies
+      - uses: actions/cache@v2
+        with:
+          path: ~/.composer/cache
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
-      - name: Restore npm cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.2
-          extensions: mbstring, bcmath, fileinfo, pdo_mysql
+
       - name: Add Composer auth credentials (for Backpack Pro)
         run: echo '${{ secrets.COMPOSER_AUTH_JSON }}' > $GITHUB_WORKSPACE/auth.json
       - run: composer install --no-progress --no-interaction
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-      - run: npm install && npm run production
-      - run: ./vendor/bin/phpunit
+
+      - name: Build
+        run: |
+          npm install
+          npm run production
+
+      # Create the TNTSearch storage directory
+      - name: Create TNTSearch Storage Directory
+        run: mkdir -p /tmp/tntsearch/indexes
+
+      - name: Test
+        run: php artisan test || exit 1
         env:
           APP_KEY: base64:HXaE/pTpPoSNdHFMl5SpgX2XKtdph3EjrdmvWFDKisE=
-          DATABASE_URL: mysql://root:@127.0.0.1:${{ job.services.mysql.ports[3306] }}/komarch_testing
-          ELASTIC_HOST: 127.0.0.1:${{ job.services.elasticsearch.ports[9200] }}
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: komarch_testing
+          DB_USERNAME: root
+          DB_PASSWORD: ''
+          SCOUT_DRIVER: tntsearch
+          TNTSEARCH_STORAGE: /tmp/tntsearch/indexes
+          SCOUT_PREFIX: komarch_test_
 
   deploy:
     name: Deploy
