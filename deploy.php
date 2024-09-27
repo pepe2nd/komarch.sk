@@ -10,6 +10,7 @@ set('writable_chmod_mode', '0775');
 
 set('bin/php', 'php8.2');
 set('bin/composer', '{{bin/php}} {{deploy_path}}/.dep/composer.phar');
+set('bin/npm', 'n --offline exec 14 npm');
 
 set('repository', 'git@github.com:SlovakNationalGallery/komarch.sk.git');
 
