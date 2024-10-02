@@ -16,7 +16,7 @@ class DocumentController extends Controller
 
         // search
         if ($request->filled('q')) {
-            $documents->where('name', 'like', '%' . $request->input('q') . '%');
+            $documents->whereIn('id', Document::search($request->query('q'))->keys());
         }
 
         // sort
