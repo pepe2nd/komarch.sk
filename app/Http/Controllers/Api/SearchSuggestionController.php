@@ -11,7 +11,6 @@ use App\Models\Architect;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\DocumentResource;
 
 class SearchSuggestionController extends Controller
 {
