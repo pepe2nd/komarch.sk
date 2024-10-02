@@ -2,13 +2,14 @@
 
 namespace Tests;
 
+use App\Models\Page;
 use App\Models\Post;
 use App\Models\Work;
 use App\Models\Contest;
+use App\Models\Document;
 use App\Models\Architect;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
-use Illuminate\Contracts\Console\Kernel;
 
 trait RefreshSearchIndex
 {
@@ -18,6 +19,8 @@ trait RefreshSearchIndex
         Architect::class,
         Work::class,
         Contest::class,
+        Document::class,
+        Page::class,
     ];
 
     /**

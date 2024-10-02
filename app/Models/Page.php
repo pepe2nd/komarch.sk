@@ -15,6 +15,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use App\Traits\HasShortDescription;
+use Laravel\Scout\Searchable;
 
 class Page extends Model implements HasMedia
 {
@@ -27,7 +28,8 @@ class Page extends Model implements HasMedia
         CrudTrait,
         InteractsWithMedia,
         HasCoverImage,
-        HasShortDescription;
+        HasShortDescription,
+        Searchable;
 
     public $translatable = [
         'title',
@@ -106,7 +108,7 @@ class Page extends Model implements HasMedia
     {
         $breadcrumbs[] = $this;
         $id = $this->parent_id;
-        while ($id!=0) {
+        while ($id != 0) {
             $model = self::find($id);
             $id = 0;
             if ($model) {
@@ -127,7 +129,7 @@ class Page extends Model implements HasMedia
     public function scopeMenu($query)
     {
         return $query->whereNotNull('menu_order')
-                     ->orderBy('menu_order');
+            ->orderBy('menu_order');
     }
 
     public function registerMediaCollections(): void
@@ -148,8 +150,8 @@ class Page extends Model implements HasMedia
      */
     public static function getTree($only_parents = false, $parent_id = 0, $spacing = '', $tree_array = []): array
     {
-        $categories = self::select('id', 'title', 'parent_id')->where('parent_id' ,'=', $parent_id)->orderBy('menu_order')->get();
-        foreach ($categories as $item){
+        $categories = self::select('id', 'title', 'parent_id')->where('parent_id', '=', $parent_id)->orderBy('menu_order')->get();
+        foreach ($categories as $item) {
             if (!$only_parents || $item->children()->exists()) {
                 $tree_array[$item->id] = $spacing . ' ' . $item->title;
                 $tree_array = self::getTree($only_parents, $item->id, $spacing . '—', $tree_array);
@@ -158,4 +160,18 @@ class Page extends Model implements HasMedia
         return $tree_array;
     }
 
+    public function shouldBeSearchable(): bool
+    {
+        return $this->is_published;
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'perex' => $this->perex,
+            'text' => strip_tags($this->text),
+        ];
+    }
 }

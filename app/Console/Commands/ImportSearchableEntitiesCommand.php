@@ -7,6 +7,7 @@ use App\Models\Work;
 use App\Models\Contest;
 use App\Models\Document;
 use App\Models\Architect;
+use App\Models\Page;
 use Illuminate\Console\Command;
 
 class ImportSearchableEntitiesCommand extends Command
@@ -17,6 +18,7 @@ class ImportSearchableEntitiesCommand extends Command
         Work::class,
         Contest::class,
         Document::class,
+        Page::class,
     ];
 
     protected $signature = 'komarch:search:import';
