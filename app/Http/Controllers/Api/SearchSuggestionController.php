@@ -27,12 +27,12 @@ class SearchSuggestionController extends Controller
         }
 
         return [
-            'architects' => $this->architects($search),
-            'works' => $this->works($search),
-            'contests' => $this->contests($search),
-            'posts' => $this->posts($search),
-            'pages' => $this->pages($search),
             'documents' => $this->documents($search),
+            'pages' => $this->pages($search),
+            'contests' => $this->contests($search),
+            'works' => $this->works($search),
+            'posts' => $this->posts($search),
+            'architects' => $this->architects($search),
         ];
     }
 
