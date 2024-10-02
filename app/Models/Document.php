@@ -10,12 +10,14 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Tags\HasTags;
 use Spatie\Tags\Tag;
 use App\Traits\CreatedBy;
+use Laravel\Scout\Searchable;
 
 class Document extends Model implements HasMedia
 {
     use HasTags,
         InteractsWithMedia,
         CrudTrait,
+        Searchable,
         CreatedBy;
 
     /*
@@ -56,7 +58,7 @@ class Document extends Model implements HasMedia
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')
-              ->width(800)->performOnCollections('file');
+            ->width(800)->performOnCollections('file');
     }
 
     /*
@@ -98,6 +100,11 @@ class Document extends Model implements HasMedia
         return $this->getFirstMedia('file');
     }
 
+    public function getUrlAttribute(): string
+    {
+        return asset($this->file->getUrl());
+    }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -109,7 +116,7 @@ class Document extends Model implements HasMedia
     {
 
         $this->clearMediaCollection('file');
-        if (isSet($uploaded_file)) {
+        if (isset($uploaded_file)) {
             $this
                 ->addMedia($uploaded_file)
                 // ->usingFileName($uploaded_file->hashName())
@@ -117,6 +124,11 @@ class Document extends Model implements HasMedia
         }
     }
 
-
-
+    public function toSearchableArray()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+        ];
+    }
 }

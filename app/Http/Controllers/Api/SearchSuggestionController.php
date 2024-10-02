@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Models\Architect;
-use App\Models\Contest;
 use App\Models\Page;
 use App\Models\Post;
 use App\Models\Work;
-use Illuminate\Http\Request;
+use App\Models\Contest;
+use App\Models\Document;
+use App\Models\Architect;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\DocumentResource;
 
 class SearchSuggestionController extends Controller
 {
@@ -30,42 +32,43 @@ class SearchSuggestionController extends Controller
             'contests' => $this->contests($search),
             'posts' => $this->posts($search),
             'pages' => $this->pages($search),
+            'documents' => $this->documents($search),
         ];
     }
 
     private function architects(string $search)
     {
-        $architects = Architect::search("*{$search}*")->take($this->limit)->get();
+        $architects = Architect::search($search)->take($this->limit)->get();
         return $architects->map(function ($architect) {
             return [
-              'id' => $architect->id,
-              'url' => $architect->url,
-              'title' => $architect->full_name,
+                'id' => $architect->id,
+                'url' => $architect->url,
+                'title' => $architect->full_name,
             ];
         });
     }
 
     private function works(string $search)
     {
-        $works = Work::search("*{$search}*")->take($this->limit)->get();
+        $works = Work::search($search)->take($this->limit)->get();
         return $works->map(function ($work) {
             return [
-              'id' => $work->id,
-              'url' => $work->url,
-              'title' => $work->name,
+                'id' => $work->id,
+                'url' => $work->url,
+                'title' => $work->name,
             ];
         });
     }
 
     private function contests(string $search)
     {
-        $contests = Contest::search("*{$search}*")->take($this->limit)->get();
+        $contests = Contest::search($search)->take($this->limit)->get();
         return $contests->map->only('id', 'url', 'title');
     }
 
     private function posts(string $search)
     {
-        $posts = Post::search("*{$search}*")->take($this->limit)->get();
+        $posts = Post::search($search)->take($this->limit)->get();
         return $posts->map->only('id', 'url', 'title');
     }
 
@@ -75,4 +78,15 @@ class SearchSuggestionController extends Controller
         return $pages->map->only('id', 'url', 'title');
     }
 
+    private function documents(string $search)
+    {
+        $documents = Document::search($search)->take($this->limit)->get();
+        return $documents->map(function ($document) {
+            return [
+                'id' => $document->id,
+                'url' => $document->url,
+                'title' => $document->name
+            ];
+        });
+    }
 }

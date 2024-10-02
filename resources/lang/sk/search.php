@@ -6,4 +6,5 @@ return [
     'contests' => 'Súťaže',
     'posts' => 'Informácie SKA',
     'pages' => 'Stránky',
+    'documents' => 'Dokumenty',
 ];
