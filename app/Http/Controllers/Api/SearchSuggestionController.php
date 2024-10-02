@@ -74,7 +74,7 @@ class SearchSuggestionController extends Controller
 
     private function pages(string $search)
     {
-        $pages = Page::published()->where('title', 'like', "%{$search}%")->take($this->limit)->get();
+        $pages = Page::search($search)->take($this->limit)->get();
         return $pages->map->only('id', 'url', 'title');
     }
 
