@@ -6,4 +6,5 @@ return [
     'contests' => 'Contests',
     'posts' => 'Posts',
     'pages' => 'Pages',
+    'documents' => 'Documents',
 ];

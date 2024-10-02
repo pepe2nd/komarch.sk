@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Post;
 use App\Models\Work;
 use App\Models\Contest;
+use App\Models\Document;
 use App\Models\Architect;
 use Illuminate\Console\Command;
 
@@ -15,6 +16,7 @@ class ImportSearchableEntitiesCommand extends Command
         Architect::class,
         Work::class,
         Contest::class,
+        Document::class,
     ];
 
     protected $signature = 'komarch:search:import';
