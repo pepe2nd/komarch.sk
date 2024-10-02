@@ -1,63 +1,74 @@
 # Slovenská Komora Architektúry (komarch.sk)
 
-This is the web for komarch.sk. It is written in PHP and builds upon the Laravel
-framework. It uses MySQL as a database, TNTSearch for text search
-functionality, and Redis as a transient storage for the job queue.
+This is the web for komarch.sk. It is written in PHP and builds upon the Laravel framework. It uses MySQL as a database, [TNTSearch](https://github.com/teamtnt/tntsearch) for text search functionality, and Redis as transient storage for the job queue.
 
-This readme assumes you will be using containerized services. You can use native
-installs as well as long as you configure them equivalently (see
-`docker-compose.yml` for more).
+This readme assumes you will be using containerized services, but you can also run the application without Docker, for example using [Herd](https://herd.laravel.com)—which may be the preferred option for local development. If using Docker, see `docker-compose.yml` for the equivalent setup.
 
 ## Prerequisites
 
-- docker
-- docker-compose
-- php 8.2
-- composer 2
-- node 14 (or higher)
+- PHP 8.2
+- Composer 2
+- Node 12 (higher versions don't work)
+- Docker (optional, for containerized setup)
 
-## First time setup
+If using Herd, ensure the required PHP extensions are enabled and services like MySQL are available.
 
-1. Enable these extensions in your php installation
-    - exif
-    - ftp
-    - pdo_mysql
-1. Clone the repository
-1. Create `.env` and `.env.testing` files (as copies of `.env.example`)
-1. Configure env variables `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`
-    - in `.env` based on `mysql-development` in `docker-compose.yml`
-    - in `.env.testing` based on `mysql-testing` in `docker-compose.yml`
-1. Run `docker-compose up`
-1. Run `composer install`
-1. Run `npm install`
-1. Run `php artisan storage:link`
-1. Generate app keys:
-    - Run `php artisan key:generate`
-    - Run `php artisan key:generate --env testing`
-1. Run `php artisan migrate`
-1. Run `php artisan komarch:search:import`
-1. Run `npm run dev`
+## First-time Setup
+
+1. Clone the repository.
+2. Create `.env` and `.env.testing` files (as copies of `.env.example`).
+3. Configure environment variables `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`:
+   - in `.env`, use `mysql-development` from `docker-compose.yml` if using Docker.
+   - in `.env.testing`, use `mysql-testing` from `docker-compose.yml` if using Docker.
+   - If not using Docker, set the database connection parameters based on your local setup.
+4. Start your environment:
+   - **With Docker**: Run `docker-compose up`.
+   - **Without Docker (e.g., Herd)**: Ensure you have MySQL and Redis services running, and connect to your local environment.
+5. Run `composer install`.
+6. Run `npm install`.
+7. Run `php artisan storage:link`.
+8. Generate app keys:
+   - Run `php artisan key:generate`.
+   - Run `php artisan key:generate --env=testing`.
+8. Run migrations: `php artisan migrate`.
+10. Import search indexes: `php artisan komarch:search:import`.
+11. Run `npm run dev` to build frontend assets.
 
 ## Development
 
-For Backpack Pro to work, don't forget to
 
-- Create auth.json with credentials to `backpack/pro` repository. See auth.json.example
+### Backpack Pro
 
-Additionaly
+The web app relies on [Backpack Pro](https://backpackforlaravel.com) for its CMS functionality. Make sure to configure the `auth.json` file with the necessary credentials to access Backpack Pro.
 
-- Run `docker-compose up` to start network services
-- Run `npm run dev` to build frontend assets
-- Run `php artisan serve` to start php development server
-- Run `php artisan test --env testing` to run tests against testing database
+- Create an `auth.json` with credentials for the `backpack/pro` repository. See `auth.json.example` for details.
+
+### General Development Workflow:
+
+- Start services: `docker-compose up` (if using Docker) or start MySQL manually (if using Herd or a local setup).
+- Build frontend assets: `npm run dev`.
+- Start PHP development server: `php artisan serve` (optional)
+
+## Testing
+
+To run tests, use the following command:
+
+```bash
+php artisan test
+```
+
+Testing will use the environment configuration from your .env.testing file. Make sure to have a separate database for testing, as migrations will run before tests execute.
 
 ### Accessing the 'urad/intranet' database
+
 In order to connect to the 'urad' DB, you'll need to set up a ssh tunnel like this:
+
 ```
 ssh -N -L 3336:localhost:3336 webumenia.sk
 ```
 
 Now the database will be reachable at `127.0.0.1:3336` like so:
+
 ```
 URAD_DATABASE_URL="mysql://user:password@127.0.0.1:3336/intranet_komarch"
-``` 
+```
