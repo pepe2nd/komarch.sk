@@ -46,4 +46,4 @@ Route::get('/contests', 'App\Http\Controllers\Api\ContestController@index')->nam
 Route::get('/contests-filters', 'App\Http\Controllers\Api\ContestController@filters')->name('api.contests-filters.index');
 Route::get('/contest-results/{result}/images', fn (Contestresult $result) => MediaResource::collection($result->media));
 
-Route::get('search-sugestions', 'App\Http\Controllers\Api\SearchSuggestionController@index')->name('search-sugestions');
+Route::get('search-suggestions', 'App\Http\Controllers\Api\SearchSuggestionController@index')->name('search-suggestions');

@@ -10,6 +10,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Tags\HasTags;
 use Spatie\Tags\Tag;
 use App\Traits\CreatedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Scout\Searchable;
 
 class Document extends Model implements HasMedia
@@ -18,7 +19,8 @@ class Document extends Model implements HasMedia
         InteractsWithMedia,
         CrudTrait,
         Searchable,
-        CreatedBy;
+        CreatedBy,
+        HasFactory;
 
     /*
     |--------------------------------------------------------------------------

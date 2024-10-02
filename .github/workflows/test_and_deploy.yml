@@ -21,7 +21,12 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
-          extensions: mbstring, bcmath, pdo_mysql, sqlite3
+          extensions: mbstring, bcmath, pdo_mysql, sqlite3, gd, imagick
+      - name: Install ghostscript
+        run: sudo apt install ghostscript
+      - name: Update ImageMagick Policy
+        run: |
+          echo "<policy domain=\"coder\" rights=\"read|write\" pattern=\"PDF\" />" | sudo tee -a /etc/ImageMagick-6/policy.xml
 
       # Cache Composer dependencies
       - uses: actions/cache@v2
