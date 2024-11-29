@@ -38,21 +38,22 @@ class WorkController extends Controller
     public function related($id, Request $request)
     {
         $per_page = (int) $request->get('per_page', 8);
-        $related_works = Work::boolSearch($id)
-            ->must(
-                'more_like_this',
-                [
-                    'fields' => ['name', 'location_city'],
-                    'like' => [
-                        '_id' => $id
-                    ],
-                    'min_term_freq' => 1,
-                    'min_doc_freq' => 1,
-                ])
-            ->paginate($per_page);
+        $work = Work::findOrFail($id);
+        $related_works = Work::search($work->name . ', ' . $work->studio . ', ' . $work->architects)
+            ->get()
+            ->except($work->id)
+            ->load(['media', 'architects', 'awards']);
 
-        $related_works->setCollection($related_works->models()->load(['media', 'architects', 'awards']));
-        return WorkResource::collection($related_works);
+        $page = request()->get('page', 1); 
+        $paginated_results = new \Illuminate\Pagination\LengthAwarePaginator(
+            $related_works->forPage($page, $per_page),
+            $related_works->count(),
+            $per_page,
+            $page,
+            ['path' => request()->url(), 'query' => request()->query()] 
+        );
+
+        return WorkResource::collection($paginated_results);
     }
 
     public function filters(Request $request)
