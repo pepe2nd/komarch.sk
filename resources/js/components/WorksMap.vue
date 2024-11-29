@@ -183,7 +183,7 @@ export default {
   },
   methods: {
     async fetchData () {
-      return fetch('/api/works?per_page=1000&with_gps')
+      return fetch('/api/works?per_page=300&with_gps')
         .then(response => response.json())
         .then(json => ({
           type: 'FeatureCollection',
