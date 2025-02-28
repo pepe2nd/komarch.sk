@@ -36,7 +36,7 @@ class AddMediaFromUrad implements ShouldQueue
     public function handle()
     {
         $this->entity
-            ->addMediaFromDisk("lab_sng/{$this->sourceMedium->id}/{$this->sourceMedium->file_name}", 'urad')
+            ->addMediaFromDisk("app/public/{$this->sourceMedium->id}/{$this->sourceMedium->file_name}", 'urad')
             ->preservingOriginal()
             ->withCustomProperties([
                 'urad_id' => $this->sourceMedium->id,
