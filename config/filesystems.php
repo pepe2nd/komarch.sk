@@ -63,11 +63,19 @@ return [
         ],
 
         'urad' => [
+            'driver' => 'local',
+            'root' => '/home/forge/intranet.oldfactory.sk/storage',
+        ],
+
+        /*
+        'urad' => [
             'driver' => 'sftp',
             'host' => env('URAD_SFTP_HOST', 'intranet.komarch.sk'),
             'username' => env('URAD_SFTP_USERNAME', 'lab_sng'),
             'privateKey' => env('URAD_SFTP_PRIVATE_KEY', '/home/lab_sng/.ssh/id_rsa'),
         ],
+        */
+
 
         's3' => [
             'driver' => 's3',
