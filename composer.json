@@ -12,7 +12,6 @@
         "backpack/crud": "^6.0.0",
         "backpack/filemanager": "^3.0",
         "backpack/logmanager": "^5.0",
-        "backpack/pro": "^2.2",
         "backpack/theme-coreuiv2": "^1.2",
         "doctrine/dbal": "^3.5",
         "fakerphp/faker": "^1.9.1",
