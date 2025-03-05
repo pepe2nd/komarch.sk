@@ -64,7 +64,7 @@ return [
 
         'urad' => [
             'driver' => 'local',
-            'root' => '/home/forge/intranet.oldfactory.sk/storage',
+            'root' => '/home/forge/intranet.komarch.sk/storage',
         ],
 
         /*
