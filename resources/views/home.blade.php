@@ -13,7 +13,7 @@
 {{-- @include('components.notification_bar') --}}
 
 <div class="container mx-auto px-6">
-    <x-intro :text="trans('home.perex')"/>
+    {{-- <x-intro :text="trans('home.perex')"/> --}}
 
     <div class="mt-10 md:mt-32 md:grid grid-cols-2 gap-10 mb-20 md:mb-0">
         <div class="h-56 md:h-80 my-16 md:my-0 text-center md:text-left">

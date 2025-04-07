@@ -14,7 +14,7 @@
         <x-footer.opening-hours />
     </x-footer.footer-navigation-column>
     <x-footer.footer-navigation-column title="Kontakt">
-        Námeste SNP 18, 811 06 Bratislava
+        Námestie SNP 18, 811 06 Bratislava
         <x-link-arrow url="mailto:komarch@komarch.sk" external>
             komarch@komarch.sk
         </x-link-arrow>
