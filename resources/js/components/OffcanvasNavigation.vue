@@ -37,7 +37,7 @@
         <div class="flex flex-col py-3 px-8">
           <!-- Navigation items -->
           <ul>
-            <li v-for="(item, index) in items" :class="{ 'md:hidden': index < 4 }">
+            <li v-for="(item, index) in items" :class="{ 'md:hidden': index < 1 }">
               <LinkArrowHover :url="item.url" class="whitespace-nowrap text-white">
                 {{ item.title }}
               </LinkArrowHover>
