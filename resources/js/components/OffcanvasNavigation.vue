@@ -99,7 +99,7 @@ export default {
   },
   computed: {
     topItems() {
-      return this.items.slice(0, 4)
+      return this.items.slice(0, 1)
     },
   },
 }
