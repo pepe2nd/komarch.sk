@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Page;
 use App\Models\Architect;
 use Illuminate\Http\Request;
 
@@ -9,7 +10,8 @@ class ArchitectsController extends Controller
 {
     public function index(Request $request)
     {
-        return view('architects.index');
+        $page = Page::findOrFail(327); // legacy page "Architekti"
+        return view('architects.index', compact('page'));
     }
 
     public function show($id, $slug, Request $request)
