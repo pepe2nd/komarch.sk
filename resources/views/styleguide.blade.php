@@ -9,22 +9,24 @@
 <main class="container mx-auto">
 <div>
 <div class="row">
-    <section class="col m-10 mb-20">
-        <h1 class="text-2xl tracking-tight leading-snug mt-4 lg:mt-14">
+    <section class="title">
+        <h1>
             V prípade, ak člen*ka SKA dlhodobo nevykonáva činnosť autorizovaného architekta*tky/ autorizovaného krajinného architekta*tky, zvažuje odchod na materskú/ otcovskú dovolenku alebo do dôchodku, resp. sa nachádza v inej špecifickej situácii, odporúčame zvážiť:
         </h1>
-        <p class="text-2xl tracking-tight leading-snug mt-6 lg:mt-6">A. Vyčiarknutie zo zoznamu AA/ KA</p>
-        <p class="text-2xl tracking-tight leading-snug mt-6 lg:mt-6">B. Pozastavenie činnosti</p>
+        <p>A. Vyčiarknutie zo zoznamu AA/ KA</p>
+        <p>B. Pozastavenie činnosti</p>
     </section>
 
-    <section class="border-t border-black m-10 mb-24">
-        <h1 class="text-2xl tracking-tight leading-snug mb-14 lg:mt-20">A. Vyčiarknutie zo zoznamov AA/ KA</h1>
+    <hr>
+
+    <section>
+        <h1>A. Vyčiarknutie zo zoznamov AA/ KA</h1>
 
         <ol>
             <li>
                 Doručenie vyplnenej žiadosti<br>
                 O vyčiarknutie zo zoznamu autorizovaných architektov/ autorizovaných krajinných architektov je potrebné podľa §17 ods.1 písm. b) zákona o autorizovaných architektoch autorizovaných stavebných inžinieroch písomne požiadať.
-                <a href="#" url="#" external="external" class="group block leading-relaxed hover:text-blue">
+                <a href="#" url="#" external="external" class="hover:text-blue">
                     Žiadosť o vyčiarknutie
                     <span class="inline-block transform group-hover:translate-x-2 duration-200 icon-arrow-r"></span>
                 </a>
@@ -44,7 +46,7 @@
         </ol>
     </section>
 
-    <section class="m-10">
+    <section>
         <ul>
             <li>voliť a odvolávať zástupcov komory a členky a členov disciplinárnej komisie, voliť a odvolávať zástupcov komory a členky a členov disciplinárnej komisie, voliť a odvolávať zástupcov komory a členky a členov disciplinárnej komisie,</li>
             <li>zriaďovať úrad komory a určovať základné pravidlá jeho činnosti,</li>
@@ -53,7 +55,7 @@
             <li>určovať základné smery a rámcové pravidlá medzinárodnej spolupráce.</li>
         </ul>
     </section>
-    <section class="m-10 mono">
+    <section class="mono">
       <div>
           <p>Čo to pre mňa znamená?</p>
           <p>Oprávnenie zaniká právnickej osobe, ktorá mala na základe tohto osvedčenia vykonaný zápis v Obchodnom registri.</p>
@@ -61,7 +63,7 @@
           <p>Je potrebné upovedomiť poisťovňu, v ktorej má osoba uzavreté profesijné poistenie, o ukončení členstva v komore.</p>
       </div>
     </section>
-    <section class="m-10 mt-14">
+    <section>
         <p>
             Ectectate ari aliquatur rae eictio delenem quideli quatem quiam amus, omnimos aut quas expero tores eicimus
             accumendebis renihilique min eos ma quas et adis corrum volores re magnam qui de sitatur aut qui re,
@@ -75,21 +77,21 @@
             blandipit rest prest acestem qui debis non nihiliqui dunt.
         </p>
     </section>
-    <section class="m-10 mb-24">
+    <section>
         <p>
-          <a href="#" url="#" external="external" class="group block leading-relaxed hover:text-blue">
+          <a href="#" url="#" external="external" class="hover:text-blue">
               Ročenka SKA / Správa o činnosti 2021 - 2023
               <span class="inline-block transform group-hover:translate-x-2 duration-200 icon-arrow-r"></span>
           </a>
         </p>
         <p>
-          <a href="#" url="#" external="external" class="group block leading-relaxed hover:text-blue">
+          <a href="#" url="#" external="external" class="hover:text-blue">
               XXII. ZASADNUTIE VZ SKA (2023) / uznesenie
               <span class="inline-block transform group-hover:translate-x-2 duration-200 icon-arrow-r"></span>
           </a>
         </p>
         <p>
-          <a href="#" url="#" external="external" class="group block leading-relaxed hover:text-blue">
+          <a href="#" url="#" external="external" class="hover:text-blue">
               Štatút Slovenskej komory architektov
               <span class="inline-block transform group-hover:translate-x-2 duration-200 icon-arrow-r"></span>
           </a>
@@ -102,75 +104,8 @@
 @endsection
 
 @push('styles')
-    <style>
-        /* --- lists --- */
-        ul {
-            list-style-type: none;     /* (disc, circle, square) */
-            margin-left: 0;
-            padding-left: 3.5em;
-            position: relative;
-        }
-        ul li {
-            position: relative;
-            text-indent: 0;
-        }
-        ul li::before {
-            content: "– ";
-            position: absolute;
-            left: -3.5em;
-            width: 2em;
-            text-align: left;
-            color: inherit;
-        }
-
-        ol {
-            list-style-type: none;           /* turn off the default counting style */
-            counter-reset: list-counter; /* initialise counter */
-            margin-left: 0;
-            padding-left: 2.5em;
-            position: relative;
-        }
-        ol li {
-            counter-increment: list-counter; /* add 1 to each <li> */
-            position: relative;
-            margin-bottom: 1.3em;
-            text-indent: 0;
-        }
-        ol li::before {
-            content: "(" counter(list-counter) ") ";
-            position: absolute;
-            left: -2.5em;
-            width: 2em;
-            text-align: left;
-            color: inherit;
-        }
-        ol li a {
-            padding-top: 1.3em;
-            margin-left: -2.5em;
-        }
-
-        /* --- texts --- */
-        a {
-            color: #0099ff;
-            text-decoration: inherit;
-        }
-
-        .mono div {
-            background-color: #e6e7e8;
-            padding: 2.5em;
-            border-radius: 20px;
-        }
-        .mono div p {
-            padding-bottom: 1.3em;
-        }
-        .mono div p:last-child {
-            padding-bottom: 0;
-        }
-    </style>
-
-
-  <!--link rel="stylesheet" href="{{ mix('/css/app.css') }}">
-  <link rel="stylesheet"
+    <link rel="stylesheet" href="{{ asset('/css/ska.css') }}">
+  <!--link rel="stylesheet"
       href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css"-->
 @endpush
 
